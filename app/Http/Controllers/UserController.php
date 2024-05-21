@@ -15,22 +15,42 @@ class UserController extends Controller
 {
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Daftar User',
-            'list' => ['Home, User']
-        ];
-
-        $activeMenu = 'datauser';
-        $datauser = Users::all();
-        $levels = Level::pluck('id_level', 'level_nama');
-
-        return view('super-admin.data_user.index', [
-            'breadcrumb' => $breadcrumb,
-            'datauser' => $datauser,
-            'levels' => $levels,
-            'activeMenu' => $activeMenu
-        ]);
+        return view('user.index');
     }
+
+    public function laporan()
+    {
+        return view('user.laporan');
+    }
+
+    public function surat_keterangan()
+    {
+        return view('user.surat_keterangan');
+    }
+
+    public function surat_pengantar()
+    {
+        return view('user.surat_pengantar');
+    }
+
+    // public function index()
+    // {
+    //     $breadcrumb = (object) [
+    //         'title' => 'Daftar User',
+    //         'list' => ['Home, User']
+    //     ];
+
+    //     $activeMenu = 'datauser';
+    //     $datauser = Users::all();
+    //     $levels = Level::pluck('id_level', 'level_nama');
+
+    //     return view('super-admin.data_user.index', [
+    //         'breadcrumb' => $breadcrumb,
+    //         'datauser' => $datauser,
+    //         'levels' => $levels,
+    //         'activeMenu' => $activeMenu
+    //     ]);
+    // }
 
     public function list(Request $request)
     {

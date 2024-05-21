@@ -21,6 +21,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix('user')->group(function () {
+    Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
+    Route::get('/laporan', [UserController::class, 'laporan'])->name('user.laporan');
+    Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
+    Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
+});
+
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/login_proses', [AuthController::class, 'login_proses'])->name('login_proses');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -39,15 +46,15 @@ Route::middleware('auth')->group(function () {
             Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('level.deleteSelected');
         });
         
-        Route::prefix('datauser')->group(function () {
-            Route::get('/', [UserController::class, 'index'])->name('user.index');
-            Route::post('/list', [UserController::class, 'list']);
-            Route::post('/store', [UserController::class, 'store']);
-            Route::get('/edit/{id}', [UserController::class, 'edit']);
-            Route::put('/update/{id}', [UserController::class, 'update'])->name('user.update');
-            Route::delete('/destroy/{id}', [UserController::class, 'destroy']);
-            Route::post('/delete-selected', [UserController::class, 'deleteSelected'])->name('user.deleteSelected');
-        });
+        // Route::prefix('datauser')->group(function () {
+        //     Route::get('/', [UserController::class, 'index'])->name('user.index');
+        //     Route::post('/list', [UserController::class, 'list']);
+        //     Route::post('/store', [UserController::class, 'store']);
+        //     Route::get('/edit/{id}', [UserController::class, 'edit']);
+        //     Route::put('/update/{id}', [UserController::class, 'update'])->name('user.update');
+        //     Route::delete('/destroy/{id}', [UserController::class, 'destroy']);
+        //     Route::post('/delete-selected', [UserController::class, 'deleteSelected'])->name('user.deleteSelected');
+        // });
         
         Route::prefix('datakk')->group(function () {
             Route::get('/', [KKController::class, 'index'])->name('kk.index');
