@@ -1,0 +1,71 @@
+#kt_app_main {
+    margin: 10px 10px 10px 10px;
+    border-radius: 15px;
+}
+
+#logo {
+    background-color: #1E293B;
+    height: 105px;
+}
+
+
+#welcome-banner {
+    background-color: #0F172A;
+    border-radius: 7px;
+}
+
+.hover-scroll-overlay-y, .hover-scroll-y {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.hover-scroll-overlay-y, .hover-scroll-y::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    overflow: auto;
+    scrollbar-width: none!important;
+    -ms-overflow-style: none!important;
+}
+
+body::-webkit-scrollbar {
+    display: none!important;
+}
+
+.banner {
+    padding: 1.5rem;
+}
+
+#banner-font-h {
+    color: #E5E7EB!important;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+#banner-font-p {
+    color: #E5E7EB!important;
+    font-size: 16px;
+}
+
+button .btn.dropdown-toggle::after {
+    display: none;
+}
+
+.border-gradient-red {
+    border-radius: 10px;
+}
+
+.border-gradient-red::before {
+    content: '';
+    position: absolute;
+    top: -5px; /* Atur posisi elemen pseudo */
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: inherit; /* Mengikuti sudut melengkung elemen */
+    background: linear-gradient(to bottom, #FF520D, #FFFFFF, #FF520D);
+    z-index: -1; /* Memastikan elemen pseudo berada di belakang elemen utama */
+}
