@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KKController;
-use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LaporanPengaduanController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\LevelController;
@@ -22,20 +21,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('user')->group(function () {
-    Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
-    Route::get('/laporan', [UserController::class, 'laporan'])->name('user.laporan');
-    Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
-    Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
-});
-
-Route::get('/', [LandingPageController::class, 'index'])->name('index');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login_proses', [AuthController::class, 'login_proses'])->name('login_proses');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
- Route::middleware('auth')->group(function () {
-    Route::group(['middleware' => ['cek_login:Warga']], function() {
+Route::middleware('auth')->group(function () {
+    Route::group(['middleware' => ['cek_login:WRG']], function() {
         Route::prefix('user')->group(function () {
             Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
             Route::get('/laporan', [UserController::class, 'laporan'])->name('user.laporan');
@@ -43,6 +34,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
             Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
         });
     });
+    
     Route::group(['middleware' => ['cek_login:RW']], function() {
         Route::get('/dashboard', [WelcomeController::class, 'index'])->name('super-admin.dashboard');
         
@@ -101,8 +93,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
             Route::post('/delete-selected', [LaporanPengaduanController::class, 'deleteSelected'])->name('laporan.deleteSelected');
         });
         
-     });
- });
+    });
+});
 
 // Route::prefix('rw')->group(function () {
 //     Route::get('/', [RTController::class, 'index'])->name('data_rw.index');
