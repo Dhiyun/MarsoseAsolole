@@ -55,7 +55,7 @@ class AuthController extends Controller
             if ($level == 'RW') {
                 return redirect()->route('super-admin.dashboard');
             } else {
-                return redirect()->route('biodata.index');
+                return redirect()->route('user.index');
             }
         } else {
             return response()->json(['error' => 'These credentials do not match our records.'], 401);
