@@ -9,7 +9,6 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\WargaController;
-use App\Http\Controllers\LandingPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
