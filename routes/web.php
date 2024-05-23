@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/createlaporan', [UserController::class, 'createlaporan'])->name('user.createlaporan');
             Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
             Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
+            Route::get('/surat_undangan', [UserController::class, 'surat_undangan'])->name('user.surat_undangan');
+            Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan');
         });
     });
 
