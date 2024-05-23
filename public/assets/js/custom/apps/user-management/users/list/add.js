@@ -417,7 +417,7 @@ var KTWargasAddWarga = function () {
 
     // Fungsi untuk mengambil data nik
     function fetchNIK() {
-        return fetch('warga/cek_nik')
+        return fetch('admin/warga/cek_nik')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
@@ -571,4 +571,198 @@ var KTWargasAddWarga = function () {
 
 KTUtil.onDOMContentLoaded(function () {
     KTWargasAddWarga.init();
+});
+
+var KTWargasAddWargaLokal = function () {
+    const modalElement = document.getElementById("kt_modal_add_wargalokal");
+    const formElement = modalElement && modalElement.querySelector("#kt_modal_add_wargalokal_form");
+    const modalInstance = modalElement && new bootstrap.Modal(modalElement);
+
+    if (!modalElement || !formElement || !modalInstance) {
+        console.error("Modal or form element not found for KTWargasAddWarga");
+        return;
+    }
+
+    const formValidation = FormValidation.formValidation(formElement, {
+        fields: {
+            nik: {
+                validators: {
+                    notEmpty: {
+                        message: "NIK Harus Diisi"
+                    },
+                    stringLength: {
+                        max: 16,
+                        message: "No NIK Harus 16 Nomer"
+                    },
+                }
+            },
+            nama: {
+                validators: {
+                    notEmpty: {
+                        message: "Nama Harus Diisi"
+                    },
+                }
+            },
+            jenis_kelamin: {
+                validators: {
+                    notEmpty: {
+                        message: "Jenis Kelamin Harus Dipilih"
+                    }
+                }
+            },
+            tempat_lahir: {
+                validators: {
+                    notEmpty: {
+                        message: "Tempat Lahir Harus Diisi"
+                    }
+                }
+            },
+            tanggal_lahir: {
+                validators: {
+                    notEmpty: {
+                        message: "Tanggal Lahir Harus Diisi"
+                    }
+                }
+            },
+            agama: {
+                validators: {
+                    notEmpty: {
+                        message: "Agama Harus Diisi"
+                    }
+                }
+            },
+        },
+        plugins: {
+            trigger: new FormValidation.plugins.Trigger(),
+            bootstrap: new FormValidation.plugins.Bootstrap5({
+                rowSelector: ".fv-row",
+                eleInvalidClass: "",
+                eleValidClass: ""
+            })
+        }
+    });
+
+    // Fungsi untuk mengambil data nik
+    function fetchNIK() {
+        return fetch('admin/warga/cek_nik')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                return data.niks.map(nikObject => nikObject.nik);
+            });
+    }
+
+    function checkNIK(inputNIK) {
+        return fetchNIK()
+            .then(niks => {
+                return niks.includes(inputNIK);
+            });
+    }
+
+    const submitButton = modalElement.querySelector('[data-kt-wargalokal-modal-action="submit"]');
+    submitButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        formValidation.validate().then(function(status) {
+            if (status === "Valid") {
+                submitButton.setAttribute("data-kt-indicator", "on");
+                submitButton.disabled = true;
+
+                // Memerika NIK apakah sesuai
+                checkNIK(document.querySelector('#nik').value)
+                .then((nikDoesNotExist) => {
+                    submitButton.removeAttribute("data-kt-indicator");
+                    submitButton.disabled = false;
+
+                    // JIka NIK belum ada, tambahkan Warga
+                    if (!nikDoesNotExist) {
+                        Swal.fire({
+                            text: "Warga berhasil ditambahkan.",
+                            icon: "success",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        }).then(() => formElement.submit());
+                    } else {
+                        let errorMessage = '';
+                        if (nikDoesNotExist){
+                            errorMessage = "NIK sudah terdaftar. Silakan coba lagi.";
+                        }
+                        Swal.fire({
+                            text: errorMessage,
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    // Menangani kesalahan dan menampilkan pesan error
+                    submitButton.removeAttribute("data-kt-indicator");
+                    submitButton.disabled = false;
+                    console.error('Terjadi kesalahan saat memeriksa NIK:', error);
+                    Swal.fire({
+                        text: "Terjadi kesalahan saat memeriksa NIK. Silakan coba lagi.",
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok, got it!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                });
+            } else {
+                Swal.fire({
+                    text: "Sorry, looks like there are some errors detected, please try again.",
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
+            }
+        });
+    });
+
+    // Menangani event close
+    const closeButton = modalElement.querySelector('[data-kt-wargalokal-modal-action="close"]');
+    closeButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        Swal.fire({
+            text: "Are you sure you want to cancel?",
+            icon: "warning",
+            showCancelButton: true,
+            buttonsStyling: false,
+            confirmButtonText: "Yes, cancel it!",
+            cancelButtonText: "No, return",
+            customClass: {
+                confirmButton: "btn btn-primary",
+                cancelButton: "btn btn-active-light"
+            }
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                formElement.reset();
+                modalInstance.hide();
+            }
+        });
+    });
+
+    return {
+        init: function () {
+            // Inisialisasi tambahan jika diperlukan
+        }
+    };
+}();
+
+KTUtil.onDOMContentLoaded(function () {
+    KTWargasAddWargaLokal.init();
 });
