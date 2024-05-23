@@ -53,8 +53,8 @@ class AuthController extends Controller
             Auth::login($user);
 
             if ($level == 'RW') {
-                return redirect()->route('super-admin.index');
-            } else if ($level == 'WRG') {
+                return redirect()->route('super-admin.dashboard');
+            } else {
                 return redirect()->route('user.index');
             }
         } else {

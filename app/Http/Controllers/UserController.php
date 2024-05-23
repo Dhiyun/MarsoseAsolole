@@ -22,7 +22,10 @@ class UserController extends Controller
     {
         return view('user.laporan');
     }
-
+    public function createlaporan()
+    {
+        return view('user.createlaporan');
+    }
     public function surat_keterangan()
     {
         return view('user.surat_keterangan');
