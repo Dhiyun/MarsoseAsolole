@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/', [LandingPageController::class, 'index'])->name('index');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login_proses', [AuthController::class, 'login_proses'])->name('login_proses');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -34,8 +34,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/createlaporan', [UserController::class, 'createlaporan'])->name('user.createlaporan');
             Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
             Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
-            Route::get('/surat_undangan', [UserController::class, 'surat_undangan'])->name('user.surat_undangan');
-            Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan');
         });
     });
 
@@ -122,4 +120,4 @@ Route::middleware('auth')->group(function () {
 //     Route::get('/edit/{No_RT}', [RTController::class, 'edit'])->name('data_rt.edit');
 //     Route::put('/update/{No_RT}', [RTController::class, 'update'])->name('data_rt.update');
 //     Route::delete('/destroy/{No_RT}', [RTController::class, 'destroy'])->name('data_rt.destroy');
-// });
+// });
