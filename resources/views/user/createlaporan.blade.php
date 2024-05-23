@@ -1,4 +1,5 @@
 @extends('user.layouts.template')
+@section('title', 'Marsose | Buat Laporan Warga')
 
 @section('content')
 <h1 class="mb-5 text-center fw-bold">Buat Laporan Warga</h1>

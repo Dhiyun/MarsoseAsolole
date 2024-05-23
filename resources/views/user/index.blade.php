@@ -1,5 +1,5 @@
 @extends('user.layouts.template')
-@section('title', 'Dashboard')
+@section('title', 'Marsose | Dashboard')
 
 @section('content')
 <body>

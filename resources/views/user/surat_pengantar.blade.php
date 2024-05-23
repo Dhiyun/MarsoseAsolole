@@ -1,5 +1,5 @@
 @extends('user.layouts.template')
-@section('title', 'Surat-Surat')
+@section('title', 'Marsose | Surat-Surat')
 
 @section('content')
 <div class="text-center pt-2">

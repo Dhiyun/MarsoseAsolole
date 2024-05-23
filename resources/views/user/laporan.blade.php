@@ -1,4 +1,5 @@
 @extends('user.layouts.template')
+@section('title', 'Marsose | Laporan Warga')
 
 @section('content')
 <!--begin::List Widget 5-->

@@ -1,9 +1,4 @@
-<style>
-    
-</style>
-
 <!-- Navbar -->
-
 <div class="container-fluid">
     <div class="landing-header rounded-4" style="background-color: #1E293B; position: fixed; width: 98.5%; z-index: 1000;">
         <div class="container">
@@ -23,10 +18,12 @@
                                 <a class="menu-link nav-link {{ request()->is('user/dashboard') ? 'active' : '' }} py-3 px-4 px-xxl-6" href="/user/dashboard" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Dashboard</a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link nav-link {{ request()->is('user/laporan') ? 'active' : '' }} py-3 px-4 px-xxl-6" href="/user/laporan" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Laporan Warga</a>
-                            </div>
+                                <a class="menu-link nav-link {{ request()->is('user/laporan') || request()->is('user/createlaporan') ? 'active' : '' }} py-3 px-4 px-xxl-6" href="/user/laporan" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
+                                    Laporan Warga
+                                </a>
+                            </div>                            
                             <div class="menu-item">
-                                <a class="menu-link nav-link {{ request()->is('user/surat_keterangan') ? 'active' : '' }} py-3 px-4 px-xxl-6" href="/user/surat_keterangan" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Surat-surat</a>
+                                <a class="menu-link nav-link {{ request()->is('user/surat_keterangan') || request()->is('user/surat_pengantar') || request()->is('user/surat_undangan') || request()->is('user/surat_pemberitahuan') ? 'active' : '' }} py-3 px-4 px-xxl-6" href="/user/surat_keterangan" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Surat-surat</a>
                             </div>
                         </div>
                     </div>

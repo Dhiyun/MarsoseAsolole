@@ -2,8 +2,11 @@
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="../../../"/>
+		<!-- Title -->
+		<title>@yield('title')</title>
+
 		<!-- LOGO -->
-		<link href="assets/img/Favicon Marsose.svg" rel="shortcut icon" >
+		<link href="assets/media/logos/marsose.svg" rel="shortcut icon" >
 
 		<!--begin::Fonts(mandatory for all pages)-->
 		{{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> --}}
