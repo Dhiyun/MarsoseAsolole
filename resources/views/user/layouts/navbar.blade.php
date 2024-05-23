@@ -1,10 +1,9 @@
 <style>
-    .menu-link.nav-link:hover {
-        color: #FF520D !important;
-    }
+    
 </style>
 
 <!-- Navbar -->
+
 <div class="container-fluid">
     <div class="landing-header rounded-4" style="background-color: #1E293B; position: fixed; width: 98.5%; z-index: 1000;">
         <div class="container">
@@ -14,7 +13,7 @@
                         <i class="ki-outline ki-abstract-14 fs-2hx"></i>
                     </button>
                     <a href="/user">
-                        <img alt="Logo" src="assets/media/logos/logo-marsose3.svg" class="logo-default h-25px h-lg-30px" />
+                        <img alt="Logo" src="assets/img/Marsose Fix (Light).svg" class="logo-default h-25px h-lg-40px" />
                     </a>
                 </div>
                 <div class="d-lg-block" id="kt_header_nav_wrapper">
@@ -52,13 +51,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="separator my-2"></div>
+                            {{-- <div class="separator my-2"></div>
                             <div class="menu-item px-5">
                                 <a href="../../demo39/dist/account/overview.html" class="menu-link px-5">My Profile</a>
                             </div>
                             <div class="menu-item px-5 my-1">
                                 <a href="../../demo39/dist/account/settings.html" class="menu-link px-5">Account Settings</a>
-                            </div>
+                            </div> --}}
                             <div class="menu-item px-5">
                                 <a href="../../demo39/dist/authentication/layouts/corporate/sign-in.html" class="menu-link px-5">Sign Out</a>
                             </div>

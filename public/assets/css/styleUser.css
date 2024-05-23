@@ -1,0 +1,313 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+:root {
+    scroll-behavior: smooth;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+  
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #444444;
+}
+  
+a {
+    color: #0A324B;
+    text-decoration: none;
+}
+  
+a:hover {
+    color: #EA5403;
+    text-decoration: none;
+}
+  
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Nunito", sans-serif;
+}
+  
+h8 {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+}
+
+/* Navbar Section Styling */
+.menu-link.nav-link, .menu-link.nav-link:focus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 10px 30px;
+    font-family: "Nunito", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff !important;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+
+.menu-link.nav-link:hover, .menu-link.nav-link.active {
+    color: #FF520D !important;
+}
+
+/* Dashboard Section Styling */
+.selamat-datang {
+    background-color: #fff;
+    font-family: "Nunito", sans-serif;
+}
+
+.p-desk {
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+}
+
+.p-fitur {
+    font-family: "Nunito", sans-serif;
+    font-size: 25px;
+}
+
+.p-fiturdesk {
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    line-height: 25px;
+}
+
+.alur {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Make the image fully responsive */
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+
+.card.surat {
+    padding-top: 20px;
+    border: none; 
+    border-radius: 10px;
+}
+
+.content-surat {
+    background-color: #334155; 
+    color: #fff; 
+    border-bottom-right-radius: 10px; 
+    border-bottom-left-radius: 10px;
+}
+
+.btn.btn-light.button-detail-surat {
+    color:#3a3939; 
+    width: 100%; 
+    border-radius: 10px;
+}
+
+/* Laporan Warga Section Styling */
+.card.keluhan {
+    background-color: #fff;
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    border-radius: 12px;
+    border: none;
+}
+
+.btn.laporan {
+    background-color: #8B0000; 
+    color:#fff; 
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: "Nunito", sans-serif;
+}
+
+.btn.laporan:hover {
+    color: #fff;
+}
+
+.card.laporan {
+    border-radius: 12px; 
+    background-color: rgba(126, 87, 194, 0.33); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.btn.c-laporan {
+    background-color: #38095D; 
+    color:#fff; 
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+.btn.c-laporan:hover {
+    color: #fff;
+}
+
+.card.d-laporan {
+    border: none;
+}
+
+.t-dlaporan {
+    font-size: 20x;
+}
+
+.btn.save-l {
+    background-color: #FF520D; 
+    color: #fff; 
+    border-radius: 10px; 
+    margin-left: 50px; 
+    margin-top: -180px;
+}
+
+.btn.save-l:hover {
+    color: #fff;
+}
+
+.btn.cancel-l {
+    background-color: #0A324B; 
+    color: #fff; 
+    border: 1px solid; 
+    border-radius: 10px; 
+    margin-top: -180px;
+}
+
+.btn.cancel-l:hover {
+    color: #fff;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: flex-end; 
+    position: absolute; 
+    bottom: 0; 
+    right: 0; 
+    width: 100%; 
+    padding: 1rem;
+    box-sizing: border-box;  
+}
+
+.mt-3 {
+    position: relative; 
+}
+
+/* Surat-surat Section Styling */
+.listings__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-column-gap: 8px;
+    grid-row-gap: 24px;
+    font-family: "Nunito", sans-serif;
+}
+
+.card.jenis-surat {
+	min-width: 30px; 
+	border: none; 
+	background: none;
+}
+
+.card__heading {
+	color: black !important;
+	font-weight: bold;
+	line-height: 1.5;
+	font-size: 18px;
+}
+
+.card__logo {
+	border-radius: none;
+	height: 64px;
+	width: 64px;
+	margin: 4px 0;
+}
+
+.syarat {
+    font-size: 15px;
+    margin: -10px 0;
+}
+
+.snk {
+    font-size: 15px;
+    margin: -2px 0;
+}
+
+.btn.dwn-surat {
+    color:#fff; 
+    font-size: 14px;
+    width: 80%; 
+    height: 70%;
+    border-radius: 12px;
+    background-color: #FF520D;
+    margin: 10px 0;
+}
+
+.btn.dwn-surat:hover {
+    color: #fff;
+}
+
+.c-surat {
+    color: #FF520D; 
+    font-weight: bold; 
+    font-family: "Nunito", sans-serif;
+    background-color: #D9D9D9; 
+    border: none; 
+    border-radius: 24px; 
+    width: 179px; 
+    height: 44px; 
+    align-items: center; 
+    padding: 10px; 
+    font-size: 18px;
+    justify-content: center; 
+    margin-top: -150px;
+    margin-left: -65px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul li {
+    margin-bottom: 15px;
+}
+
+/* unvisited link */
+.one:link {
+    color: grey;
+}
+
+/* visited link */
+.one:visited {
+    color: grey;
+}
+
+/* mouse over link */
+.one:hover {
+    text-decoration: none !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    color: black;
+}
+
+/* selected link */
+.one:active {
+    color: black;
+    font-weight: bold;
+}
+
+.menu-list a.active {
+    color: #000;
+    font-weight: bold;
+}
+
+.list {
+    margin-left: -35px; 
+    margin-top: 45px; 
+    font-size: 16px;
+    font-family: "Nunito", sans-serif;
+}

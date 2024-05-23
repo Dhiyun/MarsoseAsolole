@@ -72,7 +72,7 @@
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
               <img src="assets/img/kategori/bridge construction-amico.svg" class="img-fluid" alt="">
-              <h3>Infratruktur</h3>
+              <h3>Infrastruktur</h3>
               <p>Pengaduan terkait dengan kondisi jalan, saluran air, penerangan jalan, fasilitas umum, dan lain-lain.</p>
             </div>
           </div>
@@ -144,7 +144,7 @@
 
         <div class="clients-slider swiper">
           <div class="swiper-wrapper justify-content-center align-items-center">
-            <div class="swiper-slide"><span><H6>RW 03 Kelurahan Kesatrian, Kecamatan Blimbing</H6></span></div>  
+            <div class="swiper-slide"><span><H6>RW 03 Kelurahan Kesatrian, Kecamatan Blimbing.</H6></span></div>  
             <div class="swiper-slide"><img src="assets/img/support/kota_malang.png" class="img-fluid" alt=""></div>
             <div class="swiper-slide"><img src="assets/img/support/polinema.png" class="img-fluid" alt=""></div>
             <div class="swiper-slide"><img src="assets/img/support/jti_polinema.png" class="img-fluid" alt=""></div>  

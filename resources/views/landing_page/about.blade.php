@@ -9,7 +9,7 @@
                 <h3>Tentang</h3>
                 <h2>Apa kegunaan aplikasi ini?</h2>
                 <p>
-                    Marsose merupakan sebuah platform untuk menampung keluhan-keluhan yang ada di lingkungan jalan marsose RW 03 
+                    Marsose merupakan sebuah platform untuk menampung keluhan-keluhan yang ada di lingkungan jalan marsose RW 03.
                 </p>
                 <div class="text-center text-lg-start">
                   <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">

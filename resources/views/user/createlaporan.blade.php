@@ -1,8 +1,8 @@
 @extends('user.layouts.template')
 
 @section('content')
-<h1 class="mb-5 text-center">Buat Laporan Warga</h1>
-<div class="card" style="border-radius: 12px;">
+<h1 class="mb-5 text-center fw-bold">Buat Laporan Warga</h1>
+<div class="card shadow keluhan">
     <div class="card-body p-lg-17">
         <div class="d-flex flex-column mb-5 fv-row">
             <!--begin::Label-->
@@ -35,20 +35,19 @@
             <input type="text" class="form-control" name="application" placeholder="Jumlah orang terdampak" style="border: 1px solid;">
         </div>
         <div class="d-flex flex-column mb-5 fv-row">
-                    <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                        <span class="required">Gambar</span>
-                    </label>
-                    <div class="input-group">
-                        <input type="file" name="lampiran" class="form-control" style="border: 1px solid;" />
-                    </div>
-                    <div class="form-text">Catatan: Pastikan gambar bukti yang diunggah jelas dan mudah dibaca, tersedia
-                        dalam format JPG, PNG, atau GIF.</div>
-                </div>
+            <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
+                <span class="required">Gambar</span>
+            </label>
+            <div class="input-group">
+                <input type="file" name="lampiran" class="form-control" style="border: 1px solid;" />
+            </div>
+            <div class="form-text">Catatan: Pastikan gambar bukti yang diunggah jelas dan mudah dibaca, tersedia
+                dalam format JPG, PNG, atau GIF.</div>
             </div>
         </div>
-        <div class="mt-3">
-            <button class="btn me-5" style="background-color: #D97706; color: #fff; border-radius: 10px;">Save</button>
-            <button class="btn" style="background-color: #fff; color: #000; border: 1px solid #D1D5DB; border-radius: 10px;">Cancel</button>
+        <div class="button-container mt-3">
+            <button class="btn me-5 save-l">Save</button>
+            <button class="btn cancel-l">Cancel</button>
         </div>
     </div>
 </div>
