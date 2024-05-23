@@ -16,7 +16,7 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'dashboard' ? 'active' : '' }}" href="{{ url('/') }}">
+                <a class="menu-link {{ $activeMenu == 'dashboard' ? 'active' : '' }}" href="{{ route('super-admin.index') }}">
                     {{-- <span class="menu-icon">
                         @if ($activeMenu == 'dashboard')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-dashboard.svg" class="h-25px theme-light-show" />
@@ -33,7 +33,7 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'level' ? 'active' : '' }}" href="{{ url('/level') }}">
+                <a class="menu-link {{ $activeMenu == 'level' ? 'active' : '' }}" href="{{ route('level.index') }}">
                     {{-- <span class="menu-icon">
                         @if ($activeMenu == 'level')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-laporan.svg" class="h-25px theme-light-show" />
@@ -50,7 +50,7 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'datakk' ? 'active' : '' }}" href="{{ url('/datakk') }}">
+                <a class="menu-link {{ $activeMenu == 'datakk' ? 'active' : '' }}" href="{{ route('kk.index') }}">
                     {{-- <span class="menu-icon">
                         @if ($activeMenu == 'datakk')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg" class="h-25px theme-light-show" />
@@ -67,7 +67,7 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'warga' ? 'active' : '' }}" href="{{ url('/warga') }}">
+                <a class="menu-link {{ $activeMenu == 'warga' ? 'active' : '' }}" href="{{ route('warga.index') }}">
                     {{-- <span class="menu-icon">
                         @if ($activeMenu == 'warga')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg" class="h-25px theme-light-show" />
@@ -82,17 +82,13 @@
             <!-- End: Menu item -->
 
             <!-- Begin: Menu item -->
-            <div class="menu-item menu-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'datauser' ? 'active' : '' }}" href="{{ url('/datauser') }}">
+                <a class="menu-link" href="../">
                     {{-- <span class="menu-icon">
-                        @if ($activeMenu == 'datauser')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-laporan.svg" class="h-25px theme-light-show" />
-                        @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-laporan.svg" class="h-25px theme-light-show" />
-                        @endif
+                        <img alt="Logo" src="assets/media/logos/logo-surat.svg" class="h-25px theme-light-show" />
                     </span> --}}
-                    <span class="menu-title">Data User</span>
+                    <span class="menu-title">Surat-Surat</span>
                 </a>
                 <!-- End: Menu link -->
             </div>
@@ -101,7 +97,7 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'laporan' ? 'active' : '' }}" href="{{ url('/laporan') }}">
+                <a class="menu-link {{ $activeMenu == 'laporan' ? 'active' : '' }}" href="{{ route('laporan.index') }}">
                     {{-- <span class="menu-icon">
                         @if ($activeMenu == 'datart')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-datart.svg" class="h-25px theme-light-show" />
@@ -110,19 +106,6 @@
                         @endif
                     </span> --}}
                     <span class="menu-title">Laporan</span>
-                </a>
-                <!-- End: Menu link -->
-            </div>
-            <!-- End: Menu item -->
-
-            <!-- Begin: Menu item -->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                <!-- Begin: Menu link -->
-                <a class="menu-link" href="../">
-                    {{-- <span class="menu-icon">
-                        <img alt="Logo" src="assets/media/logos/logo-surat.svg" class="h-25px theme-light-show" />
-                    </span> --}}
-                    <span class="menu-title">Surat-Surat</span>
                 </a>
                 <!-- End: Menu link -->
             </div>

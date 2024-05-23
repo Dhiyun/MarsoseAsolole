@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KK;
+use App\Models\Level;
 use App\Models\RW;
 use App\Models\RT;
+use App\Models\Users;
 use App\Models\Warga;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class KKController extends Controller
 {
@@ -102,6 +105,44 @@ class KKController extends Controller
         ]);
         
         return redirect('/datakk')->with('success', 'Data KK Berhasil Disimpan');
+    }
+
+    public function store_warga($id, Request $request)
+    {
+        $validate = $request->validate([
+            'nik' => 'required|unique:warga,nik',
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'agama' => 'required',
+        ]);
+
+        $kk = KK::findOrFail($id);
+        
+        $level = Level::whereIn('level_nama', ['Warga', 'warga'])->firstOrFail();
+
+        $user = Users::firstOrCreate(
+            ['username' => $validate['nik']],
+            [
+                'password' => Hash::make($validate['nik']),
+                'id_level' => $level->id_level,
+            ]
+        );
+
+        Warga::create([
+            'nik' => $validate['nik'],
+            'nama' => $validate['nama'],
+            'jenis_kelamin' => $validate['jenis_kelamin'],
+            'tempat_lahir' => $validate['tempat_lahir'],
+            'tanggal_lahir' => $validate['tanggal_lahir'],
+            'agama' => $validate['agama'],
+            'alamat' => $kk->alamat,
+            'id_user' => $user->id_user,
+            'id_kk' => $kk->id_kk,
+        ]);
+
+        return redirect()->route('kk.show', $id)->with('success', 'Warga berhasil ditambahkan');
     }
 
     public function edit($No_KK)
