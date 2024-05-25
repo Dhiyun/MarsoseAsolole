@@ -16,19 +16,12 @@ return new class extends Migration
             $table->string('jenis_surat', 100)->nullable();
             $table->string('nama_surat', 100)->nullable();
             $table->string('file_surat', 255)->nullable();
-            $table->string('alur_pengurusan', 255)->nullable();
             $table->unsignedBigInteger('id_warga')->index();
-            $table->unsignedBigInteger('id_kategorisurat')->index();
             $table->timestamps();
             
             $table->foreign('id_warga')
                   ->references('id_warga')
                   ->on('warga')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-            $table->foreign('id_kategorisurat')
-                  ->references('id_kategorisurat')
-                  ->on('kategori_surat')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
         });

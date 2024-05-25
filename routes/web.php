@@ -7,6 +7,7 @@ use App\Http\Controllers\LaporanPengaduanController;
 use App\Http\Controllers\LaporanSpkController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\SuratController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\WargaController;
@@ -29,15 +30,13 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['cek_login:WRG']], function() {
-        Route::prefix('user')->group(function () {
-            Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
-            Route::get('/laporan', [UserController::class, 'laporan'])->name('user.laporan');
-            Route::get('/createlaporan', [UserController::class, 'createlaporan'])->name('user.createlaporan');
-            Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
-            Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
-            Route::get('/surat_undangan', [UserController::class, 'surat_undangan'])->name('user.surat_undangan');
-            Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan');
-        });
+        Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
+        Route::get('/laporan', [UserController::class, 'laporan'])->name('user.laporan');
+        Route::get('/createlaporan', [UserController::class, 'createlaporan'])->name('user.createlaporan');
+        Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
+        Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
+        Route::get('/surat_undangan', [UserController::class, 'surat_undangan'])->name('user.surat_undangan');
+        Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan');
     });
 
     Route::group(['middleware' => ['cek_login:RW']], function() {
@@ -51,7 +50,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [LevelController::class, 'index'])->name('level.index');
                 Route::post('/list', [LevelController::class, 'list']);
                 Route::post('/store', [LevelController::class, 'store']);
-                Route::get('/edit/{id}', [LevelController::class, 'edit']);
                 Route::put('/update/{id}', [LevelController::class, 'update'])->name('level.update');
                 Route::delete('/destroy/{id}', [LevelController::class, 'destroy']);
                 Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('level.deleteSelected');
@@ -74,7 +72,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/cek_nik', [WargaController::class, 'cek_nik'])->name('cek_nik');
                 Route::post('/list', [KKController::class, 'list']);
                 Route::post('/store', [KKController::class, 'store']);
-                Route::get('/edit/{id}', [KKController::class, 'edit']);
                 Route::post('/show/{id}', [KKController::class, 'store_warga'])->name('kkwarga.store');
                 Route::get('/show/{id}', [KKController::class, 'show'])->name('kk.show');
                 Route::put('/update/{id}', [KKController::class, 'update'])->name('kk.update');
@@ -88,7 +85,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/cek_kk', [WargaController::class, 'cek_kk'])->name('cek_kk');
                 Route::post('/store', [WargaController::class, 'store'])->name('warga.store');
                 Route::get('/detail/{id}', [WargaController::class, 'show'])->name('warga.show');
-                Route::get('/edit/{id}', [WargaController::class, 'edit']);
                 Route::put('/update/{id}', [WargaController::class, 'update'])->name('warga.update');
                 Route::put('/update-user/{id}', [UserController::class, 'update'])->name('user.update');
                 Route::delete('/destroy/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
@@ -103,8 +99,16 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/destroy/{id}', [LaporanPengaduanController::class, 'destroy']);
                 Route::post('/delete-selected', [LaporanPengaduanController::class, 'deleteSelected'])->name('laporan.deleteSelected');
             });
-<<<<<<< HEAD
 
+            Route::prefix('surat')->group(function () {
+                Route::get('/', [SuratController::class, 'index'])->name('surat.index');
+                Route::post('/store', [SuratController::class, 'store'])->name('surat.store');
+                Route::get('/detail/{id}', [SuratController::class, 'show'])->name('surat.show');
+                Route::put('/update/{id}', [LevelController::class, 'update'])->name('surat.update');
+                Route::delete('/destroy/{id}', [LevelController::class, 'destroy'])->name('surat.destroy');
+                Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('surat.deleteSelected');
+            });
+            
             Route::prefix('laporan_spk')->group(function () {
                 Route::get('/', [LaporanSpkController::class, 'index'])->name('laporan_spk.index');
                 Route::get('/create', [LaporanSpkController::class, 'create'])->name('laporan_spk.create');
@@ -112,8 +116,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/priority', [LaporanSpkController::class, 'calculatePriority'])->name('laporan_spk.priority');
                 Route::get('/chart', [LaporanSpkController::class, 'showChart'])->name('laporan_spk.chart');
             });
-=======
->>>>>>> a990985e90da0bf1ab7f711e34d2b03af7799b2f
         });
      });
 });
