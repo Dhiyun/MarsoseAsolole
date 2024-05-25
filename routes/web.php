@@ -103,6 +103,7 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/destroy/{id}', [LaporanPengaduanController::class, 'destroy']);
                 Route::post('/delete-selected', [LaporanPengaduanController::class, 'deleteSelected'])->name('laporan.deleteSelected');
             });
+<<<<<<< HEAD
 
             Route::prefix('laporan_spk')->group(function () {
                 Route::get('/', [LaporanSpkController::class, 'index'])->name('laporan_spk.index');
@@ -111,6 +112,8 @@ Route::middleware('auth')->group(function () {
                 Route::get('/priority', [LaporanSpkController::class, 'calculatePriority'])->name('laporan_spk.priority');
                 Route::get('/chart', [LaporanSpkController::class, 'showChart'])->name('laporan_spk.chart');
             });
+=======
+>>>>>>> a990985e90da0bf1ab7f711e34d2b03af7799b2f
         });
      });
 });
