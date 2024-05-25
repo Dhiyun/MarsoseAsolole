@@ -70,7 +70,7 @@
 										<!--begin::Modal body-->
 										<div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
 											<!--begin::Form-->
-											<form method="POST" id="kt_modal_add_warga_form" class="form" action="{{ url('warga/store') }}">
+											<form method="POST" id="kt_modal_add_warga_form" class="form" action="{{ route('warga.store') }}">
                                                 @csrf
 												<!--begin::Scroll-->
 												<div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_warga_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_warga_header" data-kt-scroll-wrappers="#kt_modal_add_warga_scroll" data-kt-scroll-offset="300px">
@@ -195,12 +195,12 @@
 										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
 											<!-- Begin::Menu item -->
 											<div class="menu-item px-3">
-												<a href="{{ url('/warga/detail/' . $warga->id_warga) }}" class="menu-link px-3">Detail</a>
+												<a href="{{ route('warga.show', ['id' => $warga->id_warga]) }}" class="menu-link px-3">Detail</a>
 											</div>
 											<!-- End::Menu item -->
 											<!-- Begin::Menu item -->
 											<div class="menu-item px-3">
-												<a href="{{ url('/warga/edit/' . $warga->id_warga) }}" class="menu-link px-3">Edit</a>
+												<a href="#" class="menu-link px-3">Edit</a>
 											</div>
 											<!-- End::Menu item -->
 											<!-- Begin::Menu item -->
@@ -208,7 +208,7 @@
 												<a href="#" class="menu-link px-3" data-kt-warga-table-filter="delete_row" onclick="event.preventDefault(); handleRowDeletion(event);">
 													Delete
 												</a>
-												<form id="delete-form-{{ $warga->id_warga }}" action="{{ url('/warga/destroy/' . $warga->id_warga) }}" method="POST" style="display: none;">
+												<form id="delete-form-{{ $warga->id_warga }}" action="{{ route('warga.destroy', ['id' => $warga->id_warga]) }}" method="POST" style="display: none;">
 													@csrf
 													@method('DELETE')
 												</form>

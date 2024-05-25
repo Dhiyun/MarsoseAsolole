@@ -16,7 +16,7 @@ class AuthController extends Controller
         $user = Auth::user();
         if ($user){
 
-            $level = $user->level->level_code;
+            $level = $user->level->level_kode;
 
             $totalLevel = Level::count();
 
@@ -29,9 +29,9 @@ class AuthController extends Controller
             }
 
             if($level == 'RW') {
-                return redirect()->intended(route('super-admin.dashboard'));
+                return redirect()->intended(route('super-admin.index'));
             } else if ($level == 'WRG') {
-                return redirect()->intended(route('warga.dashboard'));
+                return redirect()->intended(route('user.index'));
             }
         }
 
@@ -48,7 +48,7 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('username', 'password'))) {
             $user = Auth::user();
 
-            $level = $user->level->level_nama;
+            $level = $user->level->level_kode;
 
             Auth::login($user);
 
@@ -64,9 +64,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->flush();
-
         Auth::logout();
+
+        $request->session()->flush();
+        $request->session()->regenerateToken();
+
         return redirect('/');
     }
 

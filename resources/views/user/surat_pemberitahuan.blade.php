@@ -17,25 +17,21 @@
 
         <!-- Content -->
         <div class="col-md-9 pt-5">
-            <div class="tab-content surat-content" data-handbook="surat_pengantar" id="v-pills-tabContent">
+            <div class="tab-content surat-content" data-handbook="surat_pemberitahuan" id="v-pills-tabContent">
                 <div class="tab-pane show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                   <h2 class="mb-2" style="font-weight: bold;">Surat Pengantar</h2>
+                   <h2 class="mb-2" style="font-weight: bold;">Surat Pemberitahuan</h2>
                    <p class="mt-2" style="line-height: 32px; font-size: 16px;">
-                        Surat Pengantar adalah dokumen yang digunakan untuk mengirimkan permohonan atau merekomendasikan seseorang atau sesuatu kepada pihak lain. Tujuannya adalah untuk memberikan pengantar formal dan menjelaskan maksud dari permohonan atau rekomendasi yang disampaikan. Surat ini mencakup identitas pengirim, penerima, serta informasi yang relevan terkait dengan permohonan atau rekomendasi yang diajukan.
+                        Surat Pemberitahuan adalah dokumen yang dibuat oleh RT atau RW untuk menyampaikan informasi penting kepada warga masyarakat tentang suatu hal tertentu. Tujuannya adalah memberikan pengumuman resmi mengenai perubahan kebijakan, informasi keamanan, atau kegiatan komunitas yang relevan.
                    </p>
                    <h2 class="mt-5" style="font-weight: bold;">Alur Pengurusan Surat</h2>
                       <table style="border-collapse: separate; border-spacing:0 20px; font-size: 16px;">
                           <tr>
                               <td><img src="assets/media/icons/point-alur.svg" style="height: 20px; width: 20px; margin-right: 20px;"></td>
-                              <td>Pemohon datang ke Ketua RT dan RW untuk meminta pengantar RT/RW.</td>
+                              <td>xx</td>
                           </tr>
                           <tr>
                               <td><img src="assets/media/icons/point-alur.svg" style="height: 20px; width: 20px; margin-right: 20px;"></td>
-                              <td>Pemohon datang ke kelurahan dengan membawa berkas persyaratannya dan mematuhi kebijakan serta norma yang berlaku di lingkungan RT dan RW setempat.</td>
-                          </tr>
-                          <tr>
-                              <td><img src="assets/media/icons/point-alur.svg" style="height: 20px; width: 20px; margin-right: 20px;"></td>
-                              <td>Surat Pengantar RT dan RW selesai dan dapat digunakan untuk pengurusan administrasi selanjutnya.</td>
+                              <td>xx</td>
                           </tr>
                       </table>
                 </div>
@@ -43,7 +39,7 @@
                 <ul class="listings__grid" style="padding-left:5px;">
                     <li class="card jenis-surat">
                         <img src="{{ url('assets/img/vscode.png') }}" alt="" class="card__logo" />
-                        <p class="card__heading">SP Permohonan Pembuatan Dokumen</p>
+                        <p class="card__heading">SPM A</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
                                 <li class="snk">-</li>
@@ -54,7 +50,7 @@
                     </li>
                     <li class="card jenis-surat">
                         <img src="{{ url('assets/img/logo postman.png') }}" alt="" class="card__logo" />
-                        <p class="card__heading">SP Permohonan Bantuan</p>
+                        <p class="card__heading">SPM B</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
                                 <li class="snk">-</li>
@@ -65,7 +61,7 @@
                     </li>
                     <li class="card jenis-surat">
                         <img src="{{ url('assets/img/logo gitlab.png') }}" alt="" class="card__logo" />
-                        <p class="card__heading">SP Rekomendasi Pengajuan Jabatan</p>
+                        <p class="card__heading">SPM C</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
                                 <li class="snk">-</li>

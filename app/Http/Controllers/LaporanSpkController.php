@@ -1,0 +1,243 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\LaporanSpk;
+
+class LaporanSpkController extends Controller
+{
+    public function index()
+    {
+        $laporans = LaporanSpk::all();
+        return view('super-admin.laporan_spk.index', compact('laporans'));
+    }
+
+    public function create()
+    {
+        return view('super-admin.laporan_spk.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'dampak' => 'required|integer',
+            'biaya' => 'required|integer',
+            'jenis_laporan' => 'required|string|max:100',
+            'sdm' => 'required|integer',
+            'durasi_pekerjaan' => 'required|integer',
+        ]);
+
+        LaporanSpk::create($data);
+
+        return redirect()->route('super-admin.laporan_spk.index');
+    }
+
+    private function getJenisLaporanScore($jenis)
+    {
+        return match ($jenis) {
+            'Keamanan' => 1,
+            'Kesehatan' => 0.8,
+            'Infrastruktur' => 0.6,
+            'Layanan Masyarakat' => 0.4,
+            'Lingkungan' => 0.2,
+            default => 0,
+        };
+    }
+
+    private function getBiayaScore($biaya)
+    {
+        if ($biaya >= 0 && $biaya <= 500000) {
+            return 1;
+        } elseif ($biaya > 500000 && $biaya <= 1000000) {
+            return 0.8;
+        } elseif ($biaya > 1000000 && $biaya <= 2000000) {
+            return 0.6;
+        } elseif ($biaya > 2000000 && $biaya <= 3000000) {
+            return 0.4;
+        } elseif ($biaya > 3000000) {
+            return 0.2;
+        }
+    }
+
+    private function getDampakScore($dampak)
+    {
+        if ($dampak == 1) {
+            return 1 / 3;
+        } elseif ($dampak == 2) {
+            return 2 / 3;
+        } elseif ($dampak == 3) {
+            return 1;
+        }
+    }
+
+    private function getDurasiPekerjaanScore($durasi)
+    {
+        if ($durasi >= 1 && $durasi <= 7) {
+            return 1;
+        } elseif ($durasi > 7 && $durasi <= 14) {
+            return 0.75;
+        } elseif ($durasi > 14 && $durasi <= 21) {
+            return 0.5;
+        } else {
+            return 0.25;
+        }
+    }
+
+    private function getSDMScore($sdm)
+    {
+        if ($sdm == 1) {
+            return 1;
+        } elseif ($sdm > 1 && $sdm <= 5) {
+            return 0.75;
+        } elseif ($sdm > 5 && $sdm <= 10) {
+            return 0.5;
+        } elseif ($sdm > 10) {
+            return 0.25;
+        }
+    }
+
+    private function normalizeDecisionMatrix($matrix)
+    {
+        $normalizedMatrix = [];
+        foreach ($matrix as $criteria => $values) {
+            switch ($criteria) {
+                case 'dampak':
+                    $normalizedMatrix[$criteria] = array_map([$this, 'getDampakScore'], $values);
+                    break;
+                case 'biaya':
+                    $normalizedMatrix[$criteria] = array_map([$this, 'getBiayaScore'], $values);
+                    break;
+                case 'jenis_laporan':
+                    $normalizedMatrix[$criteria] = array_map([$this, 'getJenisLaporanScore'], $values);
+                    break;
+                case 'sdm':
+                    $normalizedMatrix[$criteria] = array_map([$this, 'getSDMScore'], $values);
+                    break;
+                case 'durasi_pekerjaan':
+                    $normalizedMatrix[$criteria] = array_map([$this, 'getDurasiPekerjaanScore'], $values);
+                    break;
+                default:
+                    $columnMax = max($values);
+                    $normalizedMatrix[$criteria] = $columnMax == 0 ? array_fill(0, count($values), 0) : array_map(fn ($value) => $value / $columnMax, $values);
+                    break;
+            }
+        }
+        return $normalizedMatrix;
+    }
+
+    private function calculateUtility($values)
+    {
+        $min = min($values);
+        $max = max($values);
+
+        if ($min == $max) {
+            return array_fill(0, count($values), 1);
+        }
+
+        return array_map(fn ($value) => ($value - $min) / ($max - $min), $values);
+    }
+
+    private function calculateROCWeights($criteriaCount)
+    {
+        $weights = [];
+        for ($i = 1; $i <= $criteriaCount; $i++) {
+            $weights[] = array_sum(array_map(function ($j) use ($i) {
+                return 1 / $j;
+            }, range($i, $criteriaCount))) / $criteriaCount;
+        }
+        return $weights;
+    }
+
+    private function calculateMAUTScores($utilityMatrix, $weights)
+    {
+        $scores = [];
+        foreach ($utilityMatrix as $criteria => $values) {
+            foreach ($values as $index => $value) {
+                $scores[$index] = ($scores[$index] ?? 0) + $value * $weights[array_search($criteria, array_keys($utilityMatrix))];
+            }
+        }
+        arsort($scores);
+        return $scores;
+    }
+
+    public function calculatePriority()
+    {
+        $laporans = LaporanSpk::all();
+    
+        $decisionMatrix = [
+            'dampak' => $laporans->pluck('dampak')->toArray(),
+            'biaya' => $laporans->pluck('biaya')->toArray(),
+            'jenis_laporan' => $laporans->pluck('jenis_laporan')->toArray(),
+            'sdm' => $laporans->pluck('sdm')->toArray(),
+            'durasi_pekerjaan' => $laporans->pluck('durasi_pekerjaan')->toArray(),
+        ];
+    
+        $criteriaCount = count($decisionMatrix);
+        $weights = $this->calculateROCWeights($criteriaCount);
+    
+        $normalizedMatrix = $this->normalizeDecisionMatrix($decisionMatrix);
+    
+        $utilityMatrix = [];
+        foreach ($normalizedMatrix as $criteria => $values) {
+            $utilityMatrix[$criteria] = $this->calculateUtility($values);
+        }
+    
+        $mautScores = $this->calculateMAUTScores($utilityMatrix, $weights);
+    
+        foreach ($laporans as $index => $laporan) {
+            $laporan->total_score = $mautScores[$index];
+        }
+    
+        $sortedLaporans = $laporans->sortByDesc('total_score');
+    
+        return view('super-admin.laporan_spk.priority', compact('sortedLaporans'));
+    }
+    
+
+    public function showChart()
+    {
+        $laporans = LaporanSpk::all();
+
+        $decisionMatrix = [
+            'dampak' => $laporans->pluck('dampak')->toArray(),
+            'biaya' => $laporans->pluck('biaya')->toArray(),
+            'jenis_laporan' => $laporans->pluck('jenis_laporan')->toArray(),
+            'sdm' => $laporans->pluck('sdm')->toArray(),
+            'durasi_pekerjaan' => $laporans->pluck('durasi_pekerjaan')->toArray(),
+        ];
+
+        $criteriaCount = count($decisionMatrix);
+        $weights = $this->calculateROCWeights($criteriaCount);
+
+        $normalizedMatrix = $this->normalizeDecisionMatrix($decisionMatrix);
+        $utilityMatrix = [];
+        foreach ($normalizedMatrix as $criteria => $values) {
+            $utilityMatrix[$criteria] = $this->calculateUtility($values);
+        }
+
+        $mautScores = $this->calculateMAUTScores($utilityMatrix, $weights);
+
+        $labels = $laporans->pluck('jenis_laporan');
+        $scores = [];
+        foreach ($mautScores as $score) {
+            $scores[] = $score;
+        }
+
+        return view('super-admin.laporan_spk.chart', compact('labels', 'scores'));
+    }
+
+    // public function showChart()
+    // {
+    //     $laporans = LaporanSpk::all();
+
+    //     $labels = $laporans->pluck('ID_SPK');
+    //     $scores = [];
+
+    //     foreach ($laporans as $laporan) {
+    //         $scores[] = $this->calculatePriority($laporan);
+    //     }
+
+    //     return view('laporan_spk.chart', compact('labels', 'scores'));
+    // }
+}

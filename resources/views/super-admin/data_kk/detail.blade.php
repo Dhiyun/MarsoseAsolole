@@ -38,6 +38,120 @@
 							</div>
 							<!--end::Search-->
 						</div>
+						<!--End::Card title-->
+						<!--begin::Card toolbar-->
+						<div class="card-toolbar">
+							<!--begin::Toolbar-->
+							<div class="d-flex justify-content-end" data-kt-wargalokal-table-toolbar="base">
+								<!--begin::Add warga-->
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_wargalokal">
+								<i class="ki-outline ki-plus fs-2"></i>Tambah Warga</button>
+								<!--end::Add warga-->
+							</div>
+							<!--end::Toolbar-->
+							<!--begin::Group actions-->
+							<div class="d-flex justify-content-end align-items-center d-none" data-kt-wargalokal-table-toolbar="selected">
+								<div class="fw-bold me-5">
+									<span class="me-2" data-kt-wargalokal-table-select="selected_count"></span>Selected
+								</div>
+								<form id="delete-selected-form" action="{{ route('warga.deleteSelected') }}" method="POST">
+									@csrf  <!-- Token CSRF untuk keamanan -->
+									<input value="" type="hidden" name="selectedIds" id="selected-ids">  <!-- Input tersembunyi untuk ID yang dipilih -->
+									<!-- Tombol untuk menghapus warga yang dipilih -->
+									<button type="submit" class="btn btn-danger" data-kt-wargalokal-table-select="delete_selected">Delete Selected</button>
+								</form>
+							</div>
+							<!--end::Group actions-->
+							<!--begin::Modal - Add task-->
+							<div class="modal fade" id="kt_modal_add_wargalokal" tabindex="-1" aria-hidden="true">
+								<!--begin::Modal dialog-->
+								<div class="modal-dialog modal-dialog-centered mw-650px">
+									<!--begin::Modal content-->
+									<div class="modal-content">
+										<!--begin::Modal header-->
+										<div class="modal-header" id="kt_modal_add_wargalokal_header">
+											<!--begin::Modal title-->
+											<h2 class="fw-bold">Add Warga</h2>
+											<!--end::Modal title-->
+											<!--begin::Close-->
+											<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-wargalokal-modal-action="close">
+												<i class="ki-outline ki-cross fs-1"></i>
+											</div>
+											<!--end::Close-->
+										</div>
+										<!--end::Modal header-->
+										<!--begin::Modal body-->
+										<div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+											<!--begin::Form-->
+											<form method="POST" id="kt_modal_add_wargalokal_form" class="form" action="{{ route('kkwarga.store', ['id' => $kk->id_kk]) }}">
+                                                @csrf
+												<!--begin::Scroll-->
+												<div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_wargalokal_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_wargalokal_header" data-kt-scroll-wrappers="#kt_modal_add_wargalokal_scroll" data-kt-scroll-offset="300px">
+                                                    <!-- NIK -->
+                                                    <div class="fv-row mb-7">
+                                                        <label class="required fw-semibold fs-6 mb-2" for="nik">NIK</label>
+                                                        <input type="number" id="nik" name="nik" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('nik') }}" required />
+                                                    </div>
+                                                    <!-- Nama -->
+                                                    <div class="fv-row mb-7">
+                                                        <label class="required fw-semibold fs-6 mb-2" for="nama">Nama</label>
+                                                        <input type="text" id="nama" name="nama" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('nama') }}" required />
+                                                    </div>
+                                                    <!-- Jenis Kelamin -->
+                                                    <div class="fv-row mb-7">
+                                                        <label class="required fw-semibold fs-6 mb-2" for="jenis_kelamin">Jenis Kelamin</label>
+                                                        <select id="jenis_kelamin" name="jenis_kelamin" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                                                            <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
+                                                            <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                                            <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- Tempat Lahir -->
+                                                    <div class="fv-row mb-7">
+                                                        <label class="required fw-semibold fs-6 mb-2" for="tempat_lahir">Tempat Lahir</label>
+                                                        <input type="text" id="tempat_lahir" name="tempat_lahir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tempat_lahir') }}" required />
+                                                    </div>
+                                                    <!-- Tanggal Lahir -->
+                                                    <div class="fv-row mb-7">
+                                                        <label class="required fw-semibold fs-6 mb-2" for="tanggal_lahir">Tanggal Lahir</label>
+                                                        <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tanggal_lahir') }}" required />
+                                                    </div>
+                                                    <!-- Agama -->
+                                                    <div class="fv-row mb-7">
+														<label class="required fw-semibold fs-6 mb-2" for="agama">Agama</label>
+														<select id="agama" name="agama" class="form-control form-control-solid mb-3 mb-lg-0" required>
+															<option value="" disabled selected>Pilih Agama</option>
+															<option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
+															<option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+															<option value="Katolik" {{ old('agama') == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+															<option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+															<option value="Buddha" {{ old('agama') == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+															<option value="Khonghucu" {{ old('agama') == 'Khonghucu' ? 'selected' : '' }}>Khonghucu</option>
+														</select>
+													</div>
+                                                </div>
+												<!--end::Scroll-->
+												<!--begin::Actions-->
+												<div class="text-center pt-15">
+													<button type="submit" class="btn btn-primary btn-sm" data-kt-wargalokal-modal-action="submit">
+														<span class="indicator-label">Submit</span>
+														<span class="indicator-progress">Please wait...
+														<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+													</button>
+												</div>
+												<!--end::Actions-->
+											</form>
+											<!--end::Form-->
+										</div>
+										<!--end::Modal body-->
+									</div>
+									<!--end::Modal content-->
+								</div>
+								<!--end::Modal dialog-->
+							</div>
+							<!--end::Modal - Add task-->
+						</div>
+						<!--end::Card toolbar-->
 					</div>
 					<!--end::Card header-->
 					<!--begin::Card body-->

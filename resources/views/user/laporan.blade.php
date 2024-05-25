@@ -1,161 +1,193 @@
 @extends('user.layouts.template')
+@section('title', 'Marsose | Laporan Warga')
 
 @section('content')
-<h1 class="mb-5">Buat Laporan Warga</h1>
-<div class="card">
-    <div class="card-body p-lg-17">
-        <div class="d-flex flex-column mb-5 fv-row">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                <span class="required">Jenis Laporan</span>
-                <span class="ms-1" data-bs-toggle="tooltip" title="Your payment statements may very based on selected laporan">
-                    <i class="ki-outline ki-information fs-7"></i>
-                </span>
-            </label>
-            <!--end::Label-->
-            <!--begin::Select-->
-            <select name="laporan" data-control="select2" data-placeholder="Pilih Jenis Laporan..." class="form-select" style="border: 1px solid;">
-                <option value="Laporan 1">Laporan 1</option>
-                <option value="Laporan 2">Laporan 2</option>
-                <option value="Laporan 3">Laporan 3</option>
-                <option value="Laporan 4">Laporan 4</option>
-                <option value="Laporan 5">Laporan 5</option>
-            </select>
-            <!--end::Select-->
-        </div>
-        <div class="d-flex flex-column mb-8">
-            <label class="fs-6 fw-semibold mb-2">Deskripsi/Keterangan</label>
-            <textarea class="form-control" rows="4" name="application" placeholder="" style="border: 1px solid;"></textarea>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card mt-5">
-            <div class="card-body p-lg-17">
-                <div class="d-flex flex-column mb-5 fv-row">
-                    <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                        <span class="required">Gambar</span>
-                    </label>
-                    <div class="input-group">
-                        <input type="file" name="lampiran" class="form-control" style="border: 1px solid;" />
-                    </div>
-                    <div class="form-text">Catatan: Pastikan gambar bukti yang diunggah jelas dan mudah dibaca, tersedia dalam format JPG, PNG, atau GIF.</div>
-                </div>
-            </div>            
-        </div>
-        <div class="mt-5">
-            <button class="btn me-5" style="background-color: #D97706; color: #fff;">Save</button>
-            <button class="btn" style="background-color: #fff; color: #000; border: 1px solid #D1D5DB;">Cancel</button>
-        </div>
-    </div>
+<!--begin::List Widget 5-->
+<div class="row g-4">
+    <div class="col-xl-5">
     
-    <div class="col-lg-6">
-        <div class="card mt-5 h-100" style="background-color: #1E293B;">
+    <div class="card mt-0 h-100 shadow keluhan" style="background-image: url('assets/media/logos/rhone.svg'); ">
             <!--begin::Header-->
             <div class="card-header align-items-center border-0 mt-4">
                 <h3 class="card-title align-items-start flex-column">
-                    <span class="fw-bold mb-2 text-light">Alur Laporan</span>
-                    <span class="text-muted fw-semibold fs-7">Langkah-langkah membuat laporan</span>
+                    <span class="mb-2 text-dark pt-10" style="font-size: 24px; padding-bottom: 12px; font-weight: bold;">Laporkan
+                        Keluhan</span>
+                    <span class="text-muted fw-semibold" style="font-size: 16px;">Anda dapat melaporkan segala <br>
+                        bentuk
+                        keluhan anda di lingkungan <br> marsose RW 03.</span>
                 </h3>
             </div>
             <!--end::Header-->
             <!--begin::Body-->
             <div class="card-body pt-5">
-                <!--begin::Timeline-->
-                <div class="timeline-label">
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <!--begin::Label-->
-                        <div class="timeline-label fw-bold text-light fs-6">Step 1</div>
-                        <!--end::Label-->
-                        <!--begin::Badge-->
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-info fs-1"></i>
-                        </div>
-                        <!--end::Badge-->
-                        <!--begin::Text-->
-                        <div class="fw-bold timeline-content text-light ps-3">Buka Fitur Laporan Warga <br>
-                            <span class="text-muted fw-semibold">Akses fitur laporan yang tersedia.</span>
-                        </div>
-                        <!--end::Text-->
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <!--begin::Label-->
-                        <div class="timeline-label fw-bold text-light fs-6">Step 2</div>
-                        <!--end::Label-->
-                        <!--begin::Badge-->
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-success fs-1"></i>
-                        </div>
-                        <!--end::Badge-->
-                        <!--begin::Content-->
-                        <div class="fw-bold timeline-content text-light ps-3">Isi Formulir Pengaduan <br>
-                            <span class="text-muted fw-semibold">Lengkapi formulir dengan detail. Pastikan semua informasi diisi dengan jelas.</span>
-                        </div>
-                        <!--end::Content-->
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <!--begin::Label-->
-                        <div class="timeline-label fw-bold text-light fs-6">Step 3</div>
-                        <!--end::Label-->
-                        <!--begin::Badge-->
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-danger fs-1"></i>
-                        </div>
-                        <!--end::Badge-->
-                        <!--begin::Desc-->
-                        <div class="fw-bold timeline-content text-light ps-3">Proses Verifikasi <br>
-                            <span class="text-muted fw-semibold">Laporan akan diverifikasi oleh RW untuk menentukan diterima atau ditolak.</span>
-                        </div>
-                        <!--end::Desc-->
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <!--begin::Label-->
-                        <div class="timeline-label fw-bold text-light fs-6">Step 4</div>
-                        <!--end::Label-->
-                        <!--begin::Badge-->
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-primary fs-1"></i>
-                        </div>
-                        <!--end::Badge-->
-                        <!--begin::Text-->
-                        <div class="fw-bold timeline-content text-light ps-3">Tindak Lanjut dan Musyawarah <br>
-                            <span class="text-muted fw-semibold">Jika diterima, laporan akan dibahas dalam musyawarah dengan RT, RW, dan warga terkait.</span>
-                        </div>
-                        <!--end::Text-->
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <!--begin::Label-->
-                        <div class="timeline-label fw-bold text-light fs-6">Step 5</div>
-                        <!--end::Label-->
-                        <!--begin::Badge-->
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-warning fs-1"></i>
-                        </div>
-                        <!--end::Badge-->
-                        <!--begin::Desc-->
-                        <div class="fw-bold timeline-content text-light ps-3">Penyelesaian <br>
-                            <span class="text-muted fw-semibold">Setelah musyawarah, tindakan selanjutnya dilakukan untuk menyelesaikan laporan.</span>
-                        </div>
-                        <!--end::Desc-->
-                    </div>
-                    <!--end::Item-->
-                </div>
-                <!--end::Timeline-->
+                <button class="btn laporan"
+                    onclick="window.location.href='/user/createlaporan'">Buat Laporan</button>
             </div>
             <!--end: Card Body-->
+        </div>
+
+    </div>
+
+    <div class="col-xl-4">
+        <div class="card mt-0 h-100 shadow keluhan">
+            <!--begin::Header-->
+            <div class="card-header align-items-center border-0 mt-4">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">50</span>
+                    <br>
+                    <span class="text-gray-500 flex-grow-1 me-4">Jumlah Laporan Warga</span>
+                </h3>
+            </div>
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body pt-2 pb-4 d-flex align-items-center">
+                <!--begin::Chart-->
+                <div class="d-flex flex-center me-5 pt-2">
+                    <div id="kt_card_widget_4_chart" style="min-width: 70px; min-height: 70px" data-kt-size="100"
+                        data-kt-line="11"></div>
+                </div>
+                <!--end::Chart-->
+                <!--begin::Labels-->
+                <div class="d-flex flex-column content-justify-center w-100">
+                    <!--begin::Label-->
+                    <div class="d-flex fs-6 fw-semibold align-items-center">
+                        <!--begin::Bullet-->
+                        <div class="bullet w-8px h-6px rounded-2 bg-danger me-3"></div>
+                        <!--end::Bullet-->
+                        <!--begin::Label-->
+                        <div class="text-gray-500 flex-grow-1 me-4">Proses</div>
+                        <!--end::Label-->
+                        <!--begin::Stats-->
+                        <div class="fw-bolder text-gray-700 text-xxl-end">9</div>
+                        <!--end::Stats-->
+                    </div>
+                    <!--end::Label-->
+                    <!--begin::Label-->
+                    <div class="d-flex fs-6 fw-semibold align-items-center my-3">
+                        <!--begin::Bullet-->
+                        <div class="bullet w-8px h-6px rounded-2 bg-primary me-3"></div>
+                        <!--end::Bullet-->
+                        <!--begin::Label-->
+                        <div class="text-gray-500 flex-grow-1 me-4">Ditolak</div>
+                        <!--end::Label-->
+                        <!--begin::Stats-->
+                        <div class="fw-bolder text-gray-700 text-xxl-end">18</div>
+                        <!--end::Stats-->
+                    </div>
+                    <!--end::Label-->
+                    <!--begin::Label-->
+                    <div class="d-flex fs-6 fw-semibold align-items-center">
+                        <!--begin::Bullet-->
+                        <div class="bullet w-8px h-6px rounded-2 me-3" style="background-color: #E4E6EF"></div>
+                        <!--end::Bullet-->
+                        <!--begin::Label-->
+                        <div class="text-gray-500 flex-grow-1 me-4">Diterima</div>
+                        <!--end::Label-->
+                        <!--begin::Stats-->
+                        <div class="fw-bolder text-gray-700 text-xxl-end">12</div>
+                        <!--end::Stats-->
+                    </div>
+                    <!--end::Label-->
+                </div>
+                <!--end::Labels-->
+            </div>
+            <!--end::Body-->
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="card mr-2 mt-0 h-100 shadow laporan">
+            <!--begin::Header-->
+            <div class="card-header align-items-center border-0 mt-4" style="width: 100%; text-align: center;">
+                <h3 class="card-title align-items-center flex-column">
+                <span class="fw-bold mb-2" style="color: #38095D;">Riwayat <br>Laporan Anda</span>
+                    <img src="assets/media/icons/laporan.svg" alt="Image" class="img-fluid mb-3 pt-lg-25"
+                        style="width: 200px; height: auto;">
+                    <button class="btn btn-sm c-laporan"
+                        onclick="window.location.href='/user/createlaporan'">Laporan Anda</button>
+                </h3>
+            </div>
+            <!--end::Header-->
         </div>
     </div>
 </div>
 
+<div class="justify-content-center flex-stack flex-wrap flex-md-nowrap card-rounded shadow p-8 p-lg-12 mb-n5 mb-lg-n13 mt-10 keluhan"
+    style="background-color: #fff;">
+    <!--begin::Content-->
+    <div class="my-2 me-5 text-left">
+        <div class="fs-1 fs-m-2qx fw-bold d-inline-block">Data Laporan Warga</div>
+        <a href="/lihat-semua-laporan" class="btn btn-link float-end">Lihat Semua Laporan</a>
+        <hr style="border-top: 1px solid #000;">
+    </div>
+    <!--end::Content-->
+
+    <div class="row">
+        <div class="col-xl-3 position-relative">
+            <div class="card d-laporan" style="width: 18rem;">
+                <div class="d-flex justify-content-center">
+                    <img src="assets/media/logos/gambar-city.svg" alt="Image" class="img-fluid mb-2 pt-lg-20"
+                        style="max-width: 100px;">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title t-dlaporan"><b>Jalan Berlubang</b></h4>
+                    <p class="card-text" style="font-size: 16px;">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <div class="position-absolute bottom-0 end-0 mb-2 me-2 px-2 py-0 rounded bg-warning"
+                        style="cursor: pointer;">Proses</div>
+                    <div class="position-absolute bottom-0 start-2 mb-2" style="font-size: 14px;">Irfan, 27 April 2024</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 position-relative">
+            <div class="card d-laporan" style="width: 18rem;">
+                <div class="d-flex justify-content-center">
+                    <img src="assets/media/logos/gambar-city.svg" alt="Image" class="img-fluid mb-2 pt-lg-20"
+                        style="max-width: 100px;">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title t-dlaporan"><b>Jalan Berlubang</b></h4>
+                    <p class="card-text" style="font-size: 16px;">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <div class="position-absolute bottom-0 end-0 mb-2 me-2 px-2 py-0 rounded bg-warning"
+                        style="cursor: pointer;">Proses</div>
+                    <div class="position-absolute bottom-0 start-2 mb-2" style="font-size: 14px;">Irfan, 27 April 2024</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 position-relative">
+            <div class="card d-laporan" style="width: 18rem;">
+                <div class="d-flex justify-content-center">
+                    <img src="assets/media/logos/gambar-city.svg" alt="Image" class="img-fluid mb-2 pt-lg-20"
+                        style="max-width: 100px;">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title t-dlaporan"><b>Jalan Berlubang</b></h4>
+                    <p class="card-text" style="font-size: 16px;">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <div class="position-absolute bottom-0 end-0 mb-2 me-2 px-2 py-0 rounded bg-warning"
+                        style="cursor: pointer;">Proses</div>
+                    <div class="position-absolute bottom-0 start-2 mb-2" style="font-size: 14px;">Irfan, 27 April 2024</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 position-relative">
+            <div class="card d-laporan" style="width: 18rem;">
+                <div class="d-flex justify-content-center">
+                    <img src="assets/media/logos/gambar-city.svg" alt="Image" class="img-fluid mb-2 pt-lg-20"
+                        style="max-width: 100px;">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title t-dlaporan"><b>Jalan Berlubang</b></h4>
+                    <p class="card-text" style="font-size: 16px;">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <div class="position-absolute bottom-0 end-0 mb-2 me-2 px-2 py-0 rounded bg-warning"
+                        style="cursor: pointer;">Proses</div>
+                    <div class="position-absolute bottom-0 start-2 mb-2" style="font-size: 14px;">Irfan, 27 April 2024</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

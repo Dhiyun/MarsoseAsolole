@@ -23,6 +23,11 @@ class UserController extends Controller
         return view('user.laporan');
     }
 
+    public function createlaporan()
+    {
+        return view('user.createlaporan');
+    }
+
     public function surat_keterangan()
     {
         return view('user.surat_keterangan');
@@ -31,6 +36,16 @@ class UserController extends Controller
     public function surat_pengantar()
     {
         return view('user.surat_pengantar');
+    }
+
+    public function surat_undangan() 
+    {
+        return view('user.surat_undangan');
+    }
+
+    public function surat_pemberitahuan()
+    {
+        return view('user.surat_pemberitahuan');
     }
 
     // public function index()

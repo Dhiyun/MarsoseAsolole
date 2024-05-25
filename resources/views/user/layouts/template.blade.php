@@ -2,13 +2,16 @@
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="../../../"/>
-		<title>MARSOSE - Citizen's Report Site</title>
+		<!-- Title -->
+		<title>@yield('title')</title>
 
 		<!-- LOGO -->
-		<link href="assets/img/Favicon Marsose.svg" rel="shortcut icon" >
+		<link href="assets/media/logos/marsose.svg" rel="shortcut icon" >
 
 		<!--begin::Fonts(mandatory for all pages)-->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+		{{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> --}}
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
 		<!--end::Fonts-->
 		<!--begin::Vendor Stylesheets(used for this page only)-->
 		<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
@@ -16,7 +19,7 @@
 		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/styleUser.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -4235,6 +4238,14 @@
 		<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+		<script>
+		/* menu-list surat */
+			var surat_js = document.querySelector('.surat-content');
+			if (surat_js) {
+				document.querySelector('.'+surat_js.dataset.handbook).classList.add('active')
+			}
+		</script>
 	</body>
 	<!--end::Body-->
 </html>
