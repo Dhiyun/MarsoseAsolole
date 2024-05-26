@@ -122,26 +122,26 @@
                   <li data-target="#demo" data-slide-to="0" class="active"></li>
                   <li data-target="#demo" data-slide-to="1"></li>
                   <li data-target="#demo" data-slide-to="2"></li>
-                    <li data-target="#demo" data-slide-to="3"></li>
-                    <li data-target="#demo" data-slide-to="4"></li>
+                  <li data-target="#demo" data-slide-to="3"></li>
+                  <li data-target="#demo" data-slide-to="4"></li>
                 </ul>
                 
                 <!-- The slideshow -->
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img src="assets/media/img/laporanWarga-kemalingan.jpg" alt="Laporan Warga terjadi Kemalingan" width="1000" height="400">
+                    <img src="assets/media/img/laporanWarga-img1.jpg" alt="Image 1" width="1000" height="400">
                   </div>
                   <div class="carousel-item">
-                    <img src="assets/media/img/laporanWarga-perbaikanJalan.jpg" alt="Laporan Warga Perbaikan Jalan" width="1000" height="400">
+                    <img src="assets/media/img/laporanWarga-img2.jpg" alt="Image 2" width="1000" height="400">
                   </div>
                   <div class="carousel-item">
-                    <img src="assets/media/img/laporanWarga-rapat.jpg" alt="Laporan Warga Rapat" width="1000" height="400">
+                    <img src="assets/media/img/laporanWarga-img3.jpg" alt="Image 3" width="1000" height="400">
                   </div>
                   <div class="carousel-item">
-                    <img src="assets/media/img/haha.jpeg" alt="Haha" width="1000" height="400">
+                    <img src="assets/media/img/laporanWarga-img4.jpg" alt="Image 4" width="1000" height="400">
                   </div>
                   <div class="carousel-item">
-                    <img src="assets/media/img/haha.jpeg" alt="Haha" width="1000" height="400">
+                    <img src="assets/media/img/laporanWarga-img5.jpg" alt="Image 5" width="1000" height="400">
                   </div>
                 </div>
                 

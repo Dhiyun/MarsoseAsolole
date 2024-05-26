@@ -30,13 +30,15 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['cek_login:WRG']], function() {
-        Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
-        Route::get('/laporan', [UserController::class, 'laporan'])->name('user.laporan');
-        Route::get('/createlaporan', [UserController::class, 'createlaporan'])->name('user.createlaporan');
-        Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
-        Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
-        Route::get('/surat_undangan', [UserController::class, 'surat_undangan'])->name('user.surat_undangan');
-        Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan');
+        Route::prefix('user')->group(function () {
+            Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
+            Route::get('/laporan', [UserController::class, 'laporan'])->name('user.laporan');
+            Route::get('/createlaporan', [UserController::class, 'createlaporan'])->name('user.createlaporan');
+            Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
+            Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
+            Route::get('/surat_undangan', [UserController::class, 'surat_undangan'])->name('user.surat_undangan');
+            Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan'); 
+        });
     });
 
     Route::group(['middleware' => ['cek_login:RW']], function() {

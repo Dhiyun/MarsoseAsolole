@@ -2,13 +2,19 @@
 @section('title', 'Marsose | Surat-Surat')
 
 @section('content')
-<div class="text-center pt-2">
-    <img src="assets/media/logos/marsose.svg" width="100" height="100" alt="...">
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+
+    <div class="card pt-2 col-md-9 banner-surat shadow" style="background-image: url('assets/media/img/banner-spm.png');">
+        
+    </div>
 </div>
 
 <main class="container">
-    <div class="row ml-4 mb-3">
-        <div class="col-md-3">
+    <div class="row">
+        <div class="col-md-3 list-menu">
             <button type="button" class="btn">
                 <span class="c-surat"> Jenis-jenis Surat</span>
             </button>
@@ -27,47 +33,29 @@
                       <table style="border-collapse: separate; border-spacing:0 20px; font-size: 16px;">
                           <tr>
                               <td><img src="assets/media/icons/point-alur.svg" style="height: 20px; width: 20px; margin-right: 20px;"></td>
-                              <td>xx</td>
+                              <td>RT/RW mengumpulkan informasi yang diperlukan secara lengkap dan akurat.</td>
                           </tr>
                           <tr>
                               <td><img src="assets/media/icons/point-alur.svg" style="height: 20px; width: 20px; margin-right: 20px;"></td>
-                              <td>xx</td>
+                              <td>RT/RW mengunduh templat surat yang tersedia dan melengkapi isi surat dengan informasi yang telah disiapkan.</td>
                           </tr>
+                          <tr>
+                            <td><img src="assets/media/icons/point-alur.svg" style="height: 20px; width: 20px; margin-right: 20px;"></td>
+                            <td>RT/RW menyebarkan surat pemberitahuan kepada seluruh warga di wilayahnya.</td>
+                        </tr>
                       </table>
                 </div>
                 <h2 class="mt-5" style="font-weight: bold">Jenis dan Template</h2>
                 <ul class="listings__grid" style="padding-left:5px;">
                     <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/vscode.png') }}" alt="" class="card__logo" />
-                        <p class="card__heading">SPM A</p>
+                        <img src="assets/media/icons/icon-spem.svg" alt="" class="card__logo" style="width: 80px; height: 80px;"/>
+                        <p class="card__heading">Surat Pemberitahuan</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
                                 <li class="snk">-</li>
                             </ul>
                             <a href="path/to/xx" download>
-                                <button class="btn dwn-surat">Download Template</button>
-                            </a>
-                    </li>
-                    <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/logo postman.png') }}" alt="" class="card__logo" />
-                        <p class="card__heading">SPM B</p>
-                        <p class="syarat">Syarat*</p>
-                            <ul class="mt-3">
-                                <li class="snk">-</li>
-                            </ul>
-                            <a href="path/to/xx" download>
-                                <button class="btn dwn-surat">Download Template</button>
-                            </a>
-                    </li>
-                    <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/logo gitlab.png') }}" alt="" class="card__logo" />
-                        <p class="card__heading">SPM C</p>
-                        <p class="syarat">Syarat*</p>
-                            <ul class="mt-3">
-                                <li class="snk">-</li>
-                            </ul>
-                            <a href="path/to/xx" download>
-                                <button class="btn dwn-surat">Download Template</button>
+                                <button class="btn dwn-surat" style="width: 30%;">Download Template</button>
                             </a>
                     </li>
                 </ul>

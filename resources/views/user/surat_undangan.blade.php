@@ -2,13 +2,19 @@
 @section('title', 'Marsose | Surat-Surat')
 
 @section('content')
-<div class="text-center pt-2">
-    <img src="assets/media/logos/marsose.svg" width="100" height="100" alt="...">
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+
+    <div class="card pt-2 col-md-9 banner-surat shadow" style="background-image: url('assets/media/img/banner-su.png');">
+        
+    </div>
 </div>
 
 <main class="container">
-    <div class="row ml-4 mb-3">
-        <div class="col-md-3">
+    <div class="row">
+        <div class="col-md-3 list-menu">
             <button type="button" class="btn">
                 <span class="c-surat"> Jenis-jenis Surat</span>
             </button>
@@ -41,36 +47,14 @@
                 <h2 class="mt-5" style="font-weight: bold">Jenis dan Template</h2>
                 <ul class="listings__grid" style="padding-left:5px;">
                     <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/vscode.png') }}" alt="" class="card__logo" />
-                        <p class="card__heading">SU A</p>
+                        <img src="assets/media/icons/icon-sundangan.svg" alt="" class="card__logo" style="width: 80px; height: 80px;" />
+                        <p class="card__heading">Surat Undangan</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
                                 <li class="snk">-</li>
                             </ul>
                             <a href="path/to/xx" download>
-                                <button class="btn dwn-surat">Download Template</button>
-                            </a>
-                    </li>
-                    <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/logo postman.png') }}" alt="" class="card__logo" />
-                        <p class="card__heading">SU B</p>
-                        <p class="syarat">Syarat*</p>
-                            <ul class="mt-3">
-                                <li class="snk">-</li>
-                            </ul>
-                            <a href="path/to/xx" download>
-                                <button class="btn dwn-surat">Download Template</button>
-                            </a>
-                    </li>
-                    <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/logo gitlab.png') }}" alt="" class="card__logo" />
-                        <p class="card__heading">SU C</p>
-                        <p class="syarat">Syarat*</p>
-                            <ul class="mt-3">
-                                <li class="snk">-</li>
-                            </ul>
-                            <a href="path/to/xx" download>
-                                <button class="btn dwn-surat">Download Template</button>
+                                <button class="btn dwn-surat" style="width: 30%;">Download Template</button>
                             </a>
                     </li>
                 </ul>
