@@ -198,6 +198,31 @@ h8 {
 }
 
 /* Surat-surat Section Styling */
+.list-menu {
+    margin-top: -200px;
+    margin-left: -10px;
+    border: none;
+    height: 20%;
+    width: 40%;
+}
+
+.card.banner-surat {
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    border-radius: 22px;
+    width: 100%;
+    height: 225px;
+}
+
+.card.banner-surat img {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .listings__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -221,8 +246,8 @@ h8 {
 
 .card__logo {
 	border-radius: none;
-	height: 64px;
-	width: 64px;
+	height: 65px;
+	width: 65px;
 	margin: 4px 0;
 }
 
@@ -258,13 +283,13 @@ h8 {
     border: none; 
     border-radius: 24px; 
     width: 179px; 
-    height: 44px; 
+    /* height: 44px;  */
     align-items: center; 
     padding: 10px; 
     font-size: 18px;
     justify-content: center; 
-    margin-top: -150px;
-    margin-left: -65px;
+    margin-top: 150px;
+    /* margin-left: -65px; */
 }
 
 ul {
@@ -306,7 +331,7 @@ ul li {
 }
 
 .list {
-    margin-left: -35px; 
+    margin-left: 30px; 
     margin-top: 45px; 
     font-size: 16px;
     font-family: "Nunito", sans-serif;
