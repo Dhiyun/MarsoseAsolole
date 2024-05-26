@@ -52,7 +52,7 @@
             <div class="mb-3">
                 <label for="sdm" class="form-label">SDM</label>
                 <input type="number" class="form-control" id="sdm" name="sdm" required>
-                {{-- <div id="jumlah_pengaduanHelp" class="form-text">Silahkan pilih nilai 1, 2, 3 atau lebih</div> --}}
+                <div id="jumlah_pengaduanHelp" class="form-text">Silahkan pilih nilai 1, 2, 3 atau lebih</div>
             </div>
             <button type="submit" class="btn btn-primary">Tambah</button>
         </form>
