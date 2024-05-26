@@ -4,13 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LaporanSpk;
+use Exception;
 
 class LaporanSpkController extends Controller
 {
     public function index()
     {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Laporan SPK',
+            'list' => ['Home, Laporan SPK']
+        ];
+
+        $activeMenu = 'spk';
         $laporans = LaporanSpk::all();
-        return view('super-admin.laporan_spk.index', compact('laporans'));
+
+        return view('super-admin.laporan_spk.index', [
+            'breadcrumb' => $breadcrumb,
+            'laporans' => $laporans,
+            'activeMenu' => $activeMenu
+        ]);
     }
 
     public function create()
@@ -30,17 +42,78 @@ class LaporanSpkController extends Controller
 
         LaporanSpk::create($data);
 
-        return redirect()->route('super-admin.laporan_spk.index');
+        return redirect()->route('laporan_spk.index');
+    }
+
+    public function edit($id)
+    {
+        $laporan = LaporanSpk::findOrFail($id);
+        return view('laporan_spk.edit', compact('laporan'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'dampak' => 'required|integer',
+            'biaya' => 'required|integer',
+            'jenis_laporan' => 'required|string|max:100',
+            'sdm' => 'required|integer',
+            'durasi_pekerjaan' => 'required|integer',
+        ]);
+
+        $laporan = LaporanSpk::findOrFail($id);
+        $laporan->update($data);
+
+        return redirect()->route('laporan_spk.index');
+    }
+
+    public function destroy($id)
+    {
+        $check = LaporanSpk::find($id);
+        if (!$check) {
+            return redirect()->route('laporan_spk.index')->with('error' . 'Data Laporan SPK Tidak Ditemukan');
+        }
+
+        try {
+            LaporanSpk::destroy($id);
+
+            return redirect()->route('laporan_spk.index')->with('success' . 'Data Laporan SPK Berhasil Dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('laporan_spk.index')->with('error' . 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+        }
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIdsJson = $request->input('selectedIds');
+
+        if (empty($selectedIdsJson)) {
+            return redirect('/laporan_spk')->with('error' . 'Data Laporan SPK Tidak Ditemukan');
+        }
+
+        $selectedIds = json_decode($selectedIdsJson, true);
+
+        try {
+            $deletedLaporans = LaporanSpk::whereIn('id_spk', $selectedIds)->delete();
+
+            if ($deletedLaporans > 0) {
+                return redirect('/laporan_spk')->with('success' . 'Semua Data Laporan SPK Berhasil Dihapus');
+            } else {
+                return redirect('/laporan_spk')->with('error' . 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            }
+        } catch (Exception $e) {
+            return redirect('/laporan_spk')->with('error' . 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+        }
     }
 
     private function getJenisLaporanScore($jenis)
     {
         return match ($jenis) {
-            'Keamanan' => 1,
-            'Kesehatan' => 0.8,
-            'Infrastruktur' => 0.6,
-            'Layanan Masyarakat' => 0.4,
-            'Lingkungan' => 0.2,
+            'keamanan' => 1,
+            'kesehatan' => 0.8,
+            'infrastruktur' => 0.6,
+            'layanan Masyarakat' => 0.4,
+            'lingkungan' => 0.2,
             default => 0,
         };
     }
@@ -163,8 +236,11 @@ class LaporanSpkController extends Controller
 
     public function calculatePriority()
     {
+        // Get all LaporanSpk records
         $laporans = LaporanSpk::all();
-    
+        // dd($laporans); // Check the data retrieved from the database
+
+        // Create the decision matrix
         $decisionMatrix = [
             'dampak' => $laporans->pluck('dampak')->toArray(),
             'biaya' => $laporans->pluck('biaya')->toArray(),
@@ -172,28 +248,42 @@ class LaporanSpkController extends Controller
             'sdm' => $laporans->pluck('sdm')->toArray(),
             'durasi_pekerjaan' => $laporans->pluck('durasi_pekerjaan')->toArray(),
         ];
-    
+        // dd($decisionMatrix); // Check the decision matrix
+
+        // Calculate the number of criteria and their weights
         $criteriaCount = count($decisionMatrix);
         $weights = $this->calculateROCWeights($criteriaCount);
-    
+        // dd($weights); // Check the calculated weights
+
+        // Normalize the decision matrix
         $normalizedMatrix = $this->normalizeDecisionMatrix($decisionMatrix);
-    
+        // dd($normalizedMatrix); // Check the normalized decision matrix
+
+        // Calculate the utility matrix
         $utilityMatrix = [];
         foreach ($normalizedMatrix as $criteria => $values) {
             $utilityMatrix[$criteria] = $this->calculateUtility($values);
         }
-    
+        // dd($utilityMatrix); // Check the utility matrix
+
+        // Calculate the MAUT scores
         $mautScores = $this->calculateMAUTScores($utilityMatrix, $weights);
-    
+        // dd($mautScores); // Check the MAUT scores
+
+        // Assign scores to each laporan and sort them
         foreach ($laporans as $index => $laporan) {
             $laporan->total_score = $mautScores[$index];
         }
-    
+
+        // Sort the LaporanSpk by total score in descending order
         $sortedLaporans = $laporans->sortByDesc('total_score');
-    
+        // dd($sortedLaporans); // Check the sorted LaporanSpk
+
+        // Return the view with sorted LaporanSpk
         return view('super-admin.laporan_spk.priority', compact('sortedLaporans'));
     }
-    
+
+
 
     public function showChart()
     {
@@ -226,18 +316,4 @@ class LaporanSpkController extends Controller
 
         return view('super-admin.laporan_spk.chart', compact('labels', 'scores'));
     }
-
-    // public function showChart()
-    // {
-    //     $laporans = LaporanSpk::all();
-
-    //     $labels = $laporans->pluck('ID_SPK');
-    //     $scores = [];
-
-    //     foreach ($laporans as $laporan) {
-    //         $scores[] = $this->calculatePriority($laporan);
-    //     }
-
-    //     return view('laporan_spk.chart', compact('labels', 'scores'));
-    // }
 }

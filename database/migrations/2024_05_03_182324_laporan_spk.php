@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('biaya')->nullable();
             $table->integer('dampak')->nullable();
             $table->integer('durasi_pekerjaan')->nullable();
-            $table->integer('jumlah_pengaduan')->nullable();
+            $table->integer('sdm')->nullable();
             $table->unsignedBigInteger('id_warga')->index();
             $table->timestamps();
             

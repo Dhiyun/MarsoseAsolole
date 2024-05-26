@@ -110,13 +110,15 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/destroy/{id}', [LevelController::class, 'destroy'])->name('surat.destroy');
                 Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('surat.deleteSelected');
             });
-            
+           
             Route::prefix('laporan_spk')->group(function () {
                 Route::get('/', [LaporanSpkController::class, 'index'])->name('laporan_spk.index');
                 Route::get('/create', [LaporanSpkController::class, 'create'])->name('laporan_spk.create');
                 Route::post('/store', [LaporanSpkController::class, 'store'])->name('laporan_spk.store');
                 Route::get('/priority', [LaporanSpkController::class, 'calculatePriority'])->name('laporan_spk.priority');
                 Route::get('/chart', [LaporanSpkController::class, 'showChart'])->name('laporan_spk.chart');
+                Route::delete('/destroy/{id}', [laporanSpkController::class, 'destroy'])->name('laporan_spk.destroy');
+                Route::post('/delete-selected', [LaporanSpkController::class, 'deleteSelected'])->name('laporan_spk.deleteSelected');
             });
         });
      });
