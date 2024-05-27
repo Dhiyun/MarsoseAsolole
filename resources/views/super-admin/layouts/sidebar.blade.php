@@ -114,19 +114,6 @@
             <!-- Begin: Menu item -->
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link" href="../">
-                    {{-- <span class="menu-icon">
-                        <img alt="Logo" src="assets/media/logos/logo-surat.svg" class="h-25px theme-light-show" />
-                    </span> --}}
-                    <span class="menu-title">Surat-Surat</span>
-                </a>
-                <!-- End: Menu link -->
-            </div>
-            <!-- End: Menu item -->
-
-            <!-- Begin: Menu item -->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                <!-- Begin: Menu link -->
                 <a class="menu-link" href="{{ route('laporan_spk.index') }}">
                     {{-- <span class="menu-icon">
                         <img alt="Logo" src="assets/media/logos/logo-spk.svg" class="h-25px theme-light-show" />

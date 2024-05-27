@@ -22,11 +22,13 @@ class KKController extends Controller
         ];
 
         $activeMenu = 'datakk';
-        $kk = KK::all();
+        $kks = KK::all();
+        $rts = RT::all();
 
         return view('super-admin.data_kk.index', [
             'breadcrumb' => $breadcrumb,
-            'kk' => $kk,
+            'kks' => $kks,
+            'rts' => $rts,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -87,9 +89,7 @@ class KKController extends Controller
             'no_rt' => 'required',
         ]);
 
-        $no = $validate['no_rt'];
-
-        $no_rt = 'RT' . $no;
+        $no_rt = $validate['no_rt'];
 
         $rt = RT::where('no_rt', $no_rt)->first();
 
@@ -104,7 +104,7 @@ class KKController extends Controller
             'id_rt' => $id_rt,
         ]);
         
-        return redirect('/datakk')->with('success', 'Data KK Berhasil Disimpan');
+        return redirect()->route('kk.index')->with('success', 'Data KK Berhasil Disimpan');
     }
 
     public function store_warga($id, Request $request)
@@ -145,26 +145,36 @@ class KKController extends Controller
         return redirect()->route('kk.show', $id)->with('success', 'Warga berhasil ditambahkan');
     }
 
-    public function edit($No_KK)
+    public function edit($id)
     {
-        $dataKK = KK::findOrFail($No_KK);
-        $dataRW = RW::all();
-        $dataRT = RT::all();
-        return view('data_kk.edit', compact('dataKK','dataRW','dataRT'));
+        //
     }
 
-    public function update(Request $request, $No_KK)
+    public function update(Request $request, $id)
     {
-        $dataKK = KK::findOrFail($No_KK);
-
         $request->validate([
-            'kepala_keluarga' => 'nullable',
-            'No_RT' => 'nullable',
-            'No_RW' => 'nullable',
+            'no_kk' => 'required|unique:kk,no_kk,' . $id .',id_kk',
+            'kepala_keluarga' => 'required',
+            'alamat' => 'required',
+            'no_rt' => 'required',
+        ]);
+        
+        $no_rt = $request->no_rt;
+
+        $rt = RT::where('no_rt', $no_rt)->first();
+
+        if($rt){
+            $id_rt = $rt->id_rt;
+        }
+
+        KK::findOrFail($id)->update([
+            'no_kk' => $request->no_kk,
+            'kepala_keluarga' => $request->kepala_keluarga,
+            'alamat' => $request->alamat,
+            'id_rt' => $id_rt,
         ]);
 
-        $dataKK->update($request->all());
-        return redirect()->route('data_kk.index')->with('success', 'Data KK berhasil diperbarui');
+        return redirect()->route('kk.index')->with('success', 'Data KK berhasil diperbarui');
     }
 
     public function destroy($No_KK)

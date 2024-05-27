@@ -1,62 +1,67 @@
-@extends('super-admin.layouts.template')
-
-@section('content')
-
-<div class="app-main flex-column flex-row-fluid mt-5 mx-5 mb-5" id="kt_app_main">
-    <!--begin::Content wrapper-->
-    <div class="d-flex flex-column flex-column-fluid">
-        <!--begin::Toolbar-->
-        @include('super-admin.layouts.breadcrumb')
-        <!--end::Toolbar-->
-        <!--begin::Content-->
-        <div id="kt_app_content" class="app-content flex-column-fluid">
-            <!--begin::Content container-->
-            <div id="kt_app_content_container" class="app-container container-fluid">
-                <!--begin::Card-->
-                <div class="card">
-                    <!--begin::Card header-->
-                    <div class="card-header border-0 pt-6">
-                        <div class="card-title">
-                            <h2 class="fw-bold">Edit Level</h2>
-                        </div>
-                    </div>
-                    <!--end::Card header-->
-                    <!--begin::Card body-->
-                    <div class="card-body py-4">
-                        <!--begin::Form-->
-                        <form method="POST" action="{{ route('level.update', ['id' => $level->id_level]) }}" class="form">
-                            @csrf
-                            @method('PUT')
-                            <!--begin::Input group-->
-                            <div class="mb-4">
-                                <label class="required fw-semibold fs-6 mb-2">Kode Level</label>
-                                <input type="text" id="level_kode" name="level_kode" class="form-control form-control-solid" value="{{ $level->level_kode }}" required />
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="mb-4">
-                                <label class="required fw-semibold fs-6 mb-2">Nama Level</label>
-                                <input type="text" id="level_nama" name="level_nama" class="form-control form-control-solid" value="{{ $level->level_nama }}" required />
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Actions-->
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('level.index') }}" class="btn btn-secondary">Back</a>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                            <!--end::Actions-->
-                        </form>
-                        <!--end::Form-->
-                    </div>
-                    <!--end::Card body-->
-                </div>
-                <!--end::Card-->
-            </div>
-            <!--end::Content container-->
-        </div>
-        <!--end::Content-->
-    </div>
-    <!--end::Content wrapper-->
+<!--begin::Modal - Edit task-->
+<div class="modal fade" id="kt_modal_edit_level-{{ $lvl->id_level }}" tabindex="-1" aria-hidden="true">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered mw-650px">
+		<!--begin::Modal content-->
+		<div class="modal-content">
+			<!--begin::Modal header-->
+			<div class="modal-header" id="kt_modal_edit_level_header">
+				<!--begin::Modal title-->
+				<h2 class="fw-bold">Edit Level</h2>
+				<!--end::Modal title-->
+				<!--begin::Close-->
+				<div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-level-modal-action="close">
+					<i class="ki-outline ki-cross fs-1"></i>
+				</div>
+				<!--end::Close-->
+			</div>
+			<!--end::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+				<!--begin::Form-->
+				<form method="POST" action="{{ route('level.update', ['id' => $lvl->id_level]) }}" class="form">
+					@csrf
+					@method('PUT')
+					<!--begin::Scroll-->
+					<div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_level_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_level_header" data-kt-scroll-wrappers="#kt_modal_edit_level_scroll" data-kt-scroll-offset="300px">
+						<!--begin::Input group-->
+						<div class="fv-row mb-7">
+							<!--begin::Label-->
+							<label class="required fw-semibold fs-6 mb-2">Kode Level</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" id="level_kode" name="level_kode" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Kode Level" value="{{ $lvl->level_kode }}" required />
+							<!--end::Input-->
+						</div>
+						<!--end::Input group-->
+						<!--begin::Input group-->
+						<div class="fv-row mb-7">
+							<!--begin::Label-->
+							<label class="required fw-semibold fs-6 mb-2">Nama Level</label>
+							<!--end::Label-->
+							<!--begin::Input-->
+							<input type="text" id="level_nama" name="level_nama" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nama Level" value="{{ $lvl->level_nama }}" required />
+							<!--end::Input-->
+						</div>
+						<!--end::Input group-->
+					</div>
+					<!--end::Scroll-->
+					<!--begin::Actions-->
+					<div class="text-center pt-15">
+						<button type="submit" class="btn btn-primary btn-sm" data-kt-level-modal-action="submit">
+							<span class="indicator-label">Submit</span>
+							<span class="indicator-progress">Please wait...
+							<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+						</button>
+					</div>
+					<!--end::Actions-->
+				</form>
+				<!--end::Form-->
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
 </div>
-
-@endsection
+<!--end::Modal - Edit task-->

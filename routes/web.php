@@ -55,27 +55,16 @@ Route::middleware('auth')->group(function () {
                 Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('level.deleteSelected');
             });
             
-            // Route::prefix('datauser')->group(function () {
-            //     Route::get('/', [UserController::class, 'index'])->name('user.index');
-            //     Route::post('/list', [UserController::class, 'list']);
-            //     Route::post('/store', [UserController::class, 'store']);
-            //     Route::get('/edit/{id}', [UserController::class, 'edit']);
-            //     Route::put('/update/{id}', [UserController::class, 'update'])->name('user.update');
-            //     Route::delete('/destroy/{id}', [UserController::class, 'destroy']);
-            //     Route::post('/delete-selected', [UserController::class, 'deleteSelected'])->name('user.deleteSelected');
-            // });
-            
             Route::prefix('kk')->group(function () {
                 Route::get('/', [KKController::class, 'index'])->name('kk.index');
                 Route::get('/cek_rt', [KKController::class, 'cek_rt'])->name('cek_rt');
                 Route::get('/cek_kk', [KKController::class, 'cek_kk'])->name('cek_kk');
                 Route::get('/cek_nik', [WargaController::class, 'cek_nik'])->name('cek_nik');
-                Route::post('/list', [KKController::class, 'list']);
-                Route::post('/store', [KKController::class, 'store']);
+                Route::post('/store', [KKController::class, 'store'])->name('kk.store');
                 Route::post('/show/{id}', [KKController::class, 'store_warga'])->name('kkwarga.store');
                 Route::get('/show/{id}', [KKController::class, 'show'])->name('kk.show');
                 Route::put('/update/{id}', [KKController::class, 'update'])->name('kk.update');
-                Route::delete('/destroy/{id}', [KKController::class, 'destroy']);
+                Route::delete('/destroy/{id}', [KKController::class, 'destroy'])->name('kk.destroy');
                 Route::post('/delete-selected', [KKController::class, 'deleteSelected'])->name('kk.deleteSelected');
             });
             
