@@ -183,7 +183,7 @@ var KTKKsAddKK = function () {
 
     // Fungsi untuk mengambil data rt
     function fetchRT() {
-        return fetch('datakk/cek_rt')
+        return fetch('admin/kk/cek_rt')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
@@ -197,7 +197,7 @@ var KTKKsAddKK = function () {
 
     // Fungsi untuk mengambil data kk
     function fetchKK() {
-        return fetch('datakk/cek_kk')
+        return fetch('admin/kk/cek_kk')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
@@ -210,7 +210,7 @@ var KTKKsAddKK = function () {
     }
     
     function checkRT(inputRT) {
-        const prefixedRT = `RT${inputRT}`;
+        const prefixedRT = inputRT;
         
         return fetchRT()
             .then(rts => {

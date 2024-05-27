@@ -58,26 +58,13 @@ class LevelController extends Controller
 
     public function edit($id)
     {
-        $level = Level::find($id);
-
-        $breadcrumb = (object) [
-            'title' => 'Edit Level',
-            'list'  => ['Home', 'Level', 'Edit']
-        ];
-
-        $activeMenu = 'level';
-
-        return view('super-admin.level.edit', [
-            'breadcrumb' => $breadcrumb,
-            'level' => $level,
-            'activeMenu' => $activeMenu
-        ]);
+        //
     }
 
     public function update($id, Request $request)
     {
         $request->validate([
-            'level_kode' => 'required|string|min:3|unique:level,level_kode,' . $id . ',level_id',
+            'level_kode' => 'required|string|min:3|unique:level,level_kode,' . $id . ',id_level',
             'level_nama' => 'required|string|max:100',
         ]);
 
@@ -86,7 +73,7 @@ class LevelController extends Controller
             'level_nama' => $request->level_nama,
         ]);
 
-        return redirect('/level')->with('success', 'Data Level Berhasil Diubah');
+        return redirect()->route('level.index')->with('success', 'Data Level Berhasil Diubah');
     }
 
     public function destroy($id)

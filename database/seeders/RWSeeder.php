@@ -15,7 +15,7 @@ class RWSeeder extends Seeder
     {
         $rwData = [
             [
-                'no_rw' => 'RW3',
+                'no_rw' => '03',
             ],
         ];
 

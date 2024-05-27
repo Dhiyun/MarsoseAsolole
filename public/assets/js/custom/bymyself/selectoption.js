@@ -12,4 +12,10 @@ $(document).ready(function() {
         allowClear: true,
         minimumResultsForSearch: Infinity
     });
+
+    $('#no_rt').select2({
+        placeholder: "Pilih No RT",
+        allowClear: true,
+        minimumResultsForSearch: Infinity
+    });
 });
