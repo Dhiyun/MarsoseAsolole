@@ -29,7 +29,7 @@
                 @endphp
                 @foreach($sortedLaporans as $laporan)
                     <tr>
-                        <td>{{ $laporan->ID_SPK }}</td>
+                        <td>{{ $laporan->id_spk }}</td>
                         <td>{{ $laporan->jenis_laporan }}</td>
                         <td>{{ $laporan->biaya }}</td>
                         <td>{{ $laporan->getSdmDescription() }}</td>

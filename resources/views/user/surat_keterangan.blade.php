@@ -2,13 +2,19 @@
 @section('title', 'Marsose | Surat-Surat')
 
 @section('content')
-<div class="text-center pt-2">
-    <img src="assets/media/logos/marsose.svg" width="100" height="100" alt="...">
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+
+    <div class="card pt-2 col-md-9 banner-surat shadow" style="background-image: url('assets/media/img/banner-sk.png');">
+
+    </div>
 </div>
 
 <main class="container">
-    <div class="row ml-4 mb-3">
-        <div class="col-md-3">
+    <div class="row">
+        <div class="col-md-3 list-menu">
             <button type="button" class="btn">
                 <span class="c-surat">Jenis-jenis Surat</span>
             </button>
@@ -42,19 +48,18 @@
                 <h2 class="mt-5" style="font-weight: bold">Jenis dan Template</h2>
                 <ul class="listings__grid" style="padding-left:5px;">
                     <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/vscode.png') }}" alt="" class="card__logo" />
+                        <img src="assets/media/icons/icon-skdomisili.svg" alt="" class="card__logo" style="width: 87px; height: 87px;"/>
                         <p class="card__heading">SK Domisili</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
-                                <li class="snk">- Fotokopi Kartu Keluarga (KK).</li>
-                                <li class="snk">- Fotokopi KTP yang bersangkutan.</li>
+                                <li class="snk">- Fotokopi KTP dan KK.</li>
                             </ul>
                             <a href="path/to/xx" download>
                                 <button class="btn dwn-surat">Download Template</button>
                             </a>                            
                     </li>
                     <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/logo postman.png') }}" alt="" class="card__logo" />
+                        <img src="assets/media/icons/icon-skusaha.svg" alt="" class="card__logo" />
                         <p class="card__heading">SK Usaha</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
@@ -65,29 +70,30 @@
                             </a>                            
                     </li>
                     <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/logo gitlab.png') }}" alt="" class="card__logo" />
+                        <img src="assets/media/icons/icon-sktdakmmpu.svg" alt="" style="width: 75px; height: 75px;" />
                         <p class="card__heading">SK Tidak Mampu</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
-                                <li class="snk">-</li>
+                                <li class="snk">- Fotocopy KTP dan KK.</li>
+                                <li class="snk">- SP Tidak Mampu.</li>
                             </ul>
                             <a href="path/to/xx" download>
                                 <button class="btn dwn-surat">Download Template</button>
                             </a>                            
                     </li>
                     <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/logo netifly.png') }}" alt="" class="card__logo" />
+                        <img src="assets/media/icons/icon-skbbaik.svg" alt="" class="card__logo" />
                         <p class="card__heading">SK Kelakuan Baik</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
                                 <li class="snk">-</li>
                             </ul>
-                            <a href="path/to/xx" download>
+                            <a href="path/to/" download>
                                 <button class="btn dwn-surat">Download Template</button>
                             </a>                            
                     </li>
                     <li class="card jenis-surat">
-                        <img src="{{ url('assets/img/logo netifly.png') }}" alt="" class="card__logo" />
+                        <img src="assets/media/icons/icon-skmeninggal.svg" alt="" class="card__logo" />
                         <p class="card__heading">SK Meninggal Dunia</p>
                         <p class="syarat">Syarat*</p>
                             <ul class="mt-3">
