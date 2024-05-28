@@ -139,4 +139,8 @@
     <!--end::Footer-->
 </div>
 
+<script>
+    window.cekKKRoute = "{{ route('cek_kk') }}";
+</script>
+
 @endsection

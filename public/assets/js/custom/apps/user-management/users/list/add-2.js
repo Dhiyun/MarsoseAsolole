@@ -163,13 +163,6 @@ var KTKKsAddKK = function () {
                     },
                 }
             },
-            no_rt: {
-                validators: {
-                    notEmpty: {
-                        message: "No RT Harus Diisi"
-                    },
-                }
-            },
         },
         plugins: {
             trigger: new FormValidation.plugins.Trigger(),
@@ -214,7 +207,7 @@ var KTKKsAddKK = function () {
                 submitButton.disabled = true;
     
                 checkKK(document.querySelector('#no_kk').value)
-                .then(( kkDoesNotExist) => {
+                .then((kkDoesNotExist) => {
                     submitButton.removeAttribute("data-kt-indicator");
                     submitButton.disabled = false;
     

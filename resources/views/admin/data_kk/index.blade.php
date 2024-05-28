@@ -41,7 +41,7 @@
 								<div class="fw-bold me-5">
 									<span class="me-2" data-kt-kk-table-select="selected_count"></span>Selected
 								</div>
-								<form id="delete-selected-form" action="{{ route('kk.deleteSelected') }}" method="POST">
+								<form id="delete-selected-form" action="{{ route('kk-admin.deleteSelected', ['rt' => $rtNumber]) }}" method="POST">
 									@csrf  <!-- Token CSRF untuk keamanan -->
 									<input value="" type="hidden" name="selectedIds" id="selected-ids">  <!-- Input tersembunyi untuk ID yang dipilih -->
 									<!-- Tombol untuk menghapus kk yang dipilih -->
@@ -96,7 +96,7 @@
 										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
 											<!-- Begin::Menu item -->
 											<div class="menu-item px-3">
-												<a href="{{ route('kk.show', ['id' => $kk->id_kk]) }}" class="menu-link px-3">Detail</a>
+												<a href="{{ route('kk-admin.show', ['id' => $kk->id_kk, 'rt' => $rtNumber]) }}" class="menu-link px-3">Detail</a>
 											</div>
 											<!-- End::Menu item -->
 											<!-- Begin::Menu item -->
@@ -109,7 +109,7 @@
 												<a href="#" class="menu-link px-3" data-kt-kk-table-filter="delete_row" onclick="event.preventDefault(); handleRowDeletion(event);">
 													Delete
 												</a>
-												<form id="delete-form-{{ $kk->id_kk }}" action="{{ route('kk.destroy', ['id' => $kk->id_kk]) }}" method="POST" style="display: none;">
+												<form id="delete-form-{{ $kk->id_kk }}" action="{{ route('kk-admin.destroy', ['id' => $kk->id_kk, 'rt' => $rtNumber]) }}" method="POST" style="display: none;">
 													@csrf
 													@method('DELETE')
 												</form>
@@ -138,5 +138,9 @@
         @include('admin.layouts.footer')
     <!--end::Footer-->
 </div>
+
+<script>
+	window.cekKKRoute = "{{ route('cek_kk-admin', ['rt' => $rtNumber]) }}";
+</script>
 
 @endsection

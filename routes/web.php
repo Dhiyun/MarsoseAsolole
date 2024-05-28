@@ -47,13 +47,20 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => ['cek_login:RT']], function() {
         Route::prefix('admin')->group(function () {
-            Route::prefix('{rt}')->group(function () {
+            Route::prefix('{rt?}')->group(function () {
                 Route::prefix('dashboard')->group(function () {
                     Route::get('/', [AdminWelcomeController::class, 'index'])->name('admin.index');
                 });
 
                 Route::prefix('kk')->group(function () {
                     Route::get('/', [AdminKKController::class, 'index'])->name('kk-admin.index');
+                    Route::get('/cek_kk', [AdminKKController::class, 'cek_kk'])->name('cek_kk-admin');
+                    Route::get('/cek_nik', [WargaController::class, 'cek_nik'])->name('cek_nik');
+                    Route::post('/store', [AdminKKController::class, 'store'])->name('kk-admin.store');
+                    Route::get('/show/{id}', [AdminKKController::class, 'show'])->name('kk-admin.show');
+                    Route::put('/update/{id}', [AdminKKController::class, 'update'])->name('kk-admin.update');
+                    Route::delete('/destroy/{id}', [AdminKKController::class, 'destroy'])->name('kk-admin.destroy');
+                    Route::post('/delete-selected', [AdminKKController::class, 'deleteSelected'])->name('kk-admin.deleteSelected');
                 });
 
                 Route::prefix('warga')->group(function () {
@@ -81,7 +88,6 @@ Route::middleware('auth')->group(function () {
             
             Route::prefix('kk')->group(function () {
                 Route::get('/', [KKController::class, 'index'])->name('kk.index');
-                Route::get('/cek_rt', [KKController::class, 'cek_rt'])->name('cek_rt');
                 Route::get('/cek_kk', [KKController::class, 'cek_kk'])->name('cek_kk');
                 Route::get('/cek_nik', [WargaController::class, 'cek_nik'])->name('cek_nik');
                 Route::post('/store', [KKController::class, 'store'])->name('kk.store');

@@ -24,9 +24,7 @@ class Cek_login
 
         $rtNumber = $request->route('rt');
 
-        if ($user->level->level_kode == $roles) {
-            return $next($request);
-        } else if ($user->level->level_kode == 'RT'.$rtNumber) {
+        if ($user->level->level_kode == $roles || $user->level->level_kode == 'RT'.$rtNumber) {
             return $next($request);
         } else {
             // return redirect('logout');
