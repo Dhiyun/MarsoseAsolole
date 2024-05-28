@@ -38,7 +38,7 @@
                                     <!--end::Add Laporan SPK-->
                                 </div>
                                 <!--begin::Lihat Prioritas-->
-                                <a href="{{ route('laporan_spk.priority') }}" class="btn btn-danger me-2">
+                                <a href="{{ route('laporan_spk.priority') }}" class="btn btn-danger me-2" style="margin-left: 5px">
                                     <i class="ki-outline ki-eye fs-2"></i>Lihat Prioritas
                                 </a>
                                 <!--end::Lihat Prioritas-->
