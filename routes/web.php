@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\WelcomeAdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KKController;
 use App\Http\Controllers\LandingPageController;
@@ -41,8 +42,18 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::group(['middleware' => ['cek_login:RW']], function() {
+    Route::group(['middleware' => ['cek_login:RT']], function() {
         Route::prefix('admin')->group(function () {
+            Route::prefix('{rt}')->group(function () {
+                Route::prefix('dashboard')->group(function () {
+                    Route::get('/', [WelcomeAdminController::class, 'index'])->name('admin.index');
+                });
+            });
+        });
+    });
+
+    Route::group(['middleware' => ['cek_login:RW']], function() {
+        Route::prefix('super-admin')->group(function () {
 
             Route::prefix('dashboard')->group(function () {
                 Route::get('/', [WelcomeController::class, 'index'])->name('super-admin.index');
@@ -63,11 +74,14 @@ Route::middleware('auth')->group(function () {
                 Route::get('/cek_kk', [KKController::class, 'cek_kk'])->name('cek_kk');
                 Route::get('/cek_nik', [WargaController::class, 'cek_nik'])->name('cek_nik');
                 Route::post('/store', [KKController::class, 'store'])->name('kk.store');
-                Route::post('/show/{id}', [KKController::class, 'store_warga'])->name('kkwarga.store');
                 Route::get('/show/{id}', [KKController::class, 'show'])->name('kk.show');
                 Route::put('/update/{id}', [KKController::class, 'update'])->name('kk.update');
                 Route::delete('/destroy/{id}', [KKController::class, 'destroy'])->name('kk.destroy');
                 Route::post('/delete-selected', [KKController::class, 'deleteSelected'])->name('kk.deleteSelected');
+
+                //Warga KK
+                Route::post('/show/{id}', [KKController::class, 'store_warga'])->name('kkwarga.store');
+
             });
             
             Route::prefix('warga')->group(function () {
@@ -110,7 +124,7 @@ Route::middleware('auth')->group(function () {
                 Route::post('/delete-selected', [LaporanSpkController::class, 'deleteSelected'])->name('laporan_spk.deleteSelected');
             });
         });
-     });
+    });
 });
 
 // Route::prefix('rw')->group(function () {

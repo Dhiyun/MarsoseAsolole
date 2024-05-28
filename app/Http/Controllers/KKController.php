@@ -58,7 +58,7 @@ class KKController extends Controller
     public function show($id)
     {
         $kk = KK::findOrFail($id);
-        $warga = Warga::where('id_kk', $kk->id_kk)->get();
+        $wargas = Warga::where('id_kk', $kk->id_kk)->get();
 
         $breadcrumb = (object) [
             'title' => 'Detail KK',
@@ -70,7 +70,7 @@ class KKController extends Controller
         return view('super-admin.data_kk.detail', [
             'breadcrumb' => $breadcrumb,
             'kk' => $kk,
-            'warga' => $warga,
+            'wargas' => $wargas,
             'activeMenu' => $activeMenu
         ]);
     }

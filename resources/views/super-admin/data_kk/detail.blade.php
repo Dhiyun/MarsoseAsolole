@@ -157,12 +157,12 @@
 					<!--begin::Card body-->
 					<div class="card-body py-4">
 						<!--begin::Table-->
-						<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_kk">
+						<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_wargalokal">
 							<thead>
 								<tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
 									<th class="w-10px pe-2">
 										<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-											<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_kk .form-check-input" />
+											<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_wargalokal .form-check-input" />
 										</div>
 									</th>
 									<th class="min-w-125px">ID</th>
@@ -172,10 +172,11 @@
                                     <th class="min-w-125px">Alamat</th>
                                     <th class="min-w-125px">RT</th>
 									<th class="min-w-125px">Status</th>
+									<th class="text-end min-w-100px pe-9">Actions</th>
 								</tr>
 							</thead>
 							<tbody class="text-gray-600 fw-semibold">
-								@foreach ($warga as $warga)
+								@foreach ($wargas as $warga)
 								<tr>
 									<td>
 										<div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -189,6 +190,37 @@
 									<td>{{ $warga->alamat }}</td>
 									<td>{{ $warga->kk->rt->no_rt ?? 'N/A' }}</td>
 									<td>{{ $warga->user->level->level_nama }}</td>
+									<td class="text-end">
+										<a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+											<i class="ki-outline ki-down fs-5 ms-1"></i>
+										</a>
+										<!-- Begin::Menu -->
+										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+											<!-- Begin::Menu item -->
+											<div class="menu-item px-3">
+												<a href="{{ route('warga.show', ['id' => $warga->id_warga]) }}" class="menu-link px-3">Detail</a>
+											</div>
+											<!-- End::Menu item -->
+											<!-- Begin::Menu item -->
+											<div class="menu-item px-3">
+												<a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_warga-{{ $warga->id_warga }}" class="menu-link px-3">Edit</a>
+											</div>
+											<!-- End::Menu item -->
+											<!-- Begin::Menu item -->
+											<div class="menu-item px-3">
+												<a href="#" class="menu-link px-3" data-kt-wargalokal-table-filter="delete_row" onclick="event.preventDefault(); handleRowDeletion(event);">
+													Delete
+												</a>
+												<form id="delete-form-{{ $warga->id_warga }}" action="{{ route('warga.destroy', ['id' => $warga->id_warga]) }}" method="POST" style="display: none;">
+													@csrf
+													@method('DELETE')
+												</form>
+											</div>
+											<!-- End::Menu item -->
+										</div>
+										<!-- End::Menu -->
+									</td>
+									@include('super-admin.data_warga.edit')
 								</tr>
 								@endforeach
 							</tbody>

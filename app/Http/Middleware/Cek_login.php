@@ -19,11 +19,18 @@ class Cek_login
         if (!Auth::check()) {
             return redirect('login');
         }
+
         $user = Auth::user();
+
+        $rtNumber = $request->route('rt');
 
         if ($user->level->level_kode == $roles) {
             return $next($request);
-        }
+        } else if ($user->level->level_kode == 'RT'.$rtNumber) {
+            return $next($request);
+        } else {
+            // return redirect('logout');
+        } 
 
         return redirect('login')->with('error', 'Maaf anda tidak memiliki akses');
     }
