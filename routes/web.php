@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\KKController as AdminKKController;
+use App\Http\Controllers\Admin\WargaController as AdminWargaController;
 use App\Http\Controllers\Admin\WelcomeAdminController;
+use App\Http\Controllers\Admin\WelcomeController as AdminWelcomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KKController;
 use App\Http\Controllers\LandingPageController;
@@ -46,7 +49,15 @@ Route::middleware('auth')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::prefix('{rt}')->group(function () {
                 Route::prefix('dashboard')->group(function () {
-                    Route::get('/', [WelcomeAdminController::class, 'index'])->name('admin.index');
+                    Route::get('/', [AdminWelcomeController::class, 'index'])->name('admin.index');
+                });
+
+                Route::prefix('kk')->group(function () {
+                    Route::get('/', [AdminKKController::class, 'index'])->name('kk-admin.index');
+                });
+
+                Route::prefix('warga')->group(function () {
+                    Route::get('/', [AdminWargaController::class, 'index'])->name('warga-admin.index');
                 });
             });
         });

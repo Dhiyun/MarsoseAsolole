@@ -1,4 +1,4 @@
-<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+{{-- <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
     <!--begin::Content wrapper-->
     <div class="d-flex flex-column flex-column-fluid">
         <!--begin::Content-->
@@ -1916,4 +1916,4 @@
     <!--begin::Footer-->
         @include('super-admin.layouts.footer')
     <!--end::Footer-->
-</div>
+</div> --}}

@@ -16,7 +16,7 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'dashboard' ? 'active' : '' }}" href="{{ route('super-admin.index') }}">
+                <a class="menu-link {{ $activeMenu == 'dashboard' ? 'active' : '' }}" href="{{ route('admin.index', ['rt' => $rtNumber]) }}">
                     {{-- <span class="menu-icon">
                         @if ($activeMenu == 'dashboard')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-dashboard.svg" class="h-25px theme-light-show" />
@@ -33,7 +33,7 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'datakk' ? 'active' : '' }}" href="{{ route('kk.index') }}">
+                <a class="menu-link {{ $activeMenu == 'datakk' ? 'active' : '' }}" href="{{ route('kk-admin.index', ['rt' => $rtNumber]) }}">
                     {{-- <span class="menu-icon">
                         @if ($activeMenu == 'datakk')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg" class="h-25px theme-light-show" />
@@ -50,7 +50,7 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'warga' ? 'active' : '' }}" href="{{ route('warga.index') }}">
+                <a class="menu-link {{ $activeMenu == 'warga' ? 'active' : '' }}" href="{{ route('warga-admin.index', ['rt' => $rtNumber]) }}">
                     {{-- <span class="menu-icon">
                         @if ($activeMenu == 'warga')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg" class="h-25px theme-light-show" />

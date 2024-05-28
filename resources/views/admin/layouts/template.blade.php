@@ -32,7 +32,7 @@
 				<!--begin::Wrapper-->
 				<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 					<!--begin::Sidebar-->
-						@include('super-admin.layouts.sidebar')
+						@include('admin.layouts.sidebar')
 					<!--end::Sidebar-->
 					<!--begin::Main-->
 					<div>
@@ -42,7 +42,7 @@
 				</div>
 				<!--end::Wrapper-->
 				<!--begin::Header-->
-					@include('super-admin.layouts.header')
+					@include('admin.layouts.header')
 				<!--end::Header-->
 			</div>
 			<!--end::Page-->
