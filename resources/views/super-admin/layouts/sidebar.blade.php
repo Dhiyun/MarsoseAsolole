@@ -111,11 +111,16 @@
             </div>
             <!-- End: Menu item -->
 
-            <!-- Begin: Menu item -->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+             <!-- Begin: Menu item -->
+             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
+                <a class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}" href="{{ route('laporan_spk.index') }}">
                     {{-- <span class="menu-icon">
-                        <img alt="Logo" src="assets/media/logos/logo-spk.svg" class="h-25px theme-light-show" />
+                        @if ($activeMenu == 'datart')
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-datart.svg" class="h-25px theme-light-show" />
+                        @else
+                            <img alt="Logo" src="assets/media/logos/menu/logo-datart.svg" class="h-25px theme-light-show" />
+                        @endif
                     </span> --}}
                     <span class="menu-title">Laporan SPK</span>
                 </a>

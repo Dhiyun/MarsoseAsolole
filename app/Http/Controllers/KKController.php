@@ -189,7 +189,7 @@ class KKController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
         
         if (empty($selectedIdsJson)) {
-            return redirect('/datakk')->with('error'. 'Data Warga Tidak Ditemukan');
+           return redirect()->route('data_kk.index')->with('error'. 'Data Warga Tidak Ditemukan');
         }
         
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -198,12 +198,12 @@ class KKController extends Controller
             $deletedKKs = KK::whereIn('id_kk', $selectedIds)->delete();
             
             if ($deletedKKs > 0) {
-                return redirect('/datakk')->with('success'. 'Semua Data Warga Berhasil Dihapus');
+                return redirect()->route('data_kk.index')->with('success'. 'Semua Data Warga Berhasil Dihapus');
             } else {
-                return redirect('/datakk')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect()->route('data_kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect('/datakk')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('data_kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 }
