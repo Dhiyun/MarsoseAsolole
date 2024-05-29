@@ -47,8 +47,7 @@ class LaporanSpkController extends Controller
 
     public function edit($id)
     {
-        $laporan = LaporanSpk::findOrFail($id);
-        return view('laporan_spk.edit', compact('laporan'));
+       //
     }
 
     public function update(Request $request, $id)

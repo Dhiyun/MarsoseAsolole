@@ -15,8 +15,8 @@ class WargaController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Penduduk',
-            'list' => ['Home', 'Penduduk']
+            'title' => 'Data Penduduk',
+            'list' => ['Home, Penduduk']
         ];
 
         $activeMenu = 'warga';

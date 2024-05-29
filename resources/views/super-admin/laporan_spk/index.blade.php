@@ -38,7 +38,8 @@
                                     <!--end::Add Laporan SPK-->
                                 </div>
                                 <!--begin::Lihat Prioritas-->
-                                <a href="{{ route('laporan_spk.priority') }}" class="btn btn-danger me-2" style="margin-left: 5px">
+                                <a href="{{ route('laporan_spk.priority') }}" class="btn btn-danger me-2"
+                                    style="margin-left: 5px">
                                     <i class="ki-outline ki-eye fs-2"></i>Lihat Prioritas
                                 </a>
                                 <!--end::Lihat Prioritas-->
@@ -218,7 +219,8 @@
                                         <tr>
                                             <td>
                                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                    <input value="{{ $laporan->id_spk }}" class="form-check-input" type="checkbox" data-kt-laporan_spk-table-filter="checkbox" />
+                                                    <input value="{{ $laporan->id_spk }}" class="form-check-input"
+                                                        type="checkbox" data-kt-laporan_spk-table-filter="checkbox" />
                                                 </div>
                                             </td>
                                             <td>{{ $laporan->id_spk }}</td>
@@ -238,13 +240,10 @@
                                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                                     data-kt-menu="true">
                                                     <!-- Begin::Menu item -->
-                                                    {{-- <div class="menu-item px-3">
-												<a href="{{ route('warga.show', ['id' => $warga->id_warga]) }}" class="menu-link px-3">Detail</a>
-											</div> --}}
-                                                    <!-- End::Menu item -->
-                                                    <!-- Begin::Menu item -->
                                                     <div class="menu-item px-3">
-                                                        <a href="#" class="menu-link px-3">Edit</a>
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#kt_modal_edit_laporan_spk-{{ $laporan->id_spk }}"
+                                                            class="menu-link px-3">Edit</a>
                                                     </div>
                                                     <!-- End::Menu item -->
                                                     <!-- Begin::Menu item -->
@@ -265,6 +264,7 @@
                                                 </div>
                                                 <!-- End::Menu -->
                                             </td>
+                                            @include('super-admin.laporan_spk.edit')
                                         </tr>
                                     @endforeach
                                 </tbody>

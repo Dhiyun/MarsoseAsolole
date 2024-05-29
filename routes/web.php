@@ -27,13 +27,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', [LandingPageController::class, 'index'])->name('index');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login_proses', [AuthController::class, 'login_proses'])->name('login_proses');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
-    Route::group(['middleware' => ['cek_login:WRG']], function() {
+    Route::group(['middleware' => ['cek_login:WRG']], function () {
         Route::prefix('user')->group(function () {
             Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
             Route::get('/laporan', [UserController::class, 'laporan'])->name('user.laporan');
@@ -41,11 +42,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
             Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
             Route::get('/surat_undangan', [UserController::class, 'surat_undangan'])->name('user.surat_undangan');
-            Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan'); 
+            Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan');
         });
     });
 
-    Route::group(['middleware' => ['cek_login:RT']], function() {
+    Route::group(['middleware' => ['cek_login:RT']], function () {
         Route::prefix('admin')->group(function () {
             Route::prefix('{rt?}')->group(function () {
                 Route::prefix('dashboard')->group(function () {
@@ -65,12 +66,20 @@ Route::middleware('auth')->group(function () {
 
                 Route::prefix('warga')->group(function () {
                     Route::get('/', [AdminWargaController::class, 'index'])->name('warga-admin.index');
+                    Route::get('/cek_nik', [AdminWargaController::class, 'cek_nik'])->name('cek_nik');
+                    Route::get('/cek_kk', [AdminWargaController::class, 'cek_kk'])->name('cek_kk');
+                    Route::post('/store', [AdminWargaController::class, 'store'])->name('warga-admin.store');
+                    Route::get('/detail/{id}', [AdminWargaController::class, 'show'])->name('warga-admin.show');
+                    Route::put('/update/{id}', [AdminWargaController::class, 'update'])->name('warga-admin.update');
+                    Route::put('/update-user/{id}', [UserController::class, 'update'])->name('user.update');
+                    Route::delete('/destroy/{id}', [AdminWargaController::class, 'destroy'])->name('warga-admin.destroy');
+                    Route::post('/delete-selected', [AdminWargaController::class, 'deleteSelected'])->name('warga.deleteSelected');
                 });
             });
         });
     });
 
-    Route::group(['middleware' => ['cek_login:RW']], function() {
+    Route::group(['middleware' => ['cek_login:RW']], function () {
         Route::prefix('super-admin')->group(function () {
 
             Route::prefix('dashboard')->group(function () {
@@ -85,7 +94,7 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/destroy/{id}', [LevelController::class, 'destroy']);
                 Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('level.deleteSelected');
             });
-            
+
             Route::prefix('kk')->group(function () {
                 Route::get('/', [KKController::class, 'index'])->name('kk.index');
                 Route::get('/cek_kk', [KKController::class, 'cek_kk'])->name('cek_kk');
@@ -103,7 +112,7 @@ Route::middleware('auth')->group(function () {
                 //User Warga
                 Route::put('/update-user/{id}', [UserController::class, 'update'])->name('user.update');
             });
-            
+
             Route::prefix('warga')->group(function () {
                 Route::get('/', [WargaController::class, 'index'])->name('warga.index');
                 Route::get('/cek_nik', [WargaController::class, 'cek_nik'])->name('cek_nik');
@@ -115,7 +124,7 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/destroy/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
                 Route::post('/delete-selected', [WargaController::class, 'deleteSelected'])->name('warga.deleteSelected');
             });
-            
+
             Route::prefix('laporan')->group(function () {
                 Route::get('/', [LaporanPengaduanController::class, 'index'])->name('laporan.index');
                 Route::post('/store', [LaporanPengaduanController::class, 'store']);
@@ -133,14 +142,15 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/destroy/{id}', [LevelController::class, 'destroy'])->name('surat.destroy');
                 Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('surat.deleteSelected');
             });
-           
+
             Route::prefix('laporan_spk')->group(function () {
                 Route::get('/', [LaporanSpkController::class, 'index'])->name('laporan_spk.index');
                 Route::get('/create', [LaporanSpkController::class, 'create'])->name('laporan_spk.create');
                 Route::post('/store', [LaporanSpkController::class, 'store'])->name('laporan_spk.store');
+                Route::put('/update/{id}', [LaporanSpkController::class, 'update'])->name('laporan_spk.update');
                 Route::get('/priority', [LaporanSpkController::class, 'calculatePriority'])->name('laporan_spk.priority');
                 Route::get('/chart', [LaporanSpkController::class, 'showChart'])->name('laporan_spk.chart');
-                Route::delete('/destroy/{id}', [laporanSpkController::class, 'destroy'])->name('laporan_spk.destroy');
+                Route::delete('/destroy/{id}', [LaporanSpkController::class, 'destroy'])->name('laporan_spk.destroy');
                 Route::post('/delete-selected', [LaporanSpkController::class, 'deleteSelected'])->name('laporan_spk.deleteSelected');
             });
         });
