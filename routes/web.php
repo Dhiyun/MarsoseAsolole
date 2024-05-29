@@ -98,7 +98,10 @@ Route::middleware('auth')->group(function () {
 
                 //Warga KK
                 Route::post('/show/{id}', [KKController::class, 'store_warga'])->name('kkwarga.store');
+                Route::get('{id_kk}/warga/{id}', [KKController::class, 'show_warga'])->name('kkwarga.show');
 
+                //User Warga
+                Route::put('/update-user/{id}', [UserController::class, 'update'])->name('user.update');
             });
             
             Route::prefix('warga')->group(function () {

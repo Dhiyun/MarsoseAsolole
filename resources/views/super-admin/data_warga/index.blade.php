@@ -141,4 +141,9 @@
     <!--end::Footer-->
 </div>
 
+<script>
+	window.cekNIKRoute = "{{ route('cek_nik') }}";
+    window.cekKKRoute = "{{ route('cek_kk') }}";
+</script>
+
 @endsection

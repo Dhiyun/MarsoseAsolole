@@ -54,7 +54,6 @@ class WargaController extends Controller
     public function show($id)
     {
         $warga = Warga::findOrFail($id);
-        $user = Users::findorFail($id);
         $level = Level::all();
 
         $breadcrumb = (object) [
@@ -67,7 +66,6 @@ class WargaController extends Controller
         return view('super-admin.data_warga.detail', [
             'breadcrumb' => $breadcrumb,
             'level' => $level,
-            'user' => $user,
             'warga' => $warga,
             'activeMenu' => $activeMenu
         ]);

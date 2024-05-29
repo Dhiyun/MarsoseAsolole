@@ -75,6 +75,29 @@ class KKController extends Controller
         ]);
     }
 
+    public function show_warga($id_kk, $id)
+    {
+        $kk = KK::findOrFail($id_kk);
+        $warga = Warga::where('id_kk', $kk->id_kk)
+        ->findOrFail($id);
+        $level = Level::all();
+
+        $breadcrumb = (object) [
+            'title' => 'Detail KK',
+            'list' => ['Home', 'Data KK', 'Detail KK - ' . $kk->no_kk, 'Data Warga', 'Detail Warga - ' . $warga->nik]
+        ];
+    
+        $activeMenu = 'datakk';
+    
+        return view('super-admin.data_kk.detail_warga.detail', [
+            'breadcrumb' => $breadcrumb,
+            'kk' => $kk,
+            'level' => $level,
+            'warga' => $warga,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
     public function create()
     {
         //
