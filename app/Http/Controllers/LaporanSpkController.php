@@ -236,9 +236,15 @@ class LaporanSpkController extends Controller
 
     public function calculatePriority()
     {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Prioritas Laporan SPK',
+            'list' => ['Home, Laporan SPK, Priority']
+        ];
+
+        $activeMenu = 'spk';
+
         // Get all LaporanSpk records
         $laporans = LaporanSpk::all();
-        // dd($laporans); // Check the data retrieved from the database
 
         // Create the decision matrix
         $decisionMatrix = [
@@ -248,27 +254,22 @@ class LaporanSpkController extends Controller
             'sdm' => $laporans->pluck('sdm')->toArray(),
             'durasi_pekerjaan' => $laporans->pluck('durasi_pekerjaan')->toArray(),
         ];
-        // dd($decisionMatrix); // Check the decision matrix
 
         // Calculate the number of criteria and their weights
         $criteriaCount = count($decisionMatrix);
         $weights = $this->calculateROCWeights($criteriaCount);
-        // dd($weights); // Check the calculated weights
 
         // Normalize the decision matrix
         $normalizedMatrix = $this->normalizeDecisionMatrix($decisionMatrix);
-        // dd($normalizedMatrix); // Check the normalized decision matrix
 
         // Calculate the utility matrix
         $utilityMatrix = [];
         foreach ($normalizedMatrix as $criteria => $values) {
             $utilityMatrix[$criteria] = $this->calculateUtility($values);
         }
-        // dd($utilityMatrix); // Check the utility matrix
 
         // Calculate the MAUT scores
         $mautScores = $this->calculateMAUTScores($utilityMatrix, $weights);
-        // dd($mautScores); // Check the MAUT scores
 
         // Assign scores to each laporan and sort them
         foreach ($laporans as $index => $laporan) {
@@ -277,16 +278,23 @@ class LaporanSpkController extends Controller
 
         // Sort the LaporanSpk by total score in descending order
         $sortedLaporans = $laporans->sortByDesc('total_score');
-        // dd($sortedLaporans); // Check the sorted LaporanSpk
 
         // Return the view with sorted LaporanSpk
-        return view('super-admin.laporan_spk.priority', compact('sortedLaporans'));
+        return view('super-admin.laporan_spk.priority', [
+            'breadcrumb' => $breadcrumb,
+            'laporans' => $sortedLaporans, // Use sortedLaporans instead of laporans
+            'activeMenu' => $activeMenu
+        ]);
     }
-
-
 
     public function showChart()
     {
+        $breadcrumb = (object) [
+            'title' => 'Chart Prioritas Laporan SPK',
+            'list' => ['Home, Laporan SPK, Chart']
+        ];
+
+        $activeMenu = 'spk';
         $laporans = LaporanSpk::all();
 
         $decisionMatrix = [
@@ -301,6 +309,7 @@ class LaporanSpkController extends Controller
         $weights = $this->calculateROCWeights($criteriaCount);
 
         $normalizedMatrix = $this->normalizeDecisionMatrix($decisionMatrix);
+
         $utilityMatrix = [];
         foreach ($normalizedMatrix as $criteria => $values) {
             $utilityMatrix[$criteria] = $this->calculateUtility($values);
@@ -309,11 +318,14 @@ class LaporanSpkController extends Controller
         $mautScores = $this->calculateMAUTScores($utilityMatrix, $weights);
 
         $labels = $laporans->pluck('jenis_laporan');
-        $scores = [];
-        foreach ($mautScores as $score) {
-            $scores[] = $score;
-        }
+        $scores = array_values($mautScores); // Convert mautScores to a simple array
 
-        return view('super-admin.laporan_spk.chart', compact('labels', 'scores'));
+        return view('super-admin.laporan_spk.chart', [
+            'breadcrumb' => $breadcrumb,
+            'laporans' => $laporans,
+            'activeMenu' => $activeMenu,
+            'labels' => $labels,
+            'scores' => $scores
+        ]);
     }
 }
