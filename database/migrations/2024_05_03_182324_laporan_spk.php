@@ -18,12 +18,12 @@ return new class extends Migration
             $table->integer('dampak')->nullable();
             $table->integer('durasi_pekerjaan')->nullable();
             $table->integer('sdm')->nullable();
-            $table->unsignedBigInteger('id_warga')->index();
+            $table->unsignedBigInteger('id_laporan')->index();
             $table->timestamps();
             
-            $table->foreign('id_warga')
-                  ->references('id_warga')
-                  ->on('warga')
+            $table->foreign('id_laporan')
+                  ->references('id_laporan')
+                  ->on('laporan_pengaduan')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
         });

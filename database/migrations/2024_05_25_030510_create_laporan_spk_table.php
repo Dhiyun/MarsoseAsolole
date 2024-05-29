@@ -8,7 +8,7 @@ class CreateLaporanSpkTable extends Migration
 {
     public function up()
     {
-        Schema::create('laporan_spk', function (Blueprint $table) {
+        Schema::create('laporan_spk_coba', function (Blueprint $table) {
             $table->bigIncrements('ID_SPK');
             $table->string('jenis_laporan', 100)->nullable();
             $table->integer('biaya')->nullable();
