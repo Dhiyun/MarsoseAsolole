@@ -181,23 +181,11 @@ var KTKKsAddKK = function () {
         }
     });
 
-    // Fungsi untuk mengambil data rt
-    function fetchRT() {
-        return fetch('datakk/cek_rt')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                return data.rts.map(rtObject => rtObject.no_rt);
-            });
-    }
-
     // Fungsi untuk mengambil data kk
     function fetchKK() {
-        return fetch('datakk/cek_kk')
+        const route = window.cekKKRoute;
+
+        return fetch(route)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
@@ -206,15 +194,6 @@ var KTKKsAddKK = function () {
             })
             .then(data => {
                 return data.kks.map(kkObject => kkObject.no_kk);
-            });
-    }
-    
-    function checkRT(inputRT) {
-        const prefixedRT = `RT${inputRT}`;
-        
-        return fetchRT()
-            .then(rts => {
-                return rts.includes(prefixedRT);
             });
     }
 
@@ -234,17 +213,13 @@ var KTKKsAddKK = function () {
                 submitButton.setAttribute("data-kt-indicator", "on");
                 submitButton.disabled = true;
     
-                // Memeriksa RT dan KK secara bersamaan
-                Promise.all([
-                    checkRT(document.querySelector('#no_rt').value),
-                    checkKK(document.querySelector('#no_kk').value)
-                ])
-                .then(([rtExists, kkDoesNotExist]) => {
+                checkKK(document.querySelector('#no_kk').value)
+                .then(( kkDoesNotExist) => {
                     submitButton.removeAttribute("data-kt-indicator");
                     submitButton.disabled = false;
     
                     // Jika RT ada dan KK belum ada, tambahkan KK
-                    if (rtExists && !kkDoesNotExist) {
+                    if (!kkDoesNotExist) {
                         Swal.fire({
                             text: "KK berhasil ditambahkan.",
                             icon: "success",
@@ -257,11 +232,7 @@ var KTKKsAddKK = function () {
                     } else {
                         // Menampilkan pesan error jika RT tidak ada atau KK sudah ada
                         let errorMessage = '';
-                        if (!rtExists && kkDoesNotExist){
-                            errorMessage = "RT atau KK tidak sesuai. Silakan coba lagi.";
-                        } else if (!rtExists) {
-                            errorMessage = "RT tidak terdaftar. Silakan coba lagi.";
-                        } else if (kkDoesNotExist) {
+                        if (kkDoesNotExist) {
                             errorMessage = "KK sudah terdaftar. Silakan coba lagi.";
                         }
                         Swal.fire({
@@ -279,7 +250,7 @@ var KTKKsAddKK = function () {
                     // Menangani kesalahan dan menampilkan pesan error
                     submitButton.removeAttribute("data-kt-indicator");
                     submitButton.disabled = false;
-                    console.error('Terjadi kesalahan saat memeriksa RT atau KK:', error);
+                    console.error('Terjadi kesalahan saat memeriksa KK:', error);
                     Swal.fire({
                         text: "Terjadi kesalahan saat memeriksa RT atau KK. Silakan coba lagi.",
                         icon: "error",
@@ -291,7 +262,6 @@ var KTKKsAddKK = function () {
                     });
                 });
             } else {
-                // Menampilkan pesan error jika form tidak valid
                 Swal.fire({
                     text: "Terdapat kesalahan dalam form, silakan coba lagi.",
                     icon: "error",
@@ -417,7 +387,9 @@ var KTWargasAddWarga = function () {
 
     // Fungsi untuk mengambil data nik
     function fetchNIK() {
-        return fetch('admin/warga/cek_nik')
+        const route = window.cekNIKRoute;
+
+        return fetch(route)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
@@ -431,7 +403,9 @@ var KTWargasAddWarga = function () {
 
     // Fungsi untuk mengambil data kk
     function fetchKK() {
-        return fetch('warga/cek_kk')
+        const route = window.cekKKRoute;
+
+        return fetch(route)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
@@ -644,7 +618,9 @@ var KTWargasAddWargaLokal = function () {
 
     // Fungsi untuk mengambil data nik
     function fetchNIK() {
-        return fetch('admin/warga/cek_nik')
+        const route = window.cekNIKRoute;
+
+        return fetch(route)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);

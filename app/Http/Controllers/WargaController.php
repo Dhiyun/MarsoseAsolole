@@ -15,16 +15,16 @@ class WargaController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Penduduk',
-            'list' => ['Home', 'Penduduk']
+            'title' => 'Data Penduduk',
+            'list' => ['Home, Penduduk']
         ];
 
         $activeMenu = 'warga';
-        $datawarga = Warga::all();
+        $wargas = Warga::all();
 
         return view('super-admin.data_warga.index', [
             'breadcrumb' => $breadcrumb,
-            'datawarga' => $datawarga,
+            'wargas' => $wargas,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -54,7 +54,6 @@ class WargaController extends Controller
     public function show($id)
     {
         $warga = Warga::findOrFail($id);
-        $user = Users::findorFail($id);
         $level = Level::all();
 
         $breadcrumb = (object) [
@@ -67,7 +66,6 @@ class WargaController extends Controller
         return view('super-admin.data_warga.detail', [
             'breadcrumb' => $breadcrumb,
             'level' => $level,
-            'user' => $user,
             'warga' => $warga,
             'activeMenu' => $activeMenu
         ]);
@@ -122,42 +120,33 @@ class WargaController extends Controller
 
     public function edit($id)
     {
-        $warga = Warga::find($id);
-
-        $breadcrumb = (object) [
-            'title' => 'Edit Penduduk',
-            'list' => ['Home', 'Penduduk', 'Edit']
-        ];
-
-        $activeMenu = 'warga';
-        $warga = Warga::all();
-
-        return view('warga.index', [
-            'breadcrumb' => $breadcrumb,
-            'warga' => $warga,
-            'activeMenu' => $activeMenu
-        ]);
-
-        return view('warga.edit', compact('warga'));
+        //
     }
 
-    public function update(Request $request, $NIK)
+    public function update(Request $request, $id)
     {
-        $warga = Warga::findOrFail($NIK);
-
         $request->validate([
-            'username' => 'required',
+            'nik' => 'required|unique:warga,nik,'. $id . ',id_warga',
             'nama' => 'required',
-            'alamat' => 'required',
             'jenis_kelamin' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'agama' => 'required',
-            'no_telp' => 'required',
-            'No_KK' => 'required',
+            'alamat' => 'required',
+            'no_kk' => 'nullable',
         ]);
 
-        $warga->update($request->all());
+        Warga::findOrFail($id)->update([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'agama' => $request->agama,
+            'alamat' => $request->alamat,
+            'no_kk' => $request->no_kk,
+        ]);
+
         return redirect()->route('warga.index')->with('success', 'Warga berhasil diperbarui');
     }
 
@@ -165,16 +154,16 @@ class WargaController extends Controller
     {
         $check = Warga::find($id);
         if(!$check) {
-            return redirect('/warga')->with('error'. 'Data Warga Tidak Ditemukan');
+            return redirect()->route('warga.index')->with('error'. 'Data Warga Tidak Ditemukan');
         }
 
         try{
             Warga::destroy($id);
             Users::destroy($id);
 
-            return redirect('/warga')->with('success'. 'Data Warga Berhasil Dihapus');
+            return redirect()->route('warga.index')->with('success'. 'Data Warga Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/warga')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('warga.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
@@ -183,7 +172,7 @@ class WargaController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
         
         if (empty($selectedIdsJson)) {
-            return redirect('/warga')->with('error'. 'Data Warga Tidak Ditemukan');
+            return redirect()->route('warga.index')->with('error'. 'Data Warga Tidak Ditemukan');
         }
         
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -193,12 +182,12 @@ class WargaController extends Controller
             $deletedUsers = Users::whereIn('id_user', $selectedIds)->delete();
             
             if ($deletedWargas && $deletedUsers > 0) {
-                return redirect('/warga')->with('success'. 'Semua Data Warga Berhasil Dihapus');
+                return redirect()->route('warga.index')->with('success'. 'Semua Data Warga Berhasil Dihapus');
             } else {
-                return redirect('/warga')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect()->route('warga.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect('/warga')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('warga.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 }

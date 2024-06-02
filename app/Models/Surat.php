@@ -17,8 +17,11 @@ class Surat extends Model
         'jenis_surat',
         'nama_surat',
         'file_surat',
-        'alur_pengurusan',
         'id_warga',
-        'id_kategorisurat',
     ];
+
+    public function warga()
+    {
+        return $this->belongsTo(Warga::class, 'id_warga');
+    }
 }

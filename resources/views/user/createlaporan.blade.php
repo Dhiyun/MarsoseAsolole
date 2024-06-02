@@ -31,10 +31,6 @@
             <textarea class="form-control" rows="4" name="application" placeholder=""
                 style="border: 1px solid;"></textarea>
         </div>
-        <div class="d-flex flex-column mb-8">
-            <label class="fs-6 fw-semibold mb-2">Dampak</label>
-            <input type="text" class="form-control" name="application" placeholder="Jumlah orang terdampak" style="border: 1px solid;">
-        </div>
         <div class="d-flex flex-column mb-5 fv-row">
             <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
                 <span class="required">Gambar</span>

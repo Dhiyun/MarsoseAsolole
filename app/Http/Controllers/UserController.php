@@ -149,7 +149,7 @@ class UserController extends Controller
 
         $warga->save();
 
-        return redirect()->route('warga.show', $id)->with('success', 'Data User Berhasil Diubah');
+        return redirect()->back()->with('success', 'Data User Berhasil Diubah');
     }
 
     public function destroy($id)
