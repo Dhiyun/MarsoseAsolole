@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         // Seed the application's database.
         $this->call([
-            KriteriaSeeder::class,
+            KriteriasTableSeeder::class,
             DetailKriteriaSeeder::class,
             // other seeders...
         ]);

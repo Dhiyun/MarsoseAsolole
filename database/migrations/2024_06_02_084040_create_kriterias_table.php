@@ -4,19 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKriteriasTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('kriterias', function (Blueprint $table) {
             $table->id('id_kriteria');
-            $table->string('kode_kriteria', 20);
-            $table->string('nama_kriteria', 100);
+            $table->string('nama_kriteria', 255);
+            $table->enum('jenis_kriteria', ['Benefit', 'Cost']);
             $table->timestamps();
         });
     }
@@ -26,8 +26,8 @@ class CreateKriteriasTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('kriterias');
     }
-}
+};
