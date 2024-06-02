@@ -44,12 +44,7 @@ class LaporanSpkController extends Controller
 
         return redirect()->route('laporan_spk.index');
     }
-
-    public function edit($id)
-    {
-       //
-    }
-
+    
     public function update(Request $request, $id)
     {
         $data = $request->validate([

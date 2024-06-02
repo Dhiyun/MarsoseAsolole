@@ -128,25 +128,37 @@
                                                         <!-- Dampak -->
                                                         <div class="fv-row mb-7">
                                                             <label for="dampak" class="form-label d-block">Dampak</label>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="dampak" id="dampak1" value="1" required>
-                                                                <label class="form-check-label"
-                                                                    for="dampak1">Rendah</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="dampak" id="dampak2" value="2"
-                                                                    required>
-                                                                <label class="form-check-label"
-                                                                    for="dampak2">Medium</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="dampak" id="dampak3" value="3"
-                                                                    required>
-                                                                <label class="form-check-label"
-                                                                    for="dampak3">Tinggi</label>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div
+                                                                    class="form-check form-check-inline flex-grow-1 text-center">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="dampak" id="dampak1" value="1"
+                                                                        required>
+                                                                    <label class="form-check-label"
+                                                                        for="dampak1">Rendah</label>
+                                                                    <div id="durasiHelp1" class="form-text">1-50 Orang
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="form-check form-check-inline flex-grow-1 text-center">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="dampak" id="dampak2" value="2"
+                                                                        required>
+                                                                    <label class="form-check-label"
+                                                                        for="dampak2">Medium</label>
+                                                                    <div id="durasiHelp2" class="form-text">51-100 Orang
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="form-check form-check-inline flex-grow-1 text-center">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="dampak" id="dampak3" value="3"
+                                                                        required>
+                                                                    <label class="form-check-label"
+                                                                        for="dampak3">Tinggi</label>
+                                                                    <div id="durasiHelp3" class="form-text">>100 Orang
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <!-- Durasi Pekerjaan -->
@@ -238,20 +250,20 @@
                                                 </a>
                                                 <!-- Begin::Menu -->
                                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                                    data-kt-menu="true">
+                                                    data-kt-menu="true">    
                                                     <!-- Begin::Menu item -->
                                                     <div class="menu-item px-3">
                                                         <a href="#" data-bs-toggle="modal"
                                                             data-bs-target="#kt_modal_edit_laporan_spk-{{ $laporan->id_spk }}"
-                                                            class="menu-link px-3">Edit</a>
+                                                            class="menu-link px-3"><i class="ki-outline ki-pencil fs-6"></i>- Edit</a>
                                                     </div>
                                                     <!-- End::Menu item -->
                                                     <!-- Begin::Menu item -->
                                                     <div class="menu-item px-3">
                                                         <a href="#" class="menu-link px-3"
                                                             data-kt-laporan_spk-table-filter="delete_row"
-                                                            onclick="event.preventDefault(); handleRowDeletion(event);">
-                                                            Delete
+                                                            onclick="event.preventDefault(); handleRowDeletion(event);"><i class="ki-outline ki-trash fs-6"></i>
+                                                            - Delete
                                                         </a>
                                                         <form id="delete-form-{{ $laporan->id_spk }}"
                                                             action="{{ route('laporan_spk.destroy', ['id' => $laporan->id_spk]) }}"

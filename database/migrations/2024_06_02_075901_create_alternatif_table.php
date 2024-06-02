@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('laporan_spk', function (Blueprint $table) {
-            $table->bigIncrements('id_spk');
-            $table->string('jenis_laporan', 100)->nullable();
-            $table->integer('biaya')->nullable();
-            $table->integer('dampak')->nullable();
-            $table->integer('durasi_pekerjaan')->nullable();
-            $table->integer('sdm')->nullable();
+        Schema::create('alternatif', function (Blueprint $table) {
+            $table->bigIncrements('id_alternatif');
+            $table->string('kode_alternatif', 20)->nullable();
             $table->unsignedBigInteger('id_laporan')->index();
             $table->timestamps();
-            
+
             $table->foreign('id_laporan')
                   ->references('id_laporan')
                   ->on('laporan_pengaduan')
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('laporan_spk');
+        Schema::dropIfExists('alternatif');
     }
 };

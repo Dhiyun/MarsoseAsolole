@@ -17,13 +17,13 @@
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'dashboard' ? 'active' : '' }}" href="{{ route('super-admin.index') }}">
-                    {{-- <span class="menu-icon">
+                    <span class="menu-icon">
                         @if ($activeMenu == 'dashboard')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-dashboard.svg" class="h-25px theme-light-show" />
                         @else
                             <img alt="Logo" src="assets/media/logos/menu/logo-dashboard.svg" class="h-25px theme-light-show" />
                         @endif
-                    </span> --}}
+                    </span>
                     <span class="menu-title">Dashboard</span>
                 </a>
                 <!-- End: Menu link -->
@@ -34,13 +34,13 @@
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'level' ? 'active' : '' }}" href="{{ route('level.index') }}">
-                    {{-- <span class="menu-icon">
+                    <span class="menu-icon">
                         @if ($activeMenu == 'level')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-laporan.svg" class="h-25px theme-light-show" />
                         @else
                             <img alt="Logo" src="assets/media/logos/menu/logo-laporan.svg" class="h-25px theme-light-show" />
                         @endif
-                    </span> --}}
+                    </span>
                     <span class="menu-title">Level</span>
                 </a>
                 <!-- End: Menu link -->
@@ -51,13 +51,13 @@
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'datakk' ? 'active' : '' }}" href="{{ route('kk.index') }}">
-                    {{-- <span class="menu-icon">
+                    <span class="menu-icon">
                         @if ($activeMenu == 'datakk')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg" class="h-25px theme-light-show" />
                         @else
                             <img alt="Logo" src="assets/media/logos/menu/logo-warga.svg" class="h-25px theme-light-show" />
                         @endif
-                    </span> --}}
+                    </span>
                     <span class="menu-title">Data KK</span>
                 </a>
                 <!-- End: Menu link -->
@@ -68,13 +68,13 @@
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'warga' ? 'active' : '' }}" href="{{ route('warga.index') }}">
-                    {{-- <span class="menu-icon">
+                    <span class="menu-icon">
                         @if ($activeMenu == 'warga')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg" class="h-25px theme-light-show" />
                         @else
                             <img alt="Logo" src="assets/media/logos/menu/logo-warga.svg" class="h-25px theme-light-show" />
                         @endif
-                    </span> --}}
+                    </span>
                     <span class="menu-title">Data Penduduk</span>
                 </a>
                 <!-- End: Menu link -->
@@ -85,9 +85,13 @@
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'surat' ? 'active' : '' }}" href="{{ route('surat.index') }}">
-                    {{-- <span class="menu-icon">
-                        <img alt="Logo" src="assets/media/logos/logo-surat.svg" class="h-25px theme-light-show" />
-                    </span> --}}
+                    <span class="menu-icon">
+                        @if ($activeMenu == 'datart')
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-datart.svg" class="h-25px theme-light-show" />
+                        @else
+                            <img alt="Logo" src="assets/media/logos/menu/logo-datart.svg" class="h-25px theme-light-show" />
+                        @endif
+                    </span>
                     <span class="menu-title">Surat-Surat</span>
                 </a>
                 <!-- End: Menu link -->
@@ -98,13 +102,13 @@
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'laporan' ? 'active' : '' }}" href="{{ route('laporan.index') }}">
-                    {{-- <span class="menu-icon">
+                    <span class="menu-icon">
                         @if ($activeMenu == 'datart')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-datart.svg" class="h-25px theme-light-show" />
                         @else
                             <img alt="Logo" src="assets/media/logos/menu/logo-datart.svg" class="h-25px theme-light-show" />
                         @endif
-                    </span> --}}
+                    </span>
                     <span class="menu-title">Laporan</span>
                 </a>
                 <!-- End: Menu link -->
@@ -115,13 +119,13 @@
              <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}" href="{{ route('laporan_spk.index') }}">
-                    {{-- <span class="menu-icon">
+                    <span class="menu-icon">
                         @if ($activeMenu == 'datart')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-datart.svg" class="h-25px theme-light-show" />
                         @else
                             <img alt="Logo" src="assets/media/logos/menu/logo-datart.svg" class="h-25px theme-light-show" />
                         @endif
-                    </span> --}}
+                    </span>
                     <span class="menu-title">Laporan SPK</span>
                 </a>
                 <!-- End: Menu link -->
