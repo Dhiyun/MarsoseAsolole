@@ -10,11 +10,6 @@ class CreateLaporanSpkTable extends Migration
     {
         Schema::create('laporan_spk_coba', function (Blueprint $table) {
             $table->bigIncrements('ID_SPK');
-            $table->string('jenis_laporan', 100)->nullable();
-            $table->integer('biaya')->nullable();
-            $table->integer('dampak')->nullable();
-            $table->integer('durasi_pekerjaan')->nullable();
-            $table->integer('sdm')->nullable();
             $table->timestamps();
         });
     }

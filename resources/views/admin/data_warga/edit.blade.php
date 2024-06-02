@@ -19,7 +19,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form method="POST" id="kt_modal_edit_warga_form" class="form" action="{{ route('warga.update', ['id' => $warga->id_warga]) }}">
+                <form method="POST" id="kt_modal_edit_warga_form" class="form" action="{{ route('warga-admin.update', ['id' => $warga->id_warga, 'rt' => $rtNumber]) }}">
                     @csrf
                     @method('PUT')
                     <!--begin::Scroll-->

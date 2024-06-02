@@ -380,7 +380,9 @@ var KTWargasAddWarga = function () {
 
     // Fungsi untuk mengambil data nik
     function fetchNIK() {
-        return fetch('admin/warga/cek_nik')
+        const route = window.cekNIKRoute;
+
+        return fetch(route)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
@@ -394,7 +396,9 @@ var KTWargasAddWarga = function () {
 
     // Fungsi untuk mengambil data kk
     function fetchKK() {
-        return fetch('warga/cek_kk')
+        const route = window.cekKKRoute;
+
+        return fetch(route)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
