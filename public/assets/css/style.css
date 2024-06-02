@@ -69,3 +69,16 @@ button .btn.dropdown-toggle::after {
     background: linear-gradient(to bottom, #FF520D, #FFFFFF, #1E293B);
     z-index: -1; /* Memastikan elemen pseudo berada di belakang elemen utama */
 }
+
+.form-check-inline {
+    margin: 0 10px; /* Adjust as needed */
+    flex: 1;
+}
+
+.form-check-inline:first-child {
+    margin-left: 0;
+}
+
+.form-check-inline:last-child {
+    margin-right: 0;
+}

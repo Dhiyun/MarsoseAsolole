@@ -19,6 +19,16 @@ class Users extends Seeder
                 'password' => bcrypt('admin'),
                 'id_level' => 1,
             ],
+            [
+                'username' => '234',
+                'password' => bcrypt('admin'),
+                'id_level' => 2,
+            ],
+            [
+                'username' => '345',
+                'password' => bcrypt('admin'),
+                'id_level' => 7,
+            ],
         ];
 
         DB::table('user')->insert($users);

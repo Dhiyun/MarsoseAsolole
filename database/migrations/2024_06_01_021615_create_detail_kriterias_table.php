@@ -35,3 +35,4 @@ class CreateDetailKriteriasTable extends Migration
         Schema::dropIfExists('detail_kriterias');
     }
 }
+

@@ -128,25 +128,37 @@
                                                         <!-- Dampak -->
                                                         <div class="fv-row mb-7">
                                                             <label for="dampak" class="form-label d-block">Dampak</label>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="dampak" id="dampak1" value="1" required>
-                                                                <label class="form-check-label"
-                                                                    for="dampak1">Rendah</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="dampak" id="dampak2" value="2"
-                                                                    required>
-                                                                <label class="form-check-label"
-                                                                    for="dampak2">Medium</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="dampak" id="dampak3" value="3"
-                                                                    required>
-                                                                <label class="form-check-label"
-                                                                    for="dampak3">Tinggi</label>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div
+                                                                    class="form-check form-check-inline flex-grow-1 text-center">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="dampak" id="dampak1" value="1"
+                                                                        required>
+                                                                    <label class="form-check-label"
+                                                                        for="dampak1">Rendah</label>
+                                                                    <div id="durasiHelp1" class="form-text">1-50 Orang
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="form-check form-check-inline flex-grow-1 text-center">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="dampak" id="dampak2" value="2"
+                                                                        required>
+                                                                    <label class="form-check-label"
+                                                                        for="dampak2">Medium</label>
+                                                                    <div id="durasiHelp2" class="form-text">51-100 Orang
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="form-check form-check-inline flex-grow-1 text-center">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="dampak" id="dampak3" value="3"
+                                                                        required>
+                                                                    <label class="form-check-label"
+                                                                        for="dampak3">Tinggi</label>
+                                                                    <div id="durasiHelp3" class="form-text">>100 Orang
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <!-- Durasi Pekerjaan -->

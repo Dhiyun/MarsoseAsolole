@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             KriteriasTableSeeder::class,
             DetailKriteriaSeeder::class,
-            // other seeders...
+            LevelSeeder::class,
+            RWSeeder::class,
+            RTSeeder::class,
+            Users::class,
+            WargaSeeder::class,
         ]);
     }
     
