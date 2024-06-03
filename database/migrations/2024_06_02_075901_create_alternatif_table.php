@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('alternatif', function (Blueprint $table) {
             $table->bigIncrements('id_alternatif');
-            $table->string('kode_alternatif', 20)->nullable();
+            $table->string('kode_alternatif', 10)->nullable();
             $table->unsignedBigInteger('id_laporan')->index();
             $table->timestamps();
 

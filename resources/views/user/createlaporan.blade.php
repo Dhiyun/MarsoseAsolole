@@ -5,7 +5,7 @@
 <h1 class="mb-5 text-center fw-bold">Buat Laporan Warga</h1>
 <div class="card shadow keluhan">
     <div class="card-body p-lg-17">
-        <div class="d-flex flex-column mb-5 fv-row">
+        <div class="d-flex flex-column mb-5 fv-row">      
             <!--begin::Label-->
             <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
                 <span class="required">Jenis Laporan</span>

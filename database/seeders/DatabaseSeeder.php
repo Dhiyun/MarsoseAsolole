@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Warga::factory()->count(50)->create();
         // Seed the application's database.
         $this->call([
             KriteriasTableSeeder::class,
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
             RTSeeder::class,
             Users::class,
             WargaSeeder::class,
+            
         ]);
     }
     

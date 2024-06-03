@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('surat', function (Blueprint $table) {
             $table->bigIncrements('id_surat');
-            $table->string('jenis_surat', 100)->nullable();
+            $table->string('jenis_surat', 30)->nullable();
             $table->string('nama_surat', 100)->nullable();
             $table->string('file_surat', 255)->nullable();
             $table->unsignedBigInteger('id_warga')->index();

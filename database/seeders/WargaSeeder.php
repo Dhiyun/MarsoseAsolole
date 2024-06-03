@@ -16,7 +16,7 @@ class WargaSeeder extends Seeder
         $wargas = [
             [
                 'nik' => '123',
-                'nama' => 'admin',
+                'nama' => 'superadmin',
                 'jenis_kelamin' => 'laki-laki',
                 'tempat_lahir' => 'Malang',
                 'tanggal_lahir' => '2004-05-19',
@@ -36,7 +36,7 @@ class WargaSeeder extends Seeder
             ],
             [
                 'nik' => '345',
-                'nama' => 'admin',
+                'nama' => 'warga',
                 'jenis_kelamin' => 'laki-laki',
                 'tempat_lahir' => 'Malang',
                 'tanggal_lahir' => '2004-05-19',

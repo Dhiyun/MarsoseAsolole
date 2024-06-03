@@ -16,7 +16,7 @@ class Users extends Seeder
         $users = [
             [
                 'username' => '123',
-                'password' => bcrypt('admin'),
+                'password' => bcrypt('superadmin'),
                 'id_level' => 1,
             ],
             [
@@ -26,7 +26,7 @@ class Users extends Seeder
             ],
             [
                 'username' => '345',
-                'password' => bcrypt('admin'),
+                'password' => bcrypt('warga'),
                 'id_level' => 7,
             ],
         ];
