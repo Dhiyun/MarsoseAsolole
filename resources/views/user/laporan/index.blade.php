@@ -20,8 +20,8 @@
             <!--end::Header-->
             <!--begin::Body-->
             <div class="card-body pt-5">
-                <button class="btn laporan"
-                    onclick="window.location.href='/user/createlaporan'">Buat Laporan</button>
+                <button class="btn laporan"             
+                    onclick="window.location.href='{{ route('user-laporan.create') }}'">Buat Laporan</button>
             </div>
             <!--end: Card Body-->
         </div>

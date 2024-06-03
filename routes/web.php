@@ -12,6 +12,7 @@ use App\Http\Controllers\LaporanSpkController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\User\LaporanPengaduanController as UserLaporanPengaduanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\WargaController;
@@ -37,12 +38,16 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['cek_login:WRG']], function () {
         Route::prefix('user')->group(function () {
             Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
-            Route::get('/laporan', [UserController::class, 'laporan'])->name('user.laporan');
-            Route::get('/createlaporan', [UserController::class, 'createlaporan'])->name('user.createlaporan');
             Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
             Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
             Route::get('/surat_undangan', [UserController::class, 'surat_undangan'])->name('user.surat_undangan');
             Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan');
+
+            Route::prefix('laporan')->group(function () {
+                Route::get('/', [UserLaporanPengaduanController::class, 'index'])->name('user-laporan.index');
+                Route::get('/create', [UserLaporanPengaduanController::class, 'create'])->name('user-laporan.create');
+                Route::post('/store', [UserLaporanPengaduanController::class, 'store'])->name('user-laporan.store');
+            });
         });
     });
 
@@ -127,10 +132,11 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix('laporan')->group(function () {
                 Route::get('/', [LaporanPengaduanController::class, 'index'])->name('laporan.index');
-                Route::post('/store', [LaporanPengaduanController::class, 'store']);
-                Route::get('/edit/{id}', [LaporanPengaduanController::class, 'edit']);
+                Route::post('/store', [LaporanPengaduanController::class, 'store'])->name('laporan.store');
+                Route::get('/detail/{id}', [LaporanPengaduanController::class, 'show'])->name('laporan.show');
                 Route::put('/update/{id}', [LaporanPengaduanController::class, 'update'])->name('laporan.update');
-                Route::delete('/destroy/{id}', [LaporanPengaduanController::class, 'destroy']);
+                Route::put('/', [LaporanPengaduanController::class, 'update_status'])->name('laporan.updateStatus');
+                Route::delete('/destroy/{id}', [LaporanPengaduanController::class, 'destroy'])->name('laporan.destroy');
                 Route::post('/delete-selected', [LaporanPengaduanController::class, 'deleteSelected'])->name('laporan.deleteSelected');
             });
 
