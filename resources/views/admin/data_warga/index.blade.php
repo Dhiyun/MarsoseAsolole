@@ -109,7 +109,7 @@
                                                     data-kt-menu="true">
                                                     <!-- Begin::Menu item -->
                                                     <div class="menu-item px-3">
-                                                        <a href="{{ route('warga.show', ['id' => $warga->id_warga]) }}" class="menu-link px-3">Detail</a>
+                                                        <a href="{{ route('warga-admin.show', ['id' => $warga->id_warga, 'rt' => $rtNumber]) }}" class="menu-link px-3">Detail</a>
                                                     </div>
                                                     <!-- End::Menu item -->
                                                     <!-- Begin::Menu item -->
@@ -157,4 +157,8 @@
         @include('admin.layouts.footer')
         <!--end::Footer-->
     </div>
+    <script>
+        window.cekNIKRoute = "{{ route('cek_nik-admin', ['rt' => $rtNumber]) }}";
+        window.cekKKRoute = "{{ route('cek_kk-admin', ['rt' => $rtNumber]) }}";
+    </script>
 @endsection

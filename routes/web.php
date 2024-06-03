@@ -66,12 +66,12 @@ Route::middleware('auth')->group(function () {
 
                 Route::prefix('warga')->group(function () {
                     Route::get('/', [AdminWargaController::class, 'index'])->name('warga-admin.index');
-                    Route::get('/cek_nik', [AdminWargaController::class, 'cek_nik'])->name('cek_nik');
-                    Route::get('/cek_kk', [AdminWargaController::class, 'cek_kk'])->name('cek_kk');
+                    Route::get('/cek_nik', [AdminWargaController::class, 'cek_nik'])->name('cek_nik-admin');
+                    Route::get('/cek_kk', [AdminWargaController::class, 'cek_kk'])->name('cek_kk-admin');
                     Route::post('/store', [AdminWargaController::class, 'store'])->name('warga-admin.store');
                     Route::get('/detail/{id}', [AdminWargaController::class, 'show'])->name('warga-admin.show');
                     Route::put('/update/{id}', [AdminWargaController::class, 'update'])->name('warga-admin.update');
-                    Route::put('/update-user/{id}', [UserController::class, 'update'])->name('user.update');
+                    Route::put('/update-user/{id}', [AdminWargaController::class, 'update_user'])->name('user-admin.update');
                     Route::delete('/destroy/{id}', [AdminWargaController::class, 'destroy'])->name('warga-admin.destroy');
                     Route::post('/delete-selected', [AdminWargaController::class, 'deleteSelected'])->name('warga.deleteSelected');
                 });

@@ -26,10 +26,8 @@ class WargaController extends Controller
         $wargas = Warga::select('warga.*')
             ->leftJoin('kk', 'kk.id_kk', '=', 'warga.id_kk')
             ->leftJoin('rt', 'kk.id_rt', '=', 'rt.id_rt')
-            ->where(function ($query) use ($no_rt) {
-                $query->where('rt.no_rt', '0' . $no_rt)
-                    ->orWhereNull('warga.id_kk');
-            })
+            ->where('rt.no_rt', '0'.$no_rt)
+            ->orWhereNull('warga.id_kk')
             ->get();
 
         return view('admin.data_warga.index', [
@@ -62,7 +60,7 @@ class WargaController extends Controller
         }
     }
 
-    public function show($id)
+    public function show($no_rt, $id)
     {
         $warga = Warga::findOrFail($id);
         $level = Level::all();
@@ -74,14 +72,11 @@ class WargaController extends Controller
 
         $activeMenu = 'warga';
 
-        // Asumsikan Anda memiliki `$rtNumber` dari parameter atau data terkait warga
-        $rtNumber = $warga->kk->rt->no_rt ?? null;
-
         return view('admin.data_warga.detail', [
             'breadcrumb' => $breadcrumb,
             'level' => $level,
             'warga' => $warga,
-            'rtNumber' => $rtNumber,
+            'rtNumber' => $no_rt,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -91,7 +86,7 @@ class WargaController extends Controller
         // Not implemented
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $no_rt)
     {
         $validate = $request->validate([
             'nik' => 'required|unique:warga,nik',
@@ -105,6 +100,7 @@ class WargaController extends Controller
         ]);
 
         $kk = KK::where('no_kk', $request->input('no_kk'))->first();
+        
         $id_kk = $kk ? $kk->id_kk : null;
 
         $level = Level::whereIn('level_nama', ['Warga', 'warga'])->firstOrFail();
@@ -129,7 +125,7 @@ class WargaController extends Controller
             'id_kk' => $id_kk,
         ]);
 
-        return redirect()->route('admin.warga.index', ['no_rt' => $request->input('no_rt')])->with('success', 'Warga berhasil ditambahkan');
+        return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('success', 'Warga berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -137,7 +133,7 @@ class WargaController extends Controller
         // Not implemented
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $no_rt, $id)
     {
         $request->validate([
             'nik' => 'required|unique:warga,nik,' . $id . ',id_warga',
@@ -162,7 +158,42 @@ class WargaController extends Controller
             'no_kk' => $request->no_kk,
         ]);
 
-        return redirect()->route('admin.warga.index', ['no_rt' => $request->input('no_rt')])->with('success', 'Warga berhasil diperbarui');
+        return redirect()->route('warga-admin.index', ['rt' => $no_rt, 'id' => $id])->with('success', 'Warga berhasil diperbarui');
+    }
+
+    public function update_user(Request $request, $no_rt, $id)
+    {
+        $request->validate([
+            'username' => 'required|min:16|max:16|unique:user,username,' . $id .',id_user',
+            'password' => 'nullable|string|max:100',
+            'id_level' => 'required|exists:level,id_level',
+        ]);
+
+        $user = Users::find($id);
+        $warga = Warga::where('id_user', $id)->firstOrFail();
+        $level = Level::where('level_nama', 'Warga')->firstOrfail();
+
+        $user->update([
+            'username' => $request->username,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+            'id_level' => $request->id_level,
+        ]);
+
+        if($request->id_level != $level->id_level) {
+            $request->validate([
+                'periode_jabatan_awal' => 'required|date',
+                'periode_jabatan_akhir' => 'required|date',
+            ]);
+            $warga->periode_jabatan_awal = $request->periode_jabatan_awal;
+            $warga->periode_jabatan_akhir = $request->periode_jabatan_akhir;
+        } else {
+            $warga->periode_jabatan_awal = null;
+            $warga->periode_jabatan_akhir = null;
+        }
+
+        $warga->save();
+
+        return redirect()->route('warga-admin.show', ['rt' => $no_rt, 'id' => $id])->with('success', 'Data User Berhasil Diubah');
     }
 
     public function destroy($id)

@@ -187,7 +187,7 @@
 									<!--begin::Card content-->
 									<div class="collapse show">
 										<!--begin::Form-->
-										<form class="form" method="POST" action="{{ route('user.update', $warga->user->id_user) }}">
+										<form class="form" method="POST" action="{{ route('user-admin.update', ['id' => $warga->user->id_user, 'rt' => $rtNumber]) }}">
 											@csrf
 											@method('PUT')
 											<!--begin::Card body-->
