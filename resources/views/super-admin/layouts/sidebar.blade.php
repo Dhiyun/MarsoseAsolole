@@ -116,9 +116,9 @@
             <!-- End: Menu item -->
 
              <!-- Begin: Menu item -->
-             <div class="menu-item menu-accordion">
+             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}" href="{{ route('laporan_spk.index') }}">
+                <span class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}" href="{{ route('laporan_spk.index') }}">
                     <span class="menu-icon">
                         @if ($activeMenu == 'datart')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-datart.svg" class="h-25px theme-light-show" />
@@ -127,8 +127,65 @@
                         @endif
                     </span>
                     <span class="menu-title">Laporan SPK</span>
-                </a>
+                    <span class="menu-arrow"></span>
+                </span>
                 <!-- End: Menu link -->
+
+                <!-- Begin: Menu sub -->
+                <div class="menu-sub menu-sub-accordion">
+                    <!-- Begin: Menu item -->
+                    <div class="menu-item">
+                        <!-- Begin: Menu link -->
+                        <a class="menu-link" href="../../demo39/dist/index.html">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Daftar Laporan SPK</span>
+                        </a>
+                        <!-- End: Menu link -->
+                    </div>
+                    <!-- End: Menu item -->
+
+                    <!-- Begin: Menu item -->
+                    <div class="menu-item">
+                        <!-- Begin: Menu link -->
+                        <a class="menu-link" href="../../demo39/dist/index.html">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Kriteria</span>
+                        </a>
+                        <!-- End: Menu link -->
+                    </div>
+                    <!-- End: Menu item -->
+
+                    <!-- Begin: Menu item -->
+                    <div class="menu-item">
+                        <!-- Begin: Menu link -->
+                        <a class="menu-link" href="../../demo39/dist/index.html">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Perhitungan</span>
+                        </a>
+                        <!-- End: Menu link -->
+                    </div>
+                    <!-- End: Menu item -->
+
+                    <!-- Begin: Menu item -->
+                    <div class="menu-item">
+                        <!-- Begin: Menu link -->
+                        <a class="menu-link" href="../../demo39/dist/index.html">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Perankingan</span>
+                        </a>
+                        <!-- End: Menu link -->
+                    </div>
+                    <!-- End: Menu item -->
+                </div>
+                <!-- End: Menu sub -->
             </div>
             <!-- End: Menu item -->
         </div>
