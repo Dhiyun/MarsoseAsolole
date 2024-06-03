@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('laporan_pengaduan', function (Blueprint $table) {
             $table->bigIncrements('id_laporan');
-            $table->date('tanggal_laporan')->nullable();
+            $table->date('tanggal_proses')->nullable();
+            $table->date('tanggal_selesai')->nullable();
             $table->string('jenis_laporan', 50)->nullable();
             $table->string('gambar', 255)->nullable();
             $table->string('keterangan', 255)->nullable();
-            $table->enum('status', ['ditolak', 'diterima', 'selesai'])->nullable();
+            $table->enum('status', ['menunggu', 'ditolak', 'diterima', 'diproses', 'selesai'])->nullable();
             $table->unsignedBigInteger('id_warga')->index();
             $table->timestamps();
 
