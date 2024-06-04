@@ -101,26 +101,13 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $level = Users::find($id);
-
-        $breadcrumb = (object) [
-            'title' => 'Edit User',
-            'list'  => ['Home', 'User', 'Edit']
-        ];
-
-        $activeMenu = 'level';
-
-        return view('super-admin.level.edit', [
-            'breadcrumb' => $breadcrumb,
-            'level' => $level,
-            'activeMenu' => $activeMenu
-        ]);
+        //
     }
 
     public function update($id, Request $request)
     {
         $request->validate([
-            'username' => 'required|min:16|max:16|unique:user,username,' . $id .',id_user',
+            'username' => 'required',
             'password' => 'nullable|string|max:100',
             'id_level' => 'required|exists:level,id_level',
         ]);

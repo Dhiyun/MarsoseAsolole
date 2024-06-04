@@ -184,7 +184,7 @@
 											<!--end::Label-->
 											<!--begin::Col-->
 											<div class="col-lg-8">
-												<span class="fw-bold fs-6 text-gray-800">{{ $warga->periode_jabatan_awal }} - {{ $warga->periode_jabatan_akhir }}</span>
+												<span class="fw-bold fs-6 text-gray-800">{{ date('d-m-Y', strtotime($warga->periode_jabatan_awal)) }} - {{ date('d-m-Y', strtotime($warga->periode_jabatan_akhir)) }}</span>
 											</div>
 											<!--end::Col-->
 										</div>
@@ -219,7 +219,7 @@
 												<!--begin::Input group-->
 												<div class="fv-row mb-7">
 													<label class="required fw-semibold fs-6 mb-2" for="username">Username</label>
-													<input type="number" id="username" name="username" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('username', $warga->user->username) }}" required />
+													<input type="text" id="username" name="username" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('username', $warga->user->username) }}" required />
 												</div>
 												<!--end::Input group-->
 												<!--begin::Input group-->
@@ -245,11 +245,11 @@
 													<div class="input-group">
 														<div class="w-100 mb-3">
 															<label class="fw-semibold fs-6 mb-2" for="periode_jabatan_awal">Awal</label>
-															<input type="date" id="periode_jabatan_awal" name="periode_jabatan_awal" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('periode_jabatan_awal') }}" />
+															<input type="date" id="periode_jabatan_awal" name="periode_jabatan_awal" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $warga->periode_jabatan_awal }}" />
 														</div>
 														<div class="w-100 mb-3">
 															<label class="fw-semibold fs-6 mb-2" for="periode_jabatan_akhir">Akhir</label>
-															<input type="date" id="periode_jabatan_akhir" name="periode_jabatan_akhir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('periode_jabatan_akhir') }}" />
+															<input type="date" id="periode_jabatan_akhir" name="periode_jabatan_akhir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $warga->periode_jabatan_akhir }}" />
 														</div>
 													</div>
 												</div>
