@@ -7,6 +7,7 @@ use App\Models\LaporanPengaduan;
 use App\Models\Warga;
 use App\Models\RW;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanPengaduanController extends Controller
 {
@@ -35,24 +36,27 @@ class LaporanPengaduanController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'tanggal_laporan' => 'nullable',
-            'jenis_laporan' => 'nullable',
-            'gambar' => 'nullable',
-            'keterangan' => 'nullable',
-            'status' => 'nullable',
+            'jenis_laporan' => 'required',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+            'keterangan' => 'required',
         ]);
 
-        $status = LaporanPengaduan::whereIn('status', 'diproses')->firstOrFail();
-
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('gambar'), $imageName);
+            $imagePath = 'gambar/' . $imageName;
+        }
+        
         LaporanPengaduan::create([
-            'tanggal_laporan' => $validate['tanggal_laporan'],
             'jenis_laporan' => $validate['jenis_laporan'],
-            'gambar' => $validate['gambar'],
+            'gambar' => $imagePath,
             'keterangan' => $validate['keterangan'],
-            'status' => $status,
+            'status' => 'menunggu',
+            'id_warga' => Auth::user()->id_user,
         ]);
 
-        return redirect()->route('laporan_pengaduan.index')->with('success', 'Laporan pengaduan berhasil ditambahkan');
+        return redirect()->route('laporan.index')->with('success', 'Laporan pengaduan berhasil ditambahkan');
     }
 
     public function edit($id)

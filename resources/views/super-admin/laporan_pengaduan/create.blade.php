@@ -19,20 +19,15 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form method="POST" id="kt_modal_add_laporan_form" class="form" action="{{ route('laporan.store') }}">
+                <form method="POST" id="kt_modal_add_laporan_form" class="form" action="{{ route('laporan.store') }}" enctype="multipart/form-data">
                     @csrf
                     <!--begin::Scroll-->
                     <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_laporan_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_laporan_header" data-kt-scroll-wrappers="#kt_modal_add_laporan_scroll" data-kt-scroll-offset="300px">
-                        <!-- Tanggal Laporan -->
-                        <div class="fv-row mb-7">
-                            <label class="required fw-semibold fs-6 mb-2" for="tanggal_laporan">Tanggal Laporan</label>
-                            <input type="date" id="tanggal_laporan" name="tanggal_laporan" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tanggal_laporan') }}" required />
-                        </div>
                         <!-- Jenis Laporan -->
                         <div class="fv-row mb-7">
-                            <label class="required fw-semibold fs-6 mb-2" for="jenis_kelamin">Jenis Laporan</label>
+                            <label class="required fw-semibold fs-6 mb-2" for="jenis_laporan">Jenis Laporan</label>
                             <select id="jenis_laporan" name="jenis_laporan" class="form-control form-control-solid mb-3 mb-lg-0" required>
-                                <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
+                                <option value="" disabled selected>-- Pilih Jenis Laporan --</option>
                                 <option value="Infrastruktur" {{ old('jenis_laporan') == 'Infrastruktur' ? 'selected' : '' }}>Infrastruktur</option>
                                 <option value="Keamanan" {{ old('jenis_laporan') == 'Keamanan' ? 'selected' : '' }}>Keamanan</option>
                                 <option value="Kesehatan" {{ old('jenis_laporan') == 'Kesehatan' ? 'selected' : '' }}>Kesehatan</option>
@@ -62,8 +57,7 @@
                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                                     <i class="ki-outline ki-pencil fs-7"></i>
                                     <!--begin::Inputs-->
-                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                                    <input type="hidden" name="avatar_remove" />
+                                    <input type="file" name="gambar" accept=".png, .jpg, .jpeg" />
                                     <!--end::Inputs-->
                                 </label>
                                 <!--end::Label-->
@@ -87,7 +81,7 @@
                         <!-- Tanggal Lahir -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="keterangan">Keterangan</label>
-                            <textarea id="keterangan" name="keterangan" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('keterangan') }}" required></textarea>
+                            <textarea id="keterangan" name="keterangan" class="form-control form-control-solid mb-3 mb-lg-0" required>{{ old('keterangan') }}</textarea>
                         </div>
                     </div>
                     <!--end::Scroll-->
