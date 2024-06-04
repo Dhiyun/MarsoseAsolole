@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class LaporanPengaduan extends Model
 {
-    use HasFactory;
-
+    // Specify the table name if it does not follow Laravel's naming convention
     protected $table = 'laporan_pengaduan';
-    protected $primaryKey = 'id_laporan';
-    public $timestamps = true;
 
+    // Specify the primary key if it does not follow Laravel's naming convention
+    protected $primaryKey = 'id_laporan';
+
+    // Mass assignable attributes
     protected $fillable = [
         'tanggal_proses',
         'tanggal_selesai',
@@ -22,9 +23,4 @@ class LaporanPengaduan extends Model
         'status',
         'id_warga',
     ];
-
-    public function warga()
-    {
-        return $this->belongsTo(Warga::class, 'id_warga');
-    }
 }

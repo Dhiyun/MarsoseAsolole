@@ -2,13 +2,265 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Kriteria;
+use App\Models\DetailKriteria;
+use App\Models\Alternatif;
 use App\Models\LaporanSpk;
 use Exception;
+use Illuminate\Http\Request;
 
 class LaporanSpkController extends Controller
 {
+    // CRUD for Kriteria
     public function index()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Kriteria',
+            'list' => ['Home, Kriteria']
+        ];
+
+        $activeMenu = 'kriteria';
+        $kriterias = Kriteria::all();
+
+        return view('super-admin.kriterias.index', [
+            'breadcrumb' => $breadcrumb,
+            'kriterias' => $kriterias,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
+    public function create()
+    {
+        return view('super-admin.kriterias.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'nama_kriteria' => 'required|string|max:255',
+            'jenis_kriteria' => 'required|string|max:255',
+        ]);
+
+        Kriteria::create($data);
+
+        return redirect()->route('kriterias.index')->with('success', 'Kriteria created successfully.');
+    }
+
+    public function edit(Kriteria $kriteria)
+    {
+        return view('super-admin.kriterias.edit', compact('kriteria'));
+    }
+
+    public function update(Request $request, Kriteria $kriteria)
+    {
+        $data = $request->validate([
+            'nama_kriteria' => 'required|string|max:255',
+            'jenis_kriteria' => 'required|string|max:255',
+        ]);
+
+        $kriteria->update($data);
+
+        return redirect()->route('kriterias.index')->with('success', 'Kriteria updated successfully.');
+    }
+
+    public function destroy(Kriteria $kriteria)
+    {
+        try {
+            $kriteria->delete();
+            return redirect()->route('kriterias.index')->with('success', 'Kriteria deleted successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('kriterias.index')->with('error', 'Failed to delete Kriteria due to related records.');
+        }
+    }
+
+    public function deleteSelectedKriteria(Request $request)
+    {
+        $selectedIdsJson = $request->input('selectedIds');
+
+        if (empty($selectedIdsJson)) {
+            return redirect()->route('kriterias.index')->with('error', 'No Kriteria selected for deletion.');
+        }
+
+        $selectedIds = json_decode($selectedIdsJson, true);
+
+        try {
+            $deletedKriterias = Kriteria::whereIn('id_kriteria', $selectedIds)->delete();
+
+            if ($deletedKriterias > 0) {
+                return redirect()->route('kriterias.index')->with('success', 'Selected Kriteria deleted successfully.');
+            } else {
+                return redirect()->route('kriterias.index')->with('error', 'Failed to delete selected Kriteria due to related records.');
+            }
+        } catch (Exception $e) {
+            return redirect()->route('kriterias.index')->with('error', 'Failed to delete selected Kriteria due to related records.');
+        }
+    }
+    
+    // CRUD for DetailKriteria (nilai rentang)
+    public function indexDetailKriteria()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Detail Kriteria',
+            'list' => ['Home, Kriteria, Detail Kriteria']
+        ];
+
+        $activeMenu = 'kriteria';
+        $details = DetailKriteria::all();
+        $kriterias = Kriteria::all();
+
+        return view('super-admin.kriterias.index', [
+            'breadcrumb' => $breadcrumb,
+            'details' => $details,
+            'kriterias' => $kriterias,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
+    public function createDetailKriteria()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Tambah Detail Kriteria',
+            'list' => ['Home, Kriteria, Detail Kriteria, Tambah']
+        ];
+
+        return view('super-admin.kriterias.create', compact('kriteria', 'breadcrumb'));
+    }
+
+    public function storeDetailKriteria(Request $request)
+    {
+        $request->validate([
+            'rentang' => 'required|string|max:255',
+            'nilai' => 'required|integer',
+            'bobot_normalisasi' => 'required|numeric|between:0,999.99',
+        ]);
+
+        DetailKriteria::create($request->all());
+
+        return redirect()->route('super-admin.kriterias.index')->with('success', 'Detail Kriteria created successfully.');
+    }
+
+    public function editDetailKriteria(DetailKriteria $detailKriteria)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Edit Detail Kriteria',
+            'list' => ['Home', 'Kriteria', 'Detail Kriteria', 'Edit']
+        ];
+
+        $allKriterias = Kriteria::all(); // Mengambil semua kriteria
+        $kriteria = $detailKriteria->kriteria; // Asumsikan ada relasi antara DetailKriteria dan Kriteria
+
+        return view('super-admin.kriterias.edit', compact('kriteria', 'detailKriteria', 'breadcrumb', 'allKriterias'));
+    }
+
+
+    public function updateDetailKriteria(Request $request, DetailKriteria $detailKriteria)
+    {
+        $request->validate([
+            'rentang' => 'required|string|max:255',
+            'nilai' => 'required|integer',
+            'bobot_normalisasi' => 'required|numeric|between:0,999.99',
+        ]);
+
+        $detailKriteria->update($request->all());
+
+        return redirect()->route('super-admin.kriterias.index')->with('success', 'Detail Kriteria updated successfully.');
+    }
+
+    public function destroyDetailKriteria(DetailKriteria $detailKriteria)
+    {
+        $detailKriteria->delete();
+
+        return redirect()->route('super-admin.kriterias.index')->with('success', 'Detail Kriteria deleted successfully.');
+    }
+
+    public function deleteSelectedDetailKriteria(Request $request)
+    {
+        $selectedIdsJson = $request->input('selectedIds');
+
+        if (empty($selectedIdsJson)) {
+            return redirect()->route('super-admin.kriterias.index')->with('error', 'Data Kriteria Tidak Ditemukan');
+        }
+
+        $selectedIds = json_decode($selectedIdsJson, true);
+
+        try {
+            $deletedKriteria = LaporanSpk::whereIn('id_detail_kriteria', $selectedIds)->delete();
+
+            if ($deletedKriteria > 0) {
+                return redirect()->route('super-admin.kriterias.index')->with('success', 'Semua Data Kriteria Berhasil Dihapus');
+            } else {
+                return redirect()->route('super-admin.kriterias.index')->with('error', 'Data Kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            }
+        } catch (Exception $e) {
+            return redirect()->route('super-admin.kriterias.index')->with('error', 'Data Kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+        }
+    }
+
+    // CRUD for Alternatif
+    public function indexAlternatif()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Alternatif',
+            'list' => ['Home', 'Alternatif']
+        ];
+
+        $alternatifs = Alternatif::all();
+        return view('super-admin.alternatifs.index', compact('alternatifs', 'breadcrumb'));
+    }
+
+    public function createAlternatif()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Tambah Alternatif',
+            'list' => ['Home', 'Alternatif', 'Tambah']
+        ];
+
+        return view('super-admin.alternatifs.create', compact('breadcrumb'));
+    }
+
+    public function storeAlternatif(Request $request)
+    {
+        $request->validate([
+            'kode_alternatif' => 'required|string|max:20',
+            'id_laporan' => 'required|exists:laporan_pengaduan,id_laporan',
+        ]);
+
+        Alternatif::create($request->all());
+
+        return redirect()->route('super-admin.alternatifs.index')->with('success', 'Alternatif created successfully.');
+    }
+
+    public function editAlternatif(Alternatif $alternatif)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Edit Alternatif',
+            'list' => ['Home', 'Alternatif', 'Edit']
+        ];
+
+        return view('super-admin.alternatifs.edit', compact('alternatif', 'breadcrumb'));
+    }
+
+    public function updateAlternatif(Request $request, Alternatif $alternatif)
+    {
+        $request->validate([
+            'kode_alternatif' => 'required|string|max:20',
+            'id_laporan' => 'required|exists:laporan_pengaduan,id_laporan',
+        ]);
+
+        $alternatif->update($request->all());
+
+        return redirect()->route('super-admin.alternatifs.index')->with('success', 'Alternatif updated successfully.');
+    }
+
+    public function destroyAlternatif(Alternatif $alternatif)
+    {
+        $alternatif->delete();
+
+        return redirect()->route('super-admin.alternatifs.index')->with('success', 'Alternatif deleted successfully.');
+    }
+
+    // CRUD for LaporanSPK
+    public function indexLaporanSpk()
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Laporan SPK',
@@ -25,55 +277,66 @@ class LaporanSpkController extends Controller
         ]);
     }
 
-    public function create()
+    public function createLaporanSpk()
     {
-        return view('super-admin.laporan_spk.create');
+        $breadcrumb = (object) [
+            'title' => 'Tambah Laporan SPK',
+            'list' => ['Home', 'Laporan SPK', 'Tambah']
+        ];
+
+        $kriterias = Kriteria::all();
+        $alternatifs = Alternatif::all();
+        return view('super-admin.laporan_spk.create', compact('kriterias', 'alternatifs', 'breadcrumb'));
     }
 
-    public function store(Request $request)
+    public function storeLaporanSpk(Request $request)
     {
-        $data = $request->validate([
-            'dampak' => 'required|integer',
-            'biaya' => 'required|integer',
-            'jenis_laporan' => 'required|string|max:100',
-            'sdm' => 'required|integer',
-            'durasi_pekerjaan' => 'required|integer',
+        $request->validate([
+            'id_kriteria' => 'required|exists:kriterias,id_kriteria',
+            'id_alternatif' => 'required|exists:alternatifs,id_alternatif',
         ]);
 
-        LaporanSpk::create($data);
+        LaporanSpk::create($request->all());
 
-        return redirect()->route('laporan_spk.index');
+        return redirect()->route('super-admin.laporan_spk.index')->with('success', 'Laporan SPK created successfully.');
     }
-    
-    public function update(Request $request, $id)
+
+    public function editLaporanSpk(LaporanSpk $laporanSpk)
     {
-        $data = $request->validate([
-            'dampak' => 'required|integer',
-            'biaya' => 'required|integer',
-            'jenis_laporan' => 'required|string|max:100',
-            'sdm' => 'required|integer',
-            'durasi_pekerjaan' => 'required|integer',
+        $breadcrumb = (object) [
+            'title' => 'Edit Laporan SPK',
+            'list' => ['Home', 'Laporan SPK', 'Edit']
+        ];
+
+        $kriterias = Kriteria::all();
+        $alternatifs = Alternatif::all();
+        return view('super-admin.laporan_spk.edit', compact('laporanSpk', 'kriterias', 'alternatifs', 'breadcrumb'));
+    }
+
+    public function updateLaporanSpk(Request $request, LaporanSpk $laporanSpk)
+    {
+        $request->validate([
+            'id_kriteria' => 'required|exists:kriterias,id_kriteria',
+            'id_alternatif' => 'required|exists:alternatifs,id_alternatif',
         ]);
 
-        $laporan = LaporanSpk::findOrFail($id);
-        $laporan->update($data);
+        $laporanSpk->update($request->all());
 
-        return redirect()->route('laporan_spk.index');
+        return redirect()->route('super-admin.laporan_spk.index')->with('success', 'Laporan SPK updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroyLaporanSpk($id)
     {
         $check = LaporanSpk::find($id);
         if (!$check) {
-            return redirect()->route('laporan_spk.index')->with('error' . 'Data Laporan SPK Tidak Ditemukan');
+            return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Tidak Ditemukan');
         }
 
         try {
             LaporanSpk::destroy($id);
-
-            return redirect()->route('laporan_spk.index')->with('success' . 'Data Laporan SPK Berhasil Dihapus');
+            return redirect()->route('super-admin.laporan_spk.index')->with('success', 'Data Laporan SPK Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('laporan_spk.index')->with('error' . 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
@@ -82,7 +345,7 @@ class LaporanSpkController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
 
         if (empty($selectedIdsJson)) {
-            return redirect('/laporan_spk')->with('error' . 'Data Laporan SPK Tidak Ditemukan');
+            return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Tidak Ditemukan');
         }
 
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -91,103 +354,38 @@ class LaporanSpkController extends Controller
             $deletedLaporans = LaporanSpk::whereIn('id_spk', $selectedIds)->delete();
 
             if ($deletedLaporans > 0) {
-                return redirect('/laporan_spk')->with('success' . 'Semua Data Laporan SPK Berhasil Dihapus');
+                return redirect()->route('super-admin.laporan_spk.index')->with('success', 'Semua Data Laporan SPK Berhasil Dihapus');
             } else {
-                return redirect('/laporan_spk')->with('error' . 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect('/laporan_spk')->with('error' . 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
-    private function getJenisLaporanScore($jenis)
+    // SPK Calculation and Chart
+    private function getKriteriaScore($criteria, $value)
     {
-        return match ($jenis) {
-            'keamanan' => 1,
-            'kesehatan' => 0.8,
-            'infrastruktur' => 0.6,
-            'layanan Masyarakat' => 0.4,
-            'lingkungan' => 0.2,
-            default => 0,
-        };
-    }
+        $detailKriteria = DetailKriteria::where('id_kriteria', $criteria->id_kriteria)
+            ->where('rentang', $value)
+            ->first();
 
-    private function getBiayaScore($biaya)
-    {
-        if ($biaya >= 0 && $biaya <= 500000) {
-            return 1;
-        } elseif ($biaya > 500000 && $biaya <= 1000000) {
-            return 0.8;
-        } elseif ($biaya > 1000000 && $biaya <= 2000000) {
-            return 0.6;
-        } elseif ($biaya > 2000000 && $biaya <= 3000000) {
-            return 0.4;
-        } elseif ($biaya > 3000000) {
-            return 0.2;
-        }
-    }
-
-    private function getDampakScore($dampak)
-    {
-        if ($dampak == 1) {
-            return 1 / 3;
-        } elseif ($dampak == 2) {
-            return 2 / 3;
-        } elseif ($dampak == 3) {
-            return 1;
-        }
-    }
-
-    private function getDurasiPekerjaanScore($durasi)
-    {
-        if ($durasi >= 1 && $durasi <= 7) {
-            return 1;
-        } elseif ($durasi > 7 && $durasi <= 14) {
-            return 0.75;
-        } elseif ($durasi > 14 && $durasi <= 21) {
-            return 0.5;
-        } else {
-            return 0.25;
-        }
-    }
-
-    private function getSDMScore($sdm)
-    {
-        if ($sdm == 1) {
-            return 1;
-        } elseif ($sdm > 1 && $sdm <= 5) {
-            return 0.75;
-        } elseif ($sdm > 5 && $sdm <= 10) {
-            return 0.5;
-        } elseif ($sdm > 10) {
-            return 0.25;
-        }
+        return $detailKriteria ? $detailKriteria->bobot_normalisasi : 0;
     }
 
     private function normalizeDecisionMatrix($matrix)
     {
         $normalizedMatrix = [];
         foreach ($matrix as $criteria => $values) {
-            switch ($criteria) {
-                case 'dampak':
-                    $normalizedMatrix[$criteria] = array_map([$this, 'getDampakScore'], $values);
-                    break;
-                case 'biaya':
-                    $normalizedMatrix[$criteria] = array_map([$this, 'getBiayaScore'], $values);
-                    break;
-                case 'jenis_laporan':
-                    $normalizedMatrix[$criteria] = array_map([$this, 'getJenisLaporanScore'], $values);
-                    break;
-                case 'sdm':
-                    $normalizedMatrix[$criteria] = array_map([$this, 'getSDMScore'], $values);
-                    break;
-                case 'durasi_pekerjaan':
-                    $normalizedMatrix[$criteria] = array_map([$this, 'getDurasiPekerjaanScore'], $values);
-                    break;
-                default:
-                    $columnMax = max($values);
-                    $normalizedMatrix[$criteria] = $columnMax == 0 ? array_fill(0, count($values), 0) : array_map(fn ($value) => $value / $columnMax, $values);
-                    break;
+            $criteriaModel = Kriteria::where('nama_kriteria', $criteria)->first();
+            if ($criteriaModel) {
+                $normalizedMatrix[$criteria] = array_map(function ($value) use ($criteriaModel) {
+                    return $this->getKriteriaScore($criteriaModel, $value);
+                }, $values);
+            } else {
+                // Normalisasi default untuk kriteria yang tidak dikenal
+                $columnMax = max($values);
+                $normalizedMatrix[$criteria] = $columnMax == 0 ? array_fill(0, count($values), 0) : array_map(fn ($value) => $value / $columnMax, $values);
             }
         }
         return $normalizedMatrix;
@@ -232,51 +430,49 @@ class LaporanSpkController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Prioritas Laporan SPK',
-            'list' => ['Home, Laporan SPK, Priority']
+            'list' => ['Home', 'Laporan SPK', 'Priority']
         ];
 
         $activeMenu = 'spk';
 
-        // Get all LaporanSpk records
+        // Dapatkan semua data LaporanSpk
         $laporans = LaporanSpk::all();
 
-        // Create the decision matrix
-        $decisionMatrix = [
-            'dampak' => $laporans->pluck('dampak')->toArray(),
-            'biaya' => $laporans->pluck('biaya')->toArray(),
-            'jenis_laporan' => $laporans->pluck('jenis_laporan')->toArray(),
-            'sdm' => $laporans->pluck('sdm')->toArray(),
-            'durasi_pekerjaan' => $laporans->pluck('durasi_pekerjaan')->toArray(),
-        ];
+        // Buat decision matrix secara dinamis berdasarkan kriteria yang ada di database
+        $kriterias = Kriteria::all();
+        $decisionMatrix = [];
+        foreach ($kriterias as $kriteria) {
+            $decisionMatrix[$kriteria->nama_kriteria] = $laporans->pluck($kriteria->nama_kriteria)->toArray();
+        }
 
-        // Calculate the number of criteria and their weights
+        // Hitung jumlah kriteria dan bobotnya
         $criteriaCount = count($decisionMatrix);
         $weights = $this->calculateROCWeights($criteriaCount);
 
-        // Normalize the decision matrix
+        // Normalisasi decision matrix
         $normalizedMatrix = $this->normalizeDecisionMatrix($decisionMatrix);
 
-        // Calculate the utility matrix
+        // Hitung utility matrix
         $utilityMatrix = [];
         foreach ($normalizedMatrix as $criteria => $values) {
             $utilityMatrix[$criteria] = $this->calculateUtility($values);
         }
 
-        // Calculate the MAUT scores
+        // Hitung skor MAUT
         $mautScores = $this->calculateMAUTScores($utilityMatrix, $weights);
 
-        // Assign scores to each laporan and sort them
+        // Beri skor ke setiap laporan dan urutkan
         foreach ($laporans as $index => $laporan) {
             $laporan->total_score = $mautScores[$index];
         }
 
-        // Sort the LaporanSpk by total score in descending order
+        // Urutkan LaporanSpk berdasarkan total skor secara descending
         $sortedLaporans = $laporans->sortByDesc('total_score');
 
-        // Return the view with sorted LaporanSpk
+        // Kembalikan tampilan dengan LaporanSpk yang sudah diurutkan
         return view('super-admin.laporan_spk.priority', [
             'breadcrumb' => $breadcrumb,
-            'laporans' => $sortedLaporans, // Use sortedLaporans instead of laporans
+            'laporans' => $sortedLaporans,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -285,34 +481,37 @@ class LaporanSpkController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Chart Prioritas Laporan SPK',
-            'list' => ['Home, Laporan SPK, Chart']
+            'list' => ['Home', 'Laporan SPK', 'Chart']
         ];
 
         $activeMenu = 'spk';
         $laporans = LaporanSpk::all();
 
-        $decisionMatrix = [
-            'dampak' => $laporans->pluck('dampak')->toArray(),
-            'biaya' => $laporans->pluck('biaya')->toArray(),
-            'jenis_laporan' => $laporans->pluck('jenis_laporan')->toArray(),
-            'sdm' => $laporans->pluck('sdm')->toArray(),
-            'durasi_pekerjaan' => $laporans->pluck('durasi_pekerjaan')->toArray(),
-        ];
+        // Buat decision matrix secara dinamis berdasarkan kriteria yang ada di database
+        $kriterias = Kriteria::all();
+        $decisionMatrix = [];
+        foreach ($kriterias as $kriteria) {
+            $decisionMatrix[$kriteria->nama_kriteria] = $laporans->pluck($kriteria->nama_kriteria)->toArray();
+        }
 
+        // Hitung jumlah kriteria dan bobotnya
         $criteriaCount = count($decisionMatrix);
         $weights = $this->calculateROCWeights($criteriaCount);
 
+        // Normalisasi decision matrix
         $normalizedMatrix = $this->normalizeDecisionMatrix($decisionMatrix);
 
+        // Hitung utility matrix
         $utilityMatrix = [];
         foreach ($normalizedMatrix as $criteria => $values) {
             $utilityMatrix[$criteria] = $this->calculateUtility($values);
         }
 
+        // Hitung skor MAUT
         $mautScores = $this->calculateMAUTScores($utilityMatrix, $weights);
 
         $labels = $laporans->pluck('jenis_laporan');
-        $scores = array_values($mautScores); // Convert mautScores to a simple array
+        $scores = array_values($mautScores);
 
         return view('super-admin.laporan_spk.chart', [
             'breadcrumb' => $breadcrumb,

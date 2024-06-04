@@ -50,7 +50,7 @@
                         <div class="fv-row mb-7">
                             <label for="biaya" class="form-label">Biaya</label>
                             <input type="number" class="form-control" id="biaya" name="biaya"
-                                value="{{ $laporan->biaya }}" required>
+                                {{ $laporan->dampak == 1 ? 'checked' : '' }} required>
                             <div id="biayaHelp" class="form-text">Silahkan masukkan nilai tanpa titik atau koma</div>
                         </div>
                         <!-- Dampak -->

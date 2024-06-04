@@ -20,9 +20,9 @@
                                 <!--begin::Search-->
                                 <div class="d-flex align-items-center position-relative my-1">
                                     <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
-                                    <input type="text" data-kt-laporan_spk-table-filter="search"
+                                    <input type="text" data-kt-detail_kriteria-table-filter="search"
                                         class="form-control form-control-solid w-250px ps-13"
-                                        placeholder="Search Laporan SPK" />
+                                        placeholder="Search Kriteria" />
                                 </div>
                                 <!--end::Search-->
                             </div>
@@ -30,48 +30,43 @@
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
                                 <!--begin::Toolbar-->
-                                <div class="d-flex justify-content-end" data-kt-laporan_spk-table-toolbar="base">
-                                    <!--begin::Add Laporan SPK-->
+                                <div class="d-flex justify-content-end" data-kt-kriteria-table-toolbar="base">
+                                    <!--begin::Add Kriteria-->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_add_laporan_spk">
-                                        <i class="ki-outline ki-plus fs-2"></i>Tambah Laporan SPK</button>
-                                    <!--end::Add Laporan SPK-->
+                                        data-bs-target="#kt_modal_add_kriteria">
+                                        <i class="ki-outline ki-plus fs-2"></i>Tambah Kriteria</button>
+                                    <!--end::Add Kriteria-->
                                 </div>
-                                <!--begin::Lihat Prioritas-->
-                                <a href="{{ route('laporan_spk.priority') }}" class="btn btn-danger me-2"
-                                    style="margin-left: 5px">
-                                    <i class="ki-outline ki-eye fs-2"></i>Lihat Prioritas
-                                </a>
-                                <!--end::Lihat Prioritas-->
 
-                                <!--begin::Chart Prioritas-->
-                                <a href="{{ route('laporan_spk.chart') }}" class="btn btn-success">
-                                    <i class="ki-outline ki-chart fs-2"></i>Chart Prioritas
-                                </a>
-                                <!--end::Chart Prioritas-->
-
+                                <!--begin::Toolbar-->
+                                <div class="d-flex justify-content-end" data-kt-detail_kriteria-table-toolbar="base">
+                                    <!--begin::Add Kriteria-->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#kt_modal_add_detail_kriteria">
+                                        <i class="ki-outline ki-plus fs-2"></i>Tambah Detail Kriteria</button>
+                                    <!--end::Add Kriteria-->
+                                </div>
                                 <!--end::Toolbar-->
                                 <!--begin::Group actions-->
                                 <div class="d-flex justify-content-end align-items-center d-none"
-                                    data-kt-laporan_spk-table-toolbar="selected">
+                                    data-kt-detail_kriteria-table-toolbar="selected">
                                     <div class="fw-bold me-5">
                                         <span class="me-2"
-                                            data-kt-laporan_spk-table-select="selected_count"></span>Selected
+                                            data-kt-detail_kriteria-table-select="selected_count"></span>Selected
                                     </div>
-                                    <form id="delete-selected-form" action="{{ route('laporan_spk.deleteSelected') }}"
+                                    <form id="delete-selected-form" action="{{ route('detail_kriteria.deleteSelected') }}"
                                         method="POST">
                                         @csrf <!-- Token CSRF untuk keamanan -->
                                         <input value="" type="hidden" name="selectedIds" id="selected-ids">
                                         <!-- Input tersembunyi untuk ID yang dipilih -->
                                         <!-- Tombol untuk menghapus warga yang dipilih -->
                                         <button type="submit" class="btn btn-danger"
-                                            data-kt-laporan_spk-table-select="delete_selected">Delete Selected</button>
+                                            data-kt-detail_kriteria-table-select="delete_selected">Delete Selected</button>
                                     </form>
                                 </div>
                                 <!--end::Group actions-->
-                                @include('super-admin.laporan_spk.create')
-                                {{-- @include('super-admin.laporan_spk.chart') --}}
-                                @include('super-admin.laporan_spk.priority')
+                                @include('super-admin.kriterias.create')
+                                @include('super-admin.kriterias.createDetail')
                             </div>
                             <!--end::Card toolbar-->
                         </div>
@@ -79,39 +74,42 @@
                         <!--begin::Card body-->
                         <div class="card-body py-4">
                             <!--begin::Table-->
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_laporan_spk">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_detail_kriteria">
                                 <thead>
                                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                         <th class="w-10px pe-2">
                                             <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                                 <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                                    data-kt-check-target="#kt_table_laporan_spk .form-check-input" />
+                                                    data-kt-check-target="#kt_table_detail_kriteria .form-check-input" />
                                             </div>
                                         </th>
-                                        <th class="min-w-125px">ID</th>
-                                        <th class="min-w-125px">Jenis Laporan</th>
-                                        <th class="min-w-125px">Biaya</th>
-                                        <th class="min-w-125px">Dampak</th>
-                                        <th class="min-w-125px">Durasi Pekerjaan</th>
-                                        <th class="min-w-125px">SDM</th>
-                                        <th class="text-end min-w-100px pe-9">Actions</th>
+                                        <th class="min-w-20px">No</th>
+                                        <th class="min-w-20px">Nama Kriteria</th>
+                                        <th class="min-w-20px">Jenis Kriteria</th>
+                                        <th class="min-w-20px">Rentang</th>
+                                        <th class="min-w-20px">Nilai</th>
+                                        <th class="min-w-20px">Bobot Normalisasi</th>
+                                        <th class="text-end min-w-20px pe-9">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600 fw-semibold">
-                                    @foreach ($laporans as $laporan)
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                    @foreach ($details as $detail)
                                         <tr>
                                             <td>
                                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                    <input value="{{ $laporan->id_spk }}" class="form-check-input"
-                                                        type="checkbox" data-kt-laporan_spk-table-filter="checkbox" />
+                                                    <input value="{{ $detail->id_detail_kriteria }}" class="form-check-input"
+                                                        type="checkbox" data-kt-kriteria-table-filter="checkbox" />
                                                 </div>
                                             </td>
-                                            <td>{{ $laporan->id_spk }}</td>
-                                            <td>{{ $laporan->jenis_laporan }}</td>
-                                            <td>{{ $laporan->biaya }}</td>
-                                            <td>{{ $laporan->getSdmDescription() }}</td>
-                                            <td>{{ $laporan->durasi_pekerjaan }} hari</td>
-                                            <td>{{ $laporan->sdm }} orang</td>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $detail->kriteria->nama_kriteria }}</td>
+                                            <td>{{ $detail->kriteria->jenis_kriteria }}</td>
+                                            <td>{{ $detail->rentang}}</td>
+                                            <td>{{ $detail->nilai}}</td>
+                                            <td>{{ $detail->bobot_normalisasi}}</td>
                                             <td class="text-end">
                                                 <a href="#"
                                                     class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
@@ -125,19 +123,19 @@
                                                     <!-- Begin::Menu item -->
                                                     <div class="menu-item px-3">
                                                         <a href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#kt_modal_edit_laporan_spk-{{ $laporan->id_spk }}"
+                                                            data-bs-target="#kt_modal_edit_detail_kriteria-{{ $detail->id_detail_kriteria }}"
                                                             class="menu-link px-3"><i class="ki-outline ki-pencil fs-6"></i>- Edit</a>
                                                     </div>
                                                     <!-- End::Menu item -->
                                                     <!-- Begin::Menu item -->
                                                     <div class="menu-item px-3">
                                                         <a href="#" class="menu-link px-3"
-                                                            data-kt-laporan_spk-table-filter="delete_row"
+                                                            data-kt-detail_kriteria-table-filter="delete_row"
                                                             onclick="event.preventDefault(); handleRowDeletion(event);"><i class="ki-outline ki-trash fs-6"></i>
                                                             - Delete
                                                         </a>
-                                                        <form id="delete-form-{{ $laporan->id_spk }}"
-                                                            action="{{ route('laporan_spk.destroy', ['id' => $laporan->id_spk]) }}"
+                                                        <form id="delete-form-{{ $detail->id_detail_kriteria }}"
+                                                            action="{{ route('detail_kriteria.destroy', ['id' => $detail->id_detail_kriteria]) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
@@ -147,7 +145,7 @@
                                                 </div>
                                                 <!-- End::Menu -->
                                             </td>
-                                            @include('super-admin.laporan_spk.edit')
+                                            @include('super-admin.kriterias.edit')
                                         </tr>
                                     @endforeach
                                 </tbody>

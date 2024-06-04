@@ -8,26 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class LaporanSpk extends Model
 {
     use HasFactory;
-    protected $table = 'laporan_spk';
-    protected $primaryKey = 'id_spk';
-    public $timestamps = true;
     
+    // Specify the table name if it does not follow Laravel's naming convention
+    protected $table = 'laporan_spk';
+
+    // Specify the primary key if it does not follow Laravel's naming convention
+    protected $primaryKey = 'id_spk';
+
+    // Mass assignable attributes
     protected $fillable = [
-        'jenis_laporan',
-        'biaya',
-        'dampak',
-        'durasi_pekerjaan',
-        'sdm',
+        'id_kriteria',
+        'id_alternatif',
     ];
 
-    public function getSdmDescription()
+    // Define the relationship with the Kriteria model
+    public function kriteria()
     {
-        return match($this->dampak) {
-            1 => 'Rendah',
-            2 => 'Medium',
-            3 => 'Tinggi',
-            default => 'Tidak diketahui',
-        };
+        return $this->belongsTo(Kriteria::class, 'id_kriteria');
+    }
+
+    // Define the relationship with the Alternatif model
+    public function alternatif()
+    {
+        return $this->belongsTo(Alternatif::class, 'id_alternatif');
     }
 }
 
