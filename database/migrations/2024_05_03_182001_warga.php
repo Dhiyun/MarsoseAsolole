@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('agama', 10)->nullable();
             $table->string('no_rt', 4)->nullable();
-            $table->enum('status', ['pendatang','asli'])->default('asli');
+            $table->enum('status_keluarga', ['kepala_keluarga','istri','anak','lainnya'])->default('lainnya');
+            $table->enum('status_kependudukan', ['pendatang','asli'])->default('asli');
             $table->date('periode_jabatan_awal')->nullable();
             $table->date('periode_jabatan_akhir')->nullable();
             $table->unsignedBigInteger('id_user')->index();

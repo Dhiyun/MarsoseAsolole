@@ -152,6 +152,7 @@ class KKController extends Controller
                 'agama' => $validate['agama'],
                 'alamat' => $validate['alamat'],
                 'no_rt' => $no_rt,
+                'status_keluarga' => 'kepala_keluarga',
                 'id_user' => $user->id_user,
                 'id_kk' => $kk->id_kk,
             ]
@@ -253,7 +254,7 @@ class KKController extends Controller
     {
         $dataKK = KK::findOrFail($No_KK);
         $dataKK->delete();
-        return redirect()->route('data_kk.index')->with('success', 'Data KK berhasil dihapus');
+        return redirect()->route('kk.index')->with('success', 'Data KK berhasil dihapus');
     }
 
     public function deleteSelected(Request $request)
@@ -261,7 +262,7 @@ class KKController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
         
         if (empty($selectedIdsJson)) {
-           return redirect()->route('data_kk.index')->with('error'. 'Data Warga Tidak Ditemukan');
+           return redirect()->route('kk.index')->with('error'. 'Data Warga Tidak Ditemukan');
         }
         
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -270,12 +271,12 @@ class KKController extends Controller
             $deletedKKs = KK::whereIn('id_kk', $selectedIds)->delete();
             
             if ($deletedKKs > 0) {
-                return redirect()->route('data_kk.index')->with('success'. 'Semua Data Warga Berhasil Dihapus');
+                return redirect()->route('kk.index')->with('success'. 'Semua Data Warga Berhasil Dihapus');
             } else {
-                return redirect()->route('data_kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect()->route('kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect()->route('data_kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 }

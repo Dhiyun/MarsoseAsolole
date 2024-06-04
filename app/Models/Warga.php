@@ -24,7 +24,8 @@ class Warga extends Model
         'periode_jabatan_awal',
         'periode_jabatan_akhir',
         'no_rt',
-        'status',
+        'status_keluarga',
+        'status_kependudukan',
         'id_user',
         'id_kk',
     ];

@@ -99,11 +99,76 @@
                                 @endforeach
                             </select>
                         </div>
-                        <!-- Status -->
+                        <!-- Status Keluarga -->
                         <!--begin::Input group-->
                         <div class="mb-10">
                             <!--begin::Label-->
-                            <label class="required fw-semibold fs-6 mb-5" for="status">Status Kependudukan</label>
+                            <label class="required fw-semibold fs-6 mb-5" for="status_keluarga">Status Keluarga</label>
+                            <!--end::Label-->
+                            <!--begin::Roles-->
+                            <!--begin::Input row-->
+                            <div class="d-flex fv-row">
+                                <!--begin::Radio-->
+                                <div class="form-check form-check-custom form-check-solid me-5">
+                                    <!--begin::Input-->
+                                    <input class="form-check-input me-3" name="status_keluarga" type="radio" value="kepala_keluarga" id="status_kepala_keluarga" {{ old('status_keluarga') == 'kepala_keluarga' ? 'checked' : '' }} />
+                                    <!--end::Input-->
+                                    <!--begin::Label-->
+                                    <label class="form-check-label" for="status_kepala_keluarga">
+                                        <div class="fw-bold text-gray-800">Kepala Keluarga</div>
+                                    </label>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Radio-->
+
+                                <!--begin::Radio-->
+                                <div class="form-check form-check-custom form-check-solid me-5">
+                                    <!--begin::Input-->
+                                    <input class="form-check-input me-3" name="status_keluarga" type="radio" value="istri" id="status_istri" {{ old('status_keluarga') == 'istri' ? 'checked' : '' }} />
+                                    <!--end::Input-->
+                                    <!--begin::Label-->
+                                    <label class="form-check-label" for="status_istri">
+                                        <div class="fw-bold text-gray-800">Istri</div>
+                                    </label>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Radio-->
+
+                                <!--begin::Radio-->
+                                <div class="form-check form-check-custom form-check-solid me-5">
+                                    <!--begin::Input-->
+                                    <input class="form-check-input me-3" name="status_keluarga" type="radio" value="anak" id="status_anak" {{ old('status_keluarga') == 'anak' ? 'checked' : '' }} />
+                                    <!--end::Input-->
+                                    <!--begin::Label-->
+                                    <label class="form-check-label" for="status_anak">
+                                        <div class="fw-bold text-gray-800">Anak</div>
+                                    </label>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Radio-->
+
+                                <!--begin::Radio-->
+                                <div class="form-check form-check-custom form-check-solid">
+                                    <!--begin::Input-->
+                                    <input class="form-check-input me-3" name="status_keluarga" type="radio" value="lainnya" id="status_lainnya" {{ old('status_keluarga') == 'lainnya' ? 'checked' : '' }} checked />
+                                    <!--end::Input-->
+                                    <!--begin::Label-->
+                                    <label class="form-check-label" for="status_lainnya">
+                                        <div class="fw-bold text-gray-800">Lainnya</div>
+                                    </label>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Radio-->
+                            </div>
+                            <!--end::Input row-->
+                            <!--end::Roles-->
+                        </div>
+                        <!--end::Input group-->
+                        <!-- Status Kependudukan -->
+                        <!--begin::Input group-->
+                        <div class="mb-10">
+                            <!--begin::Label-->
+                            <label class="required fw-semibold fs-6 mb-5" for="status_kependudukan">Status Kependudukan</label>
                             <!--end::Label-->
                             <!--begin::Roles-->
                             <!--begin::Input row-->
@@ -111,7 +176,7 @@
                                 <!--begin::Radio-->
                                 <div class="form-check form-check-custom form-check-solid">
                                     <!--begin::Input-->
-                                    <input class="form-check-input me-3" name="status" type="radio" value="asli" id="status_asli" {{ old('status') == 'asli' ? 'checked' : '' }} checked='checked' />
+                                    <input class="form-check-input me-3" name="status_kependudukan" type="radio" value="asli" id="status_asli" {{ old('status_kependudukan') == 'asli' ? 'checked' : '' }} checked />
                                     <!--end::Input-->
                                     <!--begin::Label-->
                                     <label class="form-check-label" for="status_asli">
@@ -129,7 +194,7 @@
                                 <!--begin::Radio-->
                                 <div class="form-check form-check-custom form-check-solid">
                                     <!--begin::Input-->
-                                    <input class="form-check-input me-3" name="status" type="radio" id="status_pendatang" value="pendatang" {{ old('status') == 'pendatang' ? 'checked' : '' }} />
+                                    <input class="form-check-input me-3" name="status_kependudukan" type="radio" id="status_pendatang" value="pendatang" {{ old('status_kependudukan') == 'pendatang' ? 'checked' : '' }} />
                                     <!--end::Input-->
                                     <!--begin::Label-->
                                     <label class="form-check-label" for="status_pengunjung">
@@ -146,7 +211,7 @@
                         <!--end::Input group-->
                         <!-- KK -->
                         <div class="fv-row mb-7">
-                            <label class="fw-semibold fs-6 mb-2" for="no_kk">KK</label>
+                            <label class="fw-semibold fs-6 mb-2" for="no_kk">No KK</label>
                             <span class="ms-1" data-bs-toggle="tooltip" title="Isi Ketika Warga Tinggal Di Daerah Tersebut">
                                 <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
                             </span>

@@ -155,11 +155,23 @@
 										<!--begin::Input group-->
 										<div class="row mb-7">
 											<!--begin::Label-->
+											<label class="col-lg-4 fw-semibold text-muted">Status Keluarga</label>
+											<!--end::Label-->
+											<!--begin::Col-->
+											<div class="col-lg-8">
+												<span class="fw-bold fs-6 text-gray-800">{{ ucwords(str_replace('_', ' ', $warga->status_keluarga)) }}</span>
+											</div>
+											<!--end::Col-->
+										</div>
+										<!--end::Input group-->
+										<!--begin::Input group-->
+										<div class="row mb-7">
+											<!--begin::Label-->
 											<label class="col-lg-4 fw-semibold text-muted">Status Kependudukan</label>
 											<!--end::Label-->
 											<!--begin::Col-->
 											<div class="col-lg-8">
-												<span class="fw-bold fs-6 text-gray-800">{{ ucfirst($warga->status) }}</span>
+												<span class="fw-bold fs-6 text-gray-800">{{ ucfirst($warga->status_kependudukan) }}</span>
 											</div>
 											<!--end::Col-->
 										</div>
