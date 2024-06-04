@@ -110,6 +110,11 @@ class KKController extends Controller
             'kepala_keluarga' => 'required',
             'alamat' => 'required',
             'no_rt' => 'required',
+            'nik' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'agama' => 'required',
         ]);
 
         $no_rt = $validate['no_rt'];
@@ -120,12 +125,37 @@ class KKController extends Controller
             $id_rt = $rt->id_rt;
         }
 
-        KK::create([
+        $level = Level::whereIn('level_nama', ['Warga', 'warga'])->firstOrFail();
+
+        $user = Users::firstOrCreate(
+            ['username' => $validate['nik']],
+            [
+                'password' => Hash::make($validate['nik']),
+                'id_level' => $level->id_level,
+            ]
+        );
+
+        $kk = KK::create([
             'no_kk' => $validate['no_kk'],
             'kepala_keluarga' => $validate['kepala_keluarga'],
             'alamat' => $validate['alamat'],
             'id_rt' => $id_rt,
         ]);
+
+        Warga::updateOrCreate(
+            ['nik' => $validate['nik']],
+            [
+                'nama' => $validate['kepala_keluarga'],
+                'jenis_kelamin' => $validate['jenis_kelamin'],
+                'tempat_lahir' => $validate['tempat_lahir'],
+                'tanggal_lahir' => $validate['tanggal_lahir'],
+                'agama' => $validate['agama'],
+                'alamat' => $validate['alamat'],
+                'no_rt' => $no_rt,
+                'id_user' => $user->id_user,
+                'id_kk' => $kk->id_kk,
+            ]
+        );
         
         return redirect()->route('kk.index')->with('success', 'Data KK Berhasil Disimpan');
     }
@@ -180,6 +210,11 @@ class KKController extends Controller
             'kepala_keluarga' => 'required',
             'alamat' => 'required',
             'no_rt' => 'required',
+            'nik' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'agama' => 'required',
         ]);
         
         $no_rt = $request->no_rt;
@@ -190,12 +225,26 @@ class KKController extends Controller
             $id_rt = $rt->id_rt;
         }
 
-        KK::findOrFail($id)->update([
+        $kk = KK::findOrFail($id)->update([
             'no_kk' => $request->no_kk,
             'kepala_keluarga' => $request->kepala_keluarga,
             'alamat' => $request->alamat,
             'id_rt' => $id_rt,
         ]);
+
+        $warga = Warga::where('id_kk', $id)->first();
+
+        if($warga){
+            $warga->update([
+                'nama' => $request->kepala_keluarga,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'agama' => $request->agama,
+                'alamat' => $request->alamat,
+                'no_rt' => $no_rt,
+            ]);
+        }
 
         return redirect()->route('kk.index')->with('success', 'Data KK berhasil diperbarui');
     }

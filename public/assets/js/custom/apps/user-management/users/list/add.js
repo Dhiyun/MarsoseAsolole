@@ -156,6 +156,46 @@ var KTKKsAddKK = function () {
                     },
                 }
             },
+            nik: {
+                validators: {
+                    notEmpty: {
+                        message: "NIK Harus Diisi"
+                    },
+                    stringLength: {
+                        min: 16,
+                        max: 16,
+                        message: "No NIK Harus 16 Nomer"
+                    },
+                }
+            },
+            jenis_kelamin: {
+                validators: {
+                    notEmpty: {
+                        message: "Jenis Kelamin Harus Dipilih"
+                    }
+                }
+            },
+            tempat_lahir: {
+                validators: {
+                    notEmpty: {
+                        message: "Tempat Lahir Harus Diisi"
+                    }
+                }
+            },
+            tanggal_lahir: {
+                validators: {
+                    notEmpty: {
+                        message: "Tanggal Lahir Harus Diisi"
+                    }
+                }
+            },
+            agama: {
+                validators: {
+                    notEmpty: {
+                        message: "Agama Harus Diisi"
+                    }
+                }
+            },
             alamat: {
                 validators: {
                     notEmpty: {
@@ -327,6 +367,7 @@ var KTWargasAddWarga = function () {
                         message: "NIK Harus Diisi"
                     },
                     stringLength: {
+                        min: 16,
                         max: 16,
                         message: "No NIK Harus 16 Nomer"
                     },

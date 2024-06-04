@@ -27,6 +27,6 @@ class KK extends Model
 
     public function warga()
     {
-        return $this->hasMany(Warga::class, 'id_warga');
+        return $this->hasOne(Warga::class, 'id_kk');
     }
 }
