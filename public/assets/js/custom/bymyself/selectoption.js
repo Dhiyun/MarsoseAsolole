@@ -18,4 +18,10 @@ $(document).ready(function() {
         allowClear: true,
         minimumResultsForSearch: Infinity
     });
+
+    $('#status_kependudukan').select2({
+        placeholder: "Pilih Status Kependudukan",
+        allowClear: true,
+        minimumResultsForSearch: Infinity
+    });
 });

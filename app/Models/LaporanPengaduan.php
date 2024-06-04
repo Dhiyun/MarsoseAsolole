@@ -7,14 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class LaporanPengaduan extends Model
 {
-    // Specify the table name if it does not follow Laravel's naming convention
     protected $table = 'laporan_pengaduan';
-
-    // Specify the primary key if it does not follow Laravel's naming convention
     protected $primaryKey = 'id_laporan';
+    public $timestamps = true;
 
-    // Mass assignable attributes
     protected $fillable = [
+        'tanggal_laporan',
         'tanggal_proses',
         'tanggal_selesai',
         'jenis_laporan',
@@ -23,4 +21,9 @@ class LaporanPengaduan extends Model
         'status',
         'id_warga',
     ];
+
+    public function warga()
+    {
+        return $this->belongsTo(Warga::class, 'id_warga');
+    }
 }

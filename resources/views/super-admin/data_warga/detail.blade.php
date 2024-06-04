@@ -28,9 +28,9 @@
                     <div class="card-header mt-5"><!--begin::Search-->
 						<div class="d-flex align-items-center position-relative my-1">
 							<!--begin::Menu- wrapper-->
-							<div class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" onclick="window.history.back();">
+							<a class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" href="{{ route('warga.index') }}">
 								<i class="ki-outline ki-arrow-left fs-3"></i>
-							</div>
+							</a>
 							<!--begin::Menu-->
 							<h1 class="mt-1">Detail Keseluruhan</h1>
 						</div>
@@ -56,6 +56,18 @@
 									<!--begin::Card header-->
 									<!--begin::Card body-->
 									<div class="card-body p-9">
+										<!--begin::Row-->
+										<div class="row mb-7">
+											<!--begin::Label-->
+											<label class="col-lg-4 fw-semibold text-muted">No KK</label>
+											<!--end::Label-->
+											<!--begin::Col-->
+											<div class="col-lg-8">
+												<span class="fw-bold fs-6 text-gray-800">{{ $warga->kk->no_kk ?? 'N/A'}}</span>
+											</div>
+											<!--end::Col-->
+										</div>
+										<!--end::Row-->
 										<!--begin::Row-->
 										<div class="row mb-7">
 											<!--begin::Label-->
@@ -131,11 +143,11 @@
 										<!--begin::Input group-->
 										<div class="row mb-7">
 											<!--begin::Label-->
-											<label class="col-lg-4 fw-semibold text-muted">RT</label>
+											<label class="col-lg-4 fw-semibold text-muted">No RT</label>
 											<!--end::Label-->
 											<!--begin::Col-->
 											<div class="col-lg-8">
-												<span class="fw-bold fs-6 text-gray-800">{{ $warga->kk->rt->no_rt ?? 'N/A' }}</span>
+												<span class="fw-bold fs-6 text-gray-800">{{ $warga->kk->rt->no_rt ?? $warga->no_rt }}</span>
 											</div>
 											<!--end::Col-->
 										</div>
@@ -143,7 +155,19 @@
 										<!--begin::Input group-->
 										<div class="row mb-7">
 											<!--begin::Label-->
-											<label class="col-lg-4 fw-semibold text-muted">Status</label>
+											<label class="col-lg-4 fw-semibold text-muted">Status Kependudukan</label>
+											<!--end::Label-->
+											<!--begin::Col-->
+											<div class="col-lg-8">
+												<span class="fw-bold fs-6 text-gray-800">{{ ucfirst($warga->status) }}</span>
+											</div>
+											<!--end::Col-->
+										</div>
+										<!--end::Input group-->
+										<!--begin::Input group-->
+										<div class="row mb-7">
+											<!--begin::Label-->
+											<label class="col-lg-4 fw-semibold text-muted">Status Warga</label>
 											<!--end::Label-->
 											<!--begin::Col-->
 											<div class="col-lg-8">

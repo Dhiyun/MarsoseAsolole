@@ -23,6 +23,8 @@ class Warga extends Model
         'alamat',
         'periode_jabatan_awal',
         'periode_jabatan_akhir',
+        'no_rt',
+        'status',
         'id_user',
         'id_kk',
     ];

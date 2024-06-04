@@ -88,7 +88,7 @@
 									<td>{{ $warga->nama }}</td>
 									<td>{{ $warga->tempat_lahir }}, {{ \Carbon\Carbon::parse($warga->tanggal_lahir)->format('d M Y') }}</td>
 									<td>{{ $warga->alamat }}</td>
-									<td>{{ $warga->kk->rt->no_rt ?? 'N/A' }}</td>
+									<td>{{ $warga->kk->rt->no_rt ?? $warga->no_rt }}</td>
 									<td>{{ $warga->user->level->level_nama }}</td>
 									<td class="text-end">
 										<a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

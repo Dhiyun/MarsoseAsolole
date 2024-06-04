@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KK;
 use App\Models\Level;
+use App\Models\RT;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use App\Models\Warga;
@@ -21,10 +22,12 @@ class WargaController extends Controller
 
         $activeMenu = 'warga';
         $wargas = Warga::all();
+        $rts = RT::all();
 
         return view('super-admin.data_warga.index', [
             'breadcrumb' => $breadcrumb,
             'wargas' => $wargas,
+            'rts' => $rts,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -86,6 +89,8 @@ class WargaController extends Controller
             'tanggal_lahir' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
+            'no_rt' => 'nullable',
+            'status' => 'required',
             'no_kk' => 'nullable',
         ]);
 
@@ -111,6 +116,8 @@ class WargaController extends Controller
             'tanggal_lahir' => $validate['tanggal_lahir'],
             'agama' => $validate['agama'],
             'alamat' => $validate['alamat'],
+            'no_rt' => $validate['no_rt'],
+            'status' => $validate['status'],
             'id_user' => $user->id_user,
             'id_kk' => $id_kk,
         ]);
@@ -133,6 +140,8 @@ class WargaController extends Controller
             'tanggal_lahir' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
+            'no_rt' => 'nullable',
+            'status' => 'required',
             'no_kk' => 'nullable',
         ]);
 
@@ -144,6 +153,8 @@ class WargaController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'agama' => $request->agama,
             'alamat' => $request->alamat,
+            'no_rt' => $request->no_rt,
+            'status' => $request->status,
             'no_kk' => $request->no_kk,
         ]);
 
