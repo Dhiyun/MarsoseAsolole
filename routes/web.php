@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\WargaController as AdminWargaController;
 use App\Http\Controllers\Admin\WelcomeAdminController;
 use App\Http\Controllers\Admin\WelcomeController as AdminWelcomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DetailKriteriaController;
 use App\Http\Controllers\KKController;
+use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LaporanPengaduanController;
 use App\Http\Controllers\LaporanSpkController;
@@ -150,13 +152,19 @@ Route::middleware('auth')->group(function () {
             });
 
             Route::prefix('kriteria')->group(function () {
-                Route::get('/', [LaporanSpkController::class, 'indexDetailKriteria'])->name('detail_kriteria.index');
-                Route::get('/create', [LaporanSpkController::class, 'createDetailKriteria'])->name('detail_kriteria.create');
-                Route::post('/store', [LaporanSpkController::class, 'storeDetailKriteria'])->name('detail_kriteria.store');
-                Route::get('/edit/{id}', [LaporanSpkController::class, 'editDetailKriteria'])->name('detail_kriteria.edit');
-                Route::put('/update/{id}', [LaporanSpkController::class, 'updateDetailKriteria'])->name('detail_kriteria.update');
-                Route::delete('/destroy/{id}', [LaporanSpkController::class, 'destroyDetailKriteria'])->name('detail_kriteria.destroy');
-                Route::post('/delete-selected', [LaporanSpkController::class, 'deleteSelectedKriteria'])->name('detail_kriteria.deleteSelected');
+                Route::get('/', [KriteriaController::class, 'index'])->name('kriteria.index');
+                Route::post('/store', [KriteriaController::class, 'store'])->name('kriteria.store');
+                Route::put('/update/{id}', [KriteriaController::class, 'update'])->name('kriteria.update');
+                Route::delete('/destroy/{id}', [KriteriaController::class, 'destroy'])->name('kriteria.destroy');
+                Route::post('/delete-selected', [KriteriaController::class, 'deleteSelectedKriteria'])->name('kriteria.deleteSelected');
+            });
+
+            Route::prefix('detail_kriteria')->group(function () {
+                Route::get('/', [DetailKriteriaController::class, 'index'])->name('detail_kriteria.index');
+                Route::post('/store', [DetailKriteriaController::class, 'store'])->name('detail_kriteria.store');
+                Route::put('/update/{id}', [DetailKriteriaController::class, 'update'])->name('detail_kriteria.update');
+                Route::delete('/destroy/{id}', [DetailKriteriaController::class, 'destroy'])->name('detail_kriteria.destroy');
+                Route::post('/delete-selected', [DetailKriteriaController::class, 'deleteSelectedKriteria'])->name('detail_kriteria.deleteSelected');
             });
 
             Route::prefix('laporan_spk')->group(function () {

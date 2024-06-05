@@ -176,7 +176,7 @@
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
                         <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
-                            href="{{ route('detail_kriteria.index') }}">
+                            href="{{ route('kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -189,7 +189,21 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
+                        <a class="menu-link {{ $activeMenu == 'detail_kriteria' ? 'active' : '' }}"
+                            href="{{ route('detail_kriteria.index') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Detail Kriteria</span>
+                        </a>
+                        <!-- End: Menu link -->
+                    </div>
+                    <!-- End: Menu item -->
+
+                    <!-- Begin: Menu item -->
+                    <div class="menu-item">
+                        <!-- Begin: Menu link -->
+                        <a class="menu-link {{ $activeMenu == '' ? 'active' : '' }}"
                             href="{{ route('detail_kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
@@ -203,7 +217,7 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
+                        <a class="menu-link {{ $activeMenu == '' ? 'active' : '' }}"
                             href="{{ route('detail_kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
