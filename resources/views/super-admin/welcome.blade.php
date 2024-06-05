@@ -1,4 +1,5 @@
 @extends('super-admin.layouts.template')
+@section('title', 'Super Admin | Dashboard')
 
 @section('content')
 

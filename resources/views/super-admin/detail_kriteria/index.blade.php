@@ -33,7 +33,7 @@
                                 <div class="d-flex justify-content-end" data-kt-detail_kriteria-table-toolbar="base">
                                     <!--begin::Add Kriteria-->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_add_detail_kriteria">
+                                        data-bs-target="#kt_modal_add_detail_kriteria" style="margin-left: 5px;">
                                         <i class="ki-outline ki-plus fs-2"></i>Tambah Detail Kriteria</button>
                                     <!--end::Add Kriteria-->
                                 </div>

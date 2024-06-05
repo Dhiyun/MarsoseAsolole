@@ -47,10 +47,10 @@
                 <a class="menu-link {{ $activeMenu == 'level' ? 'active' : '' }}" href="{{ route('level.index') }}">
                     <span class="menu-icon">
                         @if ($activeMenu == 'level')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-laporan.svg"
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-level.svg"
                                 class="h-25px theme-light-show" />
                         @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-laporan.svg"
+                            <img alt="Logo" src="assets/media/logos/menu/logo-level.svg"
                                 class="h-25px theme-light-show" />
                         @endif
                     </span>
@@ -66,10 +66,10 @@
                 <a class="menu-link {{ $activeMenu == 'datakk' ? 'active' : '' }}" href="{{ route('kk.index') }}">
                     <span class="menu-icon">
                         @if ($activeMenu == 'datakk')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg"
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-kk.svg"
                                 class="h-25px theme-light-show" />
                         @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-warga.svg"
+                            <img alt="Logo" src="assets/media/logos/menu/logo-kk.svg"
                                 class="h-25px theme-light-show" />
                         @endif
                     </span>
@@ -85,10 +85,10 @@
                 <a class="menu-link {{ $activeMenu == 'warga' ? 'active' : '' }}" href="{{ route('warga.index') }}">
                     <span class="menu-icon">
                         @if ($activeMenu == 'warga')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg"
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-datapenduduk.svg"
                                 class="h-25px theme-light-show" />
                         @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-warga.svg"
+                            <img alt="Logo" src="assets/media/logos/menu/logo-datapenduduk.svg"
                                 class="h-25px theme-light-show" />
                         @endif
                     </span>
@@ -103,11 +103,11 @@
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'surat' ? 'active' : '' }}" href="{{ route('surat.index') }}">
                     <span class="menu-icon">
-                        @if ($activeMenu == 'datart')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-datart.svg"
+                        @if ($activeMenu == 'surat')
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-surat.svg"
                                 class="h-25px theme-light-show" />
                         @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-datart.svg"
+                            <img alt="Logo" src="assets/media/logos/menu/logo-surat.svg"
                                 class="h-25px theme-light-show" />
                         @endif
                     </span>
@@ -123,15 +123,15 @@
                 <a class="menu-link {{ $activeMenu == 'laporan' ? 'active' : '' }}"
                     href="{{ route('laporan.index') }}">
                     <span class="menu-icon">
-                        @if ($activeMenu == 'datart')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-datart.svg"
+                        @if ($activeMenu == 'laporan')
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-laporan.svg"
                                 class="h-25px theme-light-show" />
                         @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-datart.svg"
+                            <img alt="Logo" src="assets/media/logos/menu/logo-laporan.svg"
                                 class="h-25px theme-light-show" />
                         @endif
                     </span>
-                    <span class="menu-title">Laporan</span>
+                    <span class="menu-title">Laporan Pengaduan</span>
                 </a>
                 <!-- End: Menu link -->
             </div>
@@ -144,14 +144,14 @@
                     href="{{ route('laporan_spk.index') }}">
                     <span class="menu-icon">
                         @if ($activeMenu == 'datart')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-datart.svg"
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-spk.svg"
                                 class="h-25px theme-light-show" />
                         @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-datart.svg"
+                            <img alt="Logo" src="assets/media/logos/menu/logo-spk.svg"
                                 class="h-25px theme-light-show" />
                         @endif
                     </span>
-                    <span class="menu-title">Laporan SPK</span>
+                    <span class="menu-title" style="color: var(--bs-gray-600);">Laporan SPK</span>
                     <span class="menu-arrow"></span>
                 </span>
                 <!-- End: Menu link -->
@@ -166,7 +166,7 @@
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Daftar Laporan SPK</span>
+                            <span class="menu-title" style="color: var(--bs-gray-600);">Daftar Laporan SPK</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>
@@ -180,7 +180,7 @@
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Kriteria</span>
+                            <span class="menu-title" style="color: var(--bs-gray-600);">Kriteria</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>
@@ -208,7 +208,7 @@
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Perhitungan</span>
+                            <span class="menu-title" style="color: var(--bs-gray-600);">Perhitungan</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>
@@ -217,12 +217,12 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == '' ? 'active' : '' }}"
+                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
                             href="{{ route('detail_kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Perankingan</span>
+                            <span class="menu-title" style="color: var(--bs-gray-600);">Perankingan</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>

@@ -62,7 +62,7 @@ class KKController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Detail KK',
-            'list' => ['Home', 'Data KK', 'Detail KK - ' . $kk->no_kk]
+            'list' => ['Home,', 'Detail Data KK - ' . $kk->no_kk]
         ];
     
         $activeMenu = 'datakk';
@@ -84,7 +84,7 @@ class KKController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Detail KK',
-            'list' => ['Home', 'Data KK', 'Detail KK - ' . $kk->no_kk, 'Data Warga', 'Detail Warga - ' . $warga->nik]
+            'list' => ['Home,', 'Detail Keseluruhan Data KK - ' . $kk->no_kk, '&', 'Data Warga', 'Detail Warga - ' . $warga->nik]
         ];
     
         $activeMenu = 'datakk';

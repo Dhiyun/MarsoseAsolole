@@ -6,7 +6,7 @@
 		<title>@yield('title')</title>
 
 		<!-- LOGO -->
-		<link href="assets/media/logos/marsose.svg" rel="shortcut icon" >
+		<link href="{{ asset('assets/img/Favicon Marsose(Dark).svg') }}" rel="shortcut icon" >
 
 		<!--begin::Fonts(mandatory for all pages)-->
 		{{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> --}}
