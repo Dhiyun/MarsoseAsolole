@@ -15,8 +15,8 @@ class LaporanPengaduanController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Laporan',
-            'list' => ['Laporan Pengaduan']
+            'title' => 'Laporan Pengaduan',
+            'list' => ['Home,', 'Laporan Pengaduan']
         ];
 
         $activeMenu = 'laporan';

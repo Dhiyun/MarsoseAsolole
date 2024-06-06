@@ -1,4 +1,5 @@
 @extends('super-admin.layouts.template')
+@section('title', 'Super Admin | Detail Kriteria')
 
 @section('content')
     <div class="app-main flex-column flex-row-fluid mt-5 mx-5 mb-5" id="kt_app_main">

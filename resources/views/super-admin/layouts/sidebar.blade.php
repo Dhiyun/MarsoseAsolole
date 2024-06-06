@@ -138,22 +138,19 @@
             <!-- End: Menu item -->
 
             <!-- Begin: Menu item -->
-            <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perankingan']) ? 'here show' : '' }}">
                 <!-- Begin: Menu link -->
-                <span class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}"
-                    href="{{ route('laporan_spk.index') }}">
+                <a class="menu-link {{ $activeMenu == 'spkk' ? 'active' : '' }}">
                     <span class="menu-icon">
-                        @if ($activeMenu == 'datart')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-spk.svg"
-                                class="h-25px theme-light-show" />
+                        @if ($activeMenu == 'spkk')
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-spk.svg" class="h-25px theme-light-show" />
                         @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-spk.svg"
-                                class="h-25px theme-light-show" />
+                            <img alt="Logo" src="assets/media/logos/menu/logo-spk.svg" class="h-25px theme-light-show" />
                         @endif
                     </span>
-                    <span class="menu-title" style="color: var(--bs-gray-600);">Laporan SPK</span>
+                    <span class="menu-title">Laporan SPK</span>
                     <span class="menu-arrow"></span>
-                </span>
+                </a>
                 <!-- End: Menu link -->
 
                 <!-- Begin: Menu sub -->
@@ -161,12 +158,11 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
-                            href="{{ route('kriteria.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}" href="{{ route('kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title" style="color: var(--bs-gray-600);">Kriteria</span>
+                            <span class="menu-title">Kriteria</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>
@@ -175,12 +171,11 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'detail_kriteria' ? 'active' : '' }}"
-                            href="{{ route('detail_kriteria.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'detail_kriteria' ? 'active' : '' }}" href="{{ route('detail_kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title" style="color: var(--bs-gray-600);">Detail Kriteria</span>
+                            <span class="menu-title">Detail Kriteria</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>
@@ -189,12 +184,11 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'alternatif' ? 'active' : '' }}"
-                            href="{{ route('alternatif.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'alternatif' ? 'active' : '' }}" href="{{ route('alternatif.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title" style="color: var(--bs-gray-600);">Alternatif</span>
+                            <span class="menu-title">Alternatif</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>
@@ -203,12 +197,11 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}"
-                            href="{{ route('laporan_spk.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}" href="{{ route('laporan_spk.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title" style="color: var(--bs-gray-600);">Daftar Laporan SPK</span>
+                            <span class="menu-title">Daftar Laporan SPK</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>
@@ -217,12 +210,11 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
-                            href="{{ route('detail_kriteria.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'perhitungan' ? 'active' : '' }}" href="{{ route('detail_kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title" style="color: var(--bs-gray-600);">Perhitungan</span>
+                            <span class="menu-title">Perhitungan</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>
@@ -231,12 +223,11 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
-                            href="{{ route('detail_kriteria.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'perankingan' ? 'active' : '' }}" href="{{ route('detail_kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title" style="color: var(--bs-gray-600);">Perankingan</span>
+                            <span class="menu-title">Perankingan</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>

@@ -13,7 +13,7 @@ class KriteriaController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Kriteria',
-            'list' => ['Home, Kriteria']
+            'list' => ['Home,', 'Kriteria']
         ];
 
         $activeMenu = 'kriteria';

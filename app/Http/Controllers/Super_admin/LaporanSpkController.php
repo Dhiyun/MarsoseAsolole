@@ -80,7 +80,7 @@ class LaporanSpkController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Laporan SPK',
-            'list' => ['Home, Laporan SPK']
+            'list' => ['Home,', 'Laporan SPK']
         ];
 
         $activeMenu = 'spk';

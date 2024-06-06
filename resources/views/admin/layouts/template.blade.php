@@ -3,10 +3,10 @@
     <!--begin::Head-->
     <head>
         <base href="{{ url('/') }}"/>
-        <title>MARSOSE - Citizen's Report Site</title>
+        <title>@yield('title')</title>
 
         <!-- LOGO -->
-        <link href="{{ asset('assets/img/Favicon Marsose.svg') }}" rel="shortcut icon">
+        <link href="{{ asset('assets/img/Favicon Marsose(Dark).svg') }}" rel="shortcut icon">
 
         <!--begin::Fonts(mandatory for all pages)-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />

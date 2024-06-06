@@ -15,7 +15,7 @@ class DetailKriteriaController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Detail Kriteria',
-            'list' => ['Home, Kriteria, Detail Kriteria']
+            'list' => ['Home,', 'Kriteria,', 'Detail Kriteria']
         ];
 
         $activeMenu = 'detail_kriteria';

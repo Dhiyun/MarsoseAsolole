@@ -12,8 +12,8 @@ class SuratController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Surat',
-            'list' => ['Home, Surat']
+            'title' => 'Daftar Surat-Surat',
+            'list' => ['Home,', 'Surat-Surat']
         ];
     
         $activeMenu = 'surat';

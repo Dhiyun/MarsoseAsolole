@@ -17,13 +17,13 @@
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'dashboard' ? 'active' : '' }}" href="{{ route('admin.index', ['rt' => $rtNumber]) }}">
-                    {{-- <span class="menu-icon">
+                    <span class="menu-icon">
                         @if ($activeMenu == 'dashboard')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-dashboard.svg" class="h-25px theme-light-show" />
                         @else
                             <img alt="Logo" src="assets/media/logos/menu/logo-dashboard.svg" class="h-25px theme-light-show" />
                         @endif
-                    </span> --}}
+                    </span>
                     <span class="menu-title">Dashboard</span>
                 </a>
                 <!-- End: Menu link -->
@@ -34,13 +34,13 @@
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'datakk' ? 'active' : '' }}" href="{{ route('kk-admin.index', ['rt' => $rtNumber]) }}">
-                    {{-- <span class="menu-icon">
+                    <span class="menu-icon">
                         @if ($activeMenu == 'datakk')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg" class="h-25px theme-light-show" />
                         @else
                             <img alt="Logo" src="assets/media/logos/menu/logo-warga.svg" class="h-25px theme-light-show" />
                         @endif
-                    </span> --}}
+                    </span>
                     <span class="menu-title">Data KK</span>
                 </a>
                 <!-- End: Menu link -->
@@ -51,13 +51,13 @@
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'warga' ? 'active' : '' }}" href="{{ route('warga-admin.index', ['rt' => $rtNumber]) }}">
-                    {{-- <span class="menu-icon">
+                    <span class="menu-icon">
                         @if ($activeMenu == 'warga')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-warga.svg" class="h-25px theme-light-show" />
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-datapenduduk.svg" class="h-25px theme-light-show" />
                         @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-warga.svg" class="h-25px theme-light-show" />
+                            <img alt="Logo" src="assets/media/logos/menu/logo-datapenduduk.svg" class="h-25px theme-light-show" />
                         @endif
-                    </span> --}}
+                    </span>
                     <span class="menu-title">Data Penduduk</span>
                 </a>
                 <!-- End: Menu link -->

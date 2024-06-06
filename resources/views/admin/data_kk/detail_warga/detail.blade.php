@@ -1,4 +1,5 @@
 @extends('admin.layouts.template')
+@section('title', 'Admin | Detail Data KK')
 
 @section('content')
 

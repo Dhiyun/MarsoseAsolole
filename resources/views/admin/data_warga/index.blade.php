@@ -1,4 +1,5 @@
 @extends('admin.layouts.template')
+@section('title', 'Admin | Data Penduduk')
 
 @section('content')
     <div class="app-main flex-column flex-row-fluid mt-5 mx-5 mb-5" id="kt_app_main">

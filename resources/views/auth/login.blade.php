@@ -2,9 +2,9 @@
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="../../../"/>
-		<title>MARSOSE - Citizen's Report Site</title>
+		<title>MARSOSE | Login</title>
 
-		<link rel="shortcut icon" href="assets/img/Favicon Marsose.svg" />
+		<link rel="shortcut icon" href="assets/img/Favicon Marsose(Dark).svg" />
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->

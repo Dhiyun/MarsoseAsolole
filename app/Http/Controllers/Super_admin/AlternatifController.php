@@ -12,8 +12,8 @@ class AlternatifController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'SPK',
-            'list' => ['SPK', 'Alternatif']
+            'title' => 'Daftar Alternatif',
+            'list' => ['Home,', 'Alternatif']
         ];
 
         $activeMenu = 'alternatif';

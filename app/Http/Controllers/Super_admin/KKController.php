@@ -19,7 +19,7 @@ class KKController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar KK',
-            'list' => ['Home, Data KK']
+            'list' => ['Home,', 'Data KK']
         ];
 
         $activeMenu = 'datakk';

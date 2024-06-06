@@ -14,7 +14,7 @@ class LevelController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Level',
-            'list' => ['Home, Level']
+            'list' => ['Home,', 'Level']
         ];
 
         $activeMenu = 'level';
