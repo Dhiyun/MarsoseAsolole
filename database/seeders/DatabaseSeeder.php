@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Warga;
 use App\Models\User;
+use Database\Seeders\LaporanSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,7 +35,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             WargaSeeder::class,
             LaporanSeeder::class,
-            
         ]);
     }
     

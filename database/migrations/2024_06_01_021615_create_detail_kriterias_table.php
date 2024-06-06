@@ -21,7 +21,11 @@ class CreateDetailKriteriasTable extends Migration
             $table->decimal('bobot_normalisasi', 5, 2);
             $table->timestamps();
 
-            $table->foreign('id_kriteria')->references('id_kriteria')->on('kriterias')->onDelete('cascade');
+            $table->foreign('id_kriteria')
+                  ->references('id_kriteria')
+                  ->on('kriterias')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
         });
     }
 

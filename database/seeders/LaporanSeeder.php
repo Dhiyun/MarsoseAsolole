@@ -2,123 +2,64 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class LaporanSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
-        $laporans = [
-            [
-                'id_laporan' => 1,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Infratruktur',
-                'gambar' => 'path/to/image.jpg',
-                'keterangan' => 'Kerusakan pipa air PDAM di Jalan Melati',
-                'status' => 'menunggu',
-                'id_warga' => 5,
-            ],
-            [
-                'id_laporan' => 2,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Keamanan',
-                'gambar' => 'path/to/image.jpg',
-                'keterangan' => 'Gangguan suara dari tempat hiburan malam di Jalan Mawar',
-                'status' => 'menunggu',
-                'id_warga' => 8,
-            ],
-            [
-                'id_laporan' => 3,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Lingkungan',  // Change jenis_laporan and keterangan for variety
-                'gambar' => 'path/to/image2.jpg',
-                'keterangan' => 'Penumpukan sampah di area perumahan',
-                'status' => 'menunggu',
-                'id_warga' => 7,
-            ],
-            [
-                'id_laporan' => 4,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Keamanan',
-                'gambar' => 'path/to/image3.jpg',
-                'keterangan' => 'Laporan lampu jalan mati di persimpangan',
-                'status' => 'menunggu',
-                'id_warga' => 6,
-            ],
-            [
-                'id_laporan' => 5,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Layanan Masyarakat',
-                'gambar' => 'path/to/image4.jpg',
-                'keterangan' => 'Taman bermain anak rusak di Taman Melati',
-                'status' => 'menunggu',
-                'id_warga' => 1,
-            ],
-            [
-                'id_laporan' => 6,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Lingkungan',
-                'gambar' => 'path/to/image5.jpg',
-                'keterangan' => 'Saluran air di Jalan Mawar tersumbat',
-                'status' => 'menunggu',
-                'id_warga' => 8,
-            ],
-            [
-                'id_laporan' => 7,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Keamanan', // Change jenis_laporan and keterangan for variety
-                'gambar' => 'path/to/image6.jpg',
-                'keterangan' => 'Pos ronda di Jalan Melati tidak ada petugasnya',
-                'status' => 'menunggu',
-                'id_warga' => 6,
-            ],
-            [
-                'id_laporan' => 8,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Infrastruktur',
-                'gambar' => 'path/to/image7.jpg',
-                'keterangan' => 'Jalan berlubang di Jalan Mawar',
-                'status' => 'menunggu',
-                'id_warga' => 19,
-            ],
-            [
-                'id_laporan' => 9,
-                'tanggal_proses' => '2024-06-04',
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Infrastruktur',
-                'gambar' => 'path/to/image8.jpg',
-                'keterangan' => 'Kerusakan lampu penerangan jalan di Jalan Melati',
-                'status' => 'diterima',
-                'id_warga' => 20,
-            ],
-            [
-                'id_laporan' => 10,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'jenis_laporan' => 'Infrastruktur',
-                'gambar' => 'path/to/image8.jpg',
-                'keterangan' => 'Kerusakan lampu penerangan jalan di Jalan Melati',
-                'status' => 'menunggu',
-                'id_warga' => 12,
-            ],
-
+        $laporan = [];
+        $jenis_laporan = ['Infrastruktur', 'Kebersihan', 'Keamanan', 'Pelayanan Masyarakat', 'Kesehatan'];
+        $judul = [
+            'Kerusakan pipa air PDAM di Jalan Melati',
+            'Sampah menumpuk di lingkungan RT 03',
+            'Lampu jalan mati di RW 05',
+            'Pelayanan kelurahan yang kurang memuaskan',
+            'Pengaduan terkait jalan berlubang di Jalan Kenanga',
+            'Pengaduan mengenai keamanan lingkungan di RT 02',
+            'Laporan mengenai kebersihan pasar tradisional',
+            'Keluhan terhadap pelayanan kesehatan di puskesmas',
+            'Pengaduan terkait pengurusan KTP yang lambat',
+            'Kerusakan taman kota di RW 01'
         ];
+        $keterangan = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti dolorem exercitationem voluptatum harum odio culpa, molestias sapiente facilis facere optio maiores dolore necessitatibus neque? ';
+        $status = ['menunggu', 'ditolak', 'diterima', 'diproses', 'selesai'];
+        $image_urls = [
+            'https://via.placeholder.com/150',
+            'https://via.placeholder.com/200',
+            'https://via.placeholder.com/250',
+            'https://via.placeholder.com/300',
+            'https://via.placeholder.com/350',
+            'https://via.placeholder.com/400',
+            'https://via.placeholder.com/450',
+            'https://via.placeholder.com/500',
+            'https://via.placeholder.com/550',
+            'https://via.placeholder.com/600'
+        ];
+        
+        for ($i = 0; $i < 10; $i++) {
+            $createdAt = date('Y-m-d H:i:s', strtotime('2024-01-01') + rand(0, 365 * 24 * 60 * 60));
 
-        DB::table('laporan_pengaduan')->insert($laporans);
+            $laporan[] = [
+                'id_laporan' => $i + 1,
+                'tanggal_proses' => null,
+                'tanggal_selesai' => null,
+                'judul' => $judul[$i],
+                'jenis_laporan' => $jenis_laporan[array_rand($jenis_laporan)],
+                'gambar' => $image_urls[array_rand($image_urls)],
+                'keterangan' => $keterangan,
+                'status' => $status[0],
+                'id_warga' => rand(1, 20),
+                'created_at' => $createdAt,
+                'updated_at' => $createdAt,
+            ];
+        }
+
+        DB::table('laporan_pengaduan')->insert($laporan);
     }
 }
