@@ -13,17 +13,19 @@ class WargaFactory extends Factory
     public function definition()
     {
         return [
-            'nik' => $this->faker->unique()->numerify('###############'),
+            'nik' => $this->faker->unique()->numerify('################'),
             'nama' => $this->faker->name,
             'jenis_kelamin' => $this->faker->randomElement(['perempuan', 'laki-laki']),
             'tempat_lahir' => $this->faker->city,
             'tanggal_lahir' => $this->faker->date,
-            'alamat' => 'jalan marsose Kesatrian, Blimbing, Kota Malang',
-            'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Hindu', 'Budha', 'Katolik']),
+            'alamat' => 'jalan marsose Kesatrian no. ' . $this->faker->numberBetween(1, 200) . ', Blimbing, Kota Malang',
+            'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Hindu', 'Budha', 'Katolik', 'Konghucu']),
+            'no_rt' => $this->faker->randomElement(['RT01', 'RT02', 'RT03', 'RT04', 'RT05']),
+            'status' => $this->faker->randomElement(['pendatang', 'asli']),
             'periode_jabatan_awal' => null,
             'periode_jabatan_akhir' => null,
-            'id_user' => $this->faker->numberBetween(1, 100),
-            'id_kk' => $this->faker->numberBetween(1, 100),
+            'id_user' => null, // Kita atur manual di seeder
+            'id_kk' => null, // Kita atur manual di seeder
         ];
     }
 }
