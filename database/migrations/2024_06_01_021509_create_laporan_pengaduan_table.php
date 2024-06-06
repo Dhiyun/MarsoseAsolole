@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_laporan');
             $table->date('tanggal_proses')->nullable();
             $table->date('tanggal_selesai')->nullable();
+            $table->string('judul', 50)->nullable();
             $table->string('jenis_laporan', 50)->nullable();
             $table->string('gambar', 255)->nullable();
             $table->string('keterangan', 255)->nullable();

@@ -5,19 +5,20 @@ use App\Http\Controllers\Admin\WargaController as AdminWargaController;
 use App\Http\Controllers\Admin\WelcomeAdminController;
 use App\Http\Controllers\Admin\WelcomeController as AdminWelcomeController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DetailKriteriaController;
-use App\Http\Controllers\KKController;
-use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\Super_admin\DetailKriteriaController;
+use App\Http\Controllers\Super_admin\KKController;
+use App\Http\Controllers\Super_admin\KriteriaController;
 use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\LaporanPengaduanController;
-use App\Http\Controllers\LaporanSpkController;
-use App\Http\Controllers\RTController;
-use App\Http\Controllers\LevelController;
-use App\Http\Controllers\SuratController;
+use App\Http\Controllers\Super_admin\LaporanPengaduanController;
+use App\Http\Controllers\Super_admin\LaporanSpkController;
+use App\Http\Controllers\Super_admin\RTController;
+use App\Http\Controllers\Super_admin\LevelController;
+use App\Http\Controllers\Super_admin\AlternatifController;
+use App\Http\Controllers\Super_admin\SuratController;
 use App\Http\Controllers\User\LaporanPengaduanController as UserLaporanPengaduanController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\WargaController;
+use App\Http\Controllers\Super_admin\WelcomeController;
+use App\Http\Controllers\Super_admin\WargaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -149,6 +150,16 @@ Route::middleware('auth')->group(function () {
                 Route::put('/update/{id}', [LevelController::class, 'update'])->name('surat.update');
                 Route::delete('/destroy/{id}', [LevelController::class, 'destroy'])->name('surat.destroy');
                 Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('surat.deleteSelected');
+            });
+
+            Route::prefix('spk')->group(function () {
+                Route::prefix('alternatif')->group(function () {
+                    Route::get('/', [AlternatifController::class, 'index'])->name('alternatif.index');
+                    Route::post('/store', [AlternatifController::class, 'store'])->name('alternatif.store');
+                    Route::put('/update/{id}', [AlternatifController::class, 'updateDetailKriteria'])->name('alternatif.update');
+                    Route::delete('/destroy/{id}', [AlternatifController::class, 'destroyDetailKriteria'])->name('alternatif.destroy');
+                    Route::post('/delete-selected', [AlternatifController::class, 'deleteSelectedKriteria'])->name('alternatif.deleteSelected');
+                });
             });
 
             Route::prefix('kriteria')->group(function () {

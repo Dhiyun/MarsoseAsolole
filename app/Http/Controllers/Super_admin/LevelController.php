@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Super_admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Level;
 use Exception;
 use Illuminate\Http\Request;

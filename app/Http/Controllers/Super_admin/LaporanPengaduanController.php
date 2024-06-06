@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Super_admin;
 
+use App\Http\Controllers\Controller;;
 use Illuminate\Http\Request;
 use App\Models\LaporanPengaduan;
 use App\Models\Warga;
@@ -36,6 +37,7 @@ class LaporanPengaduanController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
+            'judul' => 'required',
             'jenis_laporan' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'keterangan' => 'required',
@@ -49,6 +51,7 @@ class LaporanPengaduanController extends Controller
         }
         
         LaporanPengaduan::create([
+            'judul' => $validate['judul'],
             'jenis_laporan' => $validate['jenis_laporan'],
             'gambar' => $imagePath,
             'keterangan' => $validate['keterangan'],

@@ -161,20 +161,6 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}"
-                            href="{{ route('laporan_spk.index') }}">
-                            <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
-                            </span>
-                            <span class="menu-title" style="color: var(--bs-gray-600);">Daftar Laporan SPK</span>
-                        </a>
-                        <!-- End: Menu link -->
-                    </div>
-                    <!-- End: Menu item -->
-
-                    <!-- Begin: Menu item -->
-                    <div class="menu-item">
-                        <!-- Begin: Menu link -->
                         <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
                             href="{{ route('kriteria.index') }}">
                             <span class="menu-bullet">
@@ -194,7 +180,7 @@
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Detail Kriteria</span>
+                            <span class="menu-title" style="color: var(--bs-gray-600);">Detail Kriteria</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>
@@ -203,7 +189,35 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == '' ? 'active' : '' }}"
+                        <a class="menu-link {{ $activeMenu == 'alternatif' ? 'active' : '' }}"
+                            href="{{ route('alternatif.index') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title" style="color: var(--bs-gray-600);">Alternatif</span>
+                        </a>
+                        <!-- End: Menu link -->
+                    </div>
+                    <!-- End: Menu item -->
+
+                    <!-- Begin: Menu item -->
+                    <div class="menu-item">
+                        <!-- Begin: Menu link -->
+                        <a class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}"
+                            href="{{ route('laporan_spk.index') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title" style="color: var(--bs-gray-600);">Daftar Laporan SPK</span>
+                        </a>
+                        <!-- End: Menu link -->
+                    </div>
+                    <!-- End: Menu item -->
+
+                    <!-- Begin: Menu item -->
+                    <div class="menu-item">
+                        <!-- Begin: Menu link -->
+                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
                             href="{{ route('detail_kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>

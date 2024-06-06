@@ -24,6 +24,7 @@ class LaporanPengaduanController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
+            'judul' => 'required',
             'jenis_laporan' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'keterangan' => 'required',
@@ -37,6 +38,7 @@ class LaporanPengaduanController extends Controller
         }
         
         LaporanPengaduan::create([
+            'judul' => $validate['judul'],
             'jenis_laporan' => $validate['jenis_laporan'],
             'gambar' => $imagePath,
             'keterangan' => $validate['keterangan'],

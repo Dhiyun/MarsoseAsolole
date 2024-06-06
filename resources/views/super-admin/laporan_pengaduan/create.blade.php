@@ -23,6 +23,11 @@
                     @csrf
                     <!--begin::Scroll-->
                     <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_laporan_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_laporan_header" data-kt-scroll-wrappers="#kt_modal_add_laporan_scroll" data-kt-scroll-offset="300px">
+                        <!-- Judul -->
+                        <div class="fv-row mb-7">
+                            <label class="required fw-semibold fs-6 mb-2" for="judul">Judul</label>
+                            <input type="text" id="judul" name="judul" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('judul') }}" required />
+                        </div>
                         <!-- Jenis Laporan -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="jenis_laporan">Jenis Laporan</label>

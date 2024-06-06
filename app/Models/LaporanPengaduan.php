@@ -12,8 +12,8 @@ class LaporanPengaduan extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'judul',
         'tanggal_laporan',
-        'tanggal_proses',
         'tanggal_selesai',
         'jenis_laporan',
         'gambar',
@@ -25,5 +25,10 @@ class LaporanPengaduan extends Model
     public function warga()
     {
         return $this->belongsTo(Warga::class, 'id_warga');
+    }
+
+    public function alternatifs()
+    {
+        return $this->hasMany(Alternatif::class, 'id_laporan');
     }
 }

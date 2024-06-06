@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Super_admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Kriteria;
 use App\Models\DetailKriteria;
 use App\Models\Alternatif;
