@@ -7,6 +7,11 @@
     <div class="card-body p-lg-17">
         <form method="POST" class="form" action="{{ route('user-laporan.store') }}" enctype="multipart/form-data">
             @csrf
+            <div class="d-flex flex-column mb-8">
+                <label class="fs-6 fw-semibold mb-2">Judul</label>
+                <input class="form-control" rows="1" name="judul" placeholder=""
+                    style="border: 1px solid;" />
+            </div>
             <div class="d-flex flex-column mb-5 fv-row">   
                 <!--begin::Label-->
                 <label class="d-flex align-items-center fs-5 fw-semibold mb-2">

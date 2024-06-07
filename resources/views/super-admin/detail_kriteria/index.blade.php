@@ -120,17 +120,24 @@
                                                     <!-- End::Menu item -->
                                                     <!-- Begin::Menu item -->
                                                     <div class="menu-item px-3">
-                                                        <a href="#" class="menu-link px-3"
+                                                        <form id="deleteForm_{{ $detail->id_detail_kriteria }}" action="{{ route('detail_kriteria.destroy', ['id' => $detail->id_detail_kriteria]) }}" method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                        <a href="#" class="menu-link px-3" onclick="event.preventDefault(); document.getElementById('deleteForm_{{ $detail->id_detail_kriteria }}').submit();">
+                                                            <i class="ki-outline ki-trash fs-6"></i> - Delete
+                                                        </a>
+                                                        {{-- <a href="#" class="menu-link px-3"
                                                             data-kt-detail_kriteria-table-filter="delete_row"
                                                             onclick="event.preventDefault(); handleRowDeletion(event);"><i class="ki-outline ki-trash fs-6"></i>
                                                             - Delete
-                                                        </a>
-                                                        <form id="delete-form-{{ $detail->id_detail_kriteria }}"
+                                                        </a> --}}
+                                                        {{-- <form id="delete-form-{{ $detail->id_detail_kriteria }}"
                                                             action="{{ route('detail_kriteria.destroy', ['id' => $detail->id_detail_kriteria]) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
-                                                        </form>
+                                                        </form> --}}
                                                     </div>
                                                     <!-- End::Menu item -->
                                                 </div>

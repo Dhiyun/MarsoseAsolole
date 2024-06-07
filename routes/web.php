@@ -156,8 +156,8 @@ Route::middleware('auth')->group(function () {
                 Route::prefix('alternatif')->group(function () {
                     Route::get('/', [AlternatifController::class, 'index'])->name('alternatif.index');
                     Route::post('/store', [AlternatifController::class, 'store'])->name('alternatif.store');
-                    Route::put('/update/{id}', [AlternatifController::class, 'updateDetailKriteria'])->name('alternatif.update');
-                    Route::delete('/destroy/{id}', [AlternatifController::class, 'destroyDetailKriteria'])->name('alternatif.destroy');
+                    Route::put('/update/{id}', [AlternatifController::class, 'update'])->name('alternatif.update');
+                    Route::delete('/destroy/{id}', [AlternatifController::class, 'destroy'])->name('alternatif.destroy');
                     Route::post('/delete-selected', [AlternatifController::class, 'deleteSelectedKriteria'])->name('alternatif.deleteSelected');
                 });
             });
@@ -182,9 +182,11 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [LaporanSpkController::class, 'indexLaporanSpk'])->name('laporan_spk.index');
                 Route::get('/create', [LaporanSpkController::class, 'createLaporanSpk'])->name('laporan_spk.create');
                 Route::post('/store', [LaporanSpkController::class, 'storeLaporanSpk'])->name('laporan_spk.store');
-                Route::get('/edit/{laporanSpk}', [LaporanSpkController::class, 'editLaporanSpk'])->name('laporan_spk.edit');
-                Route::put('/update/{laporanSpk}', [LaporanSpkController::class, 'updateLaporanSpk'])->name('laporan_spk.update');
-                Route::get('/priority', [LaporanSpkController::class, 'calculatePriority'])->name('laporan_spk.priority');
+                Route::get('/form', [LaporanSpkController::class, 'showForm'])->name('laporan_spk.form');
+                Route::put('/update/{id}', [LaporanSpkController::class, 'updateLaporanSpk'])->name('laporan_spk.update');
+                Route::get('/perangkingan', [LaporanSpkController::class, 'calculatePriority'])->name('laporan_spk.priority');
+                Route::get('/perangkingan/show/{id}', [LaporanSpkController::class, 'show_calculatePriority'])->name('laporan_spk.show');
+                Route::get('/perhitungan', [LaporanSpkController::class, 'displayCalculations'])->name('laporan_spk.perhitungan]');
                 Route::get('/chart', [LaporanSpkController::class, 'showChart'])->name('laporan_spk.chart');
                 Route::delete('/destroy/{id}', [LaporanSpkController::class, 'destroyLaporanSpk'])->name('laporan_spk.destroy');
                 Route::post('/delete-selected', [LaporanSpkController::class, 'deleteSelected'])->name('laporan_spk.deleteSelected');

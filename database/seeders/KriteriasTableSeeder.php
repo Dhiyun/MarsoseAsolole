@@ -17,9 +17,9 @@ class KriteriasTableSeeder extends Seeder
         DB::table('kriterias')->insert([
             ['nama_kriteria' => 'Dampak', 'jenis_kriteria' => 'Benefit'],
             ['nama_kriteria' => 'Biaya', 'jenis_kriteria' => 'Cost'],
-            ['nama_kriteria' => 'Jenis Laporan', 'jenis_kriteria' => 'Benefit'],
+            ['nama_kriteria' => 'Jenis_Laporan', 'jenis_kriteria' => 'Benefit'],
             ['nama_kriteria' => 'SDM', 'jenis_kriteria' => 'Cost'],
-            ['nama_kriteria' => 'Durasi Pekerjaan', 'jenis_kriteria' => 'Cost'],
+            ['nama_kriteria' => 'Durasi_Pekerjaan', 'jenis_kriteria' => 'Cost'],
         ]);
     }
 }

@@ -112,7 +112,14 @@
                                                     <!-- End::Menu item -->
                                                     <!-- Begin::Menu item -->
                                                     <div class="menu-item px-3">
-                                                        <a href="#" class="menu-link px-3"
+                                                        <form id="deleteForm_{{ $kriteria->id_kriteria }}" action="{{ route('kriteria.destroy', ['id' => $kriteria->id_kriteria]) }}" method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                        <a href="#" class="menu-link px-3" onclick="event.preventDefault(); document.getElementById('deleteForm_{{ $kriteria->id_kriteria }}').submit();">
+                                                            <i class="ki-outline ki-trash fs-6"></i> - Delete
+                                                        </a>
+                                                        {{-- <a href="#" class="menu-link px-3"
                                                             data-kt-kriteria-table-filter="delete_row"
                                                             onclick="event.preventDefault(); handleRowDeletion(event);"><i class="ki-outline ki-trash fs-6"></i>
                                                             - Delete
@@ -122,7 +129,7 @@
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
-                                                        </form>
+                                                        </form> --}}
                                                     </div>
                                                     <!-- End::Menu item -->
                                                 </div>

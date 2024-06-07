@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_spk');
             $table->unsignedBigInteger('id_kriteria')->index();
             $table->unsignedBigInteger('id_alternatif')->index();
-            $table->decimal('nilai', 10, 2);
+            $table->string('nilai');
             $table->timestamps();
 
             $table->foreign('id_kriteria')

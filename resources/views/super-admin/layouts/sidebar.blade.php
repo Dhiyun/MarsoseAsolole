@@ -138,7 +138,7 @@
             <!-- End: Menu item -->
 
             <!-- Begin: Menu item -->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perankingan']) ? 'here show' : '' }}">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'here show' : '' }}">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'spkk' ? 'active' : '' }}">
                     <span class="menu-icon">
@@ -210,7 +210,7 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'perhitungan' ? 'active' : '' }}" href="{{ route('detail_kriteria.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'perhitungan' ? 'active' : '' }}" href="{{ route('laporan_spk.perhitungan]') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -223,11 +223,11 @@
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'perankingan' ? 'active' : '' }}" href="{{ route('detail_kriteria.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'perangkingan' ? 'active' : '' }}" href="{{ route('laporan_spk.priority') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Perankingan</span>
+                            <span class="menu-title">Perangkingan</span>
                         </a>
                         <!-- End: Menu link -->
                     </div>

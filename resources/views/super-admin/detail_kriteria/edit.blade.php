@@ -30,13 +30,13 @@
                         data-kt-scroll-wrappers="#kt_modal_edit_detail_kriteria_scroll" data-kt-scroll-offset="300px">
                         <!-- Nama Kriteria -->
                         <div class="fv-row mb-7">
-                            <label class="required fw-semibold fs-6 mb-2" for="nama_kriteria">Nama Kriteria</label>
-                            {{-- <select id="nama_kriteria" name="nama_kriteria" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kriteria->id_kriteria }}"required>
+                            <label class="required fw-semibold fs-6 mb-2" for="id_kriteria">Nama Kriteria</label>
+                            <select id="id_kriteria" name="id_kriteria" class="form-control form-control-solid mb-3 mb-lg-0" required>
                                 <option value="" disabled selected>-- Pilih Nama Kriteria --</option>
                                 @foreach($kriterias as $kriteria)
-                                    <option value="{{ $kriteria->id_kriteria }}" {{ old('id_kriteria') == $kriteria->nama_kriteria ? 'selected' : '' }}>Kriteria {{ $kriteria->nama_kriteria }}</option>
+                                    <option value="{{ $kriteria->id_kriteria }}" {{ $detail->kriteria->nama_kriteria == $kriteria->nama_kriteria ? 'selected' : '' }}>Kriteria {{ $kriteria->nama_kriteria }}</option>
                                 @endforeach
-                            </select> --}}
+                            </select>
                         </div>
                         <!-- Jenis Kriteria -->
                         <div class="fv-row mb-7">

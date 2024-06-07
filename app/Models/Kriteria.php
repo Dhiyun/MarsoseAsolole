@@ -16,6 +16,11 @@ class Kriteria extends Model
 
     public function detailKriterias()
     {
-        return $this->belongsTo(DetailKriteria::class, 'id_kriteria');
+        return $this->hasMany(DetailKriteria::class, 'id_kriteria');
+    }
+
+    public function laporanSpk()
+    {
+        return $this->belongsTo(LaporanSpk::class, 'id_kriteria');
     }
 }

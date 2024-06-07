@@ -22,4 +22,9 @@ class Alternatif extends Model
     {
         return $this->belongsTo(LaporanPengaduan::class, 'id_laporan');
     }
+
+    public function laporanSpk()
+    {
+        return $this->hasMany(LaporanSpk::class, 'id_alternatif');
+    }
 }
