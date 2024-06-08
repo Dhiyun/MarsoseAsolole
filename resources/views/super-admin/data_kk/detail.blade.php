@@ -45,8 +45,9 @@
 							<!--begin::Toolbar-->
 							<div class="d-flex justify-content-end" data-kt-wargalokal-table-toolbar="base">
 								<!--begin::Add warga-->
-								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_wargalokal">
-								<i class="ki-outline ki-plus fs-2"></i>Tambah Warga</button>
+								<button type="button" class="btn btn-primary" onclick="addWargaForm()" data-bs-target="#kt_modal_add_wargalokal">
+									<i class="ki-outline ki-plus fs-2"></i>Tambah Warga
+								</button>						
 								<!--end::Add warga-->
 							</div>
 							<!--end::Toolbar-->
@@ -55,7 +56,7 @@
 								<div class="fw-bold me-5">
 									<span class="me-2" data-kt-wargalokal-table-select="selected_count"></span>Selected
 								</div>
-								<form id="delete-selected-form" action="{{ route('warga.deleteSelected') }}" method="POST">
+								<form id="delete-selected-form" action="{{ route('kkwarga.deleteSelected') }}" method="POST">
 									@csrf  <!-- Token CSRF untuk keamanan -->
 									<input value="" type="hidden" name="selectedIds" id="selected-ids">  <!-- Input tersembunyi untuk ID yang dipilih -->
 									<!-- Tombol untuk menghapus warga yang dipilih -->
@@ -63,7 +64,6 @@
 								</form>
 							</div>
 							<!--end::Group actions-->
-							@include('super-admin.data_kk.detail_warga.create')
 						</div>
 						<!--end::Card toolbar-->
 					</div>
@@ -112,7 +112,7 @@
 										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
 											<!-- Begin::Menu item -->
 											<div class="menu-item px-3">
-												<a href="{{ route('kkwarga.show', ['id_kk' => $warga->kk->id_kk, 'id' => $warga->id_warga]) }}" class="menu-link px-3">Detail</a>
+												<a href="{{ route('kkwarga.show', ['id_kk' => $warga->kk->id_kk, 'id_warga' => $warga->id_warga]) }}" class="menu-link px-3">Detail</a>
 											</div>
 											<!-- End::Menu item -->
 											<!-- Begin::Menu item -->
@@ -125,7 +125,7 @@
 												<a href="#" class="menu-link px-3" data-kt-wargalokal-table-filter="delete_row" onclick="event.preventDefault(); handleRowDeletion(event);">
 													Delete
 												</a>
-												<form id="delete-form-{{ $warga->id_warga }}" action="{{ route('warga.destroy', ['id' => $warga->id_warga]) }}" method="POST" style="display: none;">
+												<form id="delete-form-{{ $warga->id_warga }}" action="{{ route('kkwarga.destroy', ['id_warga' => $warga->id_warga, 'id_kk' => $kk->id_kk]) }}" method="POST" style="display: none;">
 													@csrf
 													@method('DELETE')
 												</form>
@@ -144,6 +144,7 @@
 					<!--end::Card body-->
 				</div>
 				<!--end::Card-->
+				@include('super-admin.data_kk.detail_warga.create')
 			</div>
 			<!--end::Content container-->
 		</div>

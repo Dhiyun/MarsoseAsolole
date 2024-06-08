@@ -209,7 +209,12 @@ class WargaController extends Controller
             foreach ($selectedIds as $id) {
                 $warga = Warga::find($id);
                 $id_user = $warga->id_user;
+                $id_kk = $warga->id_kk;
+                $status_keluarga = $warga->status_keluarga;
                 
+                if($status_keluarga == 'kepala_keluarga') {
+                    KK::destroy($id_kk);
+                }
                 Warga::destroy($id);
                 Users::destroy($id_user);
             }

@@ -60,6 +60,7 @@ class KKController extends Controller
     {
         $kk = KK::findOrFail($id);
         $wargas = Warga::where('id_kk', $kk->id_kk)->get();
+        $rts = RT::all();
 
         $breadcrumb = (object) [
             'title' => 'Detail KK',
@@ -72,6 +73,7 @@ class KKController extends Controller
             'breadcrumb' => $breadcrumb,
             'kk' => $kk,
             'wargas' => $wargas,
+            'rts' => $rts,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -162,44 +164,6 @@ class KKController extends Controller
         return redirect()->route('kk.index')->with('success', 'Data KK Berhasil Disimpan');
     }
 
-    public function store_warga($id, Request $request)
-    {
-        $validate = $request->validate([
-            'nik' => 'required|unique:warga,nik',
-            'nama' => 'required',
-            'jenis_kelamin' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'agama' => 'required',
-        ]);
-
-        $kk = KK::findOrFail($id);
-        
-        $level = Level::whereIn('level_nama', ['Warga', 'warga'])->firstOrFail();
-
-        $user = Users::firstOrCreate(
-            ['username' => $validate['nik']],
-            [
-                'password' => Hash::make($validate['nik']),
-                'id_level' => $level->id_level,
-            ]
-        );
-
-        Warga::create([
-            'nik' => $validate['nik'],
-            'nama' => $validate['nama'],
-            'jenis_kelamin' => $validate['jenis_kelamin'],
-            'tempat_lahir' => $validate['tempat_lahir'],
-            'tanggal_lahir' => $validate['tanggal_lahir'],
-            'agama' => $validate['agama'],
-            'alamat' => $kk->alamat,
-            'id_user' => $user->id_user,
-            'id_kk' => $kk->id_kk,
-        ]);
-
-        return redirect()->route('kk.show', $id)->with('success', 'Warga berhasil ditambahkan');
-    }
-
     public function edit($id)
     {
         //
@@ -250,10 +214,10 @@ class KKController extends Controller
 
         return redirect()->route('kk.index')->with('success', 'Data KK berhasil diperbarui');
     }
-
-    public function destroy($No_KK)
+    
+    public function destroy($id)
     {
-        $dataKK = KK::findOrFail($No_KK);
+        $dataKK = KK::findOrFail($id);
         $dataKK->delete();
         return redirect()->route('kk.index')->with('success', 'Data KK berhasil dihapus');
     }
@@ -275,6 +239,146 @@ class KKController extends Controller
                 return redirect()->route('kk.index')->with('success'. 'Semua Data Warga Berhasil Dihapus');
             } else {
                 return redirect()->route('kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            }
+        } catch (Exception $e) {
+            return redirect()->route('kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+        }
+    }
+
+    //Warga
+    public function storeMany($id_kk, Request $request)
+    {
+        $validatedData = $request->validate([
+            'wargas.*.nik' => 'required|unique:warga,nik',
+            'wargas.*.nama' => 'required',
+            'wargas.*.jenis_kelamin' => 'required',
+            'wargas.*.tempat_lahir' => 'required',
+            'wargas.*.tanggal_lahir' => 'required',
+            'wargas.*.agama' => 'required',
+            'wargas.*.status_keluarga' => 'required',
+            'wargas.*.status_kependudukan' => 'required',
+        ]);
+
+        $kk = KK::findOrFail($id_kk);
+        
+        $level = Level::whereIn('level_nama', ['Warga', 'warga'])->firstOrFail();
+
+        foreach ($validatedData['wargas'] as $wargaData) {
+            $user = Users::firstOrCreate(
+                ['username' => $wargaData['nik']],
+                [
+                    'password' => Hash::make($wargaData['nik']),
+                    'id_level' => $level->id_level,
+                ]
+            );
+
+            Warga::create([
+                'nik' => $wargaData['nik'],
+                'nama' => $wargaData['nama'],
+                'jenis_kelamin' => $wargaData['jenis_kelamin'],
+                'tempat_lahir' => $wargaData['tempat_lahir'],
+                'tanggal_lahir' => $wargaData['tanggal_lahir'],
+                'agama' => $wargaData['agama'],
+                'alamat' => $kk->alamat,
+                'no_rt' => $kk->rt->no_rt,
+                'status_keluarga' => $wargaData['status_keluarga'],
+                'status_kependudukan' => $wargaData['status_kependudukan'],
+                'id_user' => $user->id_user,
+                'id_kk' => $kk->id_kk,
+            ]);
+        }
+
+        return redirect()->route('kk.show', $id_kk)->with('success', 'Warga berhasil ditambahkan');
+    }
+
+    public function update_warga($id_kk, Request $request, $id_warga)
+    {
+        $request->validate([
+            'nik' => 'required|unique:warga,nik,'. $id_warga . ',id_warga',
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'agama' => 'required',
+            'status_keluarga' => 'required',
+            'status_kependudukan' => 'required',
+        ]);
+
+        Warga::findOrFail($id_warga)->update([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'agama' => $request->agama,
+            'status_keluarga' => $request->status_keluarga,
+            'status_kependudukan' => $request->status_kependudukan,
+        ]);
+
+        return redirect()->route('kk.show', $id_kk)->with('success', 'Warga berhasil diperbarui');
+    }
+
+    public function destroy_warga($id_warga)
+    {
+        $check = Warga::find($id_warga);
+        if(!$check) {
+            return redirect()->route('warga.index')->with('error'. 'Data Warga Tidak Ditemukan');
+        }
+
+        try{
+            $warga = Warga::find($id_warga);
+            $id_user = $warga->id_user;
+            $id_kk = $warga->id_kk;
+            $status_keluarga = $warga->status_keluarga;
+            
+            if($status_keluarga == 'kepala_keluarga') {
+                $kkDeleted = KK::destroy($id_kk);
+            } else {
+                $kkDeleted = false;
+            }
+            Warga::destroy($id_warga);
+            Users::destroy($id_user);
+
+            if ($kkDeleted) {
+                return redirect()->route('kk.show', $id_kk)->with('success'. 'Data Warga Berhasil Dihapus');
+            } else {
+                return redirect()->route('kk.index')->with('success'. 'Data Warga Berhasil Dihapus');
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('kk.show', $id_kk)->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+        }
+    }
+
+    public function deleteSelected_warga(Request $request)
+    {
+        $selectedIdsJson = $request->input('selectedIds');
+        
+        if (empty($selectedIdsJson)) {
+            return redirect()->route('kk.index')->with('error'. 'Data Warga Tidak Ditemukan');
+        }
+        
+        $selectedIds = json_decode($selectedIdsJson, true);
+        
+        try {
+            foreach ($selectedIds as $id_warga) {
+                $warga = Warga::find($id_warga);
+                $id_user = $warga->id_user;
+                $id_kk = $warga->id_kk;
+                $status_keluarga = $warga->status_keluarga;
+                
+                if($status_keluarga == 'kepala_keluarga') {
+                    $kkDeleted = KK::destroy($id_kk);
+                } else {
+                    $kkDeleted = false;
+                }
+                Warga::destroy($id_warga);
+                Users::destroy($id_user);
+
+                if ($kkDeleted) {
+                    return redirect()->route('kk.show', $id_kk)->with('success'. 'Data Warga Berhasil Dihapus');
+                } else {
+                    return redirect()->route('kk.index')->with('success'. 'Data Warga Berhasil Dihapus');
+                }
             }
         } catch (Exception $e) {
             return redirect()->route('kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');

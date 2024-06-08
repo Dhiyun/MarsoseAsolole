@@ -542,17 +542,13 @@ KTUtil.onDOMContentLoaded(function () {
 
 var KTWargasAddWargaLokal = function () {
     const modalElement = document.getElementById("kt_modal_add_wargalokal");
-    const formElement = modalElement && modalElement.querySelector("#kt_modal_add_wargalokal_form");
+    const formElement = modalElement && modalElement.querySelector("#kt_modal_add_warga_form");
     const modalInstance = modalElement && new bootstrap.Modal(modalElement);
-
-    if (!modalElement || !formElement || !modalInstance) {
-        console.error("Modal or form element not found for KTWargasAddWarga");
-        return;
-    }
 
     const formValidation = FormValidation.formValidation(formElement, {
         fields: {
-            nik: {
+            // Penyesuaian validasi sesuai dengan perubahan pada form
+            'wargas[${index}][nik]': {
                 validators: {
                     notEmpty: {
                         message: "NIK Harus Diisi"
@@ -563,35 +559,35 @@ var KTWargasAddWargaLokal = function () {
                     },
                 }
             },
-            nama: {
+            'wargas[${index}][nama]': {
                 validators: {
                     notEmpty: {
                         message: "Nama Harus Diisi"
                     },
                 }
             },
-            jenis_kelamin: {
+            'wargas[${index}][jenis_kelamin]': {
                 validators: {
                     notEmpty: {
                         message: "Jenis Kelamin Harus Dipilih"
                     }
                 }
             },
-            tempat_lahir: {
+            'wargas[${index}][tempat_lahir]': {
                 validators: {
                     notEmpty: {
                         message: "Tempat Lahir Harus Diisi"
                     }
                 }
             },
-            tanggal_lahir: {
+            'wargas[${index}][tanggal_lahir]': {
                 validators: {
                     notEmpty: {
                         message: "Tanggal Lahir Harus Diisi"
                     }
                 }
             },
-            agama: {
+            'wargas[${index}][agama]': {
                 validators: {
                     notEmpty: {
                         message: "Agama Harus Diisi"
@@ -611,7 +607,9 @@ var KTWargasAddWargaLokal = function () {
 
     // Fungsi untuk mengambil data nik
     function fetchNIK() {
-        return fetch('admin/warga/cek_nik')
+        const route = window.cekNIKRoute;
+
+        return fetch(route)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
@@ -639,12 +637,12 @@ var KTWargasAddWargaLokal = function () {
                 submitButton.disabled = true;
 
                 // Memerika NIK apakah sesuai
-                checkNIK(document.querySelector('#nik').value)
+                checkNIK(document.querySelector('#nik_${index}').value)
                 .then((nikDoesNotExist) => {
                     submitButton.removeAttribute("data-kt-indicator");
                     submitButton.disabled = false;
 
-                    // JIka NIK belum ada, tambahkan Warga
+                    // Jika NIK belum ada, tambahkan Warga
                     if (!nikDoesNotExist) {
                         Swal.fire({
                             text: "Warga berhasil ditambahkan.",

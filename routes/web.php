@@ -121,11 +121,14 @@ Route::middleware('auth')->group(function () {
                 Route::post('/delete-selected', [KKController::class, 'deleteSelected'])->name('kk.deleteSelected');
 
                 //Warga KK
-                Route::post('/show/{id}', [KKController::class, 'store_warga'])->name('kkwarga.store');
-                Route::get('{id_kk}/warga/{id}', [KKController::class, 'show_warga'])->name('kkwarga.show');
+                Route::post('/store-warga/{id_kk}', [KKController::class, 'storeMany'])->name('kkwarga.storeMany');
+                Route::put('/update-warga/{id_kk}/{id_warga}', [KKController::class, 'update_warga'])->name('kkwarga.update');
+                Route::get('{id_kk}/warga/{id_warga}', [KKController::class, 'show_warga'])->name('kkwarga.show');
+                Route::delete('/destroy-warga/{id_warga}', [KKController::class, 'destroy_warga'])->name('kkwarga.destroy');
+                Route::post('/delete-selected-warga', [KKController::class, 'deleteSelected_warga'])->name('kkwarga.deleteSelected');
 
                 //User Warga
-                Route::put('/update-user/{id}', [UserController::class, 'update'])->name('user.update');
+                Route::put('/update-user/{id}', [KKController::class, 'update'])->name('user.update');
             });
 
             Route::prefix('warga')->group(function () {

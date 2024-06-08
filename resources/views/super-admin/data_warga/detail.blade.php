@@ -29,9 +29,9 @@
                     <div class="card-header mt-5"><!--begin::Search-->
 						<div class="d-flex align-items-center position-relative my-1">
 							<!--begin::Menu- wrapper-->
-							<a class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" href="{{ route('warga.index') }}">
+							<div class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" onclick="window.history.back();">
 								<i class="ki-outline ki-arrow-left fs-3"></i>
-							</a>
+							</div>
 							<!--begin::Menu-->
 							<h1 class="mt-1">Detail Keseluruhan</h1>
 						</div>
@@ -57,18 +57,6 @@
 									<!--begin::Card header-->
 									<!--begin::Card body-->
 									<div class="card-body p-9">
-										<!--begin::Row-->
-										<div class="row mb-7">
-											<!--begin::Label-->
-											<label class="col-lg-4 fw-semibold text-muted">No KK</label>
-											<!--end::Label-->
-											<!--begin::Col-->
-											<div class="col-lg-8">
-												<span class="fw-bold fs-6 text-gray-800">{{ $warga->kk->no_kk ?? 'N/A'}}</span>
-											</div>
-											<!--end::Col-->
-										</div>
-										<!--end::Row-->
 										<!--begin::Row-->
 										<div class="row mb-7">
 											<!--begin::Label-->
@@ -144,11 +132,11 @@
 										<!--begin::Input group-->
 										<div class="row mb-7">
 											<!--begin::Label-->
-											<label class="col-lg-4 fw-semibold text-muted">No RT</label>
+											<label class="col-lg-4 fw-semibold text-muted">RT</label>
 											<!--end::Label-->
 											<!--begin::Col-->
 											<div class="col-lg-8">
-												<span class="fw-bold fs-6 text-gray-800">{{ $warga->kk->rt->no_rt ?? $warga->no_rt }}</span>
+												<span class="fw-bold fs-6 text-gray-800">{{ $warga->kk->rt->no_rt ?? 'N/A' }}</span>
 											</div>
 											<!--end::Col-->
 										</div>
@@ -172,18 +160,6 @@
 											<!--end::Label-->
 											<!--begin::Col-->
 											<div class="col-lg-8">
-												<span class="fw-bold fs-6 text-gray-800">{{ ucfirst($warga->status_kependudukan) }}</span>
-											</div>
-											<!--end::Col-->
-										</div>
-										<!--end::Input group-->
-										<!--begin::Input group-->
-										<div class="row mb-7">
-											<!--begin::Label-->
-											<label class="col-lg-4 fw-semibold text-muted">Status Warga</label>
-											<!--end::Label-->
-											<!--begin::Col-->
-											<div class="col-lg-8">
 												<span class="fw-bold fs-6 text-gray-800" data-status="{{ $warga->user->level->level_nama }}">
 													{{ $warga->user->level->level_nama }}</span>
 											</div>
@@ -197,7 +173,7 @@
 											<!--end::Label-->
 											<!--begin::Col-->
 											<div class="col-lg-8">
-												<span class="fw-bold fs-6 text-gray-800">{{ date('d-m-Y', strtotime($warga->periode_jabatan_awal)) }} - {{ date('d-m-Y', strtotime($warga->periode_jabatan_akhir)) }}</span>
+												<span class="fw-bold fs-6 text-gray-800">{{ $warga->periode_jabatan_awal }} - {{ $warga->periode_jabatan_akhir }}</span>
 											</div>
 											<!--end::Col-->
 										</div>
@@ -232,7 +208,7 @@
 												<!--begin::Input group-->
 												<div class="fv-row mb-7">
 													<label class="required fw-semibold fs-6 mb-2" for="username">Username</label>
-													<input type="text" id="username" name="username" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('username', $warga->user->username) }}" required />
+													<input type="number" id="username" name="username" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('username', $warga->user->username) }}" required />
 												</div>
 												<!--end::Input group-->
 												<!--begin::Input group-->
@@ -258,11 +234,11 @@
 													<div class="input-group">
 														<div class="w-100 mb-3">
 															<label class="fw-semibold fs-6 mb-2" for="periode_jabatan_awal">Awal</label>
-															<input type="date" id="periode_jabatan_awal" name="periode_jabatan_awal" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $warga->periode_jabatan_awal }}" />
+															<input type="date" id="periode_jabatan_awal" name="periode_jabatan_awal" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('periode_jabatan_awal') }}" />
 														</div>
 														<div class="w-100 mb-3">
 															<label class="fw-semibold fs-6 mb-2" for="periode_jabatan_akhir">Akhir</label>
-															<input type="date" id="periode_jabatan_akhir" name="periode_jabatan_akhir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $warga->periode_jabatan_akhir }}" />
+															<input type="date" id="periode_jabatan_akhir" name="periode_jabatan_akhir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('periode_jabatan_akhir') }}" />
 														</div>
 													</div>
 												</div>
