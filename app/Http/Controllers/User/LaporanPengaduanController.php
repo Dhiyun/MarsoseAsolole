@@ -5,15 +5,14 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LaporanPengaduan;
-use App\Models\Warga;
-use App\Models\RW;
 use Illuminate\Support\Facades\Auth;
 
 class LaporanPengaduanController extends Controller
 {
     public function index()
     {
-        return view('user.laporan.index');
+        $laporanPengaduan = LaporanPengaduan::all();
+        return view('user.laporan.index', compact('laporanPengaduan'));
     }
 
     public function create()
@@ -36,16 +35,28 @@ class LaporanPengaduanController extends Controller
             $image->move(public_path('gambar'), $imageName);
             $imagePath = 'gambar/' . $imageName;
         }
-        
+
         LaporanPengaduan::create([
             'judul' => $validate['judul'],
             'jenis_laporan' => $validate['jenis_laporan'],
             'gambar' => $imagePath,
             'keterangan' => $validate['keterangan'],
             'status' => 'menunggu',
-            'id_warga' => Auth::user()->id_user,
+            'id_warga' => Auth::user()->id,
         ]);
 
         return redirect()->route('user-laporan.create')->with('success', 'Laporan pengaduan berhasil ditambahkan');
+    }
+
+    public function history()
+    {
+        $laporanPengaduan = LaporanPengaduan::where('id_warga', Auth::user()->id)->get();
+        return view('user.laporan.history', compact('laporanPengaduan'));
+    }
+
+    public function showLaporanPengaduan()
+    {
+        $laporanPengaduan = LaporanPengaduan::all()->with('warga')->get();
+        return view('user.laporan.index', compact('laporanPengaduan'));
     }
 }

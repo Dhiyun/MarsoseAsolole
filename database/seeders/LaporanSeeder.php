@@ -14,7 +14,7 @@ class LaporanSeeder extends Seeder
     public function run(): void
     {
         $laporan = [];
-        $jenis_laporan = ['Infrastruktur', 'Kebersihan', 'Keamanan', 'Pelayanan Masyarakat', 'Kesehatan'];
+        $jenis_laporan = ['Infrastruktur', 'Lingkungan', 'Keamanan', 'Layanan Masyarakat', 'Kesehatan'];
         $judul = [
             'Kerusakan pipa air PDAM di Jalan Melati',
             'Sampah menumpuk di lingkungan RT 03',
@@ -30,15 +30,6 @@ class LaporanSeeder extends Seeder
         $keterangan = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti dolorem exercitationem voluptatum harum odio culpa, molestias sapiente facilis facere optio maiores dolore necessitatibus neque? ';
         $status = ['menunggu', 'ditolak', 'diterima', 'diproses', 'selesai'];
         $image_urls = [
-            'https://via.placeholder.com/150',
-            'https://via.placeholder.com/200',
-            'https://via.placeholder.com/250',
-            'https://via.placeholder.com/300',
-            'https://via.placeholder.com/350',
-            'https://via.placeholder.com/400',
-            'https://via.placeholder.com/450',
-            'https://via.placeholder.com/500',
-            'https://via.placeholder.com/550',
             'https://via.placeholder.com/600'
         ];
         

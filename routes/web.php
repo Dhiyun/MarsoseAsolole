@@ -32,7 +32,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LandingPageController::class, 'index'])->name('index');
+
+
+
+
+Route::get('/', [LandingPageController::class, 'index']);
+
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login_proses', [AuthController::class, 'login_proses'])->name('login_proses');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -50,6 +55,8 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [UserLaporanPengaduanController::class, 'index'])->name('user-laporan.index');
                 Route::get('/create', [UserLaporanPengaduanController::class, 'create'])->name('user-laporan.create');
                 Route::post('/store', [UserLaporanPengaduanController::class, 'store'])->name('user-laporan.store');
+                Route::get('/history', [UserLaporanPengaduanController::class, 'history'])->name('user-laporan.history');
+                Route::get('/all', [LaporanPengaduanController::class, 'showLaporanPengaduan'])->name('user-laporan.all');
             });
         });
     });

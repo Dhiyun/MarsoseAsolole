@@ -1,43 +1,30 @@
+<!-- resources/views/landing_page/laporan.blade.php -->
+
 <section id="recent-blog-posts" class="recent-blog-posts">
-
     <div class="container" data-aos="fade-up">
-
-      <header class="section-header">
-        <h2>Laporan Warga</h2>
-        <p>Riwayat laporan terbaru</p>
-      </header>
-
-      <div class="row">
-
-        <div class="col-lg-4">
-          <div class="post-box">
-            <div class="post-img"><img src="assets/img/kerjabakti.jpeg" class="img-fluid" alt=""></div>
-            <span class="post-date">Tue, September 15</span>
-            <h3 class="post-title">Eum ad dolor et. Autem aut fugiat debitis voluptatem consequuntur sit</h3>
-            <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-          </div>
+        <header class="section-header">
+            <h2>Laporan Warga</h2>
+            <p>Riwayat laporan terbaru</p>
+        </header>
+        <div class="row">
+            @foreach($laporanPengaduan as $laporan)
+            <div class="col-lg-4 mt-4 mt-lg-0 mb-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 200 }}">
+                <div class="post-box shadow-sm rounded">
+                    <div class="post-img overflow-hidden rounded-top">
+                        <img src="{{ asset($laporan->gambar) }}" class="img-fluid" alt="">
+                    </div>
+                    <div class="post-content p-3">
+                        <span class="post-date text-secondary">{{ $laporan->created_at->format('D, d F Y') }}</span>
+                        <h3 class="post-title mt-2">{{ $laporan->judul }}</h3>
+                        <p class="post-keterangan text-muted">{{ Str::limit($laporan->keterangan, 100) }}</p>
+                        <p class="post-meta fw-bold">
+                            Dilaporkan oleh: {{ $laporan->warga->nama }} 
+                            <span class="badge bg-success">{{ $laporan->warga->no_rt }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
-
-        <div class="col-lg-4">
-          <div class="post-box">
-            <div class="post-img"><img src="assets/img/kerjabakti.jpeg" class="img-fluid" alt=""></div>
-            <span class="post-date">Fri, August 28</span>
-            <h3 class="post-title">Et repellendus molestiae qui est sed omnis voluptates magnam</h3>
-            <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <div class="post-box">
-            <div class="post-img"><img src="assets/img/kerjabakti.jpeg" class="img-fluid" alt=""></div>
-            <span class="post-date">Mon, July 11</span>
-            <h3 class="post-title">Quia assumenda est et veritatis aut quae</h3>
-            <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-          </div>
-        </div>
-
-      </div>
-
     </div>
-
-  </section><!-- End Recent Blog Posts Section -->
+</section>
