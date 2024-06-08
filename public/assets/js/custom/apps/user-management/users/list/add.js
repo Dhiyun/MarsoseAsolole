@@ -607,6 +607,7 @@ var KTWargasAddWargaLokal = function () {
                             message: "NIK Harus Diisi"
                         },
                         stringLength: {
+                            min: 16,
                             max: 16,
                             message: "No NIK Harus 16 Nomer"
                         },

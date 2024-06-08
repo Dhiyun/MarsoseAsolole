@@ -58,6 +58,10 @@ Route::middleware('auth')->group(function () {
                 Route::get('/history', [UserLaporanPengaduanController::class, 'history'])->name('user-laporan.history');
                 Route::get('/all', [LaporanPengaduanController::class, 'showLaporanPengaduan'])->name('user-laporan.all');
             });
+
+            Route::prefix('profile')->group(function () {
+                Route::get('/', [UserLaporanPengaduanController::class, 'index'])->name('profile-user');
+            });
         });
     });
 
