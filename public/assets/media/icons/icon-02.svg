@@ -1,20 +1,19 @@
-<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="icon2-b">
-            <stop stop-color="#BAE6FD" offset="0%" />
-            <stop stop-color="#38BDF8" offset="100%" />
-        </linearGradient>
-        <linearGradient x1="50%" y1="25.718%" x2="50%" y2="100%" id="icon2-c">
-            <stop stop-color="#0284C7" offset="0%" />
-            <stop stop-color="#0284C7" stop-opacity="0" offset="100%" />
-        </linearGradient>
-        <path id="icon2-a" d="M16 0l16 32-16-5-16 5z" />
-    </defs>
-    <g transform="rotate(90 16 16)" fill="none" fill-rule="evenodd">
-        <mask id="icon2-d" fill="#fff">
-            <use xlink:href="#icon2-a" />
-        </mask>
-        <use fill="url(#icon2-b)" xlink:href="#icon2-a" />
-        <path fill="url(#icon2-c)" mask="url(#icon2-d)" d="M16-6h20v38H16z" />
-    </g>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M32 16L0 32L5 16L0 0L32 16Z" fill="url(#paint0_linear_130_1240)"/>
+<mask id="mask0_130_1240" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M32 16L0 32L5 16L0 0L32 16Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_130_1240)">
+<rect x="38" y="16" width="20" height="38" transform="rotate(90 38 16)" fill="url(#paint1_linear_130_1240)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_130_1240" x1="32" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF520D"/>
+<stop offset="1" stop-color="#0D1A2C"/>
+</linearGradient>
+<linearGradient id="paint1_linear_130_1240" x1="40.4537" y1="25.3242" x2="40.4537" y2="54" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF520D"/>
+<stop offset="1" stop-color="#0D1A2C"/>
+</linearGradient>
+</defs>
 </svg>

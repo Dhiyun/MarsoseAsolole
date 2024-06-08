@@ -6,7 +6,7 @@
     <div class="d-flex flex-stack flex-wrap flex-md-nowrap card-rounded shadow p-8 p-lg-12 mb-5 selamat-datang">
         <div class="my-2 me-5">
             <div class="fs-1 fs-lg-2qx fw-bold mb-2">Selamat Datang, 
-                <span class="fw-normal">nama user</span>
+                <span class="fw-normal">{{ $user->warga->nama }}</span>
             </div>
             <div class="fs-6 fs-lg-5 fw-semibold opacity-75">Marsose: Solusi Cepat untuk Keluhan Anda!</div>
         </div>

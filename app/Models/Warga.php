@@ -39,4 +39,9 @@ class Warga extends Model
     {
         return $this->belongsTo(KK::class, 'id_kk');
     }
+
+    public function laporan_pengaduan()
+    {
+        return $this->hasMany(LaporanPengaduan::class, 'id_warga');
+    }
 }

@@ -54,7 +54,7 @@
                     <!-- Content -->
                     <div class="position-relative">
                         <h1 id="banner-font-h" class="d-flex align-items-center text-dark mb-5">Selamat Datang, 
-                            {{-- {{ Auth::user()->name }} --}}
+                            {{ $user->warga->nama }}
                         </h1>
                         <p id="banner-font-p" class="text-indigo-200">Berikut Laporan Untuk Hari Ini :</p>
                     </div>
@@ -66,89 +66,59 @@
 			<div class="row">
 				<!-- Kolom pertama -->
 				<div class="col-12 col-sm-4 col-xl-4 mb-4 d-flex flex-column">
-					<div class="card h-100 shadow-sm border-gradient-red">
+					<div class="card h-100 shadow-sm border-gradient border-gradient-red">
 						<div class="card-body">
 							<header class="d-flex justify-content-between align-items-start mb-2">
 								<!-- Icon -->
-								<img alt="Icon" src="assets/media/icons/icon-02.svg" width="32" height="32" />
-								<!-- Menu button -->
-								<div class="dropdown">
-									<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-									</button>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<li><a class="dropdown-item" href="#0">Option 1</a></li>
-										<li><a class="dropdown-item" href="#0">Option 2</a></li>
-										<li><a class="dropdown-item text-danger" href="#0">Remove</a></li>
-									</ul>
-								</div>
+								<img alt="Icon" src="assets/media/icons/icon-02.svg" width="32"
+									height="32" />
 							</header>
 							<h2 class="d-flex align-items-center text-dark mb-5">Total Laporan</h2>
-							<div class="text-muted text-uppercase mb-1">Sales</div>
+							<div class="text-muted text-uppercase mb-1">Total</div>
 							<div class="d-flex align-items-start">
-								<div class="fs-3 fw-bold text-slate-800 dark:text-slate-100 me-2">
-									{{-- ${{ number_format($dataFeed->sumDataSet(2, 1), 0) }} --}}
+								<div class="fs-3 fw-bold text-slate-800 dark:text-slate-100 me-2">{{ $totalLaporan }}
 								</div>
-								<div class="badge bg-amber-500">-14%</div>
+								<div class="badge bg-green-500">+</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			
+
 				<!-- Kolom kedua -->
 				<div class="col-12 col-sm-4 col-xl-4 mb-4 d-flex flex-column">
-					<div class="card h-100 shadow-sm border-gradient-red">
+					<div class="card h-100 shadow-sm border-gradient border-gradient-yellow">
 						<div class="card-body">
 							<header class="d-flex justify-content-between align-items-start mb-2">
 								<!-- Icon -->
-								<img alt="Icon" src="assets/media/icons/icon-02.svg" width="32" height="32" />
-								<!-- Menu button -->
-								<div class="dropdown">
-									<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-									</button>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<li><a class="dropdown-item" href="#0">Option 1</a></li>
-										<li><a class="dropdown-item" href="#0">Option 2</a></li>
-										<li><a class="dropdown-item text-danger" href="#0">Remove</a></li>
-									</ul>
-								</div>
+								<img alt="Icon" src="assets/media/icons/icon-01.svg" width="32"
+									height="32" />
 							</header>
-							<h2 class="d-flex align-items-center text-dark mb-5">Total Laporan</h2>
-							<div class="text-muted text-uppercase mb-1">Sales</div>
+							<h2 class="d-flex align-items-center text-dark mb-5">Jumlah Warga RT</h2>
+							<div class="text-muted text-uppercase mb-1">Warga</div>
 							<div class="d-flex align-items-start">
-								<div class="fs-3 fw-bold text-slate-800 dark:text-slate-100 me-2">
-									{{-- ${{ number_format($dataFeed->sumDataSet(2, 1), 0) }} --}}
+								<div class="fs-3 fw-bold text-slate-800 dark:text-slate-100 me-2">{{ $totalWarga }}
 								</div>
-								<div class="badge bg-amber-500">-14%</div>
+								<div class="badge bg-yellow-500">-{{ $rejectedLaporan }}</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			
+
 				<!-- Kolom ketiga -->
 				<div class="col-12 col-sm-4 col-xl-4 mb-4 d-flex flex-column">
-					<div class="card h-100 shadow-sm border-gradient-red">
+					<div class="card h-100 shadow-sm border-gradient border-gradient-green">
 						<div class="card-body">
 							<header class="d-flex justify-content-between align-items-start mb-2">
 								<!-- Icon -->
-								<img alt="Icon" src="assets/media/icons/icon-02.svg" width="32" height="32" />
-								<!-- Menu button -->
-								<div class="dropdown">
-									<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-									</button>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<li><a class="dropdown-item" href="#0">Option 1</a></li>
-										<li><a class="dropdown-item" href="#0">Option 2</li>
-										<li><a class="dropdown-item text-danger" href="#0">Remove</a></li>
-									</ul>
-								</div>
+								<img alt="Icon" src="assets/media/icons/icon-03.svg" width="32"
+									height="32" />
 							</header>
-							<h2 class="d-flex align-items-center text-dark mb-5">Total Laporan</h2>
-							<div class="text-muted text-uppercase mb-1">Sales</div>
+							<h2 class="d-flex align-items-center text-dark mb-5">Jumlah RT</h2>
+							<div class="text-muted text-uppercase mb-1">RT</div>
 							<div class="d-flex align-items-start">
-								<div class="fs-3 fw-bold text-slate-800 dark:text-slate-100 me-2">
-									{{-- ${{ number_format($dataFeed->sumDataSet(2, 1), 0) }} --}}
+								<div class="fs-3 fw-bold text-slate-800 dark:text-slate-100 me-2">{{ $totalRT }}
 								</div>
-								<div class="badge bg-amber-500">-14%</div>
+								<div class="badge bg-red-500">Fix</div>
 							</div>
 						</div>
 					</div>

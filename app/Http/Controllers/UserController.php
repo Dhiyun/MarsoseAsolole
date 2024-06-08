@@ -7,6 +7,7 @@ use App\Models\Users;
 use App\Models\Warga;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use SebastianBergmann\Type\NullType;
@@ -15,7 +16,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('user.index');
+        $user = Auth::user();
+        return view('user.index', [
+            'user' => $user
+        ]);
     }
 
     public function laporan()

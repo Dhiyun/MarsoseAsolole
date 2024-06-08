@@ -70,6 +70,61 @@ button .btn.dropdown-toggle::after {
     z-index: -1; /* Memastikan elemen pseudo berada di belakang elemen utama */
 }
 
+.border-gradient-yellow {
+    border-radius: 10px;
+    position: relative; /* Tambahkan ini untuk elemen pseudo agar bisa diposisikan relatif terhadap elemen ini */
+}
+
+.border-gradient-yellow::before {
+    content: '';
+    position: absolute;
+    top: -5px; /* Atur posisi elemen pseudo */
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: inherit; /* Mengikuti sudut melengkung elemen */
+    background: linear-gradient(to bottom, #FFEB3B, #FFFFFF, #1E293B);
+    z-index: -1; /* Memastikan elemen pseudo berada di belakang elemen utama */
+}
+
+.border-gradient-green {
+    border-radius: 10px;
+    position: relative; /* Tambahkan ini untuk elemen pseudo agar bisa diposisikan relatif terhadap elemen ini */
+}
+
+.border-gradient-green::before {
+    content: '';
+    position: absolute;
+    top: -5px; /* Atur posisi elemen pseudo */
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: inherit; /* Mengikuti sudut melengkung elemen */
+    background: linear-gradient(to bottom, #4CAF50, #FFFFFF, #1E293B);
+    z-index: -1; /* Memastikan elemen pseudo berada di belakang elemen utama */
+}
+
+.bg-green-500 {
+    background-color: green;
+    color: white;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+}
+
+.bg-yellow-500 {
+    background-color: yellow;
+    color: black;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+}
+
+.bg-red-500 {
+    background-color: red;
+    color: white;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+}
+
 .form-check-inline {
     margin: 0 10px; /* Adjust as needed */
     flex: 1;
