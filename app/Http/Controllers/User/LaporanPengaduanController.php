@@ -35,14 +35,16 @@ class LaporanPengaduanController extends Controller
             $image->move(public_path('gambar'), $imageName);
             $imagePath = 'gambar/' . $imageName;
         }
-
+        
+        $id_warga = Auth::user()->warga->id_warga;
+        
         LaporanPengaduan::create([
             'judul' => $validate['judul'],
             'jenis_laporan' => $validate['jenis_laporan'],
             'gambar' => $imagePath,
             'keterangan' => $validate['keterangan'],
             'status' => 'menunggu',
-            'id_warga' => Auth::user()->id,
+            'id_warga' => $id_warga,
         ]);
 
         return redirect()->route('user-laporan.create')->with('success', 'Laporan pengaduan berhasil ditambahkan');
