@@ -167,16 +167,17 @@ class WargaController extends Controller
             'id_kk' => $id_kk,
         ]);
 
+        $warga = Warga::findOrFail($id);
+
+        if ($warga->status_keluarga == 'kepala_keluarga' && $id_kk) {
+            $kk->update(['kepala_keluarga' => $warga->nama]);
+        }
+
         return redirect()->route('warga.index')->with('success', 'Warga berhasil diperbarui');
     }
 
     public function destroy($id)
     {
-        $check = Warga::find($id);
-        if(!$check) {
-            return redirect()->route('warga.index')->with('error'. 'Data Warga Tidak Ditemukan');
-        }
-
         try{
             $warga = Warga::find($id);
             $id_user = $warga->id_user;

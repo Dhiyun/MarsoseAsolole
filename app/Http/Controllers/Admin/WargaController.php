@@ -27,7 +27,7 @@ class WargaController extends Controller
             ->leftJoin('kk', 'kk.id_kk', '=', 'warga.id_kk')
             ->leftJoin('rt', 'kk.id_rt', '=', 'rt.id_rt')
             ->where('rt.no_rt', '0'.$no_rt)
-            ->orWhereNull('warga.id_kk')
+            ->orWhere('warga.no_rt', '0'.$no_rt)
             ->get();
 
         return view('admin.data_warga.index', [
@@ -96,6 +96,8 @@ class WargaController extends Controller
             'tanggal_lahir' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
+            'status_keluarga' => 'required',
+            'status_kependudukan' => 'required',
             'no_kk' => 'nullable',
         ]);
 
@@ -104,6 +106,8 @@ class WargaController extends Controller
         $id_kk = $kk ? $kk->id_kk : null;
 
         $level = Level::whereIn('level_nama', ['Warga', 'warga'])->firstOrFail();
+
+        $rt = '0' . $no_rt;
 
         $user = Users::firstOrCreate(
             ['username' => $validate['nik']],
@@ -121,6 +125,9 @@ class WargaController extends Controller
             'tanggal_lahir' => $validate['tanggal_lahir'],
             'agama' => $validate['agama'],
             'alamat' => $validate['alamat'],
+            'no_rt' => $rt,
+            'status_keluarga' => $request->status_keluarga,
+            'status_kependudukan' => $request->status_kependudukan,
             'id_user' => $user->id_user,
             'id_kk' => $id_kk,
         ]);
@@ -143,11 +150,18 @@ class WargaController extends Controller
             'tanggal_lahir' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
+            'status_keluarga' => 'required',
+            'status_kependudukan' => 'required',
             'no_kk' => 'nullable',
         ]);
 
-        $warga = Warga::findOrFail($id);
-        $warga->update([
+        $kk = KK::where('no_kk', $request->input('no_kk'))->first();
+
+        $id_kk = $kk ? $kk->id_kk : null;
+
+        $rt = '0' . $no_rt;
+
+        Warga::findOrFail($id)->update([
             'nik' => $request->nik,
             'nama' => $request->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -155,8 +169,17 @@ class WargaController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'agama' => $request->agama,
             'alamat' => $request->alamat,
-            'no_kk' => $request->no_kk,
+            'no_rt' => $rt,
+            'status_keluarga' => $request->status_keluarga,
+            'status_kependudukan' => $request->status_kependudukan,
+            'id_kk' => $id_kk,
         ]);
+
+        $warga = Warga::findOrFail($id);
+
+        if ($warga->status_keluarga == 'kepala_keluarga' && $id_kk) {
+            $kk->update(['kepala_keluarga' => $warga->nama]);
+        }
 
         return redirect()->route('warga-admin.index', ['rt' => $no_rt, 'id' => $id])->with('success', 'Warga berhasil diperbarui');
     }
@@ -196,43 +219,49 @@ class WargaController extends Controller
         return redirect()->route('warga-admin.show', ['rt' => $no_rt, 'id' => $id])->with('success', 'Data User Berhasil Diubah');
     }
 
-    public function destroy($id)
+    public function destroy($no_rt, $id)
     {
-        $check = Warga::find($id);
-        if (!$check) {
-            return redirect()->route('admin.warga.index')->with('error', 'Data Warga Tidak Ditemukan');
-        }
-
-        try {
+        try{
+            $warga = Warga::find($id);
+            $id_user = $warga->id_user;
+            $id_kk = $warga->id_kk;
+            $status_keluarga = $warga->status_keluarga;
+            
+            if($status_keluarga == 'kepala_keluarga') {
+                KK::destroy($id_kk);
+            }
             Warga::destroy($id);
-            Users::destroy($check->id_user); // Ensure the user linked to the Warga is deleted
+            Users::destroy($id_user);
 
-            return redirect()->route('admin.warga.index')->with('success', 'Data Warga Berhasil Dihapus');
+            return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('success'. 'Data Warga Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('admin.warga.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
-    public function deleteSelected(Request $request)
+    public function deleteSelected(Request $request, $no_rt)
     {
         $selectedIdsJson = $request->input('selectedIds');
 
-        if (empty($selectedIdsJson)) {
-            return redirect()->route('admin.warga.index')->with('error', 'Data Warga Tidak Ditemukan');
-        }
-
         $selectedIds = json_decode($selectedIdsJson, true);
-
+        
         try {
-            $wargas = Warga::whereIn('id_warga', $selectedIds)->get();
-            $userIds = $wargas->pluck('id_user')->toArray();
-
-            Warga::whereIn('id_warga', $selectedIds)->delete();
-            Users::whereIn('id_user', $userIds)->delete();
-
-            return redirect()->route('admin.warga.index')->with('success', 'Semua Data Warga Berhasil Dihapus');
+            foreach ($selectedIds as $id) {
+                $warga = Warga::find($id);
+                $id_user = $warga->id_user;
+                $id_kk = $warga->id_kk;
+                $status_keluarga = $warga->status_keluarga;
+                
+                if($status_keluarga == 'kepala_keluarga') {
+                    KK::destroy($id_kk);
+                }
+                Warga::destroy($id);
+                Users::destroy($id_user);
+            }
+            
+            return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('success', 'Data Warga terpilih berhasil dihapus');
         } catch (Exception $e) {
-            return redirect()->route('admin.warga.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 }

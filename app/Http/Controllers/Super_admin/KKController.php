@@ -192,7 +192,7 @@ class KKController extends Controller
             $id_rt = $rt->id_rt;
         }
 
-        $kk = KK::findOrFail($id)->update([
+        KK::findOrFail($id)->update([
             'no_kk' => $request->no_kk,
             'kepala_keluarga' => $request->kepala_keluarga,
             'alamat' => $request->alamat,
@@ -315,6 +315,13 @@ class KKController extends Controller
             'status_keluarga' => $request->status_keluarga,
             'status_kependudukan' => $request->status_kependudukan,
         ]);
+
+        $warga = Warga::findOrFail($id_warga);
+
+        if ($warga->status_keluarga == 'kepala_keluarga' && $id_kk) {
+            $kk = KK::findOrFail($id_kk);
+            $kk->update(['kepala_keluarga' => $warga->nama]);
+        }
 
         return redirect()->route('kk.show', $id_kk)->with('success', 'Warga berhasil diperbarui');
     }
