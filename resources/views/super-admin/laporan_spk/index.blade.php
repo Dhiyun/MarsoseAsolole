@@ -80,12 +80,15 @@
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_laporan_spk-{{ $laporan->id_alternatif }}" class="menu-link px-3"><i class="ki-outline ki-pencil fs-6"></i>- Edit</a>
                                                     </div>
                                                     <div class="menu-item px-3">
-                                                        <a href="#" class="menu-link px-3" data-kt-laporan_spk-table-filter="delete_row" onclick="event.preventDefault(); handleRowDeletion(event, {{ $laporan->id_alternatif }});"><i class="ki-outline ki-trash fs-6"></i> - Delete</a>
-                                                        {{-- <form id="delete-form-{{ $laporan->id_alternatif }}" action="{{ route('laporan_spk.destroy', ['id' => $laporan->id_alternatif]) }}" method="POST" style="display: none;">
+                                                        <a href="#" class="menu-link px-3" data-kt-laporan_spk-table-filter="delete_row" onclick="event.preventDefault(); handleRowDeletion(event);">
+                                                            <i class="ki-outline ki-trash fs-6"></i> - Delete
+                                                        </a>
+                                                        <form id="delete-form-{{ $laporan->id_alternatif }}" action="{{ route('warga.destroy', ['id' => $laporan->id_alternatif]) }}" method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
-                                                        </form> --}}
+                                                        </form>
                                                     </div>
+                                                    <!-- End::Menu item -->
                                                 </div>
                                             </td>
                                         </tr>

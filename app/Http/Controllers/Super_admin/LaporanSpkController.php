@@ -188,16 +188,15 @@ class LaporanSpkController extends Controller
 
     public function destroyLaporanSpk($id)
     {
-        $check = LaporanSpk::find($id);
-        if (!$check) {
-            return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Tidak Ditemukan');
-        }
-
         try {
-            LaporanSpk::destroy($id);
-            return redirect()->route('super-admin.laporan_spk.index')->with('success', 'Data Laporan SPK Berhasil Dihapus');
+            $laporanSpk = LaporanSpk::where('id_alternatif', $id)->get();
+
+            foreach ($laporanSpk as $spk) {
+                $spk->delete();
+            }
+            return redirect()->route('laporan_spk.index')->with('success', 'Data Laporan SPK Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('laporan_spk.index')->with('error', 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
@@ -206,21 +205,22 @@ class LaporanSpkController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
 
         if (empty($selectedIdsJson)) {
-            return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Tidak Ditemukan');
+            return redirect()->route('laporan_spk.index')->with('error', 'Data Laporan SPK Tidak Ditemukan');
         }
 
         $selectedIds = json_decode($selectedIdsJson, true);
 
         try {
-            $deletedLaporans = LaporanSpk::whereIn('id_spk', $selectedIds)->delete();
-
-            if ($deletedLaporans > 0) {
-                return redirect()->route('super-admin.laporan_spk.index')->with('success', 'Semua Data Laporan SPK Berhasil Dihapus');
-            } else {
-                return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            foreach ($selectedIds as $id) {
+                $laporanSpk = LaporanSpk::where('id_alternatif', $id)->get();
+                foreach ($laporanSpk as $spk) {
+                    $spk->delete();
+                }
             }
+               
+            return redirect()->route('laporan_spk.index')->with('success', 'Semua Data Laporan SPK Berhasil Dihapus');
         } catch (Exception $e) {
-            return redirect()->route('super-admin.laporan_spk.index')->with('error', 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('laporan_spk.index')->with('error', 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
