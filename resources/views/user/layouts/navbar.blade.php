@@ -7,7 +7,7 @@
                     <i class="ki-outline ki-abstract-14 fs-2hx"></i>
                 </button>
                 <a href="{{ route('user.index') }}">
-                    <img alt="Logo" src="{{ asset('assets/img/Marsose Fix (Light).svg') }}" class="logo-default h-25px h-lg-40px" />
+                    <img alt="Logo" src="{{ asset('assets/img/Marsose Fix (Light).svg') }}" class="logo-default h-25px h-lg-35px" />
                 </a>
             </div>
             <div class="d-lg-block" id="kt_header_nav_wrapper">
@@ -17,7 +17,7 @@
                             <a class="menu-link nav-link {{ request()->is('user/dashboard') ? 'active' : '' }} py-3 px-4 px-xxl-6" href="/user/dashboard" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Dashboard</a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link nav-link {{ request()->is('user/laporan') || request()->is('user/createlaporan') ? 'active' : '' }} py-3 px-4 px-xxl-6" href="/user/laporan" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
+                            <a class="menu-link nav-link {{ request()->is('user/laporan') || request()->is('user/laporan/create') || request()->is('user/laporan/history') ? 'active' : '' }} py-3 px-4 px-xxl-6" href="/user/laporan" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
                                 Laporan Warga
                             </a>
                         </div>                            

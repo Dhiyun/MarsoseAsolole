@@ -121,7 +121,7 @@
 				</div>
 			</div>
 			<!--end::Row-->
-			<iframe width="1050" height="600"
+			<iframe width="auto" height="600"
 				src="https://lookerstudio.google.com/embed/reporting/06ed4127-1c27-49bd-8ce9-ac6b34a31a66/page/8WU2D"
 				frameborder="0" style="border:0" allowfullscreen
 				sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">

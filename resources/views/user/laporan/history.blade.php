@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container">
-        <div class="card card-rounded">
+        <div class="card card-rounded shadow keluhan">
             <!--begin::Body-->
             <div class="card-body p-lg-17">
                 <div class="mb-5 text-center">

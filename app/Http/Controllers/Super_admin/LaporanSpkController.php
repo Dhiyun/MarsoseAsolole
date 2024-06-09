@@ -419,7 +419,7 @@ class LaporanSpkController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Detail Perhitungan SPK',
-            'list' => ['Home', 'Laporan SPK', 'Detail Perhitungan']
+            'list' => ['Home,', 'Laporan SPK,', 'Detail Perhitungan']
         ];
 
         $activeMenu = 'perhitungan';

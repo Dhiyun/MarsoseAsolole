@@ -140,19 +140,15 @@
             <!-- Begin: Menu item -->
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'here show' : '' }}">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'spkk' ? 'active' : '' }}">
+                <a class="menu-link {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'active' : '' }}">
                     <span class="menu-icon">
-                        @if ($activeMenu == 'spkk')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-spk.svg" class="h-25px theme-light-show" />
-                        @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-spk.svg" class="h-25px theme-light-show" />
-                        @endif
+                        <img alt="Logo" src="assets/media/logos/{{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'menu-active/logo-spk.svg' : 'menu/logo-spk.svg' }}" class="h-25px theme-light-show" />
                     </span>
                     <span class="menu-title">Laporan SPK</span>
                     <span class="menu-arrow"></span>
                 </a>
                 <!-- End: Menu link -->
-
+            
                 <!-- Begin: Menu sub -->
                 <div class="menu-sub menu-sub-accordion">
                     <!-- Begin: Menu item -->
@@ -167,7 +163,7 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-
+            
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
@@ -180,7 +176,7 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-
+            
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
@@ -193,7 +189,7 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-
+            
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
@@ -206,7 +202,7 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-
+            
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
@@ -219,7 +215,7 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-
+            
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
@@ -234,10 +230,37 @@
                     <!-- End: Menu item -->
                 </div>
                 <!-- End: Menu sub -->
-            </div>
+            </div>   
             <!-- End: Menu item -->
         </div>
         <!-- End::Sidebar menu -->
     </div>
     <!-- End::Wrapper -->
-</div>
+</div>  
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var menuAccordions = document.querySelectorAll('[data-kt-menu-trigger="click"]');
+    
+        menuAccordions.forEach(function(menuAccordion) {
+            var menuLink = menuAccordion.querySelector('.menu-link');
+    
+            menuLink.addEventListener('click', function() {
+                // Toggle 'here' and 'show' class on the parent accordion
+                menuAccordion.classList.toggle('here');
+                menuAccordion.classList.toggle('show');
+    
+                // Toggle 'active' class on the menu link
+                menuLink.classList.toggle('active');
+    
+                // Update the icon based on the active state
+                var menuIcon = menuLink.querySelector('.menu-icon img');
+                if (menuLink.classList.contains('active')) {
+                    menuIcon.src = 'assets/media/logos/menu-active/logo-spk.svg';
+                } else {
+                    menuIcon.src = 'assets/media/logos/menu/logo-spk.svg';
+                }
+            });
+        });
+    });
+</script>
