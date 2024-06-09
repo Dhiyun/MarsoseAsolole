@@ -105,15 +105,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [WelcomeController::class, 'index'])->name('super-admin.index');
             });
 
-            Route::prefix('level')->group(function () {
-                Route::get('/', [LevelController::class, 'index'])->name('level.index');
-                Route::post('/list', [LevelController::class, 'list']);
-                Route::post('/store', [LevelController::class, 'store']);
-                Route::put('/update/{id}', [LevelController::class, 'update'])->name('level.update');
-                Route::delete('/destroy/{id}', [LevelController::class, 'destroy']);
-                Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('level.deleteSelected');
-            });
-
             Route::prefix('kk')->group(function () {
                 Route::get('/', [KKController::class, 'index'])->name('kk.index');
                 Route::get('/cek_kk', [KKController::class, 'cek_kk'])->name('cek_kk');

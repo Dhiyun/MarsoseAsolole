@@ -44,25 +44,6 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'level' ? 'active' : '' }}" href="{{ route('level.index') }}">
-                    <span class="menu-icon">
-                        @if ($activeMenu == 'level')
-                            <img alt="Logo" src="assets/media/logos/menu-active/logo-level.svg"
-                                class="h-25px theme-light-show" />
-                        @else
-                            <img alt="Logo" src="assets/media/logos/menu/logo-level.svg"
-                                class="h-25px theme-light-show" />
-                        @endif
-                    </span>
-                    <span class="menu-title">Level</span>
-                </a>
-                <!-- End: Menu link -->
-            </div>
-            <!-- End: Menu item -->
-
-            <!-- Begin: Menu item -->
-            <div class="menu-item menu-accordion">
-                <!-- Begin: Menu link -->
                 <a class="menu-link {{ $activeMenu == 'datakk' ? 'active' : '' }}" href="{{ route('kk.index') }}">
                     <span class="menu-icon">
                         @if ($activeMenu == 'datakk')
@@ -236,31 +217,4 @@
         <!-- End::Sidebar menu -->
     </div>
     <!-- End::Wrapper -->
-</div>  
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var menuAccordions = document.querySelectorAll('[data-kt-menu-trigger="click"]');
-    
-        menuAccordions.forEach(function(menuAccordion) {
-            var menuLink = menuAccordion.querySelector('.menu-link');
-    
-            menuLink.addEventListener('click', function() {
-                // Toggle 'here' and 'show' class on the parent accordion
-                menuAccordion.classList.toggle('here');
-                menuAccordion.classList.toggle('show');
-    
-                // Toggle 'active' class on the menu link
-                menuLink.classList.toggle('active');
-    
-                // Update the icon based on the active state
-                var menuIcon = menuLink.querySelector('.menu-icon img');
-                if (menuLink.classList.contains('active')) {
-                    menuIcon.src = 'assets/media/logos/menu-active/logo-spk.svg';
-                } else {
-                    menuIcon.src = 'assets/media/logos/menu/logo-spk.svg';
-                }
-            });
-        });
-    });
-</script>
+</div>
