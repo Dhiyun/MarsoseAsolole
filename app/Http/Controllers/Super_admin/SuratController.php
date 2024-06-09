@@ -47,8 +47,6 @@ class SuratController extends Controller
             'file_surat' => 'required|mimes:pdf,doc,docx|max:10240',
         ]);
 
-        dd($request);
-
         if ($request->hasFile('file_surat')) {
             $fileName = time() . '_' . $request->file('file_surat')->getClientOriginalName();
             $request->file('file_surat')->move(public_path('file_upload'), $fileName);
