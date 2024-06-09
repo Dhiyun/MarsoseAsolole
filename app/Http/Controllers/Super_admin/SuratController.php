@@ -44,8 +44,10 @@ class SuratController extends Controller
         $request->validate([
             'jenis_surat' => 'required',
             'nama_surat' => 'required',
-            'file_surat' => 'required|mimes:pdf,doc,docx|max:2048',
+            'file_surat' => 'required|mimes:pdf,doc,docx|max:10240',
         ]);
+
+        dd($request);
 
         if ($request->hasFile('file_surat')) {
             $fileName = time() . '_' . $request->file('file_surat')->getClientOriginalName();
@@ -65,42 +67,43 @@ class SuratController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = Auth::user()->warga->id_user;
-
-        $request->validate([
+        $validatedData = $request->validate([
             'jenis_surat' => 'required',
             'nama_surat' => 'required',
-            'file_surat' => 'nullable|mimes:pdf,doc,docx|max:2048',
+            'file_surat' => 'nullable|mimes:pdf,doc,docx|max:10240',
         ]);
 
         $surat = Surat::findOrFail($id);
-        
-        $filePath = $surat->file_surat;
 
         if ($request->hasFile('file_surat')) {
-            // Delete the old file if it exists
-            if (file_exists(public_path($filePath))) {
+            $filePath = $surat->file_surat;
+
+            if ($filePath && file_exists(public_path($filePath))) {
                 unlink(public_path($filePath));
             }
 
             $fileName = time() . '_' . $request->file('file_surat')->getClientOriginalName();
             $request->file('file_surat')->move(public_path('file_upload'), $fileName);
             $filePath = 'file_upload/' . $fileName;
+        } else {
+            $filePath = $surat->file_surat;
         }
 
+        $warga = Auth::user()->warga->id_warga;
+
         $surat->update([
-            'jenis_surat' => $request->jenis_surat,
-            'nama_surat' => $request->nama_surat,
+            'jenis_surat' => $validatedData['jenis_surat'],
+            'nama_surat' => $validatedData['nama_surat'],
             'file_surat' => $filePath,
-            'id_warga' => $user,
+            'id_warga' => $warga,
         ]);
 
         return redirect()->route('surat.index')->with('success', 'Data Surat Berhasil Diperbarui');
     }
 
+
     public function destroy($id)
     {
-        dd($id);
         Surat::findOrFail($id)->delete();
         return redirect()->route('surat.index')->with('success', 'Data Surat berhasil dihapus');
     }

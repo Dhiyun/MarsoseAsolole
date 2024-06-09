@@ -54,7 +54,7 @@
 						</div>
 						<!--end::Card toolbar-->
 					</div>
-					<!--end::Card header-->c
+					<!--end::Card header-->
 					<!--begin::Card body-->
 					<div class="card-body py-4">
 						<!--begin::Table-->
@@ -70,7 +70,7 @@
 									<th class="min-w-125px">Jenis Surat</th>
 									<th class="min-w-125px">Nama Surat</th>
                                     <th class="min-w-125px">File Surat</th>
-                                    <th class="min-w-125px">Admin</th>
+                                    <th class="min-w-125px">Pengirim</th>
 									<th class="text-end min-w-100px pe-9">Actions</th>
 								</tr>
 							</thead>
@@ -79,15 +79,15 @@
 								<tr>
 									<td>
 										<div class="form-check form-check-sm form-check-custom form-check-solid">
-											<input value="{{ $surat->id_surat }}" class="form-check-input" type="checkbox" data-kt-surat-table-filter="checkbox" />
+											<input id="id_surat" value="{{ $surat->id_surat }}" class="form-check-input" type="checkbox" data-kt-surat-table-filter="checkbox" />
 										</div>
 									</td>
 									<td>{{ $surat->id_surat }}</td>
+									<td>{{ $surat->jenis_surat }}</td>
+									<td>{{ $surat->nama_surat }}</td>
 									<td>
 										<iframe src="{{ asset($surat->file_surat) }}" style="width:100px; height:100px;"></iframe>
 									</td>
-									<td>{{ $surat->jenis_surat }}</td>
-									<td>{{ $surat->nama_surat }}</td>
 									<td>{{ $surat->warga->nama }}</td>
 									<td class="text-end">
 										<a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

@@ -1,6 +1,5 @@
 <!--begin::Modal - Edit task-->
-<div class="modal fade" id="kt_modal_edit_surat-{{ $surat->id_surat }}" tabindex="-1" aria-hidden="true">
-    <input type="hidden" value="{{ $surat->id_surat }}" name="id_surat">
+<div class="modal fade" id="kt_modal_edit_surat-{{ $surat->id_surat }}" tabindex="-1" aria-hidden="true">c
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -20,7 +19,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form method="POST" id="kt_modal_edit_surat_form" class="form" action="{{ route('surat.update', ['id' => $surat->id_surat]) }}">
+                <form method="POST" id="kt_modal_edit_surat_form" class="form" action="{{ route('surat.update', ['id' => $surat->id_surat]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <!--begin::Scroll-->
@@ -44,10 +43,8 @@
                         <!-- Upload File -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="file_surat">Upload File</label>
-                            @if($surat->file_surat)
-                                <p id="file_surat_name">Nama File: {{ $surat->file_surat }}</p>
-                            @endif
-                                <input type="file" accept=".pdf,.doc,.docx" id="file_surat" name="file_surat" class="form-control form-control-solid mb-3 mb-lg-0" />
+                            <input type="hidden" name="file_surat_old" value="{{ $surat->file_surat }}" required />
+                            <input type="file" accept=".pdf,.doc,.docx" id="file_surat" name="file_surat" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('file_surat') }}" />
                         </div>
                     </div>
                     <!--end::Scroll-->
