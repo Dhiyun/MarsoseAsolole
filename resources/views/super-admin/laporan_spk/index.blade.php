@@ -83,7 +83,7 @@
                                                         <a href="#" class="menu-link px-3" data-kt-laporan_spk-table-filter="delete_row" onclick="event.preventDefault(); handleRowDeletion(event);">
                                                             <i class="ki-outline ki-trash fs-6"></i> - Delete
                                                         </a>
-                                                        <form id="delete-form-{{ $laporan->id_alternatif }}" action="{{ route('warga.destroy', ['id' => $laporan->id_alternatif]) }}" method="POST" style="display: none;">
+                                                        <form id="delete-form-{{ $laporan->id_alternatif }}" action="{{ route('laporan_spk.destroy', ['id' => $laporan->id_alternatif]) }}" method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
                                                         </form>
