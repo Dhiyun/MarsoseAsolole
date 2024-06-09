@@ -161,9 +161,9 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [SuratController::class, 'index'])->name('surat.index');
                 Route::post('/store', [SuratController::class, 'store'])->name('surat.store');
                 Route::get('/detail/{id}', [SuratController::class, 'show'])->name('surat.show');
-                Route::put('/update/{id}', [LevelController::class, 'update'])->name('surat.update');
-                Route::delete('/destroy/{id}', [LevelController::class, 'destroy'])->name('surat.destroy');
-                Route::post('/delete-selected', [LevelController::class, 'deleteSelected'])->name('surat.deleteSelected');
+                Route::put('/update/{id}', [SuratController::class, 'update'])->name('surat.update');
+                Route::delete('/destroy/{id}', [SuratController::class, 'destroy'])->name('surat.destroy');
+                Route::post('/delete-selected', [SuratController::class, 'deleteSelected'])->name('surat.deleteSelected');
             });
 
             Route::prefix('spk')->group(function () {

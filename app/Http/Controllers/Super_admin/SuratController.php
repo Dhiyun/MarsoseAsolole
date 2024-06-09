@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Super_admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Surat;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +39,7 @@ class SuratController extends Controller
 
     public function store(Request $request)
     {
-        $user = Auth::user()->id_user;
+        $user = Auth::user()->warga->id_user;
 
         $request->validate([
             'jenis_surat' => 'required',
@@ -60,5 +61,70 @@ class SuratController extends Controller
         ]);
 
         return redirect()->route('surat.index')->with('success', 'Data Surat Berhasil Disimpan');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = Auth::user()->warga->id_user;
+
+        $request->validate([
+            'jenis_surat' => 'required',
+            'nama_surat' => 'required',
+            'file_surat' => 'nullable|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        $surat = Surat::findOrFail($id);
+        
+        $filePath = $surat->file_surat;
+
+        if ($request->hasFile('file_surat')) {
+            // Delete the old file if it exists
+            if (file_exists(public_path($filePath))) {
+                unlink(public_path($filePath));
+            }
+
+            $fileName = time() . '_' . $request->file('file_surat')->getClientOriginalName();
+            $request->file('file_surat')->move(public_path('file_upload'), $fileName);
+            $filePath = 'file_upload/' . $fileName;
+        }
+
+        $surat->update([
+            'jenis_surat' => $request->jenis_surat,
+            'nama_surat' => $request->nama_surat,
+            'file_surat' => $filePath,
+            'id_warga' => $user,
+        ]);
+
+        return redirect()->route('surat.index')->with('success', 'Data Surat Berhasil Diperbarui');
+    }
+
+    public function destroy($id)
+    {
+        dd($id);
+        Surat::findOrFail($id)->delete();
+        return redirect()->route('surat.index')->with('success', 'Data Surat berhasil dihapus');
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIdsJson = $request->input('selectedIds');
+        
+        if (empty($selectedIdsJson)) {
+           return redirect()->route('surat.index')->with('error'. 'Data Surat Tidak Ditemukan');
+        }
+        
+        $selectedIds = json_decode($selectedIdsJson, true);
+        
+        try {
+            $deletedKKs = Surat::whereIn('id_surat', $selectedIds)->delete();
+            
+            if ($deletedKKs > 0) {
+                return redirect()->route('surat.index')->with('success'. 'Semua Data Surat Berhasil Dihapus');
+            } else {
+                return redirect()->route('surat.index')->with('error'. 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            }
+        } catch (Exception $e) {
+            return redirect()->route('surat.index')->with('error'. 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+        }
     }
 }
