@@ -128,5 +128,4 @@
         @include('super-admin.layouts.footer')
     <!--end::Footer-->
 </div>
-
 @endsection

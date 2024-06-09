@@ -244,3 +244,5 @@
         window.updateGlobalIndex();
     }
 </script>
+
+<script src="{{ asset('assets/js/custom/bymyself/super-admin/warga-lokal/add.js') }}"></script>

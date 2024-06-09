@@ -12,6 +12,7 @@ use App\Models\Users;
 use App\Models\Warga;
 use Exception;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class KKController extends Controller
 {
@@ -361,6 +362,7 @@ class KKController extends Controller
         
         try {
             foreach ($selectedIds as $id_warga) {
+                Log::info('Selected ID Warga:', ['id' => $id_warga]);
                 $warga = Warga::find($id_warga);
                 $id_user = $warga->id_user;
                 $id_kk = $warga->id_kk;
@@ -373,12 +375,12 @@ class KKController extends Controller
                 }
                 Warga::destroy($id_warga);
                 Users::destroy($id_user);
+            }
 
-                if ($kkDeleted) {
-                    return redirect()->route('kk.show', $id_kk)->with('success'. 'Data Warga Berhasil Dihapus');
-                } else {
-                    return redirect()->route('kk.index')->with('success'. 'Data Warga Berhasil Dihapus');
-                }
+            if (!$kkDeleted) {
+                return redirect()->route('kk.show', $id_kk)->with('success'. 'Data Warga Berhasil Dihapus');
+            } else {
+                return redirect()->route('kk.index')->with('success'. 'Data Warga Berhasil Dihapus');
             }
         } catch (Exception $e) {
             return redirect()->route('kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');

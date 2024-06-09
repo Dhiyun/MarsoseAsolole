@@ -35,7 +35,7 @@
 							<!--begin::Search-->
 							<div class="d-flex align-items-center position-relative my-1">
 								<i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
-								<input type="text" data-kt-kk-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search Nama" />
+								<input type="text" data-kt-wargalokal-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search Nama" />
 							</div>
 							<!--end::Search-->
 						</div>
@@ -94,7 +94,7 @@
 								<tr>
 									<td>
 										<div class="form-check form-check-sm form-check-custom form-check-solid">
-											<input value="{{ $warga->id_warga }}" class="form-check-input" type="checkbox" data-kt-warga-table-filter="checkbox" />
+											<input value="{{ $warga->id_warga }}" class="form-check-input" type="checkbox" data-kt-wargalokal-table-filter="checkbox" />
 										</div>
 									</td>
                                     <td>{{ $warga->id_warga }}</td>

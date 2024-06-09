@@ -59,7 +59,12 @@
         <!--end::Vendors Javascript-->
         <!--begin::Custom Javascript(used for this page only)-->
         <script src="{{ asset('assets/js/custom/apps/user-management/users/list/table.js') }}"></script>
-        <script src="{{ asset('assets/js/custom/apps/user-management/users/list/add.js') }}"></script>
+
+        //JS Add
+        <script src="{{ asset('assets/js/custom/bymyself/super-admin/kk/add.js') }}"></script>
+        <script src="{{ asset('assets/js/custom/bymyself/super-admin/surat/add.js') }}"></script>
+        <script src="{{ asset('assets/js/custom/bymyself/super-admin/warga/add.js') }}"></script>
+        
         <script src="{{ asset('assets/js/custom/bymyself/selectoption.js') }}"></script>
         <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
         <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
