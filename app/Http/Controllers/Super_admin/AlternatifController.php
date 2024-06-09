@@ -19,7 +19,9 @@ class AlternatifController extends Controller
 
         $activeMenu = 'alternatif';
         $alternatifs = Alternatif::all();
-        $juduls = LaporanPengaduan::where('status', 'diterima')->get();
+        $juduls = LaporanPengaduan::where('status', 'diterima')
+            ->whereNotIn('id_laporan', Alternatif::pluck('id_laporan'))
+            ->get();
 
         return view('super-admin.laporan_spk.alternatif.index', [
             'breadcrumb' => $breadcrumb,

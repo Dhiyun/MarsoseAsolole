@@ -28,17 +28,11 @@
                         data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
                         data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_laporan_spk_header"
                         data-kt-scroll-wrappers="#kt_modal_edit_laporan_spk_scroll" data-kt-scroll-offset="300px">
-                        <!-- Jenis Laporan -->
-                        <div class="mb-3">
-                            <label for="id_alternatif" class="form-label">Alternatif</label>
-                            <select name="id_alternatif" id="id_alternatif" class="form-select">
-                                @foreach($alternatifs as $alternatif)
-                                    <option value="{{ $alternatif->id_alternatif }}">{{ $alternatif->laporanPengaduan->judul }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        
                         @foreach($kriterias as $kriteria)
+                        @php
+                            $kriteriaFieldName  = "Kriteria{$kriteria->id_kriteria}";
+                        @endphp
+                        <input type="hidden" name="id_alternatif" value="{{ $laporan->id_alternatif }}">
                         @if ($kriteria->nama_kriteria == 'Dampak')
                         <div class="mb-3">
                             <label for="{{ $kriteria->nama_kriteria }}" class="form-label">Dampak</label>
@@ -46,7 +40,7 @@
                                 <option value="" disabled selected>-- Pilih Dampak --</option>
                                 @foreach ($detail as $d)
                                 @if ($d->kriteria->nama_kriteria == 'Dampak')
-                                    <option value="{{ $d->rentang }}">{{ $d->rentang }}</option>
+                                    <option value="{{ $d->rentang }}" {{ $laporan->$kriteriaFieldName  == $d->rentang ? 'selected' : '' }}>{{ $d->rentang }}</option>
                                 @endif
                                 @endforeach
                             </select>
@@ -58,7 +52,7 @@
                                 <option value="" disabled selected>-- Pilih Jenis Laporan --</option>
                                 @foreach ($detail as $d)
                                 @if ($d->kriteria->nama_kriteria == 'Jenis_Laporan')
-                                    <option value="{{ $d->rentang }}">{{ $d->rentang }}</option>
+                                    <option value="{{ $d->rentang }}" {{ $laporan->$kriteriaFieldName  == $d->rentang ? 'selected' : '' }}>{{ $d->rentang }}</option>
                                 @endif
                                 @endforeach
                             </select>
@@ -66,7 +60,7 @@
                         @else
                             <div class="mb-3">
                                 <label for="{{ $kriteria->nama_kriteria }}" class="form-label">{{ $kriteria->nama_kriteria }}</label>
-                                <input type="number" name="{{ $kriteria->nama_kriteria }}" id="{{ $kriteria->nama_kriteria }}" class="form-control" step="0.01" required>
+                                <input type="number" name="{{ $kriteria->nama_kriteria }}" id="{{ $kriteria->nama_kriteria }}" class="form-control" step="0.01" value="{{ $laporan->$kriteriaFieldName  }}" required>
                             </div>
                         @endif
                         @endforeach

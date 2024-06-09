@@ -64,6 +64,7 @@
         <script src="{{ asset('assets/js/custom/bymyself/super-admin/kk/add.js') }}"></script>
         <script src="{{ asset('assets/js/custom/bymyself/super-admin/surat/add.js') }}"></script>
         <script src="{{ asset('assets/js/custom/bymyself/super-admin/warga/add.js') }}"></script>
+        <script src="{{ asset('assets/js/custom/bymyself/super-admin/laporan/add.js') }}"></script>
         <script src="{{ asset('assets/js/custom/bymyself/super-admin/surat/edit.js') }}"></script>
         
         <script src="{{ asset('assets/js/custom/bymyself/selectoption.js') }}"></script>

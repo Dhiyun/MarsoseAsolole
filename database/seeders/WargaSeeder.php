@@ -68,12 +68,12 @@ class WargaSeeder extends Seeder
             'Pasuruan', 'Probolinggo', 'Madiun', 'Lumajang'
         ];
         $religions = ['Islam', 'Katolik', 'Hindu', 'Budha', 'Kristen', 'Konghucu'];
-        $rts = ['RT01', 'RT02', 'RT03', 'RT04', 'RT05'];
+        $rts = ['01', '02', '03', '04', '05'];
         $genders = ['laki-laki', 'perempuan'];
         $statKelu = ['kepala_keluarga', 'istri', 'anak', 'lainnya'];
         $statPen = ['pendatang', 'asli'];
         
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i <= 26; $i++) {
 
             $dateOfBirth = date('Y-m-d', strtotime('+' . rand(0, 365 * 50) . ' days', strtotime('1970-01-01')));
 

@@ -10,10 +10,8 @@ class LaporanSpk extends Model
 {
     use HasFactory;
     
-    // Specify the table name if it does not follow Laravel's naming convention
     protected $table = 'laporan_spk';
 
-    // Specify the primary key if it does not follow Laravel's naming convention
     protected $primaryKey = 'id_spk';
 
     // Mass assignable attributes

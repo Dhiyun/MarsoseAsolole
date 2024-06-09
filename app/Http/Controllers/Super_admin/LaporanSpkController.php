@@ -89,7 +89,7 @@ class LaporanSpkController extends Controller
         $activeMenu = 'spk';
 
         $kriterias = Kriteria::all();
-        $alternatifs = Alternatif::all();
+        $alternatifs = Alternatif::whereNotIn('id_alternatif', LaporanSpk::pluck('id_alternatif'))->get();
         $detail = DetailKriteria::all();
 
         $rawClauses = [];
@@ -113,9 +113,7 @@ class LaporanSpkController extends Controller
 
     public function createLaporanSpk()
     {
-        $kriterias = Kriteria::all();
-        $alternatifs = Alternatif::all();
-        return view('super-admin.laporan_spk.create', compact('kriterias', 'alternatifs'));
+        //
     }
 
     public function storeLaporanSpk(Request $request)
@@ -158,16 +156,34 @@ class LaporanSpkController extends Controller
 
     public function updateLaporanSpk(Request $request, $id)
     {
-        $request->validate([
-            'id_kriteria' => 'required|exists:kriterias,id_kriteria',
-            'id_alternatif' => 'required|exists:alternatifs,id_alternatif',
-            'nilai' => 'required|numeric|min:1|max:100'
-        ]);
+        $validationRules = [
+            'id_alternatif' => 'required|exists:alternatif,id_alternatif',
+        ];
 
-        $laporanSpk = LaporanSpk::findOrFail($id);
-        $laporanSpk->update($request->all());
+        $kriterias = Kriteria::all();
 
-        return redirect()->route('laporan_spk.index')->with('success', 'Laporan SPK updated successfully.');
+        foreach ($kriterias as $kriteria) {
+            $validationRules[$kriteria->nama_kriteria] = 'required|max:255';
+        }
+
+        $validate = $request->validate($validationRules);
+
+        $laporanSpk = LaporanSpk::where('id_alternatif', $id)->get();
+        
+        foreach ($laporanSpk as $spk) {
+            foreach ($kriterias as $kriteria) {
+                $namaKriteria = $kriteria->nama_kriteria;
+        
+                $nilaiBaru = $validate[$namaKriteria];
+
+                if ($spk->id_kriteria == $kriteria->id_kriteria) {
+                    $spk->update(['nilai' => $nilaiBaru]);
+                    break;
+                }
+            }
+        }
+
+        return redirect()->route('laporan_spk.index')->with('success', 'Data laporan SPK berhasil diperbarui.');
     }
 
     public function destroyLaporanSpk($id)
@@ -390,7 +406,7 @@ class LaporanSpkController extends Controller
 
         if ($min !== null && $max !== null) {
             $inRange = $nilai > $min && $nilai <= $max;
-
+            
             return $inRange;
         }
 
