@@ -8,7 +8,9 @@
             <div class="card-header align-items-center border-0 mt-4">
                 <h3 class="card-title align-items-start flex-column">
                     <span class="mb-2 text-dark pt-10" style="font-size: 24px; padding-bottom: 12px; font-weight: bold;">Laporkan Keluhan</span>
-                    <span class="text-muted fw-semibold" style="font-size: 16px;">Anda dapat melaporkan segala bentuk keluhan anda di lingkungan marsose RW 03.</span>
+                    <span class="text-muted fw-semibold" style="font-size: 16px;">Anda dapat melaporkan segala bentuk</span>
+                    <span class="text-muted fw-semibold" style="font-size: 16px;">keluhan anda di lingkungan marsose</span>
+                    <span class="text-muted fw-semibold" style="font-size: 16px;">RW 03. Segera laporkan!</span>
                 </h3>
             </div>
             <div class="card-body pt-5">
@@ -66,47 +68,57 @@
 
 <div class="justify-content-center flex-stack flex-wrap flex-md-nowrap card-rounded shadow p-8 p-lg-12 mb-n5 mb-lg-n13 mt-10 keluhan" style="background-color: #fff;">
     <div class="my-2 me-5 text-left">
-        <div class="fs-1 fs-m-2qx fw-bold d-inline-block">Data Laporan Warga</div>
-        <a href="/lihat-semua-laporan" class="btn btn-link float-end">Lihat Semua Laporan</a>
+        <div class="fs-1 fs-m-2qx fw-bold d-inline-block">Data Laporan Pengaduan Warga</div>
         <hr style="border-top: 1px solid #000;">
     </div>
 
-    <div class="row">
-        @foreach($laporanPengaduan as $laporan)
-        <div class="col-xl-3 position-relative mb-4">
-            <div class="card h-100 shadow card-rounded border-0 rounded-3 d-laporan">
-                <div class="d-flex justify-content-center">
-                    <img src="{{ asset($laporan->gambar) }}" alt="Image" class="img-fluid mb-2 pt-lg-20" style="max-width: 100px;">
+    <div class="row g-4">
+        @if ($laporanPengaduan->isEmpty())
+            <p class="text-center">Anda belum memiliki riwayat laporan pengaduan.</p>
+        @else
+            @foreach ($laporanPengaduan as $laporan)
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow card-rounded" style="border-radius: 1.5em">
+                        <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="{{ asset($laporan->gambar) }}">
+                            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('{{ asset($laporan->gambar) }}')">
+                                <span class="badge text-light bg-primary rounded-pill">{{ $laporan->jenis_laporan }}</span>
+                            </div>
+                            <div class="overlay-layer bg-dark bg-opacity-25">
+                                <i class="ki-outline ki-eye fs-2x text-white"></i>
+                            </div>
+                        </a>
+                        <div class="card-body m-0">
+                            <h5 class="fs-4 text-dark fw-bold text-hover-primary text-dark lh-base">{{ $laporan->judul }}</h5>
+                            <p class="card-text fw-semibold text-gray-600">{{ $laporan->keterangan }}</p>
+                            <div class="fs-6 fw-bold">
+                                <span class="text-muted fw-light text-gray-800 mt-1">Pelapor:  </span><span class="fw-bold">{{ $laporan->warga->nama }} | <span class="fw-normal">{{ $laporan->created_at->format('d M Y') }}</span></span>
+                                <span class="badge rounded-pill text-light
+                                    @switch($laporan->status)
+                                        @case('menunggu')
+                                            bg-warning text-dark
+                                            @break
+                                        @case('diterima')
+                                            bg-success
+                                            @break
+                                        @case('ditolak')
+                                            bg-danger
+                                            @break
+                                        @case('diproses')
+                                            bg-primary
+                                            @break
+                                        @case('selesai')
+                                            bg-info
+                                            @break
+                                        @default
+                                            bg-secondary
+                                    @endswitch
+                                ">{{ ucfirst($laporan->status) }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h4 class="card-title t-dlaporan"><b>{{ $laporan->judul }}</b></h4>
-                    <p class="card-text" style="font-size: 16px;">{{ $laporan->keterangan }}</p>
-                    <div class="position-absolute bottom-0 end-0 mb-2 me-2 px-2 py-0 rounded text-light
-                        @switch($laporan->status)
-                            @case('menunggu')
-                                bg-warning text-dark
-                                @break
-                            @case('diterima')
-                                bg-success
-                                @break
-                            @case('ditolak')
-                                bg-danger
-                                @break
-                            @case('diproses')
-                                bg-primary
-                                @break
-                            @case('selesai')
-                                bg-info
-                                @break
-                            @default
-                                bg-secondary
-                        @endswitch
-                    " style="cursor: pointer;">{{ ucfirst($laporan->status) }}</div>
-                    <div class="position-absolute bottom-0 start-2 mb-2" style="font-size: 14px;">{{ $laporan->warga->nama }}, {{ $laporan->created_at->format('d M Y') }}</div>
-                </div>
-            </div>
-        </div>
-        @endforeach
+            @endforeach
+        @endif
     </div>
 </div>
 @endsection

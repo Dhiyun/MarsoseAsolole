@@ -47,12 +47,12 @@ class LaporanPengaduanController extends Controller
             'id_warga' => $id_warga,
         ]);
 
-        return redirect()->route('user-laporan.create')->with('success', 'Laporan pengaduan berhasil ditambahkan');
+        return redirect()->route('user-laporan.history')->with('success', 'Laporan pengaduan berhasil ditambahkan');
     }
 
     public function history()
     {
-        $laporanPengaduan = LaporanPengaduan::where('id_warga', Auth::user()->id)->get();
+        $laporanPengaduan = LaporanPengaduan::where('id_warga', Auth::user()->id_user)->get();
         return view('user.laporan.history', compact('laporanPengaduan'));
     }
 

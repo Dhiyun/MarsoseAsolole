@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">{{ Auth::user()->warga->nama }}
-                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span></div>
+                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ Auth::user()->warga->no_rt }}</span></div>
                                 </div>
                             </div>
                         </div>
