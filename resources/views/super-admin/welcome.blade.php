@@ -7,7 +7,7 @@
 		<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
 			<!--begin::Welcome Banner-->
 			<div id="welcome-banner" class="position-relative bg-indigo p-4 p-sm-4 rounded-sm overflow-hidden mb-10">
-				<div class="position-relative bg-indigo-300 p-4 rounded mb-4">
+				<div class="position-relative bg-indigo-300 p-4 rounded">
 					<!-- Background illustration -->
 					<div class="position-absolute end-0 top-0 me-4 d-none d-xl-block" style="opacity: 0.5;">
 						<svg width="319" height="198">
@@ -121,10 +121,11 @@
 				</div>
 			</div>
 			<!--end::Row-->
-			<iframe width="850" height="400"
+			<iframe width="1050" height="600"
 				src="https://lookerstudio.google.com/embed/reporting/06ed4127-1c27-49bd-8ce9-ac6b34a31a66/page/8WU2D"
 				frameborder="0" style="border:0" allowfullscreen
-				sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+				sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+			</iframe>
 		</div>
 	</div>
 </div>

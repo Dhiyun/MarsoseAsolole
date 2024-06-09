@@ -42,7 +42,7 @@ body::-webkit-scrollbar {
     color: #E5E7EB!important;
     font-size: 30px;
     font-weight: 700;
-    letter-spacing: 4px;
+    letter-spacing: 2px;
 }
 
 #banner-font-p {
@@ -66,7 +66,7 @@ button .btn.dropdown-toggle::after {
     right: -5px;
     bottom: -5px;
     border-radius: inherit; /* Mengikuti sudut melengkung elemen */
-    background: linear-gradient(to bottom, #FF520D, #FFFFFF, #1E293B);
+    background: linear-gradient(to bottom, #FF520D, #1E293B);
     z-index: -1; /* Memastikan elemen pseudo berada di belakang elemen utama */
 }
 
@@ -83,7 +83,7 @@ button .btn.dropdown-toggle::after {
     right: -5px;
     bottom: -5px;
     border-radius: inherit; /* Mengikuti sudut melengkung elemen */
-    background: linear-gradient(to bottom, #FFEB3B, #FFFFFF, #1E293B);
+    background: linear-gradient(to bottom, #FFCA0D, #1E293B);
     z-index: -1; /* Memastikan elemen pseudo berada di belakang elemen utama */
 }
 
@@ -100,7 +100,7 @@ button .btn.dropdown-toggle::after {
     right: -5px;
     bottom: -5px;
     border-radius: inherit; /* Mengikuti sudut melengkung elemen */
-    background: linear-gradient(to bottom, #4CAF50, #FFFFFF, #1E293B);
+    background: linear-gradient(to bottom, #A6E13E, #1E293B);
     z-index: -1; /* Memastikan elemen pseudo berada di belakang elemen utama */
 }
 
