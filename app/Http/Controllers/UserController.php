@@ -67,7 +67,7 @@ class UserController extends Controller
         return redirect()->route('profile-user')->with('success', 'Profile updated successfully');
     }
 
-    
+
 
     public function laporan()
     {
@@ -89,7 +89,7 @@ class UserController extends Controller
         return view('user.surat_pengantar');
     }
 
-    public function surat_undangan() 
+    public function surat_undangan()
     {
         return view('user.surat_undangan');
     }
@@ -120,7 +120,7 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-       //
+        //
     }
 
     public function create()
@@ -173,7 +173,7 @@ class UserController extends Controller
             'id_level' => $request->id_level,
         ]);
 
-        if($request->id_level != $level->id_level) {
+        if ($request->id_level != $level->id_level) {
             $request->validate([
                 'periode_jabatan_awal' => 'required|date',
                 'periode_jabatan_akhir' => 'required|date',
@@ -193,39 +193,39 @@ class UserController extends Controller
     public function destroy($id)
     {
         $check = Users::find($id);
-        if(!$check) {
-            return redirect('/level')->with('error'. 'Data User Tidak Ditemukan');
+        if (!$check) {
+            return redirect('/level')->with('error' . 'Data User Tidak Ditemukan');
         }
 
-        try{
+        try {
             Users::destroy($id);
 
-            return redirect('/level')->with('success'. 'Data User Berhasil Dihapus');
+            return redirect('/level')->with('success' . 'Data User Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/level')->with('error'. 'Data User Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect('/level')->with('error' . 'Data User Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
     public function deleteSelected(Request $request)
     {
         $selectedIdsJson = $request->input('selectedIds');
-        
+
         if (empty($selectedIdsJson)) {
-            return redirect('/level')->with('error'. 'Data User Tidak Ditemukan');
+            return redirect('/level')->with('error' . 'Data User Tidak Ditemukan');
         }
-        
+
         $selectedIds = json_decode($selectedIdsJson, true);
-        
+
         try {
             $deletedLevels = Users::whereIn('id_level', $selectedIds)->delete();
-            
+
             if ($deletedLevels > 0) {
-                return redirect('/level')->with('success'. 'Semua Data User Berhasil Dihapus');
+                return redirect('/level')->with('success' . 'Semua Data User Berhasil Dihapus');
             } else {
-                return redirect('/level')->with('error'. 'Data User Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect('/level')->with('error' . 'Data User Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect('/level')->with('error'. 'Data User Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect('/level')->with('error' . 'Data User Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 }

@@ -18,7 +18,8 @@
                         <div class="card-header mt-5"><!--begin::Search-->
                             <div class="d-flex align-items-center position-relative my-1">
                                 <!--begin::Menu- wrapper-->
-                                <a class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" href="{{ route('laporan_spk.priority') }}">
+                                <a class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px"
+                                    href="{{ route('laporan_spk.priority') }}">
                                     <i class="ki-outline ki-arrow-left fs-3"></i>
                                 </a>
                                 <!--begin::Menu-->
@@ -36,7 +37,7 @@
                                     <!--begin::details View-->
                                     <div class="card mb-5 mb-xl-10">
                                         <!--begin::Card header-->
-                                        <div class="card-header border-0 mt-5">    
+                                        <div class="card-header border-0 mt-5">
                                             <!--begin::Card title-->
                                             <div class="card-title m-0">
                                                 <h3 class="fw-bold m-0">Detail Laporan</h3>
@@ -53,7 +54,8 @@
                                                 <!--end::Label-->
                                                 <!--begin::Col-->
                                                 <div class="col-lg-8 fv-row">
-                                                    <span class="fw-semibold text-gray-800 fs-6">{{ $alternatif->kode_alternatif }}</span>
+                                                    <span
+                                                        class="fw-semibold text-gray-800 fs-6">{{ $alternatif->kode_alternatif }}</span>
                                                 </div>
                                                 <!--end::Col-->
                                             </div>
@@ -65,7 +67,8 @@
                                                 <!--end::Label-->
                                                 <!--begin::Col-->
                                                 <div class="col-lg-8">
-                                                    <span class="fw-bold fs-6 text-gray-800">{{ $alternatif->laporanPengaduan->judul ?? 'N/A'}}</span>
+                                                    <span
+                                                        class="fw-bold fs-6 text-gray-800">{{ $alternatif->laporanPengaduan->judul ?? 'N/A' }}</span>
                                                 </div>
                                                 <!--end::Col-->
                                             </div>
@@ -77,7 +80,8 @@
                                                 <!--end::Label-->
                                                 <!--begin::Col-->
                                                 <div class="col-lg-8">
-                                                    <span class="fw-bold fs-6 text-gray-800">{{ $alternatif->laporanPengaduan->warga->nama }}</span>
+                                                    <span
+                                                        class="fw-bold fs-6 text-gray-800">{{ $alternatif->laporanPengaduan->warga->nama }}</span>
                                                 </div>
                                                 <!--end::Col-->
                                             </div>
@@ -89,7 +93,8 @@
                                                 <!--end::Label-->
                                                 <!--begin::Col-->
                                                 <div class="col-lg-8 fv-row">
-                                                    <span class="fw-semibold text-gray-800 fs-6">{{ $alternatif->laporanPengaduan->keterangan }}</span>
+                                                    <span
+                                                        class="fw-semibold text-gray-800 fs-6">{{ $alternatif->laporanPengaduan->keterangan }}</span>
                                                 </div>
                                                 <!--end::Col-->
                                             </div>

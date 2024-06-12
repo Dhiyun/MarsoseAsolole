@@ -12,7 +12,7 @@ class Level extends Model
     protected $table = 'level';
     protected $primaryKey = 'id_level';
     public $timestamps = true;
-    
+
     protected $fillable = [
         'level_kode',
         'level_nama',

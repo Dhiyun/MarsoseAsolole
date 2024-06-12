@@ -103,5 +103,4 @@ class WelcomeController extends Controller
 
         return redirect()->route('profile-superadmin')->with('success', 'Profile updated successfully');
     }
-
 }

@@ -19,25 +19,38 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form method="POST" id="kt_modal_edit_laporan_form" class="form" action="{{ route('laporan.store') }}" enctype="multipart/form-data">
+                <form method="POST" id="kt_modal_edit_laporan_form" class="form"
+                    action="{{ route('laporan.store') }}" enctype="multipart/form-data">
                     @csrf
                     <!--begin::Scroll-->
-                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_laporan_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_laporan_header" data-kt-scroll-wrappers="#kt_modal_edit_laporan_scroll" data-kt-scroll-offset="300px">
+                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_laporan_scroll"
+                        data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                        data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_laporan_header"
+                        data-kt-scroll-wrappers="#kt_modal_edit_laporan_scroll" data-kt-scroll-offset="300px">
                         <!-- Judul -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="judul">Judul</label>
-                            <input type="text" id="judul" name="judul" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $lp->judul }}" required />
+                            <input type="text" id="judul" name="judul"
+                                class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $lp->judul }}"
+                                required />
                         </div>
                         <!-- Jenis Laporan -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="jenis_laporan">Jenis Laporan</label>
-                            <select id="jenis_laporan" name="jenis_laporan" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                            <select id="jenis_laporan" name="jenis_laporan"
+                                class="form-control form-control-solid mb-3 mb-lg-0" required>
                                 <option value="" disabled selected>-- Pilih Jenis Laporan --</option>
-                                <option value="Infrastruktur" {{ $lp->jenis_laporan == 'Infrastruktur' ? 'selected' : '' }}>Infrastruktur</option>
-                                <option value="Keamanan" {{ $lp->jenis_laporan == 'Keamanan' ? 'selected' : '' }}>Keamanan</option>
-                                <option value="Kesehatan" {{ $lp->jenis_laporan == 'Kesehatan' ? 'selected' : '' }}>Kesehatan</option>
-                                <option value="Lingkungan" {{ $lp->jenis_laporan == 'Lingkungan' ? 'selected' : '' }}>Lingkungan</option>
-                                <option value="Layanan Masyarakat" {{ $lp->jenis_laporan == 'Layanan Masyarakat' ? 'selected' : '' }}>Layanan Masyarakat</option>
+                                <option value="Infrastruktur"
+                                    {{ $lp->jenis_laporan == 'Infrastruktur' ? 'selected' : '' }}>Infrastruktur</option>
+                                <option value="Keamanan" {{ $lp->jenis_laporan == 'Keamanan' ? 'selected' : '' }}>
+                                    Keamanan</option>
+                                <option value="Kesehatan" {{ $lp->jenis_laporan == 'Kesehatan' ? 'selected' : '' }}>
+                                    Kesehatan</option>
+                                <option value="Lingkungan" {{ $lp->jenis_laporan == 'Lingkungan' ? 'selected' : '' }}>
+                                    Lingkungan</option>
+                                <option value="Layanan Masyarakat"
+                                    {{ $lp->jenis_laporan == 'Layanan Masyarakat' ? 'selected' : '' }}>Layanan
+                                    Masyarakat</option>
                             </select>
                         </div>
                         <!--begin::Input group-->
@@ -51,15 +64,22 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Image input placeholder-->
-                            <style>.image-input-placeholder { background-image: url('{{ $lp->gambar }}'); }</style>
+                            <style>
+                                .image-input-placeholder {
+                                    background-image: url('{{ $lp->gambar }}');
+                                }
+                            </style>
                             <!--end::Image input placeholder-->
                             <!--begin::Image input-->
-                            <div class="image-input image-input-empty image-input-outline image-input-placeholder" data-kt-image-input="true">
+                            <div class="image-input image-input-empty image-input-outline image-input-placeholder"
+                                data-kt-image-input="true">
                                 <!--begin::Preview existing avatar-->
                                 <div class="image-input-wrapper w-120px h-120px"></div>
                                 <!--end::Preview existing avatar-->
                                 <!--begin::Label-->
-                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                <label
+                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                    data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                                     <i class="ki-outline ki-pencil fs-7"></i>
                                     <!--begin::Inputs-->
                                     <input type="file" name="gambar" accept=".png, .jpg, .jpeg" />
@@ -67,12 +87,16 @@
                                 </label>
                                 <!--end::Label-->
                                 <!--begin::Cancel-->
-                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                <span
+                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                    data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
                                     <i class="ki-outline ki-cross fs-2"></i>
                                 </span>
                                 <!--end::Cancel-->
                                 <!--begin::Remove-->
-                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                <span
+                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                    data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
                                     <i class="ki-outline ki-cross fs-2"></i>
                                 </span>
                                 <!--end::Remove-->
@@ -95,7 +119,7 @@
                         <button type="submit" class="btn btn-primary btn-sm" data-kt-laporan-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
                     <!--end::Actions-->

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class LaporanSpk extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'laporan_spk';
 
     protected $primaryKey = 'id_spk';
@@ -33,4 +33,3 @@ class LaporanSpk extends Model
         return $this->belongsTo(Alternatif::class, 'id_alternatif');
     }
 }
-

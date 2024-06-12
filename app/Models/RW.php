@@ -12,7 +12,7 @@ class RW extends Model
     protected $table = 'rw';
     protected $primaryKey = 'id_rw';
     public $timestamps = true;
-    
+
     protected $fillable = [
         'no_rw',
     ];

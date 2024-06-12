@@ -37,7 +37,7 @@ class AlternatifController extends Controller
             'kode_alternatif' => 'required|max:5',
             'id_laporan' => 'required',
         ]);
-        
+
         Alternatif::create([
             'kode_alternatif' => $validate['kode_alternatif'],
             'id_laporan' => $validate['id_laporan'],
@@ -52,7 +52,7 @@ class AlternatifController extends Controller
             'kode_alternatif' => 'required|max:5',
             'id_laporan' => 'required',
         ]);
-    
+
         $alternatif = Alternatif::findOrFail($id);
         $alternatif->kode_alternatif = $validate['kode_alternatif'];
         $alternatif->id_laporan = $validate['id_laporan'];
@@ -64,16 +64,16 @@ class AlternatifController extends Controller
     public function destroy($id)
     {
         $check = Alternatif::find($id);
-        if(!$check) {
-            return redirect()->route('alternatif.index')->with('error'. 'Data kriteria Tidak Ditemukan');
+        if (!$check) {
+            return redirect()->route('alternatif.index')->with('error' . 'Data kriteria Tidak Ditemukan');
         }
 
-        try{
+        try {
             Alternatif::destroy($id);
 
-            return redirect()->route('alternatif.index')->with('success'. 'Data kriteria Berhasil Dihapus');
+            return redirect()->route('alternatif.index')->with('success' . 'Data kriteria Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('alternatif.index')->with('error'. 'Data kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('alternatif.index')->with('error' . 'Data kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 

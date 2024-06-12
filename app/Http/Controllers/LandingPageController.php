@@ -18,5 +18,3 @@ class LandingPageController extends Controller
         return view('landing_page.index', compact('laporanPengaduan'));
     }
 }
-
-

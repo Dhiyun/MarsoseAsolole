@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Super_admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\RW; 
+use App\Models\RW;
 
 class RWController extends Controller
 {
@@ -23,7 +23,7 @@ class RWController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
-    
+
 
     public function create()
     {

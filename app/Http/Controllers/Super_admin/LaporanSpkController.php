@@ -169,11 +169,11 @@ class LaporanSpkController extends Controller
         $validate = $request->validate($validationRules);
 
         $laporanSpk = LaporanSpk::where('id_alternatif', $id)->get();
-        
+
         foreach ($laporanSpk as $spk) {
             foreach ($kriterias as $kriteria) {
                 $namaKriteria = $kriteria->nama_kriteria;
-        
+
                 $nilaiBaru = $validate[$namaKriteria];
 
                 if ($spk->id_kriteria == $kriteria->id_kriteria) {
@@ -217,7 +217,7 @@ class LaporanSpkController extends Controller
                     $spk->delete();
                 }
             }
-               
+
             return redirect()->route('laporan_spk.index')->with('success', 'Semua Data Laporan SPK Berhasil Dihapus');
         } catch (Exception $e) {
             return redirect()->route('laporan_spk.index')->with('error', 'Data Laporan SPK Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
@@ -406,7 +406,7 @@ class LaporanSpkController extends Controller
 
         if ($min !== null && $max !== null) {
             $inRange = $nilai > $min && $nilai <= $max;
-            
+
             return $inRange;
         }
 

@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\KKController as AdminKKController;
 use App\Http\Controllers\Admin\LaporanPengaduanController as AdminLaporanPengaduanController;
 use App\Http\Controllers\Admin\WargaController as AdminWargaController;
-use App\Http\Controllers\Admin\WelcomeAdminController;
 use App\Http\Controllers\Admin\WelcomeController as AdminWelcomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Super_admin\DetailKriteriaController;
@@ -12,8 +11,6 @@ use App\Http\Controllers\Super_admin\KriteriaController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Super_admin\LaporanPengaduanController;
 use App\Http\Controllers\Super_admin\LaporanSpkController;
-use App\Http\Controllers\Super_admin\RTController;
-use App\Http\Controllers\Super_admin\LevelController;
 use App\Http\Controllers\Super_admin\AlternatifController;
 use App\Http\Controllers\Super_admin\SuratController;
 use App\Http\Controllers\User\LaporanPengaduanController as UserLaporanPengaduanController;

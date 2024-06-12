@@ -59,16 +59,16 @@ class KriteriaController extends Controller
     public function destroy($id)
     {
         $check = Kriteria::find($id);
-        if(!$check) {
-            return redirect()->route('kriteria.index')->with('error'. 'Data kriteria Tidak Ditemukan');
+        if (!$check) {
+            return redirect()->route('kriteria.index')->with('error' . 'Data kriteria Tidak Ditemukan');
         }
 
-        try{
+        try {
             Kriteria::destroy($id);
 
-            return redirect()->route('kriteria.index')->with('success'. 'Data kriteria Berhasil Dihapus');
+            return redirect()->route('kriteria.index')->with('success' . 'Data kriteria Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('kriteria.index')->with('error'. 'Data kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('kriteria.index')->with('error' . 'Data kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 

@@ -1,6 +1,7 @@
 <!--begin::Card body-->
 <div class="card-body py-4" id="kt_modal_add_wargalokal">
-    <form method="POST" id="kt_modal_add_warga_form" class="form" action="{{ route('kkwarga-admin.storeMany', ['id_kk' => $kk->id_kk, 'rt' => $rtNumber]) }}">
+    <form method="POST" id="kt_modal_add_warga_form" class="form"
+        action="{{ route('kkwarga-admin.storeMany', ['id_kk' => $kk->id_kk, 'rt' => $rtNumber]) }}">
         @csrf
         <!--begin::Row-->
         <div class="row" id="kt_card_add_warga">
@@ -10,7 +11,7 @@
             <button type="submit" class="btn btn-primary btn-sm" data-kt-wargalokal-modal-action="submit">
                 <span class="indicator-label">Submit</span>
                 <span class="indicator-progress">Please wait...
-                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </button>
         </div>
     </form>
@@ -26,18 +27,18 @@
 
     function addWargaForm() {
         const container = document.getElementById('kt_card_add_warga');
-        
+
         const newEntry = document.createElement('div');
         newEntry.classList.add('col-lg-4');
 
         index++;
-        
+
         wargaCount++;
 
         if (index > 0) {
             submitBtnContainer.style.display = 'block';
         }
-        
+
         newEntry.innerHTML = `
             <div class="card mb-5 mb-xl-10" id="kt_card_add_warga_${index}">
                 <div class="card-header border-0 mt-5">
@@ -226,21 +227,21 @@
                 </div>
             </div>
         `;
-        
+
         container.appendChild(newEntry);
-        
+
         window.updateGlobalIndex();
     }
 
     function removeWargaForm(button) {
         const entry = button.closest('.col-lg-4');
-        
+
         entry.remove();
 
         index--;
 
         wargaCount--;
-        
+
         const cards = document.querySelectorAll('#kt_card_add_warga .card');
         cards.forEach((card, i) => {
             card.querySelector('.card-title').innerText = `Warga #${i + 1}`;
@@ -258,7 +259,7 @@
                 }
             });
         });
-        
+
         if (index === 0) {
             submitBtnContainer.style.display = 'none';
         }

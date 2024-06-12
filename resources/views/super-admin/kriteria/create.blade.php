@@ -10,8 +10,7 @@
                 <h2 class="fw-bold">Add Kriteria</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-icon-primary"
-                    data-kt-kriteria-modal-action="close">
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-kriteria-modal-action="close">
                     <i class="ki-outline ki-cross fs-1"></i>
                 </div>
                 <!--end::Close-->
@@ -24,25 +23,20 @@
                     action="{{ route('kriteria.store') }}">
                     @csrf
                     <!--begin::Scroll-->
-                    <div class="d-flex flex-column scroll-y me-n7 pe-7"
-                        id="kt_modal_add_kriteria_scroll" data-kt-scroll="true"
-                        data-kt-scroll-activate="{default: false, lg: true}"
-                        data-kt-scroll-max-height="auto"
-                        data-kt-scroll-dependencies="#kt_modal_add_kriteria_header"
-                        data-kt-scroll-wrappers="#kt_modal_add_kriteria_scroll"
-                        data-kt-scroll-offset="300px">
+                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_kriteria_scroll"
+                        data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                        data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_kriteria_header"
+                        data-kt-scroll-wrappers="#kt_modal_add_kriteria_scroll" data-kt-scroll-offset="300px">
                         <!-- Nama Kriteria -->
                         <div class="fv-row mb-7">
                             <label for="nama_kriteria" class="form-label">Nama Kriteria</label>
-                            <input type="text" class="form-control" id="nama_kriteria"
-                                name="nama_kriteria" required>
+                            <input type="text" class="form-control" id="nama_kriteria" name="nama_kriteria" required>
                             <div id="nama_kriteriaHelp" class="form-text">Silahkan masukkan Nama</div>
                         </div>
                         <!-- Jenis Kriteria -->
                         <div class="fv-row mb-7">
                             <label for="jenis_kriteria" class="form-label">Jenis Kriteria</label>
-                            <select class="form-select" id="jenis_kriteria"
-                                name="jenis_kriteria" required>
+                            <select class="form-select" id="jenis_kriteria" name="jenis_kriteria" required>
                                 <option selected>-- Buka menu pilihan ini --</option>
                                 <option value="Benefit">Benefit</option>
                                 <option value="Cost">Cost</option>
@@ -52,12 +46,10 @@
                     <!--end::Scroll-->
                     <!--begin::Actions-->
                     <div class="text-center pt-15">
-                        <button type="submit" class="btn btn-primary btn-sm"
-                            data-kt-kriteria-modal-action="submit">
+                        <button type="submit" class="btn btn-primary btn-sm" data-kt-kriteria-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
-                                <span
-                                    class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
                     <!--end::Actions-->

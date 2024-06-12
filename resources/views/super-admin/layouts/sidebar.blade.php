@@ -101,8 +101,7 @@
             <!-- Begin: Menu item -->
             <div class="menu-item menu-accordion">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ $activeMenu == 'laporan' ? 'active' : '' }}"
-                    href="{{ route('laporan.index') }}">
+                <a class="menu-link {{ $activeMenu == 'laporan' ? 'active' : '' }}" href="{{ route('laporan.index') }}">
                     <span class="menu-icon">
                         @if ($activeMenu == 'laporan')
                             <img alt="Logo" src="assets/media/logos/menu-active/logo-laporan.svg"
@@ -139,23 +138,28 @@
             <!-- End: Menu item -->
 
             <!-- Begin: Menu item -->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'here show' : '' }}">
+            <div data-kt-menu-trigger="click"
+                class="menu-item menu-accordion {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'here show' : '' }}">
                 <!-- Begin: Menu link -->
-                <a class="menu-link {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'active' : '' }}">
+                <a
+                    class="menu-link {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'active' : '' }}">
                     <span class="menu-icon">
-                        <img alt="Logo" src="assets/media/logos/{{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'menu-active/logo-spk.svg' : 'menu/logo-spk.svg' }}" class="h-25px theme-light-show" />
+                        <img alt="Logo"
+                            src="assets/media/logos/{{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'menu-active/logo-spk.svg' : 'menu/logo-spk.svg' }}"
+                            class="h-25px theme-light-show" />
                     </span>
                     <span class="menu-title">Laporan SPK</span>
                     <span class="menu-arrow"></span>
                 </a>
                 <!-- End: Menu link -->
-            
+
                 <!-- Begin: Menu sub -->
                 <div class="menu-sub menu-sub-accordion">
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}" href="{{ route('kriteria.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'kriteria' ? 'active' : '' }}"
+                            href="{{ route('kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -164,11 +168,12 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-            
+
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'detail_kriteria' ? 'active' : '' }}" href="{{ route('detail_kriteria.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'detail_kriteria' ? 'active' : '' }}"
+                            href="{{ route('detail_kriteria.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -177,11 +182,12 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-            
+
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'alternatif' ? 'active' : '' }}" href="{{ route('alternatif.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'alternatif' ? 'active' : '' }}"
+                            href="{{ route('alternatif.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -190,11 +196,12 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-            
+
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}" href="{{ route('laporan_spk.index') }}">
+                        <a class="menu-link {{ $activeMenu == 'spk' ? 'active' : '' }}"
+                            href="{{ route('laporan_spk.index') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -203,11 +210,12 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-            
+
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'perhitungan' ? 'active' : '' }}" href="{{ route('laporan_spk.perhitungan]') }}">
+                        <a class="menu-link {{ $activeMenu == 'perhitungan' ? 'active' : '' }}"
+                            href="{{ route('laporan_spk.perhitungan]') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -216,11 +224,12 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
-            
+
                     <!-- Begin: Menu item -->
                     <div class="menu-item">
                         <!-- Begin: Menu link -->
-                        <a class="menu-link {{ $activeMenu == 'perangkingan' ? 'active' : '' }}" href="{{ route('laporan_spk.priority') }}">
+                        <a class="menu-link {{ $activeMenu == 'perangkingan' ? 'active' : '' }}"
+                            href="{{ route('laporan_spk.priority') }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -231,7 +240,7 @@
                     <!-- End: Menu item -->
                 </div>
                 <!-- End: Menu sub -->
-            </div>   
+            </div>
             <!-- End: Menu item -->
         </div>
         <!-- End::Sidebar menu -->

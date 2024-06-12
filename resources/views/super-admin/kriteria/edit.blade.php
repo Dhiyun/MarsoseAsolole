@@ -37,18 +37,18 @@
                         <!-- Jenis Kriteria -->
                         <div class="fv-row mb-7">
                             <label for="jenis_kriteria" class="form-label">Jenis Kriteria</label>
-                            <select class="form-select" id="jenis_kriteria"
-                                name="jenis_kriteria" required>
-                                <option value="Benefit" {{ $kriteria->jenis_kriteria == 'Benefit' ? 'selected' : '' }}>Benefit</option>
-                                <option value="Cost" {{ $kriteria->jenis_kriteria == 'Cost' ? 'selected' : '' }}>Cost</option>
+                            <select class="form-select" id="jenis_kriteria" name="jenis_kriteria" required>
+                                <option value="Benefit" {{ $kriteria->jenis_kriteria == 'Benefit' ? 'selected' : '' }}>
+                                    Benefit</option>
+                                <option value="Cost" {{ $kriteria->jenis_kriteria == 'Cost' ? 'selected' : '' }}>Cost
+                                </option>
                             </select>
                         </div>
                     </div>
                     <!--end::Scroll-->
                     <!--begin::Actions-->
                     <div class="text-center pt-15">
-                        <button type="submit" class="btn btn-primary btn-sm"
-                            data-kt-kriteria-modal-action="submit">
+                        <button type="submit" class="btn btn-primary btn-sm" data-kt-kriteria-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

@@ -28,17 +28,17 @@ class AuthController extends Controller
     public function login()
     {
         $user = Auth::user();
-        if ($user){
+        if ($user) {
 
             $level = $user->level->level_kode;
 
             if (strpos($level, 'RT') === 0 && strlen($level) === 3) {
                 $rtNumber = substr($level, 2);
-    
+
                 return redirect()->intended(route('admin.index', ['rt' => $rtNumber]));
             }
 
-            if($level == 'RW') {
+            if ($level == 'RW') {
                 return redirect()->intended(route('super-admin.index'));
             } else if ($level == 'WRG') {
                 return redirect()->intended(route('user.index'));
@@ -90,9 +90,10 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function cek_email() {
+    public function cek_email()
+    {
         $emailResults = Users::select('email')->get();
-    
+
         if ($emailResults) {
             return response()->json(['emails' => $emailResults]);
         } else {

@@ -19,20 +19,24 @@
                                 <div class="card h-100 shadow card-rounded" style="border-radius: 1.5em">
                                     <a class="d-block overlay" data-fslightbox="lightbox-hot-sales"
                                         href="{{ asset($laporan->gambar) }}">
-										
+
                                         <div class="overlay-wrapperbgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px"
-                                            style="background-image:url('{{ asset($laporan->gambar) }}')"><span class="badge text-light bg-primary rounded-pill";">{{ $laporan->jenis_laporan }}</span></div>
+                                            style="background-image:url('{{ asset($laporan->gambar) }}')"><span
+                                                class="badge text-light bg-primary rounded-pill";">{{ $laporan->jenis_laporan }}</span>
+                                        </div>
                                         <div class="overlay-layer bg-dark bg-opacity-25">
                                             <i class="ki-outline ki-eye fs-2x text-white"></i>
-                                        </div>	
+                                        </div>
                                     </a>
                                     <div class="card-body m-0">
-                                        <h5 class="fs-4 text-dark fw-bold text-hover-warning text-dark lh-base">{{ $laporan->judul }}</h5>
+                                        <h5 class="fs-4 text-dark fw-bold text-hover-warning text-dark lh-base">
+                                            {{ $laporan->judul }}</h5>
                                         <p class="card-text fw-semibold text-gray-600">{{ $laporan->keterangan }}</p>
                                         <div class="fs-6 fw-bold">
                                             <span class="text-muted fw-bold mt-1">Dibuat pada:
                                                 {{ $laporan->created_at->format('d M Y') }}</span>
-												<span class="badge rounded-pill text-light
+                                            <span
+                                                class="badge rounded-pill text-light
 												@switch($laporan->status)
 													@case('menunggu')
 														bg-warning text-dark

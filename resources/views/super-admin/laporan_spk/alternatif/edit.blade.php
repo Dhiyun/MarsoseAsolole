@@ -19,23 +19,33 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form method="POST" id="kt_modal_edit_alternatif_form" class="form" action="{{ route('alternatif.update', ['id' => $alternatif->id_alternatif]) }}" enctype="multipart/form-data">
+                <form method="POST" id="kt_modal_edit_alternatif_form" class="form"
+                    action="{{ route('alternatif.update', ['id' => $alternatif->id_alternatif]) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <!--begin::Scroll-->
-                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_alternatif_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_alternatif_header" data-kt-scroll-wrappers="#kt_modal_edit_alternatif_scroll" data-kt-scroll-offset="300px">
+                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_alternatif_scroll"
+                        data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                        data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_alternatif_header"
+                        data-kt-scroll-wrappers="#kt_modal_edit_alternatif_scroll" data-kt-scroll-offset="300px">
                         <!-- Kode Alternatif -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="kode_alternatif">Kode Alternatif</label>
-                            <input type="text" id="kode_alternatif" name="kode_alternatif" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $alternatif->kode_alternatif }}" required />
+                            <input type="text" id="kode_alternatif" name="kode_alternatif"
+                                class="form-control form-control-solid mb-3 mb-lg-0"
+                                value="{{ $alternatif->kode_alternatif }}" required />
                         </div>
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="judul">Judul Laporan</label>
-                            <select name="id_laporan" data-control="select2" class="form-select form-select-solid form-select-lg" required>
+                            <select name="id_laporan" data-control="select2"
+                                class="form-select form-select-solid form-select-lg" required>
                                 <option value="" disabled selected>Pilih Judul Laporan</option>
-                                @foreach($juduls as $jdl)
-                                    <option value="{{ $jdl->id_laporan }}" data-alternatif-nama="{{ $jdl->judul }}" {{ $alternatif->id_laporan == $jdl->id_laporan ? 'selected' : '' }}>{{ $jdl->judul }}</option>
+                                @foreach ($juduls as $jdl)
+                                    <option value="{{ $jdl->id_laporan }}" data-alternatif-nama="{{ $jdl->judul }}"
+                                        {{ $alternatif->id_laporan == $jdl->id_laporan ? 'selected' : '' }}>
+                                        {{ $jdl->judul }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -46,7 +56,7 @@
                         <button type="submit" class="btn btn-primary btn-sm" data-kt-alternatif-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
                     <!--end::Actions-->

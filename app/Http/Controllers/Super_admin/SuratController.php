@@ -16,10 +16,10 @@ class SuratController extends Controller
             'title' => 'Daftar Surat-Surat',
             'list' => ['Home,', 'Surat-Surat']
         ];
-    
+
         $activeMenu = 'surat';
         $surat = Surat::all();
-    
+
         return view('super-admin.surat.index', [
             'breadcrumb' => $breadcrumb,
             'surat' => $surat,
@@ -29,7 +29,7 @@ class SuratController extends Controller
 
     public function list(Request $request)
     {
-       //
+        //
     }
 
     public function create()
@@ -109,23 +109,23 @@ class SuratController extends Controller
     public function deleteSelected(Request $request)
     {
         $selectedIdsJson = $request->input('selectedIds');
-        
+
         if (empty($selectedIdsJson)) {
-           return redirect()->route('surat.index')->with('error'. 'Data Surat Tidak Ditemukan');
+            return redirect()->route('surat.index')->with('error' . 'Data Surat Tidak Ditemukan');
         }
-        
+
         $selectedIds = json_decode($selectedIdsJson, true);
-        
+
         try {
             $deletedKKs = Surat::whereIn('id_surat', $selectedIds)->delete();
-            
+
             if ($deletedKKs > 0) {
-                return redirect()->route('surat.index')->with('success'. 'Semua Data Surat Berhasil Dihapus');
+                return redirect()->route('surat.index')->with('success' . 'Semua Data Surat Berhasil Dihapus');
             } else {
-                return redirect()->route('surat.index')->with('error'. 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect()->route('surat.index')->with('error' . 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect()->route('surat.index')->with('error'. 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('surat.index')->with('error' . 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 }

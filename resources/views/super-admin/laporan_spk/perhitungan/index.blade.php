@@ -21,11 +21,13 @@
                             <div class="accordion" id="accordionExample">
                                 <div class="accordion-item">
                                     <h1 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                             Tahap 1: Nilai Awal
                                         </button>
                                     </h1>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <table class="table table-bordered datatable">
                                                 <thead>
@@ -38,29 +40,31 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($calculations as $calculation)
-                                                    <tr>
-                                                        <td>{{ $calculation['id_alternatif'] }}</td>
-                                                        @foreach ($calculation['kriteria'] as $kriteriaCalculation)
-                                                            <td>
-                                                                {{ $kriteriaCalculation['nilai_awal'] }}
-                                                            </td>
-                                                        @endforeach
-                                                    </tr>
+                                                        <tr>
+                                                            <td>{{ $calculation['id_alternatif'] }}</td>
+                                                            @foreach ($calculation['kriteria'] as $kriteriaCalculation)
+                                                                <td>
+                                                                    {{ $kriteriaCalculation['nilai_awal'] }}
+                                                                </td>
+                                                            @endforeach
+                                                        </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Toggle for Tahap 2: Menghitung Bobot ROC -->
                                 <div class="accordion-item">
                                     <h1 class="accordion-header" id="headingTwo">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                             Tahap 2: Menghitung Bobot ROC
                                         </button>
                                     </h1>
-                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                        data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <ul>
                                                 @foreach ($weights as $index => $weight)
@@ -74,11 +78,14 @@
                                 <!-- Toggle for Tahap 3: Konfigurasi Nilai Utility -->
                                 <div class="accordion-item">
                                     <h1 class="accordion-header" id="headingThree">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseThree" aria-expanded="false"
+                                            aria-controls="collapseThree">
                                             Tahap 3: Konfigurasi Nilai Utility
                                         </button>
                                     </h1>
-                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <table class="table table-bordered datatable">
                                                 <thead>
@@ -91,14 +98,14 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($calculations as $calculation)
-                                                    <tr>
-                                                        <td>{{ $calculation['id_alternatif'] }}</td>
-                                                        @foreach ($calculation['kriteria'] as $kriteriaCalculation)
-                                                            <td>
-                                                                {{ $kriteriaCalculation['nilai_normalisasi'] }}
-                                                            </td>
-                                                        @endforeach
-                                                    </tr>
+                                                        <tr>
+                                                            <td>{{ $calculation['id_alternatif'] }}</td>
+                                                            @foreach ($calculation['kriteria'] as $kriteriaCalculation)
+                                                                <td>
+                                                                    {{ $kriteriaCalculation['nilai_normalisasi'] }}
+                                                                </td>
+                                                            @endforeach
+                                                        </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
@@ -109,11 +116,14 @@
                                 <!-- Toggle for Tahap 4: Nilai Tertimbang -->
                                 <div class="accordion-item">
                                     <h1 class="accordion-header" id="headingFour">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseFour" aria-expanded="false"
+                                            aria-controls="collapseFour">
                                             Tahap 4: Nilai Tertimbang
                                         </button>
                                     </h1>
-                                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                        data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <table class="table table-bordered datatable">
                                                 <thead>
@@ -126,14 +136,14 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($calculations as $calculation)
-                                                    <tr>
-                                                        <td>{{ $calculation['id_alternatif'] }}</td>
-                                                        @foreach ($calculation['kriteria'] as $kriteriaCalculation)
-                                                            <td>
-                                                                {{ $kriteriaCalculation['nilai_terbobot'] }}
-                                                            </td>
-                                                        @endforeach
-                                                    </tr>
+                                                        <tr>
+                                                            <td>{{ $calculation['id_alternatif'] }}</td>
+                                                            @foreach ($calculation['kriteria'] as $kriteriaCalculation)
+                                                                <td>
+                                                                    {{ $kriteriaCalculation['nilai_terbobot'] }}
+                                                                </td>
+                                                            @endforeach
+                                                        </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
@@ -144,11 +154,14 @@
                                 <!-- Toggle for Tahap 5: Menghitung Skor -->
                                 <div class="accordion-item">
                                     <h1 class="accordion-header" id="headingFive">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseFive" aria-expanded="false"
+                                            aria-controls="collapseFive">
                                             Tahap 5: Menghitung Skor
                                         </button>
                                     </h1>
-                                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                                        data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <table class="table table-bordered datatable">
                                                 <thead>
@@ -173,11 +186,13 @@
                                 <!-- Toggle for Tahap 6: Perangkingan -->
                                 <div class="accordion-item">
                                     <h1 class="accordion-header" id="headingSix">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                                             Tahap 6: Perangkingan
                                         </button>
                                     </h1>
-                                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                                        data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <table class="table table-bordered datatable">
                                                 <thead>

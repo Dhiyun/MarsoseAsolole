@@ -10,8 +10,7 @@
                 <h2 class="fw-bold">Add Kriteria</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-icon-primary"
-                    data-kt-detail_kriteria-modal-action="close">
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-detail_kriteria-modal-action="close">
                     <i class="ki-outline ki-cross fs-1"></i>
                 </div>
                 <!--end::Close-->
@@ -24,43 +23,43 @@
                     action="{{ route('detail_kriteria.store') }}">
                     @csrf
                     <!--begin::Scroll-->
-                    <div class="d-flex flex-column scroll-y me-n7 pe-7"
-                        id="kt_modal_add_detail_kriteria_scroll" data-kt-scroll="true"
-                        data-kt-scroll-activate="{default: false, lg: true}"
+                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_detail_kriteria_scroll"
+                        data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
                         data-kt-scroll-max-height="auto"
                         data-kt-scroll-dependencies="#kt_modal_add_detail_kriteria_header"
-                        data-kt-scroll-wrappers="#kt_modal_add_detail_kriteria_scroll"
-                        data-kt-scroll-offset="300px">
+                        data-kt-scroll-wrappers="#kt_modal_add_detail_kriteria_scroll" data-kt-scroll-offset="300px">
                         <!-- Nama Kriteria -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="id_kriteria">Nama Kriteria</label>
-                            <select id="id_kriteria" name="id_kriteria" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                            <select id="id_kriteria" name="id_kriteria"
+                                class="form-control form-control-solid mb-3 mb-lg-0" required>
                                 <option value="" disabled selected>-- Pilih Nama Kriteria --</option>
-                                @foreach($kriterias as $kriteria)
-                                    <option value="{{ $kriteria->id_kriteria }}" {{ old('id_kriteria') == $kriteria->nama_kriteria ? 'selected' : '' }}>Kriteria {{ $kriteria->nama_kriteria }}</option>
+                                @foreach ($kriterias as $kriteria)
+                                    <option value="{{ $kriteria->id_kriteria }}"
+                                        {{ old('id_kriteria') == $kriteria->nama_kriteria ? 'selected' : '' }}>Kriteria
+                                        {{ $kriteria->nama_kriteria }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <!-- Rentang -->
                         <div class="fv-row mb-7">
                             <label for="rentang" class="form-label">Rentang</label>
-                            <input type="text" class="form-control" id="rentang"
-                                name="rentang" required>
+                            <input type="text" class="form-control" id="rentang" name="rentang" required>
                             <div id="rentangHelp" class="form-text">Silahkan masukkan Rentang</div>
                         </div>
                         <!-- Nilai -->
                         <div class="fv-row mb-7">
                             <label for="nilai" class="form-label">Nilai</label>
-                            <input type="number" class="form-control" id="nilai"
-                                name="nilai" required>
+                            <input type="number" class="form-control" id="nilai" name="nilai" required>
                             <div id="nilaiHelp" class="form-text">Silahkan masukkan Nilai</div>
                         </div>
                         <!-- Bobot Normalisasi -->
                         <div class="fv-row mb-7">
                             <label for="bobot_normalisasi" class="form-label">Bobot_Normalisasi</label>
-                            <input type="number" class="form-control" id="bobot_normalisasi"
-                                name="bobot_normalisasi" step="0.01" required>
-                            <div id="bobot_normalisasiHelp" class="form-text">Silahkan masukkan Bobot_Normalisasi, Contoh: 1.00</div>
+                            <input type="number" class="form-control" id="bobot_normalisasi" name="bobot_normalisasi"
+                                step="0.01" required>
+                            <div id="bobot_normalisasiHelp" class="form-text">Silahkan masukkan Bobot_Normalisasi,
+                                Contoh: 1.00</div>
                         </div>
                     </div>
                     <!--end::Scroll-->
@@ -70,8 +69,7 @@
                             data-kt-detail_kriteria-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
-                                <span
-                                    class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
                     <!--end::Actions-->

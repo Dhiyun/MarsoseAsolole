@@ -19,18 +19,24 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form method="POST" id="kt_modal_edit_kk_form" class="form" action="{{ route('kk.update', ['id' => $kk->id_kk]) }}">
+                <form method="POST" id="kt_modal_edit_kk_form" class="form"
+                    action="{{ route('kk.update', ['id' => $kk->id_kk]) }}">
                     @csrf
                     @method('PUT')
                     <!--begin::Scroll-->
-                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_kk_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_kk_header" data-kt-scroll-wrappers="#kt_modal_edit_kk_scroll" data-kt-scroll-offset="300px">
+                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_kk_scroll"
+                        data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                        data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_kk_header"
+                        data-kt-scroll-wrappers="#kt_modal_edit_kk_scroll" data-kt-scroll-offset="300px">
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
                             <label class="required fw-semibold fs-6 mb-2">No KK</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="number" id="no_kk" name="no_kk" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->no_kk }}" required />
+                            <input type="number" id="no_kk" name="no_kk"
+                                class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->no_kk }}"
+                                required />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -40,22 +46,29 @@
                             <label class="required fw-semibold fs-6 mb-2">Kepala Keluarga</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" id="kepala_keluarga" name="kepala_keluarga" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->kepala_keluarga }}" required />
+                            <input type="text" id="kepala_keluarga" name="kepala_keluarga"
+                                class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->kepala_keluarga }}"
+                                required />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
                         <!-- NIK -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="nik">NIK</label>
-                            <input type="number" id="nik" name="nik" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->warga->nik }}" required />
+                            <input type="number" id="nik" name="nik"
+                                class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->warga->nik }}"
+                                required />
                         </div>
                         <!-- Jenis Kelamin -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="jenis_kelamin">Jenis Kelamin</label>
-                            <select id="jenis_kelamin" name="jenis_kelamin" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                            <select id="jenis_kelamin" name="jenis_kelamin"
+                                class="form-control form-control-solid mb-3 mb-lg-0" required>
                                 <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
-                                <option value="Laki-laki" {{ $kk->warga->jenis_kelamin == 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                <option value="Perempuan" {{ $kk->warga->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                <option value="Laki-laki"
+                                    {{ $kk->warga->jenis_kelamin == 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="Perempuan"
+                                    {{ $kk->warga->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                         </div>
                         <!--begin::Row-->
@@ -66,11 +79,15 @@
                                 <div class="fv-row mb-7">
                                     <!-- Tempat Lahir -->
                                     <div class="fv-row mb-7">
-                                        <label class="required fw-semibold fs-6 mb-2" for="tempat_lahir">Tempat Lahir</label>
-                                        <span class="ms-1" data-bs-toggle="tooltip" title="Isi Tempat Kelahiran Seperti Kota">
+                                        <label class="required fw-semibold fs-6 mb-2" for="tempat_lahir">Tempat
+                                            Lahir</label>
+                                        <span class="ms-1" data-bs-toggle="tooltip"
+                                            title="Isi Tempat Kelahiran Seperti Kota">
                                             <i class="ki-outline ki-information fs-7"></i>
                                         </span></a>
-                                        <input type="text" id="tempat_lahir" name="tempat_lahir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->warga->tempat_lahir }}" required />
+                                        <input type="text" id="tempat_lahir" name="tempat_lahir"
+                                            class="form-control form-control-solid mb-3 mb-lg-0"
+                                            value="{{ $kk->warga->tempat_lahir }}" required />
                                     </div>
                                 </div>
                                 <!--end::Input group-->
@@ -80,8 +97,11 @@
                             <div class="col">
                                 <!-- Tanggal Lahir -->
                                 <div class="fv-row mb-7">
-                                    <label class="required fw-semibold fs-6 mb-2" for="tanggal_lahir">Tanggal Lahir</label>
-                                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->warga->tanggal_lahir }}" required />
+                                    <label class="required fw-semibold fs-6 mb-2" for="tanggal_lahir">Tanggal
+                                        Lahir</label>
+                                    <input type="date" id="tanggal_lahir" name="tanggal_lahir"
+                                        class="form-control form-control-solid mb-3 mb-lg-0"
+                                        value="{{ $kk->warga->tanggal_lahir }}" required />
                                 </div>
                             </div>
                             <!--end::Col-->
@@ -90,14 +110,21 @@
                         <!-- Agama -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="agama">Agama</label>
-                            <select id="agama" name="agama" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                            <select id="agama" name="agama" class="form-control form-control-solid mb-3 mb-lg-0"
+                                required>
                                 <option value="" disabled selected>Pilih Agama</option>
-                                <option value="Islam" {{ $kk->warga->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                <option value="Kristen" {{ $kk->warga->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
-                                <option value="Katolik" {{ $kk->warga->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
-                                <option value="Hindu" {{ $kk->warga->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                <option value="Buddha" {{ $kk->warga->agama == 'Buddha' ? 'selected' : '' }}>Buddha</option>
-                                <option value="Khonghucu" {{ $kk->warga->agama == 'Khonghucu' ? 'selected' : '' }}>Khonghucu</option>
+                                <option value="Islam" {{ $kk->warga->agama == 'Islam' ? 'selected' : '' }}>Islam
+                                </option>
+                                <option value="Kristen" {{ $kk->warga->agama == 'Kristen' ? 'selected' : '' }}>Kristen
+                                </option>
+                                <option value="Katolik" {{ $kk->warga->agama == 'Katolik' ? 'selected' : '' }}>Katolik
+                                </option>
+                                <option value="Hindu" {{ $kk->warga->agama == 'Hindu' ? 'selected' : '' }}>Hindu
+                                </option>
+                                <option value="Buddha" {{ $kk->warga->agama == 'Buddha' ? 'selected' : '' }}>Buddha
+                                </option>
+                                <option value="Khonghucu" {{ $kk->warga->agama == 'Khonghucu' ? 'selected' : '' }}>
+                                    Khonghucu</option>
                             </select>
                         </div>
                         <!--begin::Input group-->
@@ -106,17 +133,22 @@
                             <label class="required fw-semibold fs-6 mb-2">Alamat</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" id="alamat" name="alamat" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->alamat }}" required />
+                            <input type="text" id="alamat" name="alamat"
+                                class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $kk->alamat }}"
+                                required />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
                         <!-- JNo Rt -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="no_rt">No RT</label>
-                            <select id="no_rt" name="no_rt" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                            <select id="no_rt" name="no_rt"
+                                class="form-control form-control-solid mb-3 mb-lg-0" required>
                                 <option value="" disabled selected>-- Pilih No RT --</option>
-                                @foreach($rts as $rt)
-                                    <option value="{{ $rt->no_rt }}" {{ $kk->rt->no_rt == $rt->no_rt ? 'selected' : '' }}>RT {{ $rt->no_rt }}</option>
+                                @foreach ($rts as $rt)
+                                    <option value="{{ $rt->no_rt }}"
+                                        {{ $kk->rt->no_rt == $rt->no_rt ? 'selected' : '' }}>RT {{ $rt->no_rt }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -127,7 +159,7 @@
                         <button type="submit" class="btn btn-primary btn-sm" data-kt-kk-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
                     <!--end::Actions-->

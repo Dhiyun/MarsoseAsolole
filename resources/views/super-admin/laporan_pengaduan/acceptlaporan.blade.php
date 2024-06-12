@@ -19,34 +19,44 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form method="POST" id="kt_modal_add_laporan-accept_form" class="form" action="{{ route('laporan.updateStatus') }}" enctype="multipart/form-data">
+                <form method="POST" id="kt_modal_add_laporan-accept_form" class="form"
+                    action="{{ route('laporan.updateStatus') }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    
+
                     <input type="hidden" name="id_laporan" value="{{ $lp->id_laporan }}">
                     <input type="hidden" name="status" value="diterima">
-												
+
                     <!--begin::Scroll-->
-                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_laporan-accept_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_laporan-accept_header" data-kt-scroll-wrappers="#kt_modal_add_laporan-accept_scroll" data-kt-scroll-offset="300px">
+                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_laporan-accept_scroll"
+                        data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                        data-kt-scroll-max-height="auto"
+                        data-kt-scroll-dependencies="#kt_modal_add_laporan-accept_header"
+                        data-kt-scroll-wrappers="#kt_modal_add_laporan-accept_scroll" data-kt-scroll-offset="300px">
                         <!-- Tanggal Proses -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="tanggal_proses">Tanggal Proses</label>
-                            <input type="date" id="tanggal_proses" name="tanggal_proses" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tanggal_proses') }}" required />
+                            <input type="date" id="tanggal_proses" name="tanggal_proses"
+                                class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tanggal_proses') }}"
+                                required />
                         </div>
-                        
+
                         <!-- Tanggal Selesai -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="tanggal_selesai">Tanggal Selesai</label>
-                            <input type="date" id="tanggal_selesai" name="tanggal_selesai" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tanggal_selesai') }}" required />
+                            <input type="date" id="tanggal_selesai" name="tanggal_selesai"
+                                class="form-control form-control-solid mb-3 mb-lg-0"
+                                value="{{ old('tanggal_selesai') }}" required />
                         </div>
                     </div>
                     <!--end::Scroll-->
                     <!--begin::Actions-->
                     <div class="text-center pt-15">
-                        <button type="submit" class="btn btn-primary btn-sm" data-kt-laporan-accept-modal-action="submit">
+                        <button type="submit" class="btn btn-primary btn-sm"
+                            data-kt-laporan-accept-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
                     <!--end::Actions-->

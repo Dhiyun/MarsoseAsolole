@@ -104,5 +104,4 @@ class WelcomeController extends Controller
 
         return redirect()->route('profile-admin', $rt)->with('success', 'Profile updated successfully');
     }
-
 }

@@ -12,7 +12,7 @@ class RT extends Model
     protected $table = 'rt';
     protected $primaryKey = 'id_rt';
     public $timestamps = true;
-    
+
     protected $fillable = [
         'no_rt',
         'id_rw',

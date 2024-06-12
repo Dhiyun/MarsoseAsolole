@@ -14,18 +14,18 @@ class Users extends Auth
     protected $table = 'user';
     protected $primaryKey = 'id_user';
     public $timestamps = true;
-    
+
     protected $fillable = [
         'username',
         'password',
-        'id_level',  
+        'id_level',
     ];
 
     public function level()
     {
         return $this->belongsTo(Level::class, 'id_level', 'id_level');
     }
-    
+
     public function warga()
     {
         return $this->hasOne(Warga::class, 'id_user');

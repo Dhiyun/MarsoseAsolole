@@ -78,7 +78,7 @@
 							<div class="d-flex align-items-start">
 								<div class="fs-3 fw-bold text-slate-800 dark:text-slate-100 me-2">{{ $totalLaporan }}
 								</div>
-								<div class="badge bg-green-500">+</div>
+								{{-- <div class="badge bg-green-500">+</div> --}}
 							</div>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 							<div class="d-flex align-items-start">
 								<div class="fs-3 fw-bold text-slate-800 dark:text-slate-100 me-2">{{ $totalWarga }}
 								</div>
-								<div class="badge bg-yellow-500">-{{ $rejectedLaporan }}</div>
+								{{-- <div class="badge bg-yellow-500">-{{ $rejectedLaporan }}</div> --}}
 							</div>
 						</div>
 					</div>
@@ -118,7 +118,7 @@
 							<div class="d-flex align-items-start">
 								<div class="fs-3 fw-bold text-slate-800 dark:text-slate-100 me-2">{{ $totalRT }}
 								</div>
-								<div class="badge bg-red-500">Fix</div>
+								{{-- <div class="badge bg-red-500">Fix</div> --}}
 							</div>
 						</div>
 					</div>

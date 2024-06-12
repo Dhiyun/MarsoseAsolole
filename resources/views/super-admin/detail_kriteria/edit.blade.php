@@ -1,5 +1,6 @@
 <!--begin::Modal - Edit task-->
-<div class="modal fade" id="kt_modal_edit_detail_kriteria-{{ $detail->id_detail_kriteria }}" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kt_modal_edit_detail_kriteria-{{ $detail->id_detail_kriteria }}" tabindex="-1"
+    aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -26,47 +27,54 @@
                     <!--begin::Scroll-->
                     <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_detail_kriteria_scroll"
                         data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
-                        data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_detail_kriteria_header"
+                        data-kt-scroll-max-height="auto"
+                        data-kt-scroll-dependencies="#kt_modal_edit_detail_kriteria_header"
                         data-kt-scroll-wrappers="#kt_modal_edit_detail_kriteria_scroll" data-kt-scroll-offset="300px">
                         <!-- Nama Kriteria -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="id_kriteria">Nama Kriteria</label>
-                            <select id="id_kriteria" name="id_kriteria" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                            <select id="id_kriteria" name="id_kriteria"
+                                class="form-control form-control-solid mb-3 mb-lg-0" required>
                                 <option value="" disabled selected>-- Pilih Nama Kriteria --</option>
-                                @foreach($kriterias as $kriteria)
-                                    <option value="{{ $kriteria->id_kriteria }}" {{ $detail->kriteria->nama_kriteria == $kriteria->nama_kriteria ? 'selected' : '' }}>Kriteria {{ $kriteria->nama_kriteria }}</option>
+                                @foreach ($kriterias as $kriteria)
+                                    <option value="{{ $kriteria->id_kriteria }}"
+                                        {{ $detail->kriteria->nama_kriteria == $kriteria->nama_kriteria ? 'selected' : '' }}>
+                                        Kriteria {{ $kriteria->nama_kriteria }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <!-- Jenis Kriteria -->
                         <div class="fv-row mb-7">
                             <label for="jenis_kriteria" class="form-label">Jenis Kriteria</label>
-                            <select class="form-select" id="jenis_kriteria"
-                                name="jenis_kriteria" required>
-                                <option value="Benefit" {{ $detail->kriteria->jenis_kriteria == 'Benefit' ? 'selected' : '' }}>Benefit</option>
-                                <option value="Cost" {{ $detail->kriteria->jenis_kriteria == 'Cost' ? 'selected' : '' }}>Cost</option>
+                            <select class="form-select" id="jenis_kriteria" name="jenis_kriteria" required>
+                                <option value="Benefit"
+                                    {{ $detail->kriteria->jenis_kriteria == 'Benefit' ? 'selected' : '' }}>Benefit
+                                </option>
+                                <option value="Cost"
+                                    {{ $detail->kriteria->jenis_kriteria == 'Cost' ? 'selected' : '' }}>Cost</option>
                             </select>
                         </div>
                         <!-- Rentang -->
                         <div class="fv-row mb-7">
                             <label for="rentang" class="form-label">Rentang</label>
-                            <input type="text" class="form-control" id="rentang"
-                                name="rentang" value="{{ $detail->rentang }}" required>
+                            <input type="text" class="form-control" id="rentang" name="rentang"
+                                value="{{ $detail->rentang }}" required>
                             <div id="rentangHelp" class="form-text">Silahkan masukkan Rentang</div>
                         </div>
                         <!-- Nilai -->
                         <div class="fv-row mb-7">
                             <label for="nilai" class="form-label">Nilai</label>
-                            <input type="number" class="form-control" id="nilai"
-                                name="nilai" value="{{ $detail->nilai }}" required>
+                            <input type="number" class="form-control" id="nilai" name="nilai"
+                                value="{{ $detail->nilai }}" required>
                             <div id="nilaiHelp" class="form-text">Silahkan masukkan Nilai</div>
                         </div>
                         <!-- Bobot Normalisasi -->
                         <div class="fv-row mb-7">
                             <label for="bobot_normalisasi" class="form-label">Bobot_Normalisasi</label>
-                            <input type="number" class="form-control" id="bobot_normalisasi"
-                                name="bobot_normalisasi" step="0.01" value="{{ $detail->bobot_normalisasi }}" required>
-                            <div id="bobot_normalisasiHelp" class="form-text">Silahkan masukkan Bobot_Normalisasi, Contoh: 1.00</div>
+                            <input type="number" class="form-control" id="bobot_normalisasi" name="bobot_normalisasi"
+                                step="0.01" value="{{ $detail->bobot_normalisasi }}" required>
+                            <div id="bobot_normalisasiHelp" class="form-text">Silahkan masukkan Bobot_Normalisasi,
+                                Contoh: 1.00</div>
                         </div>
                     </div>
                     <!--end::Scroll-->
