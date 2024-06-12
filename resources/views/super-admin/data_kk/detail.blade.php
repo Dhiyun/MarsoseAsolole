@@ -79,30 +79,33 @@
 											<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_wargalokal .form-check-input" />
 										</div>
 									</th>
-									<th class="min-w-125px">ID</th>
+									<th class="min-w-125px">No</th>
 									<th class="min-w-125px">NIK</th>
 									<th class="min-w-125px">Nama</th>
                                     <th class="min-w-125px">TTL</th>
                                     <th class="min-w-125px">Alamat</th>
                                     <th class="min-w-125px">RT</th>
-									<th class="min-w-125px">Status</th>
+									<th class="min-w-125px">Status Keluarga</th>
+									<th class="min-w-125px">Status Warga</th>
 									<th class="text-end min-w-100px pe-9">Actions</th>
 								</tr>
 							</thead>
 							<tbody class="text-gray-600 fw-semibold">
+								@php $no = 1 @endphp
 								@foreach ($wargas as $warga)
 								<tr>
 									<td>
 										<div class="form-check form-check-sm form-check-custom form-check-solid">
-											<input value="{{ $warga->id_warga }}" class="form-check-input" type="checkbox" data-kt-wargalokal-table-filter="checkbox" />
+											<input id="id_warga_lokal" value="{{ $warga->id_warga }}" class="form-check-input" type="checkbox" data-kt-wargalokal-table-filter="checkbox" />
 										</div>
 									</td>
-                                    <td>{{ $warga->id_warga }}</td>
+                                    <td>{{ $no++ }}</td>
 									<td>{{ $warga->nik }}</td>
 									<td>{{ $warga->nama }}</td>
 									<td>{{ $warga->tempat_lahir }}, {{ \Carbon\Carbon::parse($warga->tanggal_lahir)->format('d M Y') }}</td>
 									<td>{{ $warga->alamat }}</td>
-									<td>{{ $warga->kk->rt->no_rt ?? 'N/A' }}</td>
+									<td>{{ $warga->kk->rt->no_rt ?? $warga->no_rt }}</td>
+									<td>{{ ucwords(str_replace('_', ' ', $warga->status_keluarga)) }}</td>
 									<td>{{ $warga->user->level->level_nama }}</td>
 									<td class="text-end">
 										<a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -117,7 +120,7 @@
 											<!-- End::Menu item -->
 											<!-- Begin::Menu item -->
 											<div class="menu-item px-3">
-												<a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_warga-{{ $warga->id_warga }}" class="menu-link px-3">Edit</a>
+												<a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_wargalokal-{{ $warga->id_warga }}" class="menu-link px-3">Edit</a>
 											</div>
 											<!-- End::Menu item -->
 											<!-- Begin::Menu item -->

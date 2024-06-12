@@ -17,7 +17,7 @@
             </div>
             <!--end::Modal header-->
             <!--begin::Modal body-->
-            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+            <div class="modal-body mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
                 <form method="POST" id="kt_modal_add_kk_form" class="form" action="{{ route('kk-admin.store', ['rt' => $rtNumber]) }}">
                     @csrf
@@ -43,6 +43,62 @@
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
+                        <!-- NIK -->
+                        <div class="fv-row mb-7">
+                            <label class="required fw-semibold fs-6 mb-2" for="nik">NIK</label>
+                            <input type="number" id="nik" name="nik" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('nik') }}" required />
+                        </div>
+                        <!-- Jenis Kelamin -->
+                        <div class="fv-row mb-7">
+                            <label class="required fw-semibold fs-6 mb-2" for="jenis_kelamin">Jenis Kelamin</label>
+                            <select id="jenis_kelamin" name="jenis_kelamin" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                                <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
+                                <option value="Laki-laki" {{ old('jenis_kelamin') == 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="Perempuan" {{ old('jenis_kelamin') == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
+                            </select>
+                        </div>
+                        <!--begin::Row-->
+                        <div class="row">
+                            <!--begin::Col-->
+                            <div class="col-lg-4">
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!-- Tempat Lahir -->
+                                    <div class="fv-row mb-7">
+                                        <label class="required fw-semibold fs-6 mb-2" for="tempat_lahir">Tempat Lahir</label>
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Isi Tempat Kelahiran Seperti Kota">
+                                            <i class="ki-outline ki-information fs-7"></i>
+                                        </span></a>
+                                        <input type="text" id="tempat_lahir" name="tempat_lahir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tempat_lahir') }}" required />
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col">
+                                <!-- Tanggal Lahir -->
+                                <div class="fv-row mb-7">
+                                    <label class="required fw-semibold fs-6 mb-2" for="tanggal_lahir">Tanggal Lahir</label>
+                                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tanggal_lahir') }}" required />
+                                </div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Row-->
+                        <!-- Agama -->
+                        <div class="fv-row mb-7">
+                            <label class="required fw-semibold fs-6 mb-2" for="agama">Agama</label>
+                            <select id="agama" name="agama" class="form-control form-control-solid mb-3 mb-lg-0" required>
+                                <option value="" disabled selected>Pilih Agama</option>
+                                <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                <option value="Katolik" {{ old('agama') == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                <option value="Buddha" {{ old('agama') == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                                <option value="Khonghucu" {{ old('agama') == 'Khonghucu' ? 'selected' : '' }}>Khonghucu</option>
+                            </select>
+                        </div>
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
@@ -53,6 +109,11 @@
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
+                        <!-- JNo Rt -->
+                        <div class="fv-row mb-7">
+                            <label class="required fw-semibold fs-6 mb-2" for="no_rt">No RT</label>
+                            <input type="text" name="no_rt" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ '0' . $rtNumber }}" disabled />
+                        </div>
                     </div>
                     <!--end::Scroll-->
                     <!--begin::Actions-->

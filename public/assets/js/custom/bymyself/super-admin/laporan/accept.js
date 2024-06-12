@@ -1,31 +1,33 @@
 "use strict";
 
-var KTSuratsAddSurat = function () {
-    const modalElement = document.getElementById("kt_modal_add_surat");
-    const formElement = modalElement && modalElement.querySelector("#kt_modal_add_surat_form");
+var KTLaporansEditLaporanStatus = function () {
+    const id_laporan = document.getElementById("id_laporan").value;
+    const modalElement = document.getElementById("kt_modal_add_laporan-accept-" + id_laporan);
+    const formElement = modalElement && modalElement.querySelector("#kt_modal_add_laporan-accept_form");
     const modalInstance = modalElement && new bootstrap.Modal(modalElement);
 
     const formValidation = FormValidation.formValidation(formElement, {
         fields: {
-            jenis_surat: {
+            tanggal_proses: {
                 validators: {
                     notEmpty: {
-                        message: "Jenis Surat Harus Diisi"
+                        message: "Tanggal Proses Harus Diisi"
                     },
+                    date: {
+                        format: 'YYYY-MM-DD',
+                        message: 'Format tanggal tidak valid'
+                    }
                 }
             },
-            nama_surat: {
+            tanggal_selesai: {
                 validators: {
                     notEmpty: {
-                        message: "Nama Surat Harus Diisi"
+                        message: "Tanggal Selesai Harus Diisi"
                     },
-                }
-            },
-            file_surat: {
-                validators: {
-                    notEmpty: {
-                        message: "Mohon Upload File"
-                    },
+                    date: {
+                        format: 'YYYY-MM-DD',
+                        message: 'Format tanggal tidak valid'
+                    }
                 }
             },
         },
@@ -39,11 +41,10 @@ var KTSuratsAddSurat = function () {
         }
     });
     
-    const submitButton = modalElement.querySelector('[data-kt-surat-modal-action="submit"]');
+    const submitButton = modalElement.querySelector('[data-kt-laporan-accept-modal-action="submit"]');
     submitButton.addEventListener("click", function(event) {
         event.preventDefault();
         formValidation.validate().then(function(status) {
-            console.log(status)
             if (status === "Valid") {
                 submitButton.setAttribute("data-kt-indicator", "on");
                 submitButton.disabled = true;
@@ -79,7 +80,7 @@ var KTSuratsAddSurat = function () {
     });
 
     // Menangani event close
-    const closeButton = modalElement.querySelector('[data-kt-surat-modal-action="close"]');
+    const closeButton = modalElement.querySelector('[data-kt-laporan-accept-modal-action="close"]');
     closeButton.addEventListener("click", function(event) {
         event.preventDefault();
         Swal.fire({
@@ -109,5 +110,5 @@ var KTSuratsAddSurat = function () {
 }();
 
 KTUtil.onDOMContentLoaded(function () {
-    KTSuratsAddSurat.init();
+    KTLaporansEditLaporanStatus.init();
 });

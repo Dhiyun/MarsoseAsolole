@@ -98,7 +98,7 @@
 										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
 											<!-- Begin::Menu item -->
 											<div class="menu-item px-3">
-												<a href="{{ route('warga.show', ['id' => $warga->id_warga]) }}" class="menu-link px-3">Detail</a>
+												<a href="{{ route('warga-admin.show', ['rt' => $rtNumber, 'id' => $warga->id_warga]) }}" class="menu-link px-3">Detail</a>
 											</div>
 											<!-- End::Menu item -->
 											<!-- Begin::Menu item -->

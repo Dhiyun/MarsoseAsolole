@@ -1,17 +1,30 @@
-"use strict";
-
-var KTWargasAddWarga = function () {
-    const modalElement = document.getElementById("kt_modal_add_warga");
-    const formElement = modalElement && modalElement.querySelector("#kt_modal_add_warga_form");
+var KTKKsEditKK = function () {
+    const id_kk = document.getElementById("id_kk").value;
+    const modalElement = document.getElementById("kt_modal_edit_kk-" + id_kk);
+    const formElement = modalElement && modalElement.querySelector("#kt_modal_edit_kk_form");
     const modalInstance = modalElement && new bootstrap.Modal(modalElement);
-
-    if (!modalElement || !formElement || !modalInstance) {
-        console.error("Modal or form element not found for KTWargasAddWarga");
-        return;
-    }
-
+    
     const formValidation = FormValidation.formValidation(formElement, {
         fields: {
+            no_kk: {
+                validators: {
+                    notEmpty: {
+                        message: "No KK Harus Diisi"
+                    },
+                    stringLength: {
+                        min: 16,
+                        max: 16,
+                        message: "No KK Harus 16 Nomer"
+                    },
+                }
+            },
+            kepala_keluarga: {
+                validators: {
+                    notEmpty: {
+                        message: "Kepala Keluarga Harus Diisi"
+                    },
+                }
+            },
             nik: {
                 validators: {
                     notEmpty: {
@@ -21,13 +34,6 @@ var KTWargasAddWarga = function () {
                         min: 16,
                         max: 16,
                         message: "No NIK Harus 16 Nomer"
-                    },
-                }
-            },
-            nama: {
-                validators: {
-                    notEmpty: {
-                        message: "Nama Harus Diisi"
                     },
                 }
             },
@@ -63,7 +69,14 @@ var KTWargasAddWarga = function () {
                 validators: {
                     notEmpty: {
                         message: "Alamat Harus Diisi"
-                    }
+                    },
+                }
+            },
+            no_rt: {
+                validators: {
+                    notEmpty: {
+                        message: "No RT Harus Diisi"
+                    },
                 }
             },
         },
@@ -76,22 +89,6 @@ var KTWargasAddWarga = function () {
             })
         }
     });
-
-    // Fungsi untuk mengambil data nik
-    function fetchNIK() {
-        const route = window.cekNIKRoute;
-
-        return fetch(route)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Terjadi masalah dengan permintaan: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                return data.niks.map(nikObject => nikObject.nik);
-            });
-    }
 
     // Fungsi untuk mengambil data kk
     function fetchKK() {
@@ -109,45 +106,28 @@ var KTWargasAddWarga = function () {
             });
     }
 
-    function checkNIK(inputNIK) {
-        return fetchNIK()
-            .then(niks => {
-                return niks.includes(inputNIK);
-            });
-    }
-
     function checkKK(inputKK) {
-        if (inputKK === null || inputKK.trim() === "") {
-            return Promise.resolve(true);
-        } else {
-            return fetchKK()
+        return fetchKK()
             .then(kks => {
                 return kks.includes(inputKK);
             });
-        }
     }
-
-    const submitButton = modalElement.querySelector('[data-kt-warga-modal-action="submit"]');
+    
+    const submitButton = modalElement.querySelector('[data-kt-kk-modal-action="submit"]');
     submitButton.addEventListener("click", function(event) {
         event.preventDefault();
         formValidation.validate().then(function(status) {
             if (status === "Valid") {
                 submitButton.setAttribute("data-kt-indicator", "on");
                 submitButton.disabled = true;
-
-                // Memerika NIK dan KK apakah sesuai
-                Promise.all([
-                    checkNIK(document.querySelector('#nik').value),
-                    checkKK(document.querySelector('#no_kk').value)
-                ])
-                .then(([nikDoesNotExist, noKKExists]) => {
+    
+                checkKK(document.querySelector('#no_kk').value)
+                .then(( kkDoesNotExist) => {
                     submitButton.removeAttribute("data-kt-indicator");
                     submitButton.disabled = false;
-
-                    // JIka KK ada dan NIK belum ada, tambahkan Warga
-                    if (noKKExists && !nikDoesNotExist) {
+                    if (!kkDoesNotExist) {
                         Swal.fire({
-                            text: "Warga berhasil ditambahkan.",
+                            text: "KK berhasil ditambahkan.",
                             icon: "success",
                             buttonsStyling: false,
                             confirmButtonText: "Ok, got it!",
@@ -158,14 +138,9 @@ var KTWargasAddWarga = function () {
                         });
                         formElement.submit();
                     } else {
-                        // Menampilkan pesan error jika RT tidak ada atau KK sudah ada
                         let errorMessage = '';
-                        if (!noKKExists && nikDoesNotExist){
-                            errorMessage = "RT atau KK tidak sesuai. Silakan coba lagi.";
-                        } else if (!noKKExists) {
-                            errorMessage = "KK tidak terdaftar. Silakan coba lagi.";
-                        } else if (nikDoesNotExist) {
-                            errorMessage = "NIK sudah terdaftar. Silakan coba lagi.";
+                        if (kkDoesNotExist) {
+                            errorMessage = "KK sudah terdaftar. Silakan coba lagi.";
                         }
                         Swal.fire({
                             text: errorMessage,
@@ -179,10 +154,9 @@ var KTWargasAddWarga = function () {
                     }
                 })
                 .catch(error => {
-                    // Menangani kesalahan dan menampilkan pesan error
                     submitButton.removeAttribute("data-kt-indicator");
                     submitButton.disabled = false;
-                    console.error('Terjadi kesalahan saat memeriksa RT atau KK:', error);
+                    console.error('Terjadi kesalahan saat memeriksa KK:', error);
                     Swal.fire({
                         text: "Terjadi kesalahan saat memeriksa RT atau KK. Silakan coba lagi.",
                         icon: "error",
@@ -208,7 +182,7 @@ var KTWargasAddWarga = function () {
     });
 
     // Menangani event close
-    const closeButton = modalElement.querySelector('[data-kt-warga-modal-action="close"]');
+    const closeButton = modalElement.querySelector('[data-kt-kk-modal-action="close"]');
     closeButton.addEventListener("click", function(event) {
         event.preventDefault();
         Swal.fire({
@@ -236,7 +210,3 @@ var KTWargasAddWarga = function () {
         }
     };
 }();
-
-KTUtil.onDOMContentLoaded(function () {
-    KTWargasAddWarga.init();
-});

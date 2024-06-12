@@ -1,16 +1,16 @@
 <!--begin::Modal - Edit task-->
-<div class="modal fade" id="kt_modal_edit_warga-{{ $warga->id_warga }}" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kt_modal_edit_wargalokal-{{ $warga->id_warga }}" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
-            <div class="modal-header" id="kt_modal_edit_warga_header">
+            <div class="modal-header" id="kt_modal_edit_wargalokal_header">
                 <!--begin::Modal title-->
                 <h2 class="fw-bold">Edit Warga</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-warga-modal-action="close">
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-wargalokal-modal-action="close">
                     <i class="ki-outline ki-cross fs-1"></i>
                 </div>
                 <!--end::Close-->
@@ -19,11 +19,11 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form method="POST" id="kt_modal_edit_warga_form" class="form" action="{{ route('kkwarga.update', ['id_kk' => $kk->id_kk, 'id_warga' => $warga->id_warga]) }}">
+                <form method="POST" id="kt_modal_edit_wargalokal_form" class="form" action="{{ route('kkwarga.update', ['id_kk' => $kk->id_kk, 'id_warga' => $warga->id_warga]) }}">
                     @csrf
                     @method('PUT')
                     <!--begin::Scroll-->
-                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_warga_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_warga_header" data-kt-scroll-wrappers="#kt_modal_edit_warga_scroll" data-kt-scroll-offset="300px">
+                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_edit_wargalokal_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_wargalokal_header" data-kt-scroll-wrappers="#kt_modal_edit_wargalokal_scroll" data-kt-scroll-offset="300px">
                         <!-- NIK -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="nik">NIK</label>
@@ -196,7 +196,7 @@
                     <!--end::Scroll-->
                     <!--begin::Actions-->
                     <div class="text-center pt-15">
-                        <button type="submit" class="btn btn-primary btn-sm" data-kt-warga-modal-action="submit">
+                        <button type="submit" class="btn btn-primary btn-sm" data-kt-wargalokal-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

@@ -144,7 +144,19 @@
 										<!--begin::Input group-->
 										<div class="row mb-7">
 											<!--begin::Label-->
-											<label class="col-lg-4 fw-semibold text-muted">Status</label>
+											<label class="col-lg-4 fw-semibold text-muted">Status Keluarga</label>
+											<!--end::Label-->
+											<!--begin::Col-->
+											<div class="col-lg-8">
+												<span class="fw-bold fs-6 text-gray-800">{{ ucwords(str_replace('_', ' ', $warga->status_keluarga)) }}</span>
+											</div>
+											<!--end::Col-->
+										</div>
+										<!--end::Input group-->
+										<!--begin::Input group-->
+										<div class="row mb-7">
+											<!--begin::Label-->
+											<label class="col-lg-4 fw-semibold text-muted">Status Kependudukan</label>
 											<!--end::Label-->
 											<!--begin::Col-->
 											<div class="col-lg-8">
@@ -188,7 +200,7 @@
 									<!--begin::Card content-->
 									<div class="collapse show">
 										<!--begin::Form-->
-										<form class="form" method="POST" action="{{ route('user.update', $warga->user->id_user) }}">
+										<form class="form" method="POST" action="{{ route('kkuser-admin.update', ['rt' => $rtNumber, 'id_kk' => $kk->id_kk, 'id_warga' => $warga->user->id_user]) }}">
 											@csrf
 											@method('PUT')
 											<!--begin::Card body-->
@@ -196,7 +208,7 @@
 												<!--begin::Input group-->
 												<div class="fv-row mb-7">
 													<label class="required fw-semibold fs-6 mb-2" for="username">Username</label>
-													<input type="number" id="username" name="username" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('username', $warga->user->username) }}" required />
+													<input type="text" id="username" name="username" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('username', $warga->user->username) }}" required />
 												</div>
 												<!--end::Input group-->
 												<!--begin::Input group-->

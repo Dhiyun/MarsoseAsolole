@@ -1,14 +1,10 @@
 "use strict";
 
-var KTWargasAddWarga = function () {
-    const modalElement = document.getElementById("kt_modal_add_warga");
-    const formElement = modalElement && modalElement.querySelector("#kt_modal_add_warga_form");
+var KTWargasEditWarga = function () {
+    const id_warga_lokal = document.getElementById("id_warga_lokal").value;
+    const modalElement = document.getElementById("kt_modal_edit_wargalokal-" + id_warga_lokal);
+    const formElement = modalElement && modalElement.querySelector("#kt_modal_edit_wargalokal_form");
     const modalInstance = modalElement && new bootstrap.Modal(modalElement);
-
-    if (!modalElement || !formElement || !modalInstance) {
-        console.error("Modal or form element not found for KTWargasAddWarga");
-        return;
-    }
 
     const formValidation = FormValidation.formValidation(formElement, {
         fields: {
@@ -127,7 +123,7 @@ var KTWargasAddWarga = function () {
         }
     }
 
-    const submitButton = modalElement.querySelector('[data-kt-warga-modal-action="submit"]');
+    const submitButton = modalElement.querySelector('[data-kt-wargalokal-modal-action="submit"]');
     submitButton.addEventListener("click", function(event) {
         event.preventDefault();
         formValidation.validate().then(function(status) {
@@ -208,7 +204,7 @@ var KTWargasAddWarga = function () {
     });
 
     // Menangani event close
-    const closeButton = modalElement.querySelector('[data-kt-warga-modal-action="close"]');
+    const closeButton = modalElement.querySelector('[data-kt-wargalokal-modal-action="close"]');
     closeButton.addEventListener("click", function(event) {
         event.preventDefault();
         Swal.fire({
@@ -238,5 +234,5 @@ var KTWargasAddWarga = function () {
 }();
 
 KTUtil.onDOMContentLoaded(function () {
-    KTWargasAddWarga.init();
+    KTWargasEditWarga.init();
 });

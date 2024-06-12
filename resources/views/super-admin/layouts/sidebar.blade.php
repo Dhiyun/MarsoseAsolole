@@ -119,6 +119,26 @@
             <!-- End: Menu item -->
 
             <!-- Begin: Menu item -->
+            <div class="menu-item menu-accordion">
+                <!-- Begin: Menu link -->
+                <a class="menu-link {{ $activeMenu == 'historylaporan' ? 'active' : '' }}"
+                    href="{{ route('history.index') }}">
+                    <span class="menu-icon">
+                        @if ($activeMenu == 'historylaporan')
+                            <img alt="Logo" src="assets/media/logos/menu-active/logo-note.svg"
+                                class="h-25px theme-light-show" />
+                        @else
+                            <img alt="Logo" src="assets/media/logos/menu/logo-note.svg"
+                                class="h-25px theme-light-show" />
+                        @endif
+                    </span>
+                    <span class="menu-title">History Laporan Pengaduan</span>
+                </a>
+                <!-- End: Menu link -->
+            </div>
+            <!-- End: Menu item -->
+
+            <!-- Begin: Menu item -->
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'here show' : '' }}">
                 <!-- Begin: Menu link -->
                 <a class="menu-link {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'active' : '' }}">

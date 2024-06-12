@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Foundation\Auth\User as Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Users extends Auth
 {
@@ -28,5 +29,16 @@ class Users extends Auth
     public function warga()
     {
         return $this->hasOne(Warga::class, 'id_user');
+    }
+
+    public static function checkCredentials($username, $password)
+    {
+        $user = self::where('username', $username)->first();
+
+        if (!$user || !Hash::check($password, $user->password)) {
+            return false;
+        }
+
+        return $user;
     }
 }

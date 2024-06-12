@@ -1,5 +1,5 @@
-@extends('super-admin.layouts.template')
-@section('title', 'Super Admin | Profile')
+@extends('admin.layouts.template')
+@section('title', 'Admin | Profile')
 
 @section('content')
 <div class="container mt-2">
@@ -20,7 +20,7 @@
                 <!-- Content -->
                 <div id="kt_account_settings_profile_details" class="collapse show">
                     <!-- Form -->
-                    <form id="kt_account_profile_details_form" class="form" action="{{ route('admin.updateProfile') }}" method="POST" enctype="multipart/form-data">
+                    <form id="kt_account_profile_details_form" class="form" action="{{ route('admin.updateProfile', ['rt' => $rtNumber]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <!-- Card body -->

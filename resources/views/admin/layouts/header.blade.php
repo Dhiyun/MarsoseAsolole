@@ -13,8 +13,8 @@
             <!--begin::User menu-->
             <div class="app-navbar-item ms-2 ms-lg-6" id="kt_header_user_menu_toggle">
                 <!--begin::Menu wrapper-->
-                <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-lg-45px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                    <img src="assets/media/avatars/blank.png" alt="user" />
+                <div class="cursor-pointer symbol symbol-circle symbol-50px symbol-lg-45px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                    <img src="{{ Auth::user()->warga->foto ? asset('uploads/' . Auth::user()->warga->foto) : asset('assets/media/svg/avatars/blank.svg') }}" alt="user" />
                 </div>
                 <!--begin::User account menu-->
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -23,7 +23,7 @@
                         <div class="menu-content d-flex align-items-center px-3">
                             <!--begin::Avatar-->
                             <div class="symbol symbol-50px me-5">
-                                <img alt="Logo" src="assets/media/avatars/blank.png" />
+                                <img alt="Logo" src="{{ Auth::user()->warga->foto ? asset('uploads/' . Auth::user()->warga->foto) : asset('assets/media/svg/avatars/blank.svg') }}"  />
                             </div>
                             <!--end::Avatar-->
                             <!--begin::Username-->
@@ -41,7 +41,7 @@
                     <!--end::Menu separator-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                        <a href="{{ route('profile-admin') }}" class="menu-link px-5">My Profile</a>
+                        <a href="{{ route('profile-admin', ['rt' => $rtNumber]) }}" class="menu-link px-5">My Profile</a>
                     </div>
                     <!--end::Menu item--> 
                     <!--begin::Menu item-->

@@ -66,7 +66,7 @@
 											<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_warga .form-check-input" />
 										</div>
 									</th>
-									<th class="min-w-125px">ID</th>
+									<th class="min-w-125px">No</th>
 									<th class="min-w-125px">NIK</th>
 									<th class="min-w-125px">Nama</th>
                                     <th class="min-w-125px">TTL</th>
@@ -77,14 +77,15 @@
 								</tr>
 							</thead>
 							<tbody class="text-gray-600 fw-semibold">
+								@php $no = 1 @endphp
 								@foreach ($wargas as $warga)
 								<tr>
 									<td>
 										<div class="form-check form-check-sm form-check-custom form-check-solid">
-											<input value="{{ $warga->id_warga }}" class="form-check-input" type="checkbox" data-kt-warga-table-filter="checkbox" />
+											<input id="id_warga" value="{{ $warga->id_warga }}" class="form-check-input" type="checkbox" data-kt-warga-table-filter="checkbox" />
 										</div>
 									</td>
-									<td>{{ $warga->id_warga }}</td>
+									<td>{{ $no++ }}</td>
 									<td>{{ $warga->nik }}</td>
 									<td>{{ $warga->nama }}</td>
 									<td>{{ $warga->tempat_lahir }}, {{ \Carbon\Carbon::parse($warga->tanggal_lahir)->format('d M Y') }}</td>

@@ -65,7 +65,15 @@
         <script src="{{ asset('assets/js/custom/bymyself/super-admin/surat/add.js') }}"></script>
         <script src="{{ asset('assets/js/custom/bymyself/super-admin/warga/add.js') }}"></script>
         <script src="{{ asset('assets/js/custom/bymyself/super-admin/laporan/add.js') }}"></script>
+
+        //JS Edit
+        <script src="{{ asset('assets/js/custom/bymyself/super-admin/kk/edit.js') }}"></script>
         <script src="{{ asset('assets/js/custom/bymyself/super-admin/surat/edit.js') }}"></script>
+        <script src="{{ asset('assets/js/custom/bymyself/super-admin/warga/edit.js') }}"></script>
+        <script src="{{ asset('assets/js/custom/bymyself/super-admin/warga-lokal/edit.js') }}"></script>
+        <script src="{{ asset('assets/js/custom/bymyself/super-admin/surat/edit.js') }}"></script>
+
+        <script src="{{ asset('assets/js/custom/bymyself/super-admin/laporan/accept.js') }}"></script>
         
         <script src="{{ asset('assets/js/custom/bymyself/selectoption.js') }}"></script>
         <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>

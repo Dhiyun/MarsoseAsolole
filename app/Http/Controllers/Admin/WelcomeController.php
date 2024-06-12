@@ -50,7 +50,7 @@ class WelcomeController extends Controller
             return redirect()->route('login');
         }
     }
-    public function profileAdmin()
+    public function profileAdmin($rt)
     {
         $breadcrumb = (object) [
             'title' => 'Home',
@@ -59,12 +59,13 @@ class WelcomeController extends Controller
         $activeMenu = 'dashboard';
 
         return view('admin.profile.index', [
+            'rtNumber' => $rt,
             'breadcrumb' => $breadcrumb,
             'activeMenu' => $activeMenu
         ]);
     }
 
-    public function updateProfileAdmin(Request $request)
+    public function updateProfileAdmin($rt, Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:100',
@@ -101,7 +102,7 @@ class WelcomeController extends Controller
         $warga->agama = $request->agama;
         $warga->save();
 
-        return redirect()->route('profile-admin')->with('success', 'Profile updated successfully');
+        return redirect()->route('profile-admin', $rt)->with('success', 'Profile updated successfully');
     }
 
 }

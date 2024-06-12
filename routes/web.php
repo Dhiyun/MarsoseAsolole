@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\KKController as AdminKKController;
+use App\Http\Controllers\Admin\LaporanPengaduanController as AdminLaporanPengaduanController;
 use App\Http\Controllers\Admin\WargaController as AdminWargaController;
 use App\Http\Controllers\Admin\WelcomeAdminController;
 use App\Http\Controllers\Admin\WelcomeController as AdminWelcomeController;
@@ -32,15 +33,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-
-
 Route::get('/', [LandingPageController::class, 'index']);
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login_proses', [AuthController::class, 'login_proses'])->name('login_proses');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/check_login', [AuthController::class, 'checkLogin']);
 
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['cek_login:WRG']], function () {
@@ -79,13 +77,21 @@ Route::middleware('auth')->group(function () {
 
                 Route::prefix('kk')->group(function () {
                     Route::get('/', [AdminKKController::class, 'index'])->name('kk-admin.index');
-                    Route::get('/cek_kk', [AdminKKController::class, 'cek_kk'])->name('cek_kk-admin');
-                    Route::get('/cek_nik', [WargaController::class, 'cek_nik'])->name('cek_nik-admin');
                     Route::post('/store', [AdminKKController::class, 'store'])->name('kk-admin.store');
                     Route::get('/show/{id}', [AdminKKController::class, 'show'])->name('kk-admin.show');
                     Route::put('/update/{id}', [AdminKKController::class, 'update'])->name('kk-admin.update');
                     Route::delete('/destroy/{id}', [AdminKKController::class, 'destroy'])->name('kk-admin.destroy');
                     Route::post('/delete-selected', [AdminKKController::class, 'deleteSelected'])->name('kk-admin.deleteSelected');
+
+                    //Warga KK
+                    Route::post('/store-warga/{id_kk}', [AdminKKController::class, 'storeMany'])->name('kkwarga-admin.storeMany');
+                    Route::put('/update-warga/{id_kk}/{id_warga}', [AdminKKController::class, 'update_warga'])->name('kkwarga-admin.update');
+                    Route::get('{id_kk}/warga/{id_warga}', [AdminKKController::class, 'show_warga'])->name('kkwarga-admin.show');
+                    Route::delete('/destroy-warga/{id_warga}', [AdminKKController::class, 'destroy_warga'])->name('kkwarga-admin.destroy');
+                    Route::post('/delete-selected-warga', [AdminKKController::class, 'deleteSelected_warga'])->name('kkwarga-admin.deleteSelected');
+
+                    //User Warga
+                    Route::put('{id_kk}/update-user/{id_warga}', [AdminKKController::class, 'update_user'])->name('kkuser-admin.update');
                 });
 
                 Route::prefix('warga')->group(function () {
@@ -95,14 +101,19 @@ Route::middleware('auth')->group(function () {
                     Route::post('/store', [AdminWargaController::class, 'store'])->name('warga-admin.store');
                     Route::get('/detail/{id}', [AdminWargaController::class, 'show'])->name('warga-admin.show');
                     Route::put('/update/{id}', [AdminWargaController::class, 'update'])->name('warga-admin.update');
-                    Route::put('/update-user/{id}', [AdminWargaController::class, 'update_user'])->name('user-admin.update');
+                    Route::put('/update-user/{id}', [AdminWargaController::class, 'update_user'])->name('wargauser-admin.update');
                     Route::delete('/destroy/{id}', [AdminWargaController::class, 'destroy'])->name('warga-admin.destroy');
                     Route::post('/delete-selected', [AdminWargaController::class, 'deleteSelected'])->name('warga-admin.deleteSelected');
                 });
-            });
-            Route::prefix('profile')->group(function () {
-                Route::get('/', [AdminWelcomeController::class, 'profileAdmin'])->name('profile-admin');
-                Route::put('/', [AdminWelcomeController::class, 'updateProfileAdmin'])->name('admin.updateProfile');
+
+                Route::prefix('history')->group(function () {
+                    Route::get('/', [AdminLaporanPengaduanController::class, 'index'])->name('history-admin.index');
+                });
+
+                Route::prefix('profile')->group(function () {
+                    Route::get('/', [AdminWelcomeController::class, 'profileAdmin'])->name('profile-admin');
+                    Route::put('/', [AdminWelcomeController::class, 'updateProfileAdmin'])->name('admin.updateProfile');
+                });
             });
         });
     });
@@ -162,6 +173,10 @@ Route::middleware('auth')->group(function () {
                 Route::post('/delete-selected', [LaporanPengaduanController::class, 'deleteSelected'])->name('laporan.deleteSelected');
             });
 
+            Route::prefix('history')->group(function () {
+                Route::get('/', [LaporanPengaduanController::class, 'index_history'])->name('history.index');
+            });
+
             Route::prefix('surat')->group(function () {
                 Route::get('/', [SuratController::class, 'index'])->name('surat.index');
                 Route::post('/store', [SuratController::class, 'store'])->name('surat.store');
@@ -213,21 +228,3 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
-
-// Route::prefix('rw')->group(function () {
-//     Route::get('/', [RTController::class, 'index'])->name('data_rw.index');
-//     Route::get('/create', [RTController::class, 'create'])->name('data_rw.create');
-//     Route::post('/store', [RTController::class, 'store'])->name('data_rw.store');
-//     Route::get('/edit/{No_RT}', [RTController::class, 'edit'])->name('data_rw.edit');
-//     Route::put('/update/{No_RT}', [RTController::class, 'update'])->name('data_rw.update');
-//     Route::delete('/destroy/{No_RT}', [RTController::class, 'destroy'])->name('data_rw.destroy');
-// });
-
-// Route::prefix('rt')->group(function () {
-//     Route::get('/', [RTController::class, 'index'])->name('data_rt.index');
-//     Route::get('/create', [RTController::class, 'create'])->name('data_rt.create');
-//     Route::post('/store', [RTController::class, 'store'])->name('data_rt.store');
-//     Route::get('/edit/{No_RT}', [RTController::class, 'edit'])->name('data_rt.edit');
-//     Route::put('/update/{No_RT}', [RTController::class, 'update'])->name('data_rt.update');
-//     Route::delete('/destroy/{No_RT}', [RTController::class, 'destroy'])->name('data_rt.destroy');
-// });

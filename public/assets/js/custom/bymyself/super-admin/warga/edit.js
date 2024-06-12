@@ -1,14 +1,10 @@
 "use strict";
 
 var KTWargasAddWarga = function () {
-    const modalElement = document.getElementById("kt_modal_add_warga");
-    const formElement = modalElement && modalElement.querySelector("#kt_modal_add_warga_form");
+    const id_warga = document.getElementById("id_warga").value;
+    const modalElement = document.getElementById("kt_modal_edit_warga-" + id_warga);
+    const formElement = modalElement && modalElement.querySelector("#kt_modal_edit_warga_form");
     const modalInstance = modalElement && new bootstrap.Modal(modalElement);
-
-    if (!modalElement || !formElement || !modalInstance) {
-        console.error("Modal or form element not found for KTWargasAddWarga");
-        return;
-    }
 
     const formValidation = FormValidation.formValidation(formElement, {
         fields: {

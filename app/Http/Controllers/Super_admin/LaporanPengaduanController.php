@@ -20,7 +20,7 @@ class LaporanPengaduanController extends Controller
         ];
 
         $activeMenu = 'laporan';
-        $laporansP = LaporanPengaduan::all();
+        $laporansP = LaporanPengaduan::whereNotIn('status', ['ditolak'])->get();
 
         return view('super-admin.laporan_pengaduan.index', [
             'breadcrumb' => $breadcrumb,
@@ -94,7 +94,7 @@ class LaporanPengaduanController extends Controller
         $request->validate([
             'tanggal_proses' => 'nullable|date',
             'tanggal_selesai' => 'nullable|date',
-            'status' => 'required|in:ditolak,diterima,selesai',
+            'status' => 'required|in:diproses,ditolak,diterima,selesai',
         ]);
 
         $tanggal_proses = $request->input('tanggal_proses');
@@ -151,5 +151,22 @@ class LaporanPengaduanController extends Controller
         } catch (Exception $e) {
             return redirect()->route('laporan.index')->with('error'. 'Laporan Pengaduan Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
+    }
+
+    public function index_history()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Data Laporan Pengaduan',
+            'list' => ['Home,', 'History Laporan Pengaduan']
+        ];
+
+        $activeMenu = 'historylaporan';
+        $laporansP = LaporanPengaduan::all();
+
+        return view('super-admin.laporan_pengaduan.history', [
+            'breadcrumb' => $breadcrumb,
+            'laporansP' => $laporansP,
+            'activeMenu' => $activeMenu
+        ]);
     }
 }

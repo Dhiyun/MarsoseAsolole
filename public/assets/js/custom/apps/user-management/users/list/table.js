@@ -1252,7 +1252,7 @@ var KTLaporanList = function() {
                 e = $(tableElement).DataTable({
                     info: false,
                     order: [],
-                    pageLength: 10,
+                    pageLength: 5,
                     lengthChange: false,
                     columnDefs: [
                         { orderable: false, targets: 0 },

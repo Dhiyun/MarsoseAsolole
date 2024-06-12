@@ -188,7 +188,7 @@
 									<!--begin::Card content-->
 									<div class="collapse show">
 										<!--begin::Form-->
-										<form class="form" method="POST" action="{{ route('user-admin.update', ['id' => $warga->user->id_user, 'rt' => $rtNumber]) }}">
+										<form class="form" method="POST" action="{{ route('wargauser-admin.update', ['id' => $warga->user->id_user, 'rt' => $rtNumber]) }}">
 											@csrf
 											@method('PUT')
 											<!--begin::Card body-->
@@ -196,7 +196,7 @@
 												<!--begin::Input group-->
 												<div class="fv-row mb-7">
 													<label class="required fw-semibold fs-6 mb-2" for="username">Username</label>
-													<input type="number" id="username" name="username" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('username', $warga->user->username) }}" required />
+													<input type="text" id="username" name="username" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('username', $warga->user->username) }}" required />
 												</div>
 												<!--end::Input group-->
 												<!--begin::Input group-->

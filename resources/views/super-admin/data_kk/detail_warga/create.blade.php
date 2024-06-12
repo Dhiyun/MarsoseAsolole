@@ -24,22 +24,24 @@
 
     const submitBtnContainer = document.getElementById('submitBtnContainer');
 
-
     function addWargaForm() {
         const container = document.getElementById('kt_card_add_warga');
         
         const newEntry = document.createElement('div');
         newEntry.classList.add('col-lg-4');
+
         index++;
+        
+        wargaCount++;
 
         if (index > 0) {
             submitBtnContainer.style.display = 'block';
         }
         
         newEntry.innerHTML = `
-            <div class="card mb-5 mb-xl-10" id="kt_card_add_warga_index">
+            <div class="card mb-5 mb-xl-10" id="kt_card_add_warga_${index}">
                 <div class="card-header border-0 mt-5">
-                    <h3 class="card-title">Warga #${wargaCount + 1}</h3>
+                    <h3 class="card-title">Warga #${wargaCount}</h3>
                     <div class="card-toolbar">
                         <button type="button" class="btn btn-sm btn-icon btn-active-color-danger" onclick="removeWargaForm(this)">
                             <i class="ki-outline ki-cross fs-1"></i>
@@ -80,7 +82,7 @@
                                         <span class="ms-1" data-bs-toggle="tooltip" title="Isi Tempat Kelahiran Seperti Kota">
                                             <i class="ki-outline ki-information fs-7"></i>
                                         </span></a>
-                                        <input type="text" id="tempat_lahir_${index}" name="wargas[${index}][tempat_lahir]" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tempat_lahir') }}" required />
+                                        <input type="text" id="tempat_lahir_${index}" name="wargas[${index}][tempat_lahir]" class="form-control form-control-solid mb-3 mb-lg-0" required />
                                     </div>
                                 </div>
                                 <!--end::Input group-->
@@ -91,7 +93,7 @@
                                 <!-- Tanggal Lahir -->
                                 <div class="fv-row mb-7">
                                     <label class="required fw-semibold fs-6 mb-2" for="tanggal_lahir_${index}">Tanggal Lahir</label>
-                                    <input type="date" id="tanggal_lahir_${index}" name="wargas[${index}][tanggal_lahir]" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ old('tanggal_lahir') }}" required />
+                                    <input type="date" id="tanggal_lahir_${index}" name="wargas[${index}][tanggal_lahir]" class="form-control form-control-solid mb-3 mb-lg-0" required />
                                 </div>
                             </div>
                             <!--end::Col-->
@@ -227,7 +229,6 @@
         
         container.appendChild(newEntry);
         
-        wargaCount++;
         window.updateGlobalIndex();
     }
 
@@ -235,12 +236,33 @@
         const entry = button.closest('.col-lg-4');
         
         entry.remove();
-        
+
         index--;
-        if (index < 1) {
+
+        wargaCount--;
+        
+        const cards = document.querySelectorAll('#kt_card_add_warga .card');
+        cards.forEach((card, i) => {
+            card.querySelector('.card-title').innerText = `Warga #${i + 1}`;
+            card.querySelectorAll('input, select').forEach(input => {
+                const name = input.getAttribute('name');
+                if (name) {
+                    const newName = name.replace(/\[\d+\]/, `[${i+1}]`);
+                    input.setAttribute('name', newName);
+                }
+                const id = input.getAttribute('id');
+                if (id) {
+                    const newId = id.replace(/_\d+$/, `_${i+1}`);
+                    input.setAttribute('id', newId);
+                    input.setAttribute('for', newId);
+                }
+            });
+        });
+        
+        if (index === 0) {
             submitBtnContainer.style.display = 'none';
         }
-        wargaCount--;
+
         window.updateGlobalIndex();
     }
 </script>

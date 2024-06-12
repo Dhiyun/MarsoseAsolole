@@ -48,7 +48,7 @@
 						<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_laporan">
 							<thead>
 								<tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-									<th class="min-w-125px">ID</th>
+									<th class="min-w-125px">Np</th>
 									<th class="min-w-125px">Nama</th>
 									<th class="min-w-125px">Judul</th>
 									<th class="min-w-125px">Tanggal Laporan</th>
@@ -59,10 +59,11 @@
 								</tr>
 							</thead>
 							<tbody class="text-gray-600 fw-semibold">
+								@php $no = 1 @endphp
 								@foreach ($laporansP as $lp)
 								<tr>
 									<input id="id_laporan" type="hidden" value="{{ $lp->id_laporan }}" class="form-check-input" />
-									<td>{{ $lp->id_laporan }}</td>
+									<td>{{ $no++ }}</td>
 									<td>{{ $lp->warga->nama }}</td>
 									<td>{{ $lp->judul }}</td>
 									<td>{{ $lp->created_at->format('l, d F Y') }}</td>
@@ -70,55 +71,57 @@
 									<td><img src="{{ asset($lp->gambar) }}" alt="Gambar Laporan" style="max-width: 125px; max-height: 125px;"></td>
 									<td>{{ $lp->keterangan }}</td>
 									<td class="text-end">
-										<button class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-											<span class="badge badge-{{ 
-												($lp->status == 'diterima') ? 'light-success' : 
-												(($lp->status == 'ditolak') ? 'light-danger' : 
-												(($lp->status == 'diproses') ? 'light-warning' : 
-												(($lp->status == 'selesai') ? 'light-primary' : 
-												(($lp->status == 'menunggu') ? 'light-info' : ''))))
-											}}">
+										<button class="btn btn-light btn-light-{{ 
+											($lp->status == 'diterima') ? 'success' : 
+											(($lp->status == 'ditolak') ? 'danger' : 
+											(($lp->status == 'diproses') ? 'warning' : 
+											(($lp->status == 'selesai') ? 'primary' : 
+											(($lp->status == 'menunggu') ? 'info' : ''))))
+										}} btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
 												{{ ucfirst($lp->status) }}
-											</span>
 											<i class="ki-outline ki-down fs-5 ms-1"></i>
 										</button>
 										<!-- Begin::Menu -->
-										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-100px py-4" data-kt-menu="true">
-											{{-- <!-- Begin::Menu item -->
-											<div class="menu-item px-3">
-												<input type="hidden" name="status" value="diterima">
-												<button type="button" class="menu-link px-3 btn" data-bs-toggle="modal" data-bs-target="#kt_modal_add_laporan_accept-{{ $lp->id_laporan }}">
-													<span class="badge badge-light-success">Diterima</span>
-												</button>
-											</div> --}}
-											<!-- End::Menu item -->
-											<form action="{{ route('laporan.updateStatus') }}" method="POST" style="display:inline;">
-												@csrf
-												@method('PUT')
-												<input type="hidden" name="id_laporan" value="{{ $lp->id_laporan }}">
+										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+											@if($lp->status == 'diterima')
 												<!-- Begin::Menu item -->
 												<div class="menu-item px-3">
-													<input type="hidden" name="status" value="diterima">
-													<button type="submit" class="menu-link px-3 btn">
-														<span class="badge badge-light-success">Diterima</span>
+													<input type="hidden" name="status" value="diproses">
+													<button type="button" class="btn btn-sm btn-warning w-100px" data-bs-toggle="modal" data-bs-target="#kt_modal_add_laporan-accept-{{ $lp->id_laporan }}">
+															<i class="fas fa-cogs fa-sm"></i>Proses
 													</button>
 												</div>
 												<!-- End::Menu item -->
-											</form>
-											<!-- End::Menu item -->
-											<form action="{{ route('laporan.updateStatus') }}" method="POST" style="display:inline;">
-												@csrf
-												@method('PUT')
-												<input type="hidden" name="id_laporan" value="{{ $lp->id_laporan }}">
-												<!-- Begin::Menu item -->
-												<div class="menu-item px-3">
-													<input type="hidden" name="status" value="ditolak">
-													<button type="submit" class="menu-link px-3 btn">
-														<span class="badge badge-light-danger">Ditolak</span>
-													</button>
-												</div>
+											@endif
+											@if($lp->status == 'menunggu')
+												<form action="{{ route('laporan.updateStatus') }}" method="POST" style="display:inline;">
+													@csrf
+													@method('PUT')
+													<input type="hidden" name="id_laporan" value="{{ $lp->id_laporan }}">
+													<!-- Begin::Menu item -->
+													<div class="menu-item px-3">
+														<input type="hidden" name="status" value="diterima">
+														<button type="submit" class="btn btn-sm btn-success w-100px">
+															<i class="fas fa-check fa-sm"></i>Terima
+														</button>
+													</div>
+													<!-- End::Menu item -->
+												</form>
 												<!-- End::Menu item -->
-											</form>
+												<form action="{{ route('laporan.updateStatus') }}" method="POST" style="display:inline;">
+													@csrf
+													@method('PUT')
+													<input type="hidden" name="id_laporan" value="{{ $lp->id_laporan }}">
+													<!-- Begin::Menu item -->
+													<div class="menu-item px-3">
+														<input type="hidden" name="status" value="ditolak">
+														<button type="submit" class="btn btn-sm btn-danger w-100px">
+															<i class="fas fa-times fa-sm"></i>Tolak
+														</button>
+													</div>
+													<!-- End::Menu item -->
+												</form>
+											@endif
 										</div>
 										<!-- End::Menu -->
 									</td>

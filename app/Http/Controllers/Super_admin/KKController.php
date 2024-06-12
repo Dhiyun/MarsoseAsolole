@@ -35,28 +35,6 @@ class KKController extends Controller
         ]);
     }
 
-    public function cek_rt()
-    {
-        $RTResult = RT::select('no_rt')->get();
-    
-        if ($RTResult) {
-            return response()->json(['rts' => $RTResult]);
-        } else {
-            return response()->json(['error' => 'No RT not found'], 404);
-        }
-    }
-
-    public function cek_kk()
-    {
-        $KKResult =KK::select('no_kk')->get();
-    
-        if ($KKResult) {
-            return response()->json(['kks' => $KKResult]);
-        } else {
-            return response()->json(['error' => 'No KK not found'], 404);
-        }
-    }
-
     public function show($id)
     {
         $kk = KK::findOrFail($id);
@@ -75,29 +53,6 @@ class KKController extends Controller
             'kk' => $kk,
             'wargas' => $wargas,
             'rts' => $rts,
-            'activeMenu' => $activeMenu
-        ]);
-    }
-
-    public function show_warga($id_kk, $id)
-    {
-        $kk = KK::findOrFail($id_kk);
-        $warga = Warga::where('id_kk', $kk->id_kk)
-        ->findOrFail($id);
-        $level = Level::all();
-
-        $breadcrumb = (object) [
-            'title' => 'Detail KK',
-            'list' => ['Home,', 'Detail Keseluruhan Data KK - ' . $kk->no_kk, '&', 'Data Warga', 'Detail Warga - ' . $warga->nik]
-        ];
-    
-        $activeMenu = 'datakk';
-    
-        return view('super-admin.data_kk.detail_warga.detail', [
-            'breadcrumb' => $breadcrumb,
-            'kk' => $kk,
-            'level' => $level,
-            'warga' => $warga,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -247,6 +202,29 @@ class KKController extends Controller
     }
 
     //Warga
+    public function show_warga($id_kk, $id)
+    {
+        $kk = KK::findOrFail($id_kk);
+        $warga = Warga::where('id_kk', $kk->id_kk)
+        ->findOrFail($id);
+        $level = Level::all();
+
+        $breadcrumb = (object) [
+            'title' => 'Detail KK',
+            'list' => ['Home,', 'Detail Keseluruhan Data KK - ' . $kk->no_kk, '&', 'Data Warga', 'Detail Warga - ' . $warga->nik]
+        ];
+    
+        $activeMenu = 'datakk';
+    
+        return view('super-admin.data_kk.detail_warga.detail', [
+            'breadcrumb' => $breadcrumb,
+            'kk' => $kk,
+            'level' => $level,
+            'warga' => $warga,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+    
     public function storeMany($id_kk, Request $request)
     {
         $validatedData = $request->validate([
@@ -328,11 +306,6 @@ class KKController extends Controller
 
     public function destroy_warga($id_warga)
     {
-        $check = Warga::find($id_warga);
-        if(!$check) {
-            return redirect()->route('warga.index')->with('error'. 'Data Warga Tidak Ditemukan');
-        }
-
         try{
             $warga = Warga::find($id_warga);
             $id_user = $warga->id_user;
@@ -347,7 +320,7 @@ class KKController extends Controller
             Warga::destroy($id_warga);
             Users::destroy($id_user);
 
-            if ($kkDeleted) {
+            if (!$kkDeleted) {
                 return redirect()->route('kk.show', $id_kk)->with('success'. 'Data Warga Berhasil Dihapus');
             } else {
                 return redirect()->route('kk.index')->with('success'. 'Data Warga Berhasil Dihapus');
@@ -392,5 +365,41 @@ class KKController extends Controller
         } catch (Exception $e) {
             return redirect()->route('kk.index')->with('error'. 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
+    }
+
+    //User
+    public function update_user(Request $request, $id)
+    {
+        $request->validate([
+            'username' => 'required|min:16|max:16|unique:user,username,' . $id .',id_user',
+            'password' => 'nullable|string|max:100',
+            'id_level' => 'required|exists:level,id_level',
+        ]);
+
+        $user = Users::find($id);
+        $warga = Warga::where('id_user', $id)->firstOrFail();
+        $level = Level::where('level_nama', 'Warga')->firstOrfail();
+
+        $user->update([
+            'username' => $request->username,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+            'id_level' => $request->id_level,
+        ]);
+
+        if($request->id_level != $level->id_level) {
+            $request->validate([
+                'periode_jabatan_awal' => 'required|date',
+                'periode_jabatan_akhir' => 'required|date',
+            ]);
+            $warga->periode_jabatan_awal = $request->periode_jabatan_awal;
+            $warga->periode_jabatan_akhir = $request->periode_jabatan_akhir;
+        } else {
+            $warga->periode_jabatan_awal = null;
+            $warga->periode_jabatan_akhir = null;
+        }
+
+        $warga->save();
+
+        return redirect()->route('warga.show', ['id' => $id])->with('success', 'Data User Berhasil Diubah');
     }
 }

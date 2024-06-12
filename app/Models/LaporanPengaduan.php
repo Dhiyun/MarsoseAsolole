@@ -13,7 +13,7 @@ class LaporanPengaduan extends Model
 
     protected $fillable = [
         'judul',
-        'tanggal_laporan',
+        'tanggal_proses',
         'tanggal_selesai',
         'jenis_laporan',
         'gambar',

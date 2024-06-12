@@ -1,11 +1,11 @@
 <!--begin::Modal - Add task-->
-<div class="modal fade" id="kt_modal_add_laporan_accept-{{ $lp->id_laporan }}" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kt_modal_add_laporan-accept-{{ $lp->id_laporan }}" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
-            <div class="modal-header" id="kt_modal_add_laporan_accept_header">
+            <div class="modal-header" id="kt_modal_add_laporan-accept_header">
                 <!--begin::Modal title-->
                 <h2 class="fw-bold">Add Laporan Pengaduan</h2>
                 <!--end::Modal title-->
@@ -18,7 +18,8 @@
             <!--end::Modal header-->
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                <form action="{{ route('laporan.updateStatus') }}" method="POST">
+                <!--begin::Form-->
+                <form method="POST" id="kt_modal_add_laporan-accept_form" class="form" action="{{ route('laporan.updateStatus') }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     
@@ -26,7 +27,7 @@
                     <input type="hidden" name="status" value="diterima">
 												
                     <!--begin::Scroll-->
-                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_laporan_accept_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_laporan_accept_header" data-kt-scroll-wrappers="#kt_modal_add_laporan_accept_scroll" data-kt-scroll-offset="300px">
+                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_laporan-accept_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_laporan-accept_header" data-kt-scroll-wrappers="#kt_modal_add_laporan-accept_scroll" data-kt-scroll-offset="300px">
                         <!-- Tanggal Proses -->
                         <div class="fv-row mb-7">
                             <label class="required fw-semibold fs-6 mb-2" for="tanggal_proses">Tanggal Proses</label>
@@ -50,6 +51,7 @@
                     </div>
                     <!--end::Actions-->
                 </form>
+                <!--end::Form-->
             </div>
             <!--end::Modal body-->
         </div>

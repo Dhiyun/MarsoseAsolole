@@ -66,7 +66,7 @@
 											<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_kk .form-check-input" />
 										</div>
 									</th>
-									<th class="min-w-125px">ID</th>
+									<th class="min-w-125px">No</th>
 									<th class="min-w-125px">No KK</th>
 									<th class="min-w-125px">Kepala Keluarga</th>
                                     <th class="min-w-125px">Alamat</th>
@@ -76,14 +76,15 @@
 								</tr>
 							</thead>
 							<tbody class="text-gray-600 fw-semibold">
+								@php $no = 1; @endphp
 								@foreach ($kks as $kk)
 								<tr>
 									<td>
 										<div class="form-check form-check-sm form-check-custom form-check-solid">
-											<input value="{{ $kk->id_kk }}" class="form-check-input" type="checkbox" data-kt-kk-table-filter="checkbox" />
+											<input id="id_kk" value="{{ $kk->id_kk }}" class="form-check-input" type="checkbox" data-kt-kk-table-filter="checkbox" />
 										</div>
 									</td>
-									<td>{{ $kk->id_kk }}</td>
+									<td>{{ $no++ }}</td>
 									<td>{{ $kk->no_kk }}</td>
 									<td>{{ $kk->kepala_keluarga }}</td>
                                     <td>{{ $kk->alamat }}</td>
