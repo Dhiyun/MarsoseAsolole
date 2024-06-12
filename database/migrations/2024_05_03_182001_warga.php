@@ -27,6 +27,7 @@ return new class extends Migration
             $table->date('periode_jabatan_akhir')->nullable();
             $table->unsignedBigInteger('id_user')->index();
             $table->unsignedBigInteger('id_kk')->index()->nullable();
+            $table->string('foto')->nullable(); // 
             $table->timestamps();
 
             $table->foreign('id_user')

@@ -336,3 +336,15 @@ ul li {
     font-size: 16px;
     font-family: "Nunito", sans-serif;
 }
+
+.profile-pic-wrapper {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-pic-wrapper img {
+    width: 100%;
+    height: auto;
+}

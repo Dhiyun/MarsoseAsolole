@@ -12,14 +12,40 @@
                 <div class="post-box shadow-sm rounded">
                     <div class="post-img overflow-hidden rounded-top">
                         <img src="{{ asset($laporan->gambar) }}" class="img-fluid" alt="">
+                        
                     </div>
-                    <div class="post-content p-3">
-                        <span class="post-date text-secondary">{{ $laporan->created_at->format('D, d F Y') }}</span>
+                    <div class="post-content p-2">
+                        <span class="post-date text-secondary">{{ $laporan->created_at->format('D, d F Y') }} 
+                            <span class="badge text-light rounded-pill"
+                            style="
+                                @switch($laporan->jenis_laporan)
+                                    @case('Infrastruktur')
+                                        background-color: #fd7e14;
+                                        @break
+                                    @case('Keamanan')
+                                        background-color: #dc3545;
+                                        @break
+                                    @case('Layanan Masyarakat')
+                                        background-color: #0d6efd;
+                                        @break
+                                    @case('Kesehatan')
+                                        background-color: #6f42c1;
+                                        @break
+                                    @case('Lingkungan')
+                                        background-color: #198754;
+                                        @break
+                                    @default
+                                        background-color: #adb5bd;
+                                @endswitch
+                            ">
+                                {{ $laporan->jenis_laporan }}
+                            </span></span>
+                        
                         <h3 class="post-title mt-2">{{ $laporan->judul }}</h3>
                         <p class="post-keterangan text-muted">{{ Str::limit($laporan->keterangan, 100) }}</p>
                         <p class="post-meta fw-bold">
                             Dilaporkan oleh: {{ $laporan->warga->nama }} 
-                            <span class="badge bg-success">{{ $laporan->warga->no_rt }}</span>
+                            <span class="badge bg-secondary">RT {{ $laporan->warga->no_rt }}</span>
                         </p>
                     </div>
                 </div>

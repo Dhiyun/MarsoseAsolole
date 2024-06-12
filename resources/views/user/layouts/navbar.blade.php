@@ -31,34 +31,30 @@
             <!-- Avatar Profile -->
             <div class="flex-equal text-end ms-1">
                 <div class="app-header-logo d-flex align-items-center ps-lg-12" id="kt_app_header_logo">
-                    <!--begin::Sidebar mobile toggle-->
-                    <div class="btn btn-icon btn-active-color-primary w-35px h-35px ms-3 me-2 d-flex d-lg-none" id="kt_app_sidebar_mobile_toggle">
-                        <i class="ki-outline ki-abstract-14 fs-2"></i>
-                    </div>
-                    <!--end::Sidebar mobile toggle-->
                 </div>
                 <div class="app-navbar-item ms-2 ms-lg-6" id="kt_header_user_menu_toggle">
-                    <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-lg-45px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img src="{{ asset('assets/media/avatars/blank.png') }}" alt="user" />
+                    <div class="cursor-pointer symbol symbol-circle symbol-50px symbol-lg-45px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                        <img src="{{ Auth::user()->warga->foto ? asset('uploads/' . Auth::user()->warga->foto) : asset('assets/media/svg/avatars/blank.svg') }}" alt="user" />
                     </div>
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
                         <div class="menu-item px-3">
                             <div class="menu-content d-flex align-items-center px-3">
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="assets/media/avatars/blank.png" />
+                                    <img alt="image-input-wrapper w-125px h-125px" src="{{ Auth::user()->warga->foto ? asset('uploads/' . Auth::user()->warga->foto) : asset('assets/media/svg/avatars/blank.svg') }}" />
                                 </div>
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bold d-flex align-items-center fs-5">{{ Auth::user()->warga->nama }}
-                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ Auth::user()->warga->no_rt }}</span></div>
+                                    <div class="fw-bold d-flex align-items-center fs-3">{{ Auth::user()->warga->nama }}
+                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">RT {{ Auth::user()->warga->no_rt }}</span></div>
+                                    <div class="fw-normal text-muted text-hover-primary fs-6">NIK. {{ Auth::user()->warga->nik }}</div>
                                 </div>
                             </div>
                         </div>
                         <div class="separator my-2"></div>
-                        <div class="menu-item px-5">
-                            <a href="{{ route('profile-user') }}" class="menu-link px-5">My Profile</a>
+                        <div class="menu-item px-4">
+                            <a href="{{ route('profile-user') }}" class="menu-link">My Profile</a>
                         </div>
-                        <div class="menu-item px-5">
-                            <a href="{{ route('logout') }}" class="menu-link px-5">Sign Out</a>
+                        <div class="menu-item px-4">
+                            <a href="{{ route('logout') }}" class="menu-link">Sign Out</a>
                         </div>
                     </div>
                 </div>
@@ -67,3 +63,29 @@
     </div>
 </div>
 <div class="spacer" style="height: 100px;"></div>
+
+{{-- <!-- Image Input for Changing Avatar -->
+<div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('{{ asset('assets/media/svg/avatars/blank.svg') }}')">
+    <!-- Preview existing avatar -->
+    <div class="image-input-wrapper w-125px h-125px" style="background-image: url('{{ Auth::user()->warga->foto ? asset('uploads/' . Auth::user()->warga->foto) : asset('assets/media/svg/avatars/blank.svg') }}')"></div>
+    <!-- End Preview existing avatar -->
+    <!-- Label -->
+    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+        <i class="ki-outline ki-pencil fs-7"></i>
+        <!-- Inputs -->
+        <input type="file" name="foto" accept=".png, .jpg, .jpeg" />
+        <input type="hidden" name="foto_remove" />
+        <!-- End Inputs -->
+    </label>
+    <!-- End Label -->
+    <!-- Cancel -->
+    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+        <i class="ki-outline ki-cross fs-2"></i>
+    </span>
+    <!-- End Cancel -->
+    <!-- Remove -->
+    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+        <i class="ki-outline ki-cross fs-2"></i>
+    </span>
+    <!-- End Remove -->
+</div> --}}

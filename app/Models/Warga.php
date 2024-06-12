@@ -28,6 +28,7 @@ class Warga extends Model
         'status_kependudukan',
         'id_user',
         'id_kk',
+        'foto'
     ];
 
     public function user()

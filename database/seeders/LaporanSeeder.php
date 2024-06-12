@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class LaporanSeeder extends Seeder
 {
@@ -14,41 +13,69 @@ class LaporanSeeder extends Seeder
     public function run(): void
     {
         $laporan = [];
-        $jenis_laporan = ['Infrastruktur', 'Lingkungan', 'Keamanan', 'Layanan Masyarakat', 'Kesehatan'];
-        $judul = [
-            'Kerusakan pipa air PDAM di Jalan Melati',
-            'Sampah menumpuk di lingkungan RT 03',
-            'Lampu jalan mati di RW 05',
-            'Pelayanan kelurahan yang kurang memuaskan',
-            'Pengaduan terkait jalan berlubang di Jalan Kenanga',
-            'Pengaduan mengenai keamanan lingkungan di RT 02',
-            'Laporan mengenai kebersihan pasar tradisional',
-            'Keluhan terhadap pelayanan kesehatan di puskesmas',
-            'Pengaduan terkait pengurusan KTP yang lambat',
-            'Kerusakan taman kota di RW 01'
+        $jenis_laporan = [
+            'Infrastruktur' => [
+                'Kerusakan pipa air PDAM di Jalan Melati',
+                'Lampu jalan mati di RW 05',
+                'Pengaduan terkait jalan berlubang di Jalan Kenanga',
+                'Kerusakan taman kota di RW 01',
+                'Trotoar rusak di Jalan Anggrek'
+            ],
+            'Lingkungan' => [
+                'Sampah menumpuk di lingkungan RT 03',
+                'Laporan mengenai kebersihan pasar tradisional',
+                'Polusi udara di sekitar pabrik',
+                'Sungai tercemar di RW 02',
+                'Penebangan pohon ilegal di hutan kota'
+            ],
+            'Keamanan' => [
+                'Pengaduan mengenai keamanan lingkungan di RT 02',
+                'Pencurian motor di RW 04',
+                'Kejadian perampokan di toko kelontong',
+                'Patroli keamanan yang tidak rutin',
+                'Gangguan preman di pasar'
+            ],
+            'Layanan Masyarakat' => [
+                'Pelayanan kelurahan yang kurang memuaskan',
+                'Pengaduan terkait pengurusan KTP yang lambat',
+                'Keterlambatan penerbitan akta kelahiran',
+                'Proses pembuatan KK yang berbelit-belit',
+                'Layanan kesehatan puskesmas yang lambat'
+            ],
+            'Kesehatan' => [
+                'Keluhan terhadap pelayanan kesehatan di puskesmas',
+                'Kurangnya tenaga medis di klinik desa',
+                'Penyebaran penyakit demam berdarah di RT 01',
+                'Ketersediaan obat di apotek kurang',
+                'Pelayanan rawat inap di rumah sakit yang buruk'
+            ],
         ];
-        $keterangan = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti dolorem exercitationem voluptatum harum odio culpa, molestias sapiente facilis facere optio maiores dolore necessitatibus neque? ';
+        $keterangan = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. There are many variations of passages of Lorem Ipsum available';
         $status = ['menunggu', 'ditolak', 'diterima', 'diproses', 'selesai'];
+
         $image_urls = [
             'https://via.placeholder.com/600'
         ];
-        
-        for ($i = 0; $i < 10; $i++) {
-            $createdAt = date('Y-m-d H:i:s', strtotime('2024-01-01') + rand(0, 365 * 24 * 60 * 60));
 
-            $laporan[] = [
-                'id_laporan' => $i + 1,
-                'tanggal_proses' => null,
-                'tanggal_selesai' => null,
-                'judul' => $judul[$i],
-                'jenis_laporan' => $jenis_laporan[array_rand($jenis_laporan)],
-                'gambar' => $image_urls[array_rand($image_urls)],
-                'keterangan' => $keterangan,
-                'status' => $status[0],
-                'id_warga' => rand(1, 20),
-                'created_at' => $createdAt,
-                'updated_at' => $createdAt,
-            ];
+        $index = 1;
+        foreach ($jenis_laporan as $type => $titles) {
+            foreach ($titles as $title) {
+                $createdAt = date('Y-m-d H:i:s', strtotime('2023-01-01') + rand(0, 365 * 24 * 60 * 60));
+                $laporan[] = [
+                    'id_laporan' => $index,
+                    'tanggal_proses' => null,
+                    'tanggal_selesai' => null,
+                    'judul' => $title,
+                    'jenis_laporan' => $type,
+                    'gambar' => $image_urls[array_rand($image_urls)],
+                    'keterangan' => $keterangan,
+                    'status' => $status[0],
+                    'id_warga' => rand(1, 33),
+                    'created_at' => $createdAt,
+                    'updated_at' => $createdAt,
+                ];
+                $index++;
+            }
         }
 
         DB::table('laporan_pengaduan')->insert($laporan);

@@ -30,7 +30,7 @@
                             <div class="d-flex flex-column">
                                 <div class="fw-bold d-flex align-items-center fs-5">Admin
                                 <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">RT{{ $rtNumber }}</span></div>
-                                <div class="fw-semibold text-muted text-hover-primary fs-7"></div>
+                                <div class="fw-semibold text-muted text-hover-primary fs-7">Nama: {{ Auth::user()->warga->nama }}</div>
                             </div>
                             <!--end::Username-->
                         </div>
@@ -41,7 +41,7 @@
                     <!--end::Menu separator-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                        <a href="../../demo39/dist/account/overview.html" class="menu-link px-5">My Profile</a>
+                        <a href="{{ route('profile-admin') }}" class="menu-link px-5">My Profile</a>
                     </div>
                     <!--end::Menu item--> 
                     <!--begin::Menu item-->

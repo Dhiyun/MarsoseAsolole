@@ -21,32 +21,32 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => '234',
-                'password' => bcrypt('admin'),
+                'password' => bcrypt('admin1'),
                 'id_level' => 2,
             ],
             [
                 'username' => '345',
-                'password' => bcrypt('warga'),
+                'password' => bcrypt('admin2'),
                 'id_level' => 3,
             ],
             [
-                'username' => '4567890123456789',
-                'password' => bcrypt('4567890123456789'),
+                'username' => '456',
+                'password' => bcrypt('admin3'),
                 'id_level' => 4,
             ],
             [
-                'username' => '5678901234567890',
-                'password' => bcrypt('5678901234567890'),
+                'username' => '567',
+                'password' => bcrypt('admin4'),
                 'id_level' => 5,
             ],
             [
-                'username' => '6789012345678901',
-                'password' => bcrypt('6789012345678901'),
+                'username' => '678',
+                'password' => bcrypt('admin5'),
                 'id_level' => 6,
             ],
             [
-                'username' => '7890123456789012',
-                'password' => bcrypt('7890123456789012'),
+                'username' => '789',
+                'password' => bcrypt('789'),
                 'id_level' => 7,
             ],
             [
@@ -160,8 +160,28 @@ class UserSeeder extends Seeder
                 'id_level' => 7,
             ],
             [
-                'username' => '1234567890123576',
-                'password' => bcrypt('1234567890123576'),
+                'username' => '5432109876543210',
+                'password' => bcrypt('5432109876543210'),
+                'id_level' => 7,
+            ],
+            [
+                'username' => '6543210987654321',
+                'password' => bcrypt('6543210987654321'),
+                'id_level' => 7,
+            ],
+            [
+                'username' => '7654321098765432',
+                'password' => bcrypt('7654321098765432'),
+                'id_level' => 7,
+            ],
+            [
+                'username' => '8765432109876543',
+                'password' => bcrypt('8765432109876543'),
+                'id_level' => 7,
+            ],
+            [
+                'username' => '9876543210987654',
+                'password' => bcrypt('9876543210987654'),
                 'id_level' => 7,
             ],
         ];

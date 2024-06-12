@@ -60,7 +60,8 @@ Route::middleware('auth')->group(function () {
             });
 
             Route::prefix('profile')->group(function () {
-                Route::get('/', [UserLaporanPengaduanController::class, 'index'])->name('profile-user');
+                Route::get('/', [UserController::class, 'profile'])->name('profile-user');
+                Route::put('/', [UserController::class, 'updateProfile'])->name('user.updateProfile');
             });
         });
     });
@@ -70,6 +71,10 @@ Route::middleware('auth')->group(function () {
             Route::prefix('{rt?}')->group(function () {
                 Route::prefix('dashboard')->group(function () {
                     Route::get('/', [AdminWelcomeController::class, 'index'])->name('admin.index');
+                });
+                Route::prefix('profile')->group(function () {
+                    Route::get('/', [AdminWelcomeController::class, 'profileAdmin'])->name('profile-admin');
+                    Route::put('/', [AdminWelcomeController::class, 'updateProfileAdmin'])->name('admin.updateProfile');
                 });
 
                 Route::prefix('kk')->group(function () {
@@ -95,6 +100,10 @@ Route::middleware('auth')->group(function () {
                     Route::post('/delete-selected', [AdminWargaController::class, 'deleteSelected'])->name('warga-admin.deleteSelected');
                 });
             });
+            Route::prefix('profile')->group(function () {
+                Route::get('/', [AdminWelcomeController::class, 'profileAdmin'])->name('profile-admin');
+                Route::put('/', [AdminWelcomeController::class, 'updateProfileAdmin'])->name('admin.updateProfile');
+            });
         });
     });
 
@@ -103,6 +112,11 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix('dashboard')->group(function () {
                 Route::get('/', [WelcomeController::class, 'index'])->name('super-admin.index');
+            });
+
+            Route::prefix('profile superadmin')->group(function () {
+                Route::get('/', [WelcomeController::class, 'profileSA'])->name('profile-superadmin');
+                Route::put('/', [WelcomeController::class, 'updateProfileSA'])->name('super_admin.updateProfile');
             });
 
             Route::prefix('kk')->group(function () {

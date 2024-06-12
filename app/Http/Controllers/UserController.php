@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use SebastianBergmann\Type\NullType;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -21,6 +22,52 @@ class UserController extends Controller
             'user' => $user
         ]);
     }
+    public function profile()
+    {
+        return view('user.profile.index');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:100',
+            'nik' => 'required|string|max:16',
+            'jenis_kelamin' => 'required|in:laki-laki,perempuan',
+            'tempat_lahir' => 'required|string|max:50',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required|string',
+            'no_rt' => 'required|string|max:4',
+            'agama' => 'required|string|max:10',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+        ]);
+
+        $warga = Auth::user()->warga;
+
+        if ($request->hasFile('foto')) {
+            // Delete old photo if exists
+            if ($warga->foto) {
+                Storage::delete('public/uploads/' . $warga->foto);
+            }
+            // Store new photo
+            $fileName = time() . '.' . $request->foto->extension();
+            $request->foto->move(public_path('uploads'), $fileName);
+            $warga->foto = $fileName;
+        }
+
+        $warga->nama = $request->nama;
+        $warga->nik = $request->nik;
+        $warga->jenis_kelamin = $request->jenis_kelamin;
+        $warga->tempat_lahir = $request->tempat_lahir;
+        $warga->tanggal_lahir = $request->tanggal_lahir;
+        $warga->alamat = $request->alamat;
+        $warga->no_rt = $request->no_rt;
+        $warga->agama = $request->agama;
+        $warga->save();
+
+        return redirect()->route('profile-user')->with('success', 'Profile updated successfully');
+    }
+
+    
 
     public function laporan()
     {

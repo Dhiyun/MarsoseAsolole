@@ -1,8 +1,10 @@
-@extends('user.layouts.template')
-@section('title', 'Marsose | Profile')
+@extends('super-admin.layouts.template')
+@section('title', 'Super Admin | Profile')
 
 @section('content')
 <div class="container mt-2">
+		<!--begin::Toolbar-->
+            @include('super-admin.layouts.breadcrumb')
     <div class="row">
         <div class="col">
             <div class="card mb-5 mb-xl-10">
@@ -18,7 +20,7 @@
                 <!-- Content -->
                 <div id="kt_account_settings_profile_details" class="collapse show">
                     <!-- Form -->
-                    <form id="kt_account_profile_details_form" class="form" action="{{ route('user.updateProfile') }}" method="POST" enctype="multipart/form-data">
+                    <form id="kt_account_profile_details_form" class="form" action="{{ route('admin.updateProfile') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <!-- Card body -->
