@@ -56,6 +56,23 @@
                     </div>
                     <h2 class="mt-5" style="font-weight: bold">Jenis dan Template</h2>
                     <ul class="listings__grid" style="padding-left:5px;">
+                        @foreach ($surats as $surat)
+                            <li class="card jenis-surat">
+                                <img src="assets/media/icons/icon-skdomisili.svg" alt="" class="card__logo"
+                                    style="width: 87px; height: 87px;" />
+                                <p class="card__heading">{{ $surat->jenis_surat }}</p>
+                                <p class="syarat">Syarat*</p>
+                                <ul class="mt-3">
+                                    <li class="snk">{{ $surat->syarat }}</li>
+                                </ul>
+                                @if ($surat->file_surat)
+                                    <a href="{{ route('file.download', ['id' => $surat->id_surat]) }}" download>
+                                        <button class="btn dwn-surat">Download Template</button>
+                                    </a>
+                                @endif
+                            </li>
+                        @endforeach
+
                         <li class="card jenis-surat">
                             <img src="assets/media/icons/icon-skdomisili.svg" alt="" class="card__logo"
                                 style="width: 87px; height: 87px;" />

@@ -227,7 +227,7 @@ var KTWargaList = function() {
                 event.preventDefault();
                 var row = event.target.closest("tr");
                 var userName = row.querySelector("td:nth-child(3)").innerText;
-                var id = row.querySelector("td:nth-child(2)").innerText;
+                var id = row.querySelector("input.form-check-input").value;
 
                 // Membuat dan menampilkan kotak dialog konfirmasi
                 Swal.fire({
@@ -443,7 +443,7 @@ var KTKKList = function() {
                 event.preventDefault();
                 var row = event.target.closest("tr");
                 var userName = row.querySelector("td:nth-child(3)").innerText;
-                var id = row.querySelector("td:nth-child(2)").innerText;
+                var id = row.querySelector("input.form-check-input").value;;
 
                 // Membuat dan menampilkan kotak dialog konfirmasi
                 Swal.fire({
@@ -653,7 +653,7 @@ var KTSuratList = function() {
                 event.preventDefault();
                 var row = event.target.closest("tr");
                 var userName = row.querySelector("td:nth-child(3)").innerText;
-                var id = row.querySelector("td:nth-child(2)").innerText;
+                var id = row.querySelector("input.form-check-input").value;
 
                 // Membuat dan menampilkan kotak dialog konfirmasi
                 Swal.fire({
@@ -862,7 +862,7 @@ var KTWargaLokalList = function() {
                 event.preventDefault();
                 var row = event.target.closest("tr");
                 var userName = row.querySelector("td:nth-child(3)").innerText;
-                var id = row.querySelector("td:nth-child(2)").innerText;
+                var id = row.querySelector("tinput.form-check-input").value;
 
                 // Membuat dan menampilkan kotak dialog konfirmasi
                 Swal.fire({
@@ -1078,7 +1078,7 @@ var KTLaporanList = function() {
                 event.preventDefault();
                 var row = event.target.closest("tr");
                 var userName = row.querySelector("td:nth-child(3)").innerText;
-                var id = row.querySelector("td:nth-child(2)").innerText;
+                var id = row.querySelector("input.form-check-input").value;
 
                 // Membuat dan menampilkan kotak dialog konfirmasi
                 Swal.fire({

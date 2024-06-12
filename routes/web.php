@@ -17,7 +17,10 @@ use App\Http\Controllers\User\LaporanPengaduanController as UserLaporanPengaduan
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Super_admin\WelcomeController;
 use App\Http\Controllers\Super_admin\WargaController;
+use App\Http\Controllers\User\FileController;
+use App\Http\Controllers\User\SuratController as UserSuratController;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\TextUI\Configuration\FilterDirectoryCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['cek_login:WRG']], function () {
         Route::prefix('user')->group(function () {
             Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
-            Route::get('/surat_keterangan', [UserController::class, 'surat_keterangan'])->name('user.surat_keterangan');
+            Route::get('/surat_keterangan', [UserSuratController::class, 'surat_keterangan'])->name('user.surat_keterangan');
             Route::get('/surat_pengantar', [UserController::class, 'surat_pengantar'])->name('user.surat_pengantar');
             Route::get('/surat_undangan', [UserController::class, 'surat_undangan'])->name('user.surat_undangan');
             Route::get('/surat_pemberitahuan', [UserController::class, 'surat_pemberitahuan'])->name('user.surat_pemberitahuan');
@@ -58,6 +61,8 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [UserController::class, 'profile'])->name('profile-user');
                 Route::put('/', [UserController::class, 'updateProfile'])->name('user.updateProfile');
             });
+
+            Route::get('download/{id}', [FileController::class, 'download'])->name('file.download');
         });
     });
 

@@ -25,7 +25,7 @@
                     @method('PUT')
 
                     <input type="hidden" name="id_laporan" value="{{ $lp->id_laporan }}">
-                    <input type="hidden" name="status" value="diterima">
+                    <input type="hidden" name="status" value="diproses">
 
                     <!--begin::Scroll-->
                     <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_laporan-accept_scroll"

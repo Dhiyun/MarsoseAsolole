@@ -178,6 +178,11 @@ class WargaController extends Controller
 
     public function destroy($id)
     {
+        $check = Warga::find($id);
+        if(!$check) {
+            return redirect('/warga')->with('error'. 'Data Warga Tidak Ditemukan');
+        }
+
         try {
             $warga = Warga::find($id);
             $id_user = $warga->id_user;

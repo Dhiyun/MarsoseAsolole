@@ -73,7 +73,7 @@
                                                     data-kt-check-target="#kt_table_surat .form-check-input" />
                                             </div>
                                         </th>
-                                        <th class="min-w-125px">ID</th>
+                                        <th class="min-w-125px">No</th>
                                         <th class="min-w-125px">Jenis Surat</th>
                                         <th class="min-w-125px">Nama Surat</th>
                                         <th class="min-w-125px">File Surat</th>
@@ -82,6 +82,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600 fw-semibold">
+                                    @php $no = 1; @endphp
                                     @foreach ($surat as $surat)
                                         <tr>
                                             <td>
@@ -91,7 +92,7 @@
                                                         data-kt-surat-table-filter="checkbox" />
                                                 </div>
                                             </td>
-                                            <td>{{ $surat->id_surat }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $surat->jenis_surat }}</td>
                                             <td>{{ $surat->nama_surat }}</td>
                                             <td>
