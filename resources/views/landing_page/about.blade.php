@@ -12,10 +12,6 @@
                         marsose RW 03.
                     </p>
                     <div class="text-center text-lg-start">
-                        <a href="#"
-                            class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
-                            <span>Detail</span>
-                        </a>
                     </div>
                 </div>
             </div>

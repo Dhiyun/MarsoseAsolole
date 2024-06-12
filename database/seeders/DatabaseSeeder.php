@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             RTSeeder::class,
             UserSeeder::class,
             WargaSeeder::class,
-            LaporanSeeder::class,
+            // LaporanSeeder::class,
         ]);
     }
     

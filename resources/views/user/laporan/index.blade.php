@@ -27,13 +27,14 @@
             <div class="card mt-0 h-100 shadow keluhan">
                 <div class="card-header align-items-center border-0 mt-4">
                     <h3 class="card-title align-items-start flex-column">
-                        <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">50</span>
+                        <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">{{ $totalLaporan }}</span>
                         <br>
                         <span class="text-gray-500 flex-grow-1 me-4">Jumlah Laporan Warga</span>
                     </h3>
                 </div>
                 <div class="card-body pt-2 pb-4 d-flex align-items-center">
                     <div class="d-flex flex-center me-5 pt-2">
+                        <canvas id="laporanChart" width="100" height="100"></canvas>
                         <div id="kt_card_widget_4_chart" style="min-width: 70px; min-height: 70px" data-kt-size="100"
                             data-kt-line="11"></div>
                     </div>
@@ -41,17 +42,17 @@
                         <div class="d-flex fs-6 fw-semibold align-items-center">
                             <div class="bullet w-8px h-6px rounded-2 bg-danger me-3"></div>
                             <div class="text-gray-500 flex-grow-1 me-4">Proses</div>
-                            <div class="fw-bolder text-gray-700 text-xxl-end">9</div>
+                            <div class="fw-bolder text-gray-700 text-xxl-end">{{ $jumlahProses }}</div>
                         </div>
                         <div class="d-flex fs-6 fw-semibold align-items-center my-3">
                             <div class="bullet w-8px h-6px rounded-2 bg-primary me-3"></div>
                             <div class="text-gray-500 flex-grow-1 me-4">Ditolak</div>
-                            <div class="fw-bolder text-gray-700 text-xxl-end">18</div>
+                            <div class="fw-bolder text-gray-700 text-xxl-end">{{ $jumlahDitolak }}</div>
                         </div>
                         <div class="d-flex fs-6 fw-semibold align-items-center">
                             <div class="bullet w-8px h-6px rounded-2 me-3" style="background-color: #E4E6EF"></div>
                             <div class="text-gray-500 flex-grow-1 me-4">Diterima</div>
-                            <div class="fw-bolder text-gray-700 text-xxl-end">12</div>
+                            <div class="fw-bolder text-gray-700 text-xxl-end">{{ $jumlahDiterima }}</div>
                         </div>
                     </div>
                 </div>
@@ -136,4 +137,42 @@
             @endif
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('laporanChart').getContext('2d');
+        var laporanChart = new Chart(ctx, {
+            type: 'pie', // Mengubah tipe chart menjadi pie
+            data: {
+                labels: ['Diterima', 'Ditolak', 'Diproses'],
+                datasets: [{
+                    label: 'Jumlah Laporan',
+                    data: [{{ $jumlahDiterima }}, {{ $jumlahDitolak }}, {{ $jumlahProses }}],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                // Tambahkan opsi untuk menyesuaikan penampilan pie chart
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top', // Posisi legenda
+                    },
+                    title: {
+                        display: true,
+                        text: 'Jumlah Laporan Berdasarkan Status', // Judul chart
+                    }
+                }
+            }
+        });
+    </script>
 @endsection

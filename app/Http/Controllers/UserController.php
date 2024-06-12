@@ -22,6 +22,7 @@ class UserController extends Controller
             'user' => $user
         ]);
     }
+
     public function profile()
     {
         return view('user.profile.index');

@@ -12,7 +12,13 @@ class LaporanPengaduanController extends Controller
     public function index()
     {
         $laporanPengaduan = LaporanPengaduan::all();
-        return view('user.laporan.index', compact('laporanPengaduan'));
+
+        $totalLaporan = $laporanPengaduan->count();
+        $jumlahDiterima = $laporanPengaduan->where('status', 'diterima')->count();
+        $jumlahDitolak = $laporanPengaduan->where('status', 'ditolak')->count();
+        $jumlahProses = $laporanPengaduan->where('status', 'diproses')->count();
+
+        return view('user.laporan.index', compact('laporanPengaduan', 'jumlahDiterima', 'jumlahDitolak', 'jumlahProses', 'totalLaporan'));
     }
 
     public function create()

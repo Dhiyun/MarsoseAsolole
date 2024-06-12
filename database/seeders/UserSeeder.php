@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => '789',
-                'password' => bcrypt('789'),
+                'password' => bcrypt('warga'),
                 'id_level' => 7,
             ],
             [
