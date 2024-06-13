@@ -30,8 +30,8 @@
                         data-kt-scroll-wrappers="#kt_modal_edit_warga_scroll" data-kt-scroll-offset="300px">
                         <!-- N0 KK -->
                         <div class="fv-row mb-7">
-                            <label class="required fw-semibold fs-6 mb-2" for="nik">NIK</label>
-                            <input type="number" class="form-control form-control-solid mb-3 mb-lg-0"
+                            <label class="required fw-semibold fs-6 mb-2" for="nik">No KK</label>
+                            <input id="no_kk" name="no_kk" type="number" class="form-control form-control-solid mb-3 mb-lg-0"
                                 value="{{ $warga->kk->no_kk }}" disabled />
                         </div>
                         <!-- NIK -->

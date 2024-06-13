@@ -35,6 +35,5 @@ class PerbaruiStatusLaporan extends Command
         }
 
         $this->info('Status laporan berhasil diperbarui.');
-
-        }
+    }
 }
