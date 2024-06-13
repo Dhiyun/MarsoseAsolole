@@ -11,7 +11,7 @@ class LaporanPengaduanController extends Controller
     public function index($rt)
     {
         $breadcrumb = (object) [
-            'title' => 'Data Laporan Pengaduan',
+            'title' => 'Data Laporan Pengaduan RT ' . $rt,
             'list' => ['Home,', 'History Laporan Pengaduan']
         ];
 
