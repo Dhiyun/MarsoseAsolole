@@ -67,7 +67,7 @@
                             @endif
                         </li>
                     @endforeach
-                    <li class="card jenis-surat">
+                    {{-- <li class="card jenis-surat">
                         <img src="assets/media/icons/icon-sundangan.svg" alt="" class="card__logo"
                             style="width: 80px; height: 80px;" />
                         <p class="card__heading">Surat Undangan</p>
@@ -78,7 +78,7 @@
                         <a href="path/to/xx" download>
                             <button class="btn dwn-surat" style="width: 30%;">Download Template</button>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

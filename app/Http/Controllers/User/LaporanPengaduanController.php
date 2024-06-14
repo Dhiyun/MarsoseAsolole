@@ -17,8 +17,9 @@ class LaporanPengaduanController extends Controller
         $jumlahDiterima = $laporanPengaduan->where('status', 'diterima')->count();
         $jumlahDitolak = $laporanPengaduan->where('status', 'ditolak')->count();
         $jumlahProses = $laporanPengaduan->where('status', 'diproses')->count();
+        $jumlahSelesai = $laporanPengaduan->where('status', 'selesai')->count();
 
-        return view('user.laporan.index', compact('laporanPengaduan', 'jumlahDiterima', 'jumlahDitolak', 'jumlahProses', 'totalLaporan'));
+        return view('user.laporan.index', compact('laporanPengaduan', 'jumlahDiterima', 'jumlahDitolak', 'jumlahProses', 'totalLaporan','jumlahSelesai'));
     }
 
     public function create()

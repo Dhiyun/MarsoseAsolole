@@ -17,7 +17,7 @@ class WargaController extends Controller
     public function index($no_rt)
     {
         $breadcrumb = (object) [
-            'title' => 'Data Penduduk',
+            'title' => 'Data Penduduk RT '. $no_rt,
             'list' => ['Home,', 'Penduduk']
         ];
 

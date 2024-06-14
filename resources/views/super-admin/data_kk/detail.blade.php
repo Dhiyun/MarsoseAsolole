@@ -100,7 +100,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600 fw-semibold">
-                                    @php $no = 1 @endphp
+                                    {{-- @php $no = 1 @endphp --}}
                                     @foreach ($wargas as $warga)
                                         <tr>
                                             <td>
@@ -110,7 +110,7 @@
                                                         data-kt-wargalokal-table-filter="checkbox" />
                                                 </div>
                                             </td>
-                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $warga->id_warga }}</td>
                                             <td>{{ $warga->nik }}</td>
                                             <td>{{ $warga->nama }}</td>
                                             <td>{{ $warga->tempat_lahir }},

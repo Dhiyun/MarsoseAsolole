@@ -862,7 +862,7 @@ var KTWargaLokalList = function() {
                 event.preventDefault();
                 var row = event.target.closest("tr");
                 var userName = row.querySelector("td:nth-child(3)").innerText;
-                var id = row.querySelector("tinput.form-check-input").value;
+                var id = row.querySelector("td:nth-child(2)").innerText;
 
                 // Membuat dan menampilkan kotak dialog konfirmasi
                 Swal.fire({

@@ -78,6 +78,7 @@
                         <img src="assets/img/team/laras.jpg" class="img-fluid" alt="">
                         <div class="social">
                             <a href="https://github.com/Larasati11"><i class="bi bi-github"></i></a>
+                            <a href=""><i class="bi bi-facebook"></i></a>
                             <a href="https://www.instagram.com/larascand_/"><i class="bi bi-instagram"></i></a>
                             <a href=""><i class="bi bi-linkedin"></i></a>
                         </div>
@@ -97,9 +98,9 @@
                         <img src="assets/img/team/irfan2.jpg" class="img-fluid" alt="">
                         <div class="social">
                             <a href="https://github.com/irfannhkm"><i class="bi bi-github"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.facebook.com/profile.php?id=100023448218858&mibextid=JRoKGi"><i class="bi bi-facebook"></i></a>
                             <a href="https://www.instagram.com/irfan.nhkm/"><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
+                            <a href="https://www.linkedin.com/in/muhammad-irfan-nur-hakim-0550292b4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="bi bi-linkedin"></i></a>
                         </div>
                     </div>
                     <div class="member-info">
