@@ -17,7 +17,7 @@ class KKController extends Controller
     public function index($no_rt)
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar KK RT '.$no_rt,
+            'title' => 'Daftar Kartu Keluarga(KK) RT '.$no_rt,
             'list' => ['Home,', 'Data KK']
         ];
 
