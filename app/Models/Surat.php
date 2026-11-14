@@ -9,6 +9,8 @@ class Surat extends Model
 {
     use HasFactory;
 
+    public const JENIS = ['Surat Keterangan', 'Surat Pengantar', 'Surat Undangan', 'Surat Pemberitahuan'];
+
     protected $table = 'surat';
     protected $primaryKey = 'id_surat';
     public $timestamps = true;

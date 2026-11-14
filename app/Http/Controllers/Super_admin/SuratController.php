@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class SuratController extends Controller
 {
@@ -43,7 +44,7 @@ class SuratController extends Controller
         $user = Auth::user()->warga->id_user;
 
         $request->validate([
-            'jenis_surat' => 'required',
+            'jenis_surat' => ['required', Rule::in(Surat::JENIS)],
             'nama_surat' => 'required',
             'file_surat' => 'required|mimes:pdf,doc,docx|max:10240',
         ]);
@@ -67,7 +68,7 @@ class SuratController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'jenis_surat' => 'required',
+            'jenis_surat' => ['required', Rule::in(Surat::JENIS)],
             'nama_surat' => 'required',
             'file_surat' => 'nullable|mimes:pdf,doc,docx|max:10240',
         ]);

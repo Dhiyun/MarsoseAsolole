@@ -358,15 +358,7 @@ class KKController extends Controller
             'id_level' => $request->id_level,
         ]);
 
-        if ($request->id_level != $levelWarga->id_level) {
-            $warga->periode_jabatan_awal = $request->periode_jabatan_awal;
-            $warga->periode_jabatan_akhir = $request->periode_jabatan_akhir;
-        } else {
-            $warga->periode_jabatan_awal = null;
-            $warga->periode_jabatan_akhir = null;
-        }
-
-        $warga->save();
+        $warga->aturJabatan($request->id_level, $request->periode_jabatan_awal, $request->periode_jabatan_akhir);
 
         return redirect()->route('kkwarga-admin.show', ['rt' => $no_rt, 'id_kk' => $id_kk, 'id_warga' => $warga->id_warga])->with('success', 'Data User Berhasil Diubah');
     }

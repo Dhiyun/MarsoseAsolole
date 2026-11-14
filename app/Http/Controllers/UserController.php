@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use SebastianBergmann\Type\NullType;
 use Illuminate\Support\Facades\Storage;
+use App\Models\RT;
 
 class UserController extends Controller
 {
@@ -38,7 +39,7 @@ class UserController extends Controller
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
-            'no_rt' => 'required|string|max:4',
+            'no_rt' => ['required', 'string', 'max:4', RT::aturanNomor()],
             'agama' => 'required|string|max:10',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
@@ -182,15 +183,7 @@ class UserController extends Controller
             'id_level' => $request->id_level,
         ]);
 
-        if ($request->id_level != $level->id_level) {
-            $warga->periode_jabatan_awal = $request->periode_jabatan_awal;
-            $warga->periode_jabatan_akhir = $request->periode_jabatan_akhir;
-        } else {
-            $warga->periode_jabatan_awal = null;
-            $warga->periode_jabatan_akhir = null;
-        }
-
-        $warga->save();
+        $warga->aturJabatan($request->id_level, $request->periode_jabatan_awal, $request->periode_jabatan_akhir);
 
         return redirect()->back()->with('success', 'Data User Berhasil Diubah');
     }

@@ -46,10 +46,10 @@ class WelcomeController extends Controller
                 ->orderBy('label')
                 ->pluck('total', 'label');
 
-            $pendudukPerRt = Warga::selectRaw('no_rt as label, COUNT(*) as total')
-                ->whereNotNull('no_rt')
-                ->groupBy('no_rt')
-                ->orderBy('no_rt')
+            $pendudukPerRt = Warga::join('rt', 'rt.id_rt', '=', 'warga.id_rt')
+                ->selectRaw('rt.no_rt as label, COUNT(*) as total')
+                ->groupBy('rt.no_rt')
+                ->orderBy('rt.no_rt')
                 ->pluck('total', 'label');
 
             return view('super-admin.welcome', [
@@ -92,7 +92,7 @@ class WelcomeController extends Controller
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
-            'no_rt' => 'required|string|max:4',
+            'no_rt' => ['required', 'string', 'max:4', RT::aturanNomor()],
             'agama' => 'required|string|max:10',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);

@@ -53,6 +53,8 @@ class WargaSeeder extends Seeder
             '9876543210987654'
         ];
 
+        $idRt = DB::table('rt')->pluck('id_rt', 'no_rt');
+
         for ($i = 0; $i < count($nik); $i++) {
             $gender = $genders[array_rand($genders)];
             do {
@@ -76,7 +78,7 @@ class WargaSeeder extends Seeder
                 'tanggal_lahir' => $dateOfBirth,
                 'alamat' => 'Jl. Marsose K-191 No. ' . rand(1, 300) . ', Kesatrian, Blimbing, Kota Malang',
                 'agama' => $religions[array_rand($religions)],
-                'no_rt' => $no_rt,
+                'id_rt' => $idRt[$no_rt],
                 'status_keluarga' => $statKelu[array_rand($statKelu)],
                 'status_kependudukan' => $statusPenduduk,
                 'id_user' => $i + 1,

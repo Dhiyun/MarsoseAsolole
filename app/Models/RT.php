@@ -23,6 +23,15 @@ class RT extends Model
         return str_pad($noRt, 2, '0', STR_PAD_LEFT);
     }
 
+    public static function aturanNomor(): \Closure
+    {
+        return function ($attribute, $value, $fail) {
+            if (!self::where('no_rt', self::formatNomor($value))->exists()) {
+                $fail('Nomor RT tidak terdaftar.');
+            }
+        };
+    }
+
     public function rw()
     {
         return $this->belongsTo(RW::class, 'id_rw');

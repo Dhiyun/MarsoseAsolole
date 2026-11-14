@@ -25,7 +25,7 @@ class WargaController extends Controller
 
         $activeMenu = 'warga';
 
-        $wargas = Warga::milikRt($no_rt)->get();
+        $wargas = Warga::milikRt($no_rt)->with('rt')->get();
 
         return view('admin.data_warga.index', [
             'rtNumber' => $no_rt,
@@ -179,15 +179,7 @@ class WargaController extends Controller
             'id_level' => $request->id_level,
         ]);
 
-        if ($request->id_level != $levelWarga->id_level) {
-            $warga->periode_jabatan_awal = $request->periode_jabatan_awal;
-            $warga->periode_jabatan_akhir = $request->periode_jabatan_akhir;
-        } else {
-            $warga->periode_jabatan_awal = null;
-            $warga->periode_jabatan_akhir = null;
-        }
-
-        $warga->save();
+        $warga->aturJabatan($request->id_level, $request->periode_jabatan_awal, $request->periode_jabatan_akhir);
 
         return redirect()->route('warga-admin.show', ['rt' => $no_rt, 'id' => $warga->id_warga])->with('success', 'Data User Berhasil Diubah');
     }

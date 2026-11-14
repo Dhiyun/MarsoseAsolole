@@ -11,6 +11,7 @@ use App\Models\RW;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class LaporanPengaduanController extends Controller
 {
@@ -40,7 +41,7 @@ class LaporanPengaduanController extends Controller
     {
         $validate = $request->validate([
             'judul' => 'required',
-            'jenis_laporan' => 'required',
+            'jenis_laporan' => ['required', Rule::in(LaporanPengaduan::JENIS)],
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
             'keterangan' => 'required',
         ]);
@@ -75,7 +76,7 @@ class LaporanPengaduanController extends Controller
 
         $request->validate([
             'tanggal_laporan' => 'nullable',
-            'jenis_laporan' => 'nullable',
+            'jenis_laporan' => ['nullable', Rule::in(LaporanPengaduan::JENIS)],
             'gambar' => 'nullable',
             'keterangan' => 'nullable',
             'status' => 'nullable|in:ditolak,diterima,selesai',

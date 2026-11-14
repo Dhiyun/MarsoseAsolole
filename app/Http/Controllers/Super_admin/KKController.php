@@ -368,40 +368,4 @@ class KKController extends Controller
             return redirect()->route('kk.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
-
-    //User
-    public function update_user(Request $request, $id)
-    {
-        $request->validate([
-            'username' => 'required|min:16|max:16|unique:user,username,' . $id . ',id_user',
-            'password' => 'nullable|string|max:100',
-            'id_level' => 'required|exists:level,id_level',
-        ]);
-
-        $user = Users::find($id);
-        $warga = Warga::where('id_user', $id)->firstOrFail();
-        $level = Level::where('level_nama', 'Warga')->firstOrfail();
-
-        $user->update([
-            'username' => $request->username,
-            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
-            'id_level' => $request->id_level,
-        ]);
-
-        if ($request->id_level != $level->id_level) {
-            $request->validate([
-                'periode_jabatan_awal' => 'required|date',
-                'periode_jabatan_akhir' => 'required|date',
-            ]);
-            $warga->periode_jabatan_awal = $request->periode_jabatan_awal;
-            $warga->periode_jabatan_akhir = $request->periode_jabatan_akhir;
-        } else {
-            $warga->periode_jabatan_awal = null;
-            $warga->periode_jabatan_akhir = null;
-        }
-
-        $warga->save();
-
-        return redirect()->route('warga.show', ['id' => $id])->with('success', 'Data User Berhasil Diubah');
-    }
 }

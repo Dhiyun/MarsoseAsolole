@@ -19,6 +19,18 @@ class KK extends Model
         'id_rt',
     ];
 
+    protected static function booted(): void
+    {
+        static::updated(function (KK $kk) {
+            if ($kk->wasChanged(['id_rt', 'alamat'])) {
+                Warga::where('id_kk', $kk->id_kk)->update([
+                    'id_rt' => $kk->id_rt,
+                    'alamat' => $kk->alamat,
+                ]);
+            }
+        });
+    }
+
     public function rt()
     {
         return $this->belongsTo(RT::class, 'id_rt');

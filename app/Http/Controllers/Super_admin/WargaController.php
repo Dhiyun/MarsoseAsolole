@@ -23,7 +23,7 @@ class WargaController extends Controller
         ];
 
         $activeMenu = 'warga';
-        $wargas = Warga::all();
+        $wargas = Warga::with('rt')->get();
         $rts = RT::all();
 
         return view('super-admin.data_warga.index', [
@@ -91,7 +91,7 @@ class WargaController extends Controller
             'tanggal_lahir' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
-            'no_rt' => 'nullable',
+            'no_rt' => ['required', RT::aturanNomor()],
             'status_keluarga' => 'required',
             'status_kependudukan' => 'required',
             'no_kk' => 'nullable',
@@ -144,7 +144,7 @@ class WargaController extends Controller
             'tanggal_lahir' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
-            'no_rt' => 'nullable',
+            'no_rt' => ['required', RT::aturanNomor()],
             'status_keluarga' => 'required',
             'status_kependudukan' => 'required',
             'no_kk' => 'nullable',

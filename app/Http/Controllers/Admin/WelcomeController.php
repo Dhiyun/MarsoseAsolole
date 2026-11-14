@@ -74,7 +74,7 @@ class WelcomeController extends Controller
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
-            'no_rt' => 'required|string|max:4',
+            'no_rt' => ['required', 'string', 'max:4', RT::aturanNomor()],
             'agama' => 'required|string|max:10',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);

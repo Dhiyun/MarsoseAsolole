@@ -39,6 +39,10 @@ Halaman yang pertama kali dilihat pengunjung. Isinya penjelasan tentang Marsose,
 
 ![Halaman depan](docs/screenshots/landing-page.png)
 
+Pengunjung juga bisa melihat laporan terbaru dari warga, lengkap dengan foto, jenis laporan, dan RT pelapornya.
+
+![Laporan terbaru di halaman depan](docs/screenshots/landing-laporan.png)
+
 ### Halaman masuk
 Semua pengguna (warga, RT, dan RW) masuk dari halaman yang sama. Aplikasi otomatis membuka halaman yang sesuai dengan peran masing-masing.
 
@@ -50,11 +54,15 @@ Semua pengguna (warga, RT, dan RW) masuk dari halaman yang sama. Aplikasi otomat
 
 ![Beranda warga](docs/screenshots/warga-dashboard.png)
 
-**Membuat laporan**: cukup isi judul, pilih jenis laporan (Infrastruktur, Keamanan, Kesehatan, Lingkungan), tulis keterangan, lalu unggah foto bukti.
+**Laporan warga**: ringkasan jumlah laporan per status dan daftar laporan dari seluruh warga. Klik fotonya untuk melihat versi besar tanpa meninggalkan halaman.
+
+![Laporan warga](docs/screenshots/warga-laporan.png)
+
+**Membuat laporan**: cukup isi judul, pilih jenis laporan (Infrastruktur, Keamanan, Kesehatan, Lingkungan, atau Layanan Masyarakat), tulis keterangan, lalu unggah foto bukti.
 
 ![Form buat laporan](docs/screenshots/warga-buat-laporan.png)
 
-**Informasi surat**: penjelasan tiap jenis surat (keterangan, pengantar, undangan, pemberitahuan), alur pengurusannya, dan template yang bisa diunduh.
+**Informasi surat**: penjelasan tiap jenis surat (keterangan, pengantar, undangan, pemberitahuan), alur pengurusannya, dan template beserta persyaratannya. Template yang sudah diunggah pengurus RW bisa langsung diunduh.
 
 ![Informasi surat](docs/screenshots/warga-surat.png)
 
@@ -63,6 +71,14 @@ Semua pengguna (warga, RT, dan RW) masuk dari halaman yang sama. Aplikasi otomat
 **Dashboard**: ringkasan jumlah laporan, warga, dan RT, serta grafik laporan per jenis, laporan per status, dan jumlah penduduk per RT.
 
 ![Dashboard RW](docs/screenshots/rw-dashboard.png)
+
+**Data Kartu Keluarga**: daftar KK beserta kepala keluarga, alamat, RT, dan RW-nya.
+
+![Data KK](docs/screenshots/rw-data-kk.png)
+
+**Detail KK**: anggota keluarga dalam satu KK. Nama kepala keluarga diambil dari anggota yang berstatus kepala keluarga, jadi selalu sama dengan data penduduknya.
+
+![Detail KK](docs/screenshots/rw-detail-kk.png)
 
 **Data penduduk**: daftar seluruh warga beserta NIK, alamat, RT, dan statusnya. Data bisa dicari, ditambah, diubah, dan dihapus.
 
@@ -112,7 +128,10 @@ erDiagram
     user ||--|| warga : "akun milik"
     rw ||--o{ rt : "membawahi"
     rt ||--o{ kk : "mencakup"
+    rt ||--o{ warga : "tempat tinggal"
     kk |o--o{ warga : "beranggotakan"
+    warga ||--o{ jabatan : "pernah menjabat"
+    level ||--o{ jabatan : "sebagai"
     warga ||--o{ laporan_pengaduan : "membuat"
     warga ||--o{ surat : "mengunggah"
     laporan_pengaduan ||--o{ alternatif : "dinilai sebagai"
@@ -140,7 +159,7 @@ erDiagram
 
     rt {
         bigint id_rt PK
-        varchar no_rt UK "01 sampai 05"
+        varchar no_rt "01 sampai 05, unik per RW"
         bigint id_rw FK
     }
 
@@ -158,22 +177,28 @@ erDiagram
         enum jenis_kelamin "laki-laki atau perempuan"
         varchar tempat_lahir
         date tanggal_lahir
-        varchar alamat
         varchar agama
-        varchar no_rt
+        varchar alamat "mengikuti KK jika punya KK"
+        bigint id_rt FK "mengikuti KK jika punya KK"
         enum status_keluarga "kepala_keluarga, istri, anak, lainnya"
         enum status_kependudukan "asli atau pendatang"
-        date periode_jabatan_awal
-        date periode_jabatan_akhir
         varchar foto
-        bigint id_user FK
+        bigint id_user FK "unik, satu akun satu warga"
         bigint id_kk FK "boleh kosong"
+    }
+
+    jabatan {
+        bigint id_jabatan PK
+        bigint id_warga FK
+        bigint id_level FK "RW atau RT1 sampai RT5"
+        date periode_awal
+        date periode_akhir
     }
 
     laporan_pengaduan {
         bigint id_laporan PK
         varchar judul
-        varchar jenis_laporan
+        enum jenis_laporan "Infrastruktur, Keamanan, Kesehatan, Lingkungan, Layanan Masyarakat"
         varchar gambar
         varchar keterangan
         enum status "menunggu, ditolak, diterima, diproses, selesai"
@@ -184,7 +209,7 @@ erDiagram
 
     surat {
         bigint id_surat PK
-        varchar jenis_surat
+        enum jenis_surat "Surat Keterangan, Pengantar, Undangan, Pemberitahuan"
         varchar nama_surat
         varchar file_surat
         bigint id_warga FK
@@ -224,17 +249,21 @@ erDiagram
 |---|---|
 | `level` | Daftar peran: RW, RT 1 sampai RT 5, dan Warga |
 | `user` | Akun untuk login. Setiap akun punya satu peran |
-| `rw`, `rt` | Wilayah. Satu RW membawahi beberapa RT |
+| `rw`, `rt` | Wilayah. Satu RW membawahi beberapa RT. Nomor RT tidak boleh kembar dalam satu RW, tapi RT 01 boleh ada di RW lain |
 | `kk` | Kartu Keluarga. Setiap KK terdaftar di satu RT. Nama kepala keluarga diambil dari anggota warga yang berstatus kepala keluarga |
-| `warga` | Data penduduk. Setiap warga punya satu akun dan bisa tergabung dalam satu KK |
-| `laporan_pengaduan` | Laporan yang dikirim warga, lengkap dengan foto dan statusnya |
-| `surat` | File template surat yang diunggah pengurus |
+| `warga` | Data penduduk. Setiap warga punya tepat satu akun, tinggal di satu RT, dan bisa tergabung dalam satu KK. Kalau warga punya KK, RT dan alamatnya otomatis mengikuti KK |
+| `jabatan` | Riwayat jabatan Ketua RW dan Ketua RT beserta periodenya. Riwayat lama tetap tersimpan saat jabatan berganti |
+| `laporan_pengaduan` | Laporan yang dikirim warga, lengkap dengan foto dan statusnya. Jenis laporan hanya bisa dipilih dari daftar baku |
+| `surat` | File template surat yang diunggah pengurus. Jenis surat hanya bisa dipilih dari daftar baku |
 | `kriterias`, `detail_kriterias` | Kriteria penilaian prioritas beserta rentang nilainya |
 | `alternatif`, `laporan_spk` | Laporan yang sedang dinilai dan nilainya untuk setiap kriteria |
 
 Arti garis penghubung: `||` berarti **tepat satu**, `o{` berarti **boleh nol atau banyak**, dan `|o` berarti **boleh kosong atau satu**. Contohnya, satu RT bisa punya banyak KK, tapi setiap KK hanya terdaftar di satu RT.
 
-**Perlindungan data saat menghapus:** data yang masih dipakai data lain tidak bisa dihapus. Contohnya, warga yang pernah membuat laporan atau mengunggah surat tidak bisa dihapus, begitu juga RT yang masih punya KK, RW yang masih punya RT, dan level yang masih dipakai akun. Penghapusan seperti ini ditolak seluruhnya, tidak ada data yang terhapus sebagian. Pengecualiannya: menghapus KK tidak menghapus warganya (warga hanya dilepas dari KK), dan menghapus laporan ikut menghapus data penilaian SPK-nya.
+**Aturan yang dijaga langsung oleh database:**
+- **Data tidak bisa dobel:** username, NIK, nomor KK, dan akun milik warga masing-masing unik.
+- **Isian baku:** jenis laporan dan jenis surat hanya menerima pilihan yang tersedia, sehingga "Infrastruktur" tidak tercatat dengan ejaan berbeda-beda.
+- **Perlindungan saat menghapus:** data yang masih dipakai data lain tidak bisa dihapus. Contohnya, warga yang pernah membuat laporan atau mengunggah surat tidak bisa dihapus, begitu juga RT yang masih punya KK atau warga, RW yang masih punya RT, dan level yang masih dipakai akun. Penghapusan seperti ini ditolak seluruhnya, tidak ada data yang terhapus sebagian. Pengecualiannya: menghapus KK tidak menghapus warganya (warga hanya dilepas dari KK), dan menghapus laporan ikut menghapus data penilaian SPK-nya.
 
 ---
 
@@ -298,7 +327,6 @@ Nyalakan MySQL (di Laragon klik **Start All**), lalu buat database baru bernama 
 **5. Isi database dengan tabel dan data awal**
 ```bash
 php artisan migrate --seed
-php artisan storage:link
 ```
 
 **6. Jalankan aplikasi**
@@ -310,6 +338,15 @@ Buka **http://127.0.0.1:8000** di browser.
 Ingin memakai port lain? Jalankan `php artisan serve --port=8080`, atau tambahkan `SERVER_PORT=8080` di file `.env`.
 
 Kalau pakai Laragon, aplikasi juga bisa dibuka lewat **http://marsose.test** tanpa menjalankan `php artisan serve`.
+
+### Sudah pernah memasang, lalu menarik perubahan terbaru?
+
+Setelah `git pull`, jalankan dua perintah ini supaya library dan struktur database ikut diperbarui. Data yang sudah ada tetap aman.
+
+```bash
+composer install
+php artisan migrate
+```
 
 ### Akun untuk mencoba
 
@@ -331,6 +368,17 @@ Password bisa diganti kapan saja lewat menu **My Profile**, di bagian **Ganti Pa
 
 > ⚠️ Akun di atas hanya untuk percobaan. Ganti semua password sebelum aplikasi dipakai sungguhan, terutama akun warga yang password-nya masih sama dengan NIK, karena NIK mudah diketahui orang lain.
 
+### Mengangkat Ketua RW atau Ketua RT
+
+Jabatan diberikan kepada warga yang sudah terdaftar:
+
+1. Login sebagai Ketua RW, lalu buka menu **Data Penduduk**.
+2. Pada warga yang akan diangkat, klik **Actions → Detail**.
+3. Di bagian **Edit User**, ubah **Level** menjadi RW atau RT yang sesuai, lalu isi **Periode Jabatan** (tanggal awal dan akhir).
+4. Simpan. Warga tersebut sekarang masuk dengan NIK dan password-nya sendiri, dan langsung diarahkan ke halaman pengurus.
+
+Untuk mencabut jabatan, ubah Level kembali menjadi **Warga**. Riwayat jabatannya tetap tersimpan. Ketua RT juga bisa mengangkat penggantinya sebagai Ketua RT di RT-nya sendiri, tapi tidak bisa memberi jabatan RW.
+
 ### Kalau ada kendala
 
 | Masalah | Solusi |
@@ -339,7 +387,9 @@ Password bisa diganti kapan saja lewat menu **My Profile**, di bagian **Ganti Pa
 | `Too Many Attempts` saat login | Login salah lebih dari 10 kali dalam 1 menit. Tunggu sebentar, lalu coba lagi. |
 | `No connection could be made because the target machine actively refused it` | MySQL belum menyala. Di Laragon, klik **Start All**. |
 | `Unknown database 'marsose'` | Database belum dibuat. Ulangi langkah 4. |
-| Gambar atau foto profil tidak muncul | Jalankan `php artisan storage:link`. |
+| Gambar atau foto profil tidak muncul | Gambar disimpan di folder `public/gambar` dan `public/uploads`. Pastikan kedua folder itu ada dan bisa ditulisi. |
+| `Akun Anda belum terhubung dengan data warga` saat login | Akun tersebut belum punya data penduduk. Login sebagai RW, lalu tambahkan warga dengan NIK yang sama dengan username akun itu. |
+| `Nomor RT tidak terdaftar` saat menyimpan data | Nomor RT yang diisi belum ada di database. Gunakan RT 01 sampai 05. |
 | Lupa password | Reset lewat `php artisan tinker`:<br>`App\Models\Users::where('username', '123')->update(['password' => bcrypt('passwordbaru')]);` |
 
 ### Menjalankan test otomatis
@@ -354,8 +404,12 @@ Test ini memeriksa bahwa:
 - setiap peran diarahkan ke halaman yang benar setelah login,
 - password bisa diganti lewat halaman profil dan wajib memasukkan password lama yang benar,
 - alamat yang tidak ditemukan dialihkan ke dashboard (kalau sudah login) atau ke halaman depan (kalau belum),
+- akun tanpa data warga ditolak dengan pesan yang jelas, tidak menimbulkan halaman error,
 - Ketua RT tidak bisa melihat, mengubah, atau menghapus data warga RT lain, dan tidak bisa memberi jabatan RW,
-- file gambar yang diunggah warga aman (SVG ditolak, ekstensi file mengikuti isi file).
+- jabatan hanya tersimpan jika periodenya diisi dengan benar, dan riwayat jabatan tidak hilang saat berganti,
+- file gambar yang diunggah warga aman (SVG ditolak, ekstensi file mengikuti isi file),
+- RT dan alamat warga mengikuti KK-nya, dan ikut berubah saat KK pindah RT atau ganti alamat,
+- aturan database berjalan: data unik tidak bisa dobel, jenis laporan di luar daftar ditolak, dan data yang masih dipakai tidak bisa dihapus sebagian.
 
 ---
 

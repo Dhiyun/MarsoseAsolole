@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class LaporanPengaduan extends Model
 {
+    public const JENIS = ['Infrastruktur', 'Keamanan', 'Kesehatan', 'Lingkungan', 'Layanan Masyarakat'];
+
     protected $table = 'laporan_pengaduan';
     protected $primaryKey = 'id_laporan';
     public $timestamps = true;

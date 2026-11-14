@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Level;
+use App\Models\RT;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -53,7 +54,7 @@ class AksesRtTest extends TestCase
         $this->assertDatabaseHas('warga', [
             'id_warga' => $wargaRt3->id_warga,
             'nama' => $wargaRt3->nama,
-            'no_rt' => '03',
+            'id_rt' => RT::where('no_rt', '03')->value('id_rt'),
         ]);
     }
 
@@ -84,7 +85,7 @@ class AksesRtTest extends TestCase
         $this->assertDatabaseHas('warga', [
             'id_warga' => $wargaRt1->id_warga,
             'nama' => 'Nama Baru',
-            'no_rt' => '01',
+            'id_rt' => RT::where('no_rt', '01')->value('id_rt'),
         ]);
     }
 
