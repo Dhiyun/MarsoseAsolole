@@ -10,6 +10,7 @@ use App\Models\Users;
 use App\Models\Warga;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -155,10 +156,6 @@ class WargaController extends Controller
             'id_kk' => $kk ? $kk->id_kk : null,
         ]);
 
-        if ($warga->status_keluarga == 'kepala_keluarga' && $kk) {
-            $kk->update(['kepala_keluarga' => $warga->nama]);
-        }
-
         return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('success', 'Warga berhasil diperbarui');
     }
 
@@ -172,6 +169,8 @@ class WargaController extends Controller
             'username' => 'required|min:16|max:16|unique:user,username,' . $user->id_user . ',id_user',
             'password' => 'nullable|string|min:8|max:100',
             'id_level' => ['required', Rule::in(Level::untukRt($no_rt)->pluck('id_level'))],
+            'periode_jabatan_awal' => ['nullable', 'date', Rule::requiredIf(fn () => $request->id_level != $levelWarga->id_level)],
+            'periode_jabatan_akhir' => ['nullable', 'date', 'after_or_equal:periode_jabatan_awal', Rule::requiredIf(fn () => $request->id_level != $levelWarga->id_level)],
         ]);
 
         $user->update([
@@ -181,10 +180,6 @@ class WargaController extends Controller
         ]);
 
         if ($request->id_level != $levelWarga->id_level) {
-            $request->validate([
-                'periode_jabatan_awal' => 'required|date',
-                'periode_jabatan_akhir' => 'required|date',
-            ]);
             $warga->periode_jabatan_awal = $request->periode_jabatan_awal;
             $warga->periode_jabatan_akhir = $request->periode_jabatan_akhir;
         } else {
@@ -202,10 +197,16 @@ class WargaController extends Controller
         $warga = Warga::milikRt($no_rt)->findOrFail($id);
 
         try {
+            DB::beginTransaction();
+
             $this->hapusWarga($warga);
+
+            DB::commit();
 
             return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('success', 'Data Warga Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+
             return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
@@ -215,14 +216,20 @@ class WargaController extends Controller
         $selectedIds = json_decode($request->input('selectedIds'), true) ?: [];
 
         try {
+            DB::beginTransaction();
+
             $wargas = Warga::milikRt($no_rt)->whereIn('warga.id_warga', $selectedIds)->get();
 
             foreach ($wargas as $warga) {
                 $this->hapusWarga($warga);
             }
 
+            DB::commit();
+
             return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('success', 'Data Warga terpilih berhasil dihapus');
         } catch (Exception $e) {
+            DB::rollBack();
+
             return redirect()->route('warga-admin.index', ['rt' => $no_rt])->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }

@@ -97,6 +97,8 @@ class WelcomeController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
 
+        $this->validasiPasswordBaru($request);
+
         $warga = Auth::user()->warga;
 
         if ($request->hasFile('foto')) {
@@ -119,6 +121,8 @@ class WelcomeController extends Controller
         $warga->no_rt = $request->no_rt;
         $warga->agama = $request->agama;
         $warga->save();
+
+        $this->simpanPasswordBaru($request);
 
         return redirect()->route('profile-superadmin')->with('success', 'Profile updated successfully');
     }

@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -15,6 +18,7 @@ class Handler extends ExceptionHandler
     protected $dontFlash = [
         'current_password',
         'password',
+        'password_lama',
         'password_confirmation',
     ];
 
@@ -25,6 +29,14 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (NotFoundHttpException $e, Request $request) {
+            if ($request->expectsJson()) {
+                return null;
+            }
+
+            return Auth::check() ? redirect(Auth::user()->urlDashboard()) : redirect('/');
         });
     }
 }

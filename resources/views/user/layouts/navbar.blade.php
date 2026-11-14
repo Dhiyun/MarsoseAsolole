@@ -74,9 +74,10 @@
                             <a href="{{ route('profile-user') }}" class="menu-link">My Profile</a>
                         </div>
                         <div class="menu-item px-4">
-                            <form method="POST" action="{{ route('logout') }}">
+                            <a href="{{ route('logout') }}" class="menu-link"
+                                onclick="event.preventDefault(); this.nextElementSibling.submit();">Sign Out</a>
+                            <form method="POST" action="{{ route('logout') }}" class="d-none">
                                 @csrf
-                                <button type="submit" class="menu-link btn btn-link w-100 text-start">Sign Out</button>
                             </form>
                         </div>
                     </div>

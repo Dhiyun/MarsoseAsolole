@@ -7,7 +7,6 @@ use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -64,39 +63,17 @@ class AuthController extends Controller
                 ->with('error', 'Username atau password salah.');
         }
 
-        $request->session()->regenerate();
+        if (!Auth::user()->warga) {
+            Auth::logout();
 
-        if ($request->password === $request->username) {
-            $request->session()->put('wajib_ganti_password', true);
-
-            return redirect()->route('password.ganti');
+            return back()
+                ->withInput($request->only('username'))
+                ->with('error', 'Akun Anda belum terhubung dengan data warga. Silakan hubungi pengurus RT/RW.');
         }
 
-        return $this->redirectSesuaiLevel(Auth::user());
-    }
+        $request->session()->regenerate();
 
-    public function gantiPassword()
-    {
-        return view('auth.ganti_password');
-    }
-
-    public function updatePassword(Request $request)
-    {
-        $user = Auth::user();
-
-        $request->validate([
-            'password' => ['required', 'string', 'min:8', 'confirmed', Rule::notIn([$user->username])],
-        ], [
-            'password.min' => 'Password minimal 8 karakter.',
-            'password.confirmed' => 'Konfirmasi password tidak sama.',
-            'password.not_in' => 'Password tidak boleh sama dengan username.',
-        ]);
-
-        $user->update(['password' => Hash::make($request->password)]);
-
-        $request->session()->forget('wajib_ganti_password');
-
-        return $this->redirectSesuaiLevel($user)->with('success', 'Password berhasil diganti');
+        return redirect(Auth::user()->urlDashboard());
     }
 
     public function logout(Request $request)
@@ -107,20 +84,5 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
-    }
-
-    private function redirectSesuaiLevel($user)
-    {
-        $level = $user->level->level_kode;
-
-        if (strpos($level, 'RT') === 0 && strlen($level) === 3) {
-            return redirect()->route('admin.index', ['rt' => substr($level, 2)]);
-        }
-
-        if ($level == 'RW') {
-            return redirect()->route('super-admin.index');
-        }
-
-        return redirect()->route('user.index');
     }
 }

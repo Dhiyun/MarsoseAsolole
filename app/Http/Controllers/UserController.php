@@ -7,6 +7,7 @@ use App\Models\Users;
 use App\Models\Warga;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +43,8 @@ class UserController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
 
+        $this->validasiPasswordBaru($request);
+
         $warga = Auth::user()->warga;
 
         if ($request->hasFile('foto')) {
@@ -64,6 +67,8 @@ class UserController extends Controller
         $warga->no_rt = $request->no_rt;
         $warga->agama = $request->agama;
         $warga->save();
+
+        $this->simpanPasswordBaru($request);
 
         return redirect()->route('profile-user')->with('success', 'Profile updated successfully');
     }
@@ -158,15 +163,18 @@ class UserController extends Controller
 
     public function update($id, Request $request)
     {
+        $level = Level::where('level_nama', 'Warga')->firstOrfail();
+
         $request->validate([
             'username' => 'required',
             'password' => 'nullable|string|max:100',
             'id_level' => 'required|exists:level,id_level',
+            'periode_jabatan_awal' => ['nullable', 'date', Rule::requiredIf(fn () => $request->id_level != $level->id_level)],
+            'periode_jabatan_akhir' => ['nullable', 'date', 'after_or_equal:periode_jabatan_awal', Rule::requiredIf(fn () => $request->id_level != $level->id_level)],
         ]);
 
         $user = Users::find($id);
         $warga = Warga::where('id_user', $id)->firstOrFail();
-        $level = Level::where('level_nama', 'Warga')->firstOrfail();
 
         $user->update([
             'username' => $request->username,
@@ -175,10 +183,6 @@ class UserController extends Controller
         ]);
 
         if ($request->id_level != $level->id_level) {
-            $request->validate([
-                'periode_jabatan_awal' => 'required|date',
-                'periode_jabatan_akhir' => 'required|date',
-            ]);
             $warga->periode_jabatan_awal = $request->periode_jabatan_awal;
             $warga->periode_jabatan_akhir = $request->periode_jabatan_akhir;
         } else {

@@ -40,11 +40,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/check_login', [AuthController::class, 'checkLogin'])->middleware('throttle:10,1');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/ganti-password', [AuthController::class, 'gantiPassword'])->name('password.ganti');
-    Route::put('/ganti-password', [AuthController::class, 'updatePassword'])->name('password.update');
-});
-
-Route::middleware(['auth', 'wajib_ganti_password'])->group(function () {
     Route::group(['middleware' => ['cek_login:WRG']], function () {
         Route::prefix('user')->group(function () {
             Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
@@ -223,4 +218,8 @@ Route::middleware(['auth', 'wajib_ganti_password'])->group(function () {
             });
         });
     });
+});
+
+Route::fallback(function () {
+    abort(404);
 });

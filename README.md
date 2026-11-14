@@ -102,6 +102,142 @@ Hasilnya hanya rekomendasi. Keputusan akhir tetap ada di tangan pengurus RW.
 
 ---
 
+## Struktur Database (ERD)
+
+Diagram di bawah menunjukkan tabel-tabel yang dipakai Marsose dan hubungan antar tabelnya.
+
+```mermaid
+erDiagram
+    level ||--o{ user : "menentukan peran"
+    user ||--|| warga : "akun milik"
+    rw ||--o{ rt : "membawahi"
+    rt ||--o{ kk : "mencakup"
+    kk |o--o{ warga : "beranggotakan"
+    warga ||--o{ laporan_pengaduan : "membuat"
+    warga ||--o{ surat : "mengunggah"
+    laporan_pengaduan ||--o{ alternatif : "dinilai sebagai"
+    alternatif ||--o{ laporan_spk : "punya nilai"
+    kriterias ||--o{ laporan_spk : "dipakai untuk"
+    kriterias ||--o{ detail_kriterias : "punya rentang"
+
+    level {
+        bigint id_level PK
+        varchar level_kode UK "RW, RT1 sampai RT5, WRG"
+        varchar level_nama
+    }
+
+    user {
+        bigint id_user PK
+        varchar username UK "NIK atau kode akun"
+        varchar password "disimpan terenkripsi"
+        bigint id_level FK
+    }
+
+    rw {
+        bigint id_rw PK
+        varchar no_rw UK
+    }
+
+    rt {
+        bigint id_rt PK
+        varchar no_rt UK "01 sampai 05"
+        bigint id_rw FK
+    }
+
+    kk {
+        bigint id_kk PK
+        char no_kk UK "16 digit"
+        text alamat
+        bigint id_rt FK
+    }
+
+    warga {
+        bigint id_warga PK
+        char nik UK "16 digit"
+        varchar nama
+        enum jenis_kelamin "laki-laki atau perempuan"
+        varchar tempat_lahir
+        date tanggal_lahir
+        varchar alamat
+        varchar agama
+        varchar no_rt
+        enum status_keluarga "kepala_keluarga, istri, anak, lainnya"
+        enum status_kependudukan "asli atau pendatang"
+        date periode_jabatan_awal
+        date periode_jabatan_akhir
+        varchar foto
+        bigint id_user FK
+        bigint id_kk FK "boleh kosong"
+    }
+
+    laporan_pengaduan {
+        bigint id_laporan PK
+        varchar judul
+        varchar jenis_laporan
+        varchar gambar
+        varchar keterangan
+        enum status "menunggu, ditolak, diterima, diproses, selesai"
+        date tanggal_proses
+        date tanggal_selesai
+        bigint id_warga FK
+    }
+
+    surat {
+        bigint id_surat PK
+        varchar jenis_surat
+        varchar nama_surat
+        varchar file_surat
+        bigint id_warga FK
+    }
+
+    kriterias {
+        bigint id_kriteria PK
+        varchar nama_kriteria
+        enum jenis_kriteria "Benefit atau Cost"
+    }
+
+    detail_kriterias {
+        bigint id_detail_kriteria PK
+        varchar rentang
+        int nilai
+        decimal bobot_normalisasi
+        bigint id_kriteria FK
+    }
+
+    alternatif {
+        bigint id_alternatif PK
+        varchar kode_alternatif
+        bigint id_laporan FK
+    }
+
+    laporan_spk {
+        bigint id_spk PK
+        varchar nilai
+        bigint id_kriteria FK
+        bigint id_alternatif FK
+    }
+```
+
+**Cara membaca diagram:**
+
+| Tabel | Isinya |
+|---|---|
+| `level` | Daftar peran: RW, RT 1 sampai RT 5, dan Warga |
+| `user` | Akun untuk login. Setiap akun punya satu peran |
+| `rw`, `rt` | Wilayah. Satu RW membawahi beberapa RT |
+| `kk` | Kartu Keluarga. Setiap KK terdaftar di satu RT. Nama kepala keluarga diambil dari anggota warga yang berstatus kepala keluarga |
+| `warga` | Data penduduk. Setiap warga punya satu akun dan bisa tergabung dalam satu KK |
+| `laporan_pengaduan` | Laporan yang dikirim warga, lengkap dengan foto dan statusnya |
+| `surat` | File template surat yang diunggah pengurus |
+| `kriterias`, `detail_kriterias` | Kriteria penilaian prioritas beserta rentang nilainya |
+| `alternatif`, `laporan_spk` | Laporan yang sedang dinilai dan nilainya untuk setiap kriteria |
+
+Arti garis penghubung: `||` berarti **tepat satu**, `o{` berarti **boleh nol atau banyak**, dan `|o` berarti **boleh kosong atau satu**. Contohnya, satu RT bisa punya banyak KK, tapi setiap KK hanya terdaftar di satu RT.
+
+**Perlindungan data saat menghapus:** data yang masih dipakai data lain tidak bisa dihapus. Contohnya, warga yang pernah membuat laporan atau mengunggah surat tidak bisa dihapus, begitu juga RT yang masih punya KK, RW yang masih punya RT, dan level yang masih dipakai akun. Penghapusan seperti ini ditolak seluruhnya, tidak ada data yang terhapus sebagian. Pengecualiannya: menghapus KK tidak menghapus warganya (warga hanya dilepas dari KK), dan menghapus laporan ikut menghapus data penilaian SPK-nya.
+
+---
+
 ## Cara Menjalankan di Komputer Sendiri
 
 Bagian ini untuk yang ingin mencoba atau mengembangkan aplikasinya.
@@ -132,12 +268,28 @@ composer install
 cp .env.example .env
 php artisan key:generate
 ```
-Buka file `.env`, lalu sesuaikan bagian database:
+Buka file `.env`, lalu sesuaikan bagian database seperti tabel berikut:
+
+| Pengaturan | Nilai | Keterangan |
+|---|---|---|
+| `DB_CONNECTION` | `mysql` | Jenis database yang dipakai |
+| `DB_HOST` | `127.0.0.1` | Alamat server MySQL (komputer sendiri) |
+| `DB_PORT` | `3306` | Port bawaan MySQL. Ubah kalau MySQL-mu memakai port lain |
+| `DB_DATABASE` | `marsose` | Nama database aplikasi (dibuat di langkah 4) |
+| `DB_USERNAME` | `root` | User MySQL. Bawaan Laragon/XAMPP adalah `root` |
+| `DB_PASSWORD` | *(kosong)* | Password MySQL. Bawaan Laragon/XAMPP kosong |
+
+Hasilnya di file `.env` akan terlihat seperti ini:
 ```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
 DB_DATABASE=marsose
 DB_USERNAME=root
 DB_PASSWORD=
 ```
+
+Untuk test otomatis, aplikasi memakai database terpisah bernama `marsose_testing` dengan pengaturan lain yang sama. Nama ini sudah diatur di `phpunit.xml`, jadi tidak perlu ditulis di `.env`.
 
 **4. Buat database**
 
@@ -173,9 +325,11 @@ Setelah langkah 5, akun-akun berikut otomatis tersedia:
 | Ketua RT 5 | `678` | `admin5` |
 | Warga | `789` | `warga` |
 
-Akun warga lain memakai NIK sebagai username sekaligus password awal. Saat pertama kali masuk, mereka akan diminta membuat password baru, karena NIK mudah diketahui orang lain.
+Akun warga lain memakai NIK sebagai username sekaligus password awal.
 
-> ⚠️ Akun di atas hanya untuk percobaan. Ganti semua password sebelum aplikasi dipakai sungguhan.
+Password bisa diganti kapan saja lewat menu **My Profile**, di bagian **Ganti Password**. Isi password lama, lalu password baru dua kali.
+
+> ⚠️ Akun di atas hanya untuk percobaan. Ganti semua password sebelum aplikasi dipakai sungguhan, terutama akun warga yang password-nya masih sama dengan NIK, karena NIK mudah diketahui orang lain.
 
 ### Kalau ada kendala
 
@@ -198,7 +352,8 @@ php artisan test
 
 Test ini memeriksa bahwa:
 - setiap peran diarahkan ke halaman yang benar setelah login,
-- akun dengan password = NIK wajib membuat password baru,
+- password bisa diganti lewat halaman profil dan wajib memasukkan password lama yang benar,
+- alamat yang tidak ditemukan dialihkan ke dashboard (kalau sudah login) atau ke halaman depan (kalau belum),
 - Ketua RT tidak bisa melihat, mengubah, atau menghapus data warga RT lain, dan tidak bisa memberi jabatan RW,
 - file gambar yang diunggah warga aman (SVG ditolak, ekstensi file mengikuti isi file).
 

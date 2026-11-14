@@ -31,6 +31,21 @@ class Users extends Auth
         return $this->hasOne(Warga::class, 'id_user');
     }
 
+    public function urlDashboard(): string
+    {
+        $level = $this->level->level_kode;
+
+        if (strpos($level, 'RT') === 0 && strlen($level) === 3) {
+            return route('admin.index', ['rt' => substr($level, 2)]);
+        }
+
+        if ($level == 'RW') {
+            return route('super-admin.index');
+        }
+
+        return route('user.index');
+    }
+
     public static function checkCredentials($username, $password)
     {
         $user = self::where('username', $username)->first();

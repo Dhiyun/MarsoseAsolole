@@ -22,6 +22,14 @@ class Cek_login
 
         $user = Auth::user();
 
+        if (!$user->warga) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect('login')->with('error', 'Akun Anda belum terhubung dengan data warga. Silakan hubungi pengurus RT/RW.');
+        }
+
         $rtNumber = $request->route('rt');
 
         if ($user->level->level_kode == $roles || $user->level->level_kode == 'RT'.$rtNumber) {

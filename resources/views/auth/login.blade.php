@@ -9,8 +9,6 @@
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
-    <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
@@ -23,6 +21,19 @@
 
             [data-bs-theme="dark"] body {
                 background-image: url('{{ asset('assets/media/auth/bg10-dark.jpeg') }}');
+            }
+
+            .btn.btn-marsose {
+                background-color: #EA5403;
+                border-color: #EA5403;
+                color: #fff;
+            }
+
+            .btn.btn-marsose:hover,
+            .btn.btn-marsose:focus {
+                background-color: #C94702;
+                border-color: #C94702;
+                color: #fff;
             }
         </style>
 

@@ -88,6 +88,7 @@
                 <!--end:::Main-->
             </div>
             <!--end::Wrapper-->
+            @include('user.layouts.footer')
         </div>
         <!--end::Page-->
     </div>
@@ -102,6 +103,7 @@
     <!--end::Global Javascript Bundle-->
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('assets/plugins/custom/fslightbox/fslightbox.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used for this page only)-->
     <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>

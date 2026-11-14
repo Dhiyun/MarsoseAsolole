@@ -8,6 +8,7 @@ use App\Models\Level;
 use App\Models\RT;
 use App\Models\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Warga;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -167,12 +168,6 @@ class WargaController extends Controller
             'id_kk' => $id_kk,
         ]);
 
-        $warga = Warga::findOrFail($id);
-
-        if ($warga->status_keluarga == 'kepala_keluarga' && $id_kk) {
-            $kk->update(['kepala_keluarga' => $warga->nama]);
-        }
-
         return redirect()->route('warga.index')->with('success', 'Warga berhasil diperbarui');
     }
 
@@ -184,6 +179,8 @@ class WargaController extends Controller
         }
 
         try {
+            DB::beginTransaction();
+
             $warga = Warga::find($id);
             $id_user = $warga->id_user;
             $id_kk = $warga->id_kk;
@@ -195,8 +192,12 @@ class WargaController extends Controller
             Warga::destroy($id);
             Users::destroy($id_user);
 
+            DB::commit();
+
             return redirect()->route('warga.index')->with('success', 'Data Warga Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+
             return redirect()->route('warga.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
@@ -212,6 +213,8 @@ class WargaController extends Controller
         $selectedIds = json_decode($selectedIdsJson, true);
 
         try {
+            DB::beginTransaction();
+
             foreach ($selectedIds as $id) {
                 $warga = Warga::find($id);
                 $id_user = $warga->id_user;
@@ -225,8 +228,12 @@ class WargaController extends Controller
                 Users::destroy($id_user);
             }
 
+            DB::commit();
+
             return redirect()->route('warga.index')->with('success', 'Data Warga terpilih berhasil dihapus');
         } catch (Exception $e) {
+            DB::rollBack();
+
             return redirect()->route('warga.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }

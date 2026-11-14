@@ -3,6 +3,19 @@
 var KTSigninGeneral = function() {
     var e, t, i;
 
+    var tampilkanPesan = function(pesan) {
+        Swal.fire({
+            text: pesan,
+            icon: "error",
+            heightAuto: false,
+            buttonsStyling: false,
+            confirmButtonText: "Ok, dimengerti!",
+            customClass: {
+                confirmButton: "btn btn-marsose"
+            }
+        });
+    };
+
     return {
         init: function() {
             e = document.querySelector("#kt_sign_in_form");
@@ -53,38 +66,30 @@ var KTSigninGeneral = function() {
                                 password: password
                             })
                         })
-                        .then(response => response.json())
+                        .then(response => {
+                            if (response.status === 429) {
+                                return { success: false, message: "Terlalu banyak percobaan masuk. Silakan tunggu 1 menit, lalu coba lagi." };
+                            }
+
+                            return response.json();
+                        })
                         .then(data => {
                             if (data.success) {
                                 t.disabled = true;
                                 setTimeout(function() {
                                     document.getElementById('kt_sign_in_form').submit();
                                 }, 0);
+                            } else if (data.message && data.message.indexOf("Terlalu") === 0) {
+                                tampilkanPesan(data.message);
                             } else {
-                                Swal.fire({
-                                    text: "Maaf, username atau password salah.",
-                                    icon: "error",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok, dimengerti!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
+                                tampilkanPesan("Maaf, username atau password salah.");
                             }
                         })
-                        .catch(error => {
-                            console.error('Error:', error);
+                        .catch(() => {
+                            tampilkanPesan("Tidak dapat terhubung ke server. Periksa koneksi Anda, lalu coba lagi.");
                         });
                     } else {
-                        Swal.fire({
-                            text: "Mohon periksa kembali data yang dimasukkan.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, dimengerti!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
+                        tampilkanPesan("Mohon periksa kembali data yang dimasukkan.");
                     }
                 });
             });

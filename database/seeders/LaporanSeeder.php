@@ -53,13 +53,30 @@ class LaporanSeeder extends Seeder
         $keterangan = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. There are many variations of passages of Lorem Ipsum available';
         $status = ['menunggu', 'ditolak', 'diterima', 'diproses', 'selesai'];
 
-        $image_urls = [
-            'https://via.placeholder.com/600'
+        $gambar = [
+            'Infrastruktur' => [
+                'gambar/1718237460_Kerusakan pipa air PDAM di Jalan Melati.jpg',
+                'gambar/1718238605_Lampu jalan mati di RT 05.jpg',
+                'gambar/1718246405_banjir.jpg',
+            ],
+            'Lingkungan' => [
+                'gambar/1718237576_Sampah menumpuk di lingkungan RT 03.jpg',
+                'gambar/1718246405_banjir.jpg',
+            ],
+            'Keamanan' => [
+                'gambar/1718237671_Pengaduan mengenai keamanan lingkungan di RT 02.jpg',
+            ],
+            'Layanan Masyarakat' => [
+                'gambar/1718237740_Pelayanan kelurahan yang kurang memuaskan.jpg',
+            ],
+            'Kesehatan' => [
+                'gambar/1718237883_Keluhan terhadap pelayanan kesehatan di puskesmas.jpg',
+            ],
         ];
 
         $index = 1;
         foreach ($jenis_laporan as $type => $titles) {
-            foreach ($titles as $title) {
+            foreach ($titles as $i => $title) {
                 $createdAt = date('Y-m-d H:i:s', strtotime('2023-01-01') + rand(0, 365 * 24 * 60 * 60));
                 $laporan[] = [
                     'id_laporan' => $index,
@@ -67,7 +84,7 @@ class LaporanSeeder extends Seeder
                     'tanggal_selesai' => null,
                     'judul' => $title,
                     'jenis_laporan' => $type,
-                    'gambar' => $image_urls[array_rand($image_urls)],
+                    'gambar' => $gambar[$type][$i % count($gambar[$type])],
                     'keterangan' => $keterangan,
                     'status' => $status[0],
                     'id_warga' => rand(1, 33),

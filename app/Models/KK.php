@@ -15,7 +15,6 @@ class KK extends Model
 
     protected $fillable = [
         'no_kk',
-        'kepala_keluarga',
         'alamat',
         'id_rt',
     ];
@@ -28,6 +27,16 @@ class KK extends Model
     public function warga()
     {
         return $this->hasOne(Warga::class, 'id_kk');
+    }
+
+    public function kepala()
+    {
+        return $this->hasOne(Warga::class, 'id_kk')->where('status_keluarga', 'kepala_keluarga');
+    }
+
+    public function getKepalaKeluargaAttribute()
+    {
+        return $this->kepala?->nama;
     }
 
     public function scopeMilikRt($query, $noRt)

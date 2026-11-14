@@ -348,3 +348,302 @@ ul li {
     width: 100%;
     height: auto;
 }
+
+.keluhan .form-control {
+    min-height: 43.5px;
+    padding: 0.63rem 0.82rem;
+    font-size: 14.3px;
+    font-weight: 500;
+    color: #5E6278;
+    background-color: #fff;
+    border: 1px solid #E1E3EA;
+    border-radius: 0.61rem;
+    box-shadow: none;
+}
+
+.keluhan .form-control::placeholder {
+    color: #A1A5B7;
+    font-weight: 400;
+}
+
+.keluhan .form-control:focus {
+    border-color: #FF520D;
+    box-shadow: 0 0 0 0.2rem rgba(255, 82, 13, 0.12);
+}
+
+.keluhan .pilih-file {
+    display: flex;
+    align-items: stretch;
+    height: 43.5px;
+    margin: 0;
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #E1E3EA;
+    border-radius: 0.61rem;
+    cursor: pointer;
+}
+
+.keluhan .pilih-file:hover,
+.keluhan .pilih-file:focus-within {
+    border-color: #FF520D;
+}
+
+.keluhan .pilih-file:focus-within {
+    box-shadow: 0 0 0 0.2rem rgba(255, 82, 13, 0.12);
+}
+
+.keluhan .pilih-file-tombol {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding: 0 1rem;
+    color: #5E6278;
+    font-size: 14.3px;
+    font-weight: 600;
+    background-color: #F9F9F9;
+    border-right: 1px solid #E1E3EA;
+}
+
+.keluhan .pilih-file-tombol i {
+    color: #FF520D;
+}
+
+.keluhan .pilih-file-nama {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: 0 0.82rem;
+    overflow: hidden;
+    color: #5E6278;
+    font-size: 14.3px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.card.surat-card {
+    background-color: #fff;
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
+}
+
+.card.surat-card .card-body {
+    padding: 2rem 2.25rem;
+}
+
+.surat-label {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    padding: 0.3rem 0.85rem;
+    color: #FF520D;
+    font-size: 13px;
+    font-weight: 700;
+    background-color: #FFF1EA;
+    border-radius: 999px;
+}
+
+.surat-judul {
+    margin-bottom: 0.75rem;
+    color: #1E293B;
+    font-weight: 700;
+}
+
+.surat-deskripsi {
+    margin: 0;
+    color: #4B5563;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.surat-subjudul {
+    margin-bottom: 1.25rem;
+    color: #1E293B;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.surat-petunjuk {
+    margin: -0.5rem 0 1.5rem;
+    color: #6B7280;
+    font-size: 15px;
+}
+
+.alur-surat {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.alur-surat li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px dashed #E5E7EB;
+}
+
+.alur-surat li:last-child {
+    border-bottom: none;
+}
+
+.alur-nomor {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    font-weight: 700;
+    background-color: #1E293B;
+    border-radius: 50%;
+}
+
+.alur-teks {
+    padding-top: 4px;
+    color: #374151;
+    font-size: 15.5px;
+    line-height: 1.6;
+}
+
+.template-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1.5rem;
+    background-color: #F8FAFC;
+    border: 1px solid #E5E7EB;
+    border-radius: 14px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.template-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(30, 41, 59, 0.1);
+}
+
+.template-ikon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    object-fit: contain;
+}
+
+.template-nama {
+    margin-bottom: 0.75rem;
+    color: #1E293B;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.template-syarat-judul {
+    margin-bottom: 0.35rem;
+    color: #6B7280;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.template-card .template-syarat {
+    margin: 0 0 1.25rem;
+    padding-left: 1.1rem;
+    color: #374151;
+    font-size: 14.5px;
+    list-style: disc;
+}
+
+.template-card .template-syarat li {
+    margin: 0 0 0.3rem;
+    line-height: 1.5;
+}
+
+.btn.btn-template {
+    width: 100%;
+    margin-top: auto;
+    padding: 0.65rem 1rem;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    background-color: #FF520D;
+    border: none;
+    border-radius: 10px;
+}
+
+.btn.btn-template:hover {
+    color: #fff;
+    background-color: #E04500;
+}
+
+.btn.btn-template.disabled {
+    color: #6B7280;
+    background-color: #E5E7EB;
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+#kt_app_page {
+    min-height: 100vh;
+}
+
+#kt_app_wrapper {
+    margin-bottom: 5rem;
+}
+
+.footer-warga {
+    margin-top: auto;
+    padding-top: 3rem;
+    color: #CBD5E1;
+    background-color: #1E293B;
+}
+
+.footer-warga-atas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(203, 213, 225, 0.2);
+}
+
+.footer-warga-brand {
+    max-width: 420px;
+}
+
+.footer-warga-logo {
+    height: 36px;
+    margin-bottom: 1rem;
+}
+
+.footer-warga-brand p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.footer-warga-menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.footer-warga-menu a {
+    color: #fff;
+    font-weight: 600;
+}
+
+.footer-warga-menu a:hover {
+    color: #FF520D;
+}
+
+.footer-warga-bawah {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 1.25rem 0;
+    font-size: 13px;
+}

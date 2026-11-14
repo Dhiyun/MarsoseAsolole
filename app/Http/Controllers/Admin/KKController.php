@@ -10,6 +10,7 @@ use App\Models\Users;
 use App\Models\Warga;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -26,7 +27,8 @@ class KKController extends Controller
 
         $rts = RT::all();
 
-        $kks = KK::join('rt', 'kk.id_rt', '=', 'rt.id_rt')
+        $kks = KK::with('kepala')
+            ->join('rt', 'kk.id_rt', '=', 'rt.id_rt')
             ->where('rt.no_rt', RT::formatNomor($no_rt))
             ->get();
 
@@ -87,7 +89,6 @@ class KKController extends Controller
 
         $kk = KK::create([
             'no_kk' => $validate['no_kk'],
-            'kepala_keluarga' => $validate['kepala_keluarga'],
             'alamat' => $validate['alamat'],
             'id_rt' => $rt->id_rt,
         ]);
@@ -128,11 +129,10 @@ class KKController extends Controller
 
         $kk->update([
             'no_kk' => $request->no_kk,
-            'kepala_keluarga' => $request->kepala_keluarga,
             'alamat' => $request->alamat,
         ]);
 
-        $warga = Warga::where('id_kk', $kk->id_kk)->first();
+        $warga = $kk->kepala;
 
         if ($warga) {
             $warga->update([
@@ -272,10 +272,6 @@ class KKController extends Controller
             'status_kependudukan' => $request->status_kependudukan,
         ]);
 
-        if ($warga->status_keluarga == 'kepala_keluarga') {
-            $kk->update(['kepala_keluarga' => $warga->nama]);
-        }
-
         return redirect()->route('kk-admin.show', ['rt' => $no_rt, 'id' => $id_kk])->with('success', 'Warga berhasil diperbarui');
     }
 
@@ -285,7 +281,11 @@ class KKController extends Controller
         $id_kk = $warga->id_kk;
 
         try {
+            DB::beginTransaction();
+
             $kkDeleted = $this->hapusWarga($warga);
+
+            DB::commit();
 
             if ($kkDeleted) {
                 return redirect()->route('kk-admin.index', ['rt' => $no_rt])->with('success', 'Data Warga Berhasil Dihapus');
@@ -293,6 +293,8 @@ class KKController extends Controller
 
             return redirect()->route('kk-admin.show', ['rt' => $no_rt, 'id' => $id_kk])->with('success', 'Data Warga Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+
             return redirect()->route('kk-admin.show', ['rt' => $no_rt, 'id' => $id_kk])->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
@@ -306,6 +308,8 @@ class KKController extends Controller
         }
 
         try {
+            DB::beginTransaction();
+
             $wargas = Warga::milikRt($no_rt)->whereIn('warga.id_warga', $selectedIds)->get();
 
             if ($wargas->isEmpty()) {
@@ -319,12 +323,16 @@ class KKController extends Controller
                 $kkDeleted = $this->hapusWarga($warga) || $kkDeleted;
             }
 
+            DB::commit();
+
             if ($kkDeleted) {
                 return redirect()->route('kk-admin.index', ['rt' => $no_rt])->with('success', 'Data Warga Berhasil Dihapus');
             }
 
             return redirect()->route('kk-admin.show', ['rt' => $no_rt, 'id' => $id_kk])->with('success', 'Data Warga Berhasil Dihapus');
         } catch (Exception $e) {
+            DB::rollBack();
+
             return redirect()->route('kk-admin.index', ['rt' => $no_rt])->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
@@ -340,6 +348,8 @@ class KKController extends Controller
             'username' => 'required|min:16|max:16|unique:user,username,' . $user->id_user . ',id_user',
             'password' => 'nullable|string|min:8|max:100',
             'id_level' => ['required', Rule::in(Level::untukRt($no_rt)->pluck('id_level'))],
+            'periode_jabatan_awal' => ['nullable', 'date', Rule::requiredIf(fn () => $request->id_level != $levelWarga->id_level)],
+            'periode_jabatan_akhir' => ['nullable', 'date', 'after_or_equal:periode_jabatan_awal', Rule::requiredIf(fn () => $request->id_level != $levelWarga->id_level)],
         ]);
 
         $user->update([
@@ -349,10 +359,6 @@ class KKController extends Controller
         ]);
 
         if ($request->id_level != $levelWarga->id_level) {
-            $request->validate([
-                'periode_jabatan_awal' => 'required|date',
-                'periode_jabatan_akhir' => 'required|date',
-            ]);
             $warga->periode_jabatan_awal = $request->periode_jabatan_awal;
             $warga->periode_jabatan_akhir = $request->periode_jabatan_akhir;
         } else {

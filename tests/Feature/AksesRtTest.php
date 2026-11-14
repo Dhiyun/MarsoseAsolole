@@ -48,7 +48,7 @@ class AksesRtTest extends TestCase
 
         $this->actingAs($ketuaRt1)
             ->put(route('warga-admin.update', ['rt' => 1, 'id' => $wargaRt3->id_warga]), $this->dataWarga($wargaRt3->nik, 'Diubah RT 1'))
-            ->assertNotFound();
+            ->assertRedirect(route('admin.index', ['rt' => 1]));
 
         $this->assertDatabaseHas('warga', [
             'id_warga' => $wargaRt3->id_warga,
@@ -64,7 +64,7 @@ class AksesRtTest extends TestCase
 
         $this->actingAs($ketuaRt1)
             ->delete(route('warga-admin.destroy', ['rt' => 1, 'id' => $wargaRt3->id_warga]))
-            ->assertNotFound();
+            ->assertRedirect(route('admin.index', ['rt' => 1]));
 
         $this->actingAs($ketuaRt1)
             ->post(route('warga-admin.deleteSelected', ['rt' => 1]), ['selectedIds' => json_encode([$wargaRt3->id_warga])]);

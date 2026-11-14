@@ -28,6 +28,14 @@
                             @method('PUT')
                             <!-- Card body -->
                             <div class="card-body border-top p-9">
+                                @if (session('success'))
+                                    <div class="alert alert-success mb-8">{{ session('success') }}</div>
+                                @endif
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger mb-8">{{ $errors->first() }}</div>
+                                @endif
+
                                 <!-- Input group -->
                                 <div class="row mb-6">
                                     <!-- Label -->
@@ -206,6 +214,30 @@
                                     <!-- End Col -->
                                 </div>
                                 <!-- End Input group -->
+                                <div class="separator my-10"></div>
+                                <h4 class="fw-bold mb-2">Ganti Password</h4>
+                                <div class="text-muted fs-7 mb-8">Kosongkan jika tidak ingin mengganti password.</div>
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">Password Lama</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="password" name="password_lama" class="form-control form-control-lg form-control-solid"
+                                            placeholder="Password saat ini" autocomplete="current-password" />
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">Password Baru</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="password" name="password" class="form-control form-control-lg form-control-solid"
+                                            placeholder="Minimal 8 karakter" autocomplete="new-password" />
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">Ulangi Password Baru</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="password" name="password_confirmation" class="form-control form-control-lg form-control-solid"
+                                            placeholder="Ketik ulang password baru" autocomplete="new-password" />
+                                    </div>
+                                </div>
                             </div>
                             <!-- End Card body -->
                             <!-- Actions -->

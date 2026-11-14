@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Super_admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\KK;
 use App\Models\Level;
 use App\Models\RW;
@@ -24,7 +25,7 @@ class KKController extends Controller
         ];
 
         $activeMenu = 'datakk';
-        $kks = KK::all();
+        $kks = KK::with('kepala')->get();
         $rts = RT::all();
 
         return view('super-admin.data_kk.index', [
@@ -96,7 +97,6 @@ class KKController extends Controller
 
         $kk = KK::create([
             'no_kk' => $validate['no_kk'],
-            'kepala_keluarga' => $validate['kepala_keluarga'],
             'alamat' => $validate['alamat'],
             'id_rt' => $id_rt,
         ]);
@@ -141,20 +141,17 @@ class KKController extends Controller
 
         $no_rt = $request->no_rt;
 
-        $rt = RT::where('no_rt', $no_rt)->first();
+        $rt = RT::where('no_rt', $no_rt)->firstOrFail();
 
-        if ($rt) {
-            $id_rt = $rt->id_rt;
-        }
+        $kk = KK::findOrFail($id);
 
-        KK::findOrFail($id)->update([
+        $kk->update([
             'no_kk' => $request->no_kk,
-            'kepala_keluarga' => $request->kepala_keluarga,
             'alamat' => $request->alamat,
-            'id_rt' => $id_rt,
+            'id_rt' => $rt->id_rt,
         ]);
 
-        $warga = Warga::where('id_kk', $id)->first();
+        $warga = $kk->kepala;
 
         if ($warga) {
             $warga->update([
@@ -294,19 +291,14 @@ class KKController extends Controller
             'status_kependudukan' => $request->status_kependudukan,
         ]);
 
-        $warga = Warga::findOrFail($id_warga);
-
-        if ($warga->status_keluarga == 'kepala_keluarga' && $id_kk) {
-            $kk = KK::findOrFail($id_kk);
-            $kk->update(['kepala_keluarga' => $warga->nama]);
-        }
-
         return redirect()->route('kk.show', $id_kk)->with('success', 'Warga berhasil diperbarui');
     }
 
     public function destroy_warga($id_warga)
     {
         try {
+            DB::beginTransaction();
+
             $warga = Warga::find($id_warga);
             $id_user = $warga->id_user;
             $id_kk = $warga->id_kk;
@@ -320,12 +312,16 @@ class KKController extends Controller
             Warga::destroy($id_warga);
             Users::destroy($id_user);
 
+            DB::commit();
+
             if (!$kkDeleted) {
                 return redirect()->route('kk.show', $id_kk)->with('success', 'Data Warga Berhasil Dihapus');
             } else {
                 return redirect()->route('kk.index')->with('success', 'Data Warga Berhasil Dihapus');
             }
         } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+
             return redirect()->route('kk.show', $id_kk)->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
@@ -341,6 +337,8 @@ class KKController extends Controller
         $selectedIds = json_decode($selectedIdsJson, true);
 
         try {
+            DB::beginTransaction();
+
             foreach ($selectedIds as $id_warga) {
                 Log::info('Selected ID Warga:', ['id' => $id_warga]);
                 $warga = Warga::find($id_warga);
@@ -357,12 +355,16 @@ class KKController extends Controller
                 Users::destroy($id_user);
             }
 
+            DB::commit();
+
             if (!$kkDeleted) {
                 return redirect()->route('kk.show', $id_kk)->with('success', 'Data Warga Berhasil Dihapus');
             } else {
                 return redirect()->route('kk.index')->with('success', 'Data Warga Berhasil Dihapus');
             }
         } catch (Exception $e) {
+            DB::rollBack();
+
             return redirect()->route('kk.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
