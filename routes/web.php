@@ -53,7 +53,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/create', [UserLaporanPengaduanController::class, 'create'])->name('user-laporan.create');
                 Route::post('/store', [UserLaporanPengaduanController::class, 'store'])->name('user-laporan.store');
                 Route::get('/history', [UserLaporanPengaduanController::class, 'history'])->name('user-laporan.history');
-                Route::get('/all', [LaporanPengaduanController::class, 'showLaporanPengaduan'])->name('user-laporan.all');
             });
 
             Route::prefix('profile')->group(function () {
@@ -157,7 +156,6 @@ Route::middleware('auth')->group(function () {
             Route::prefix('laporan')->group(function () {
                 Route::get('/', [LaporanPengaduanController::class, 'index'])->name('laporan.index');
                 Route::post('/store', [LaporanPengaduanController::class, 'store'])->name('laporan.store');
-                Route::get('/detail/{id}', [LaporanPengaduanController::class, 'show'])->name('laporan.show');
                 Route::put('/update/{id}', [LaporanPengaduanController::class, 'update'])->name('laporan.update');
                 Route::put('/', [LaporanPengaduanController::class, 'update_status'])->name('laporan.updateStatus');
                 Route::delete('/destroy/{id}', [LaporanPengaduanController::class, 'destroy'])->name('laporan.destroy');
@@ -171,7 +169,6 @@ Route::middleware('auth')->group(function () {
             Route::prefix('surat')->group(function () {
                 Route::get('/', [SuratController::class, 'index'])->name('surat.index');
                 Route::post('/store', [SuratController::class, 'store'])->name('surat.store');
-                Route::get('/detail/{id}', [SuratController::class, 'show'])->name('surat.show');
                 Route::put('/update/{id}', [SuratController::class, 'update'])->name('surat.update');
                 Route::delete('/destroy/{id}', [SuratController::class, 'destroy'])->name('surat.destroy');
                 Route::post('/delete-selected', [SuratController::class, 'deleteSelected'])->name('surat.deleteSelected');
@@ -207,7 +204,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [LaporanSpkController::class, 'indexLaporanSpk'])->name('laporan_spk.index');
                 Route::get('/create', [LaporanSpkController::class, 'createLaporanSpk'])->name('laporan_spk.create');
                 Route::post('/store', [LaporanSpkController::class, 'storeLaporanSpk'])->name('laporan_spk.store');
-                Route::get('/form', [LaporanSpkController::class, 'showForm'])->name('laporan_spk.form');
                 Route::put('/update/{id}', [LaporanSpkController::class, 'updateLaporanSpk'])->name('laporan_spk.update');
                 Route::get('/perangkingan', [LaporanSpkController::class, 'calculatePriority'])->name('laporan_spk.priority');
                 Route::get('/perangkingan/show/{id}', [LaporanSpkController::class, 'show_calculatePriority'])->name('laporan_spk.show');

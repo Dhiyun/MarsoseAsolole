@@ -92,6 +92,10 @@ Semua pengguna (warga, RT, dan RW) masuk dari halaman yang sama. Aplikasi otomat
 
 ![Kriteria SPK](docs/screenshots/rw-kriteria-spk.png)
 
+**Grafik perangkingan**: hasil penentuan prioritas dalam bentuk grafik batang, dari laporan yang paling perlu didahulukan. Skornya sama dengan yang tampil di halaman Perangkingan.
+
+![Grafik perangkingan SPK](docs/screenshots/rw-grafik-spk.png)
+
 ---
 
 ## Bagaimana aplikasi menentukan laporan mana yang didahulukan?
@@ -391,25 +395,6 @@ Untuk mencabut jabatan, ubah Level kembali menjadi **Warga**. Riwayat jabatannya
 | `Akun Anda belum terhubung dengan data warga` saat login | Akun tersebut belum punya data penduduk. Login sebagai RW, lalu tambahkan warga dengan NIK yang sama dengan username akun itu. |
 | `Nomor RT tidak terdaftar` saat menyimpan data | Nomor RT yang diisi belum ada di database. Gunakan RT 01 sampai 05. |
 | Lupa password | Reset lewat `php artisan tinker`:<br>`App\Models\Users::where('username', '123')->update(['password' => bcrypt('passwordbaru')]);` |
-
-### Menjalankan test otomatis
-
-Test memakai database terpisah bernama `marsose_testing`, supaya data aslimu tidak tersentuh. Buat database itu sekali saja, lalu jalankan:
-
-```bash
-php artisan test
-```
-
-Test ini memeriksa bahwa:
-- setiap peran diarahkan ke halaman yang benar setelah login,
-- password bisa diganti lewat halaman profil dan wajib memasukkan password lama yang benar,
-- alamat yang tidak ditemukan dialihkan ke dashboard (kalau sudah login) atau ke halaman depan (kalau belum),
-- akun tanpa data warga ditolak dengan pesan yang jelas, tidak menimbulkan halaman error,
-- Ketua RT tidak bisa melihat, mengubah, atau menghapus data warga RT lain, dan tidak bisa memberi jabatan RW,
-- jabatan hanya tersimpan jika periodenya diisi dengan benar, dan riwayat jabatan tidak hilang saat berganti,
-- file gambar yang diunggah warga aman (SVG ditolak, ekstensi file mengikuti isi file),
-- RT dan alamat warga mengikuti KK-nya, dan ikut berubah saat KK pindah RT atau ganti alamat,
-- aturan database berjalan: data unik tidak bisa dobel, jenis laporan di luar daftar ditolak, dan data yang masih dipakai tidak bisa dihapus sebagian.
 
 ---
 

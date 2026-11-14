@@ -259,6 +259,25 @@ class LaporanSpkController extends Controller
 
         $activeMenu = 'perangkingan';
 
+        ['kriterias' => $kriterias, 'laporans' => $laporans, 'scores' => $scores, 'normalizedValues' => $normalizedValues] = $this->hitungPerangkingan();
+
+        // Mengambil alternatif untuk ditampilkan
+        $alternatif = Alternatif::whereIn('id_alternatif', array_keys($scores))->get();
+
+        // Mengembalikan tampilan dengan LaporanSpk yang sudah diurutkan
+        return view('super-admin.laporan_spk.perangkingan.index', [
+            'breadcrumb' => $breadcrumb,
+            'laporans' => $laporans,
+            'kriterias' => $kriterias,
+            'scores' => $scores,
+            'alternatif' => $alternatif,
+            'activeMenu' => $activeMenu,
+            'normalizedValues' => $normalizedValues // Mengirim nilai normalisasi ke tampilan
+        ]);
+    }
+
+    private function hitungPerangkingan(): array
+    {
         // Mengambil semua data yang diperlukan
         $kriterias = Kriteria::all();
         $detailKriterias = DetailKriteria::all();
@@ -335,21 +354,33 @@ class LaporanSpkController extends Controller
         // Mengurutkan alternatif berdasarkan skor
         arsort($scores);
 
-        // Mengambil alternatif untuk ditampilkan
-        $alternatif = Alternatif::whereIn('id_alternatif', array_keys($scores))->get();
-
-        // Mengembalikan tampilan dengan LaporanSpk yang sudah diurutkan
-        return view('super-admin.laporan_spk.perangkingan.index', [
-            'breadcrumb' => $breadcrumb,
-            'laporans' => $laporans,
-            'kriterias' => $kriterias,
-            'scores' => $scores,
-            'alternatif' => $alternatif,
-            'activeMenu' => $activeMenu,
-            'normalizedValues' => $normalizedValues // Mengirim nilai normalisasi ke tampilan
-        ]);
+        return compact('kriterias', 'laporans', 'scores', 'normalizedValues');
     }
 
+    public function showChart()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Grafik Perangkingan Laporan SPK',
+            'list' => ['Home', 'Laporan SPK', 'Grafik']
+        ];
+
+        $activeMenu = 'grafik';
+
+        $scores = $this->hitungPerangkingan()['scores'];
+
+        $alternatif = Alternatif::with('laporanPengaduan')
+            ->whereIn('id_alternatif', array_keys($scores))
+            ->get()
+            ->keyBy('id_alternatif');
+
+        $peringkat = collect($scores)->map(fn ($skor, $id) => [
+            'kode' => $alternatif[$id]->kode_alternatif ?? '-',
+            'judul' => $alternatif[$id]->laporanPengaduan->judul ?? '-',
+            'skor' => round($skor, 4),
+        ])->values();
+
+        return view('super-admin.laporan_spk.grafik.index', compact('breadcrumb', 'activeMenu', 'peringkat'));
+    }
 
     private function parseRange($rentang)
     {
@@ -426,7 +457,7 @@ class LaporanSpkController extends Controller
         $kriterias = Kriteria::all();
 
         // Ambil data alternatif berdasarkan ID
-        $alternatif = Alternatif::find($id);
+        $alternatif = Alternatif::findOrFail($id);
 
         return view('super-admin.laporan_spk.perangkingan.detail', compact('breadcrumb', 'activeMenu', 'alternatif', 'kriterias'));
     }

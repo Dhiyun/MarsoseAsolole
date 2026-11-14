@@ -139,13 +139,13 @@
 
             <!-- Begin: Menu item -->
             <div data-kt-menu-trigger="click"
-                class="menu-item menu-accordion {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'here show' : '' }}">
+                class="menu-item menu-accordion {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan', 'grafik']) ? 'here show' : '' }}">
                 <!-- Begin: Menu link -->
                 <a
-                    class="menu-link {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'active' : '' }}">
+                    class="menu-link {{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan', 'grafik']) ? 'active' : '' }}">
                     <span class="menu-icon">
                         <img alt="Logo"
-                            src="assets/media/logos/{{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan']) ? 'menu-active/logo-spk.svg' : 'menu/logo-spk.svg' }}"
+                            src="assets/media/logos/{{ in_array($activeMenu, ['spkk', 'kriteria', 'detail_kriteria', 'alternatif', 'spk', 'perhitungan', 'perangkingan', 'grafik']) ? 'menu-active/logo-spk.svg' : 'menu/logo-spk.svg' }}"
                             class="h-25px theme-light-show" />
                     </span>
                     <span class="menu-title">Laporan SPK</span>
@@ -238,6 +238,16 @@
                         <!-- End: Menu link -->
                     </div>
                     <!-- End: Menu item -->
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ $activeMenu == 'grafik' ? 'active' : '' }}"
+                            href="{{ route('laporan_spk.chart') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Grafik Perangkingan</span>
+                        </a>
+                    </div>
                 </div>
                 <!-- End: Menu sub -->
             </div>
