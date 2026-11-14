@@ -36,6 +36,22 @@ class WelcomeController extends Controller
 
             $rejectedLaporan = LaporanPengaduan::where('status', 'ditolak')->count();
 
+            $laporanPerJenis = LaporanPengaduan::selectRaw("COALESCE(jenis_laporan, 'Lainnya') as label, COUNT(*) as total")
+                ->groupBy('label')
+                ->orderBy('label')
+                ->pluck('total', 'label');
+
+            $laporanPerStatus = LaporanPengaduan::selectRaw("COALESCE(status, 'menunggu') as label, COUNT(*) as total")
+                ->groupBy('label')
+                ->orderBy('label')
+                ->pluck('total', 'label');
+
+            $pendudukPerRt = Warga::selectRaw('no_rt as label, COUNT(*) as total')
+                ->whereNotNull('no_rt')
+                ->groupBy('no_rt')
+                ->orderBy('no_rt')
+                ->pluck('total', 'label');
+
             return view('super-admin.welcome', [
                 'user' => $user,
                 'breadcrumb' => $breadcrumb,
@@ -44,6 +60,9 @@ class WelcomeController extends Controller
                 'totalWarga' => $totalWarga,
                 'totalRT' => $totalRT,
                 'rejectedLaporan' => $rejectedLaporan,
+                'laporanPerJenis' => $laporanPerJenis,
+                'laporanPerStatus' => $laporanPerStatus,
+                'pendudukPerRt' => $pendudukPerRt,
             ]);
         } else {
             return redirect()->route('login');
@@ -75,7 +94,7 @@ class WelcomeController extends Controller
             'alamat' => 'required|string',
             'no_rt' => 'required|string|max:4',
             'agama' => 'required|string|max:10',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
 
         $warga = Auth::user()->warga;

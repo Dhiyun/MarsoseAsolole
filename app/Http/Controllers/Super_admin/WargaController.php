@@ -180,7 +180,7 @@ class WargaController extends Controller
     {
         $check = Warga::find($id);
         if(!$check) {
-            return redirect('/warga')->with('error'. 'Data Warga Tidak Ditemukan');
+            return redirect('/warga')->with('error', 'Data Warga Tidak Ditemukan');
         }
 
         try {
@@ -195,9 +195,9 @@ class WargaController extends Controller
             Warga::destroy($id);
             Users::destroy($id_user);
 
-            return redirect()->route('warga.index')->with('success' . 'Data Warga Berhasil Dihapus');
+            return redirect()->route('warga.index')->with('success', 'Data Warga Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('warga.index')->with('error' . 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('warga.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
@@ -206,7 +206,7 @@ class WargaController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
 
         if (empty($selectedIdsJson)) {
-            return redirect()->route('warga.index')->with('error' . 'Data Warga Tidak Ditemukan');
+            return redirect()->route('warga.index')->with('error', 'Data Warga Tidak Ditemukan');
         }
 
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -227,7 +227,7 @@ class WargaController extends Controller
 
             return redirect()->route('warga.index')->with('success', 'Data Warga terpilih berhasil dihapus');
         } catch (Exception $e) {
-            return redirect()->route('warga.index')->with('error' . 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('warga.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Surat;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class SuratController extends Controller
 {
@@ -48,7 +49,7 @@ class SuratController extends Controller
         ]);
 
         if ($request->hasFile('file_surat')) {
-            $fileName = time() . '_' . $request->file('file_surat')->getClientOriginalName();
+            $fileName = time() . '_' . Str::slug(pathinfo($request->file('file_surat')->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $request->file('file_surat')->extension();
             $request->file('file_surat')->move(public_path('file_upload'), $fileName);
             $filePath = 'file_upload/' . $fileName;
         }
@@ -80,7 +81,7 @@ class SuratController extends Controller
                 unlink(public_path($filePath));
             }
 
-            $fileName = time() . '_' . $request->file('file_surat')->getClientOriginalName();
+            $fileName = time() . '_' . Str::slug(pathinfo($request->file('file_surat')->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $request->file('file_surat')->extension();
             $request->file('file_surat')->move(public_path('file_upload'), $fileName);
             $filePath = 'file_upload/' . $fileName;
         } else {
@@ -111,7 +112,7 @@ class SuratController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
 
         if (empty($selectedIdsJson)) {
-            return redirect()->route('surat.index')->with('error' . 'Data Surat Tidak Ditemukan');
+            return redirect()->route('surat.index')->with('error', 'Data Surat Tidak Ditemukan');
         }
 
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -120,12 +121,12 @@ class SuratController extends Controller
             $deletedKKs = Surat::whereIn('id_surat', $selectedIds)->delete();
 
             if ($deletedKKs > 0) {
-                return redirect()->route('surat.index')->with('success' . 'Semua Data Surat Berhasil Dihapus');
+                return redirect()->route('surat.index')->with('success', 'Semua Data Surat Berhasil Dihapus');
             } else {
-                return redirect()->route('surat.index')->with('error' . 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect()->route('surat.index')->with('error', 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect()->route('surat.index')->with('error' . 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('surat.index')->with('error', 'Data Surat Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 }

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\ControllersSuper_admin;
+namespace App\Http\Controllers\Super_admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RT;
 use App\Models\RW;
-
 
 class RTController extends Controller
 {
@@ -32,6 +31,7 @@ class RTController extends Controller
         $dataRw = RW::all();
         return view('data_rt.create', compact('dataRw'));
     }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -45,4 +45,17 @@ class Warga extends Model
     {
         return $this->hasMany(LaporanPengaduan::class, 'id_warga');
     }
+
+    public function scopeMilikRt($query, $noRt)
+    {
+        $noRt = RT::formatNomor($noRt);
+
+        return $query->select('warga.*')
+            ->leftJoin('kk', 'kk.id_kk', '=', 'warga.id_kk')
+            ->leftJoin('rt', 'rt.id_rt', '=', 'kk.id_rt')
+            ->where(function ($query) use ($noRt) {
+                $query->where('rt.no_rt', $noRt)
+                    ->orWhere('warga.no_rt', $noRt);
+            });
+    }
 }

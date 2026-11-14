@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'cek_login' => \App\Http\Middleware\Cek_login::class,
+        'wajib_ganti_password' => \App\Http\Middleware\WajibGantiPassword::class,
     ];
 }

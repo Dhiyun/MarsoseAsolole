@@ -74,7 +74,10 @@
                             <a href="{{ route('profile-user') }}" class="menu-link">My Profile</a>
                         </div>
                         <div class="menu-item px-4">
-                            <a href="{{ route('logout') }}" class="menu-link">Sign Out</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="menu-link btn btn-link w-100 text-start">Sign Out</button>
+                            </form>
                         </div>
                     </div>
                 </div>

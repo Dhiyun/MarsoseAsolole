@@ -87,13 +87,11 @@
     <!--begin::Custom Javascript(used for this page only)-->
     <script src="{{ asset('assets/js/custom/apps/user-management/users/list/table.js') }}"></script>
 
-    //JS Add
     <script src="{{ asset('assets/js/custom/bymyself/super-admin/kk/add.js') }}"></script>
     <script src="{{ asset('assets/js/custom/bymyself/super-admin/surat/add.js') }}"></script>
     <script src="{{ asset('assets/js/custom/bymyself/super-admin/warga/add.js') }}"></script>
     <script src="{{ asset('assets/js/custom/bymyself/super-admin/laporan/add.js') }}"></script>
 
-    //JS Edit
     <script src="{{ asset('assets/js/custom/bymyself/super-admin/kk/edit.js') }}"></script>
     <script src="{{ asset('assets/js/custom/bymyself/super-admin/surat/edit.js') }}"></script>
     <script src="{{ asset('assets/js/custom/bymyself/super-admin/warga/edit.js') }}"></script>
@@ -109,6 +107,7 @@
     <script src="{{ asset('assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
     <script src="{{ asset('assets/js/custom/utilities/modals/create-campaign.js') }}"></script>
     <script src="{{ asset('assets/js/custom/utilities/modals/users-search.js') }}"></script>
+    @stack('scripts')
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 </body>

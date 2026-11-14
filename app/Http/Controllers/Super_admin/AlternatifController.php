@@ -65,15 +65,15 @@ class AlternatifController extends Controller
     {
         $check = Alternatif::find($id);
         if (!$check) {
-            return redirect()->route('alternatif.index')->with('error' . 'Data kriteria Tidak Ditemukan');
+            return redirect()->route('alternatif.index')->with('error', 'Data kriteria Tidak Ditemukan');
         }
 
         try {
             Alternatif::destroy($id);
 
-            return redirect()->route('alternatif.index')->with('success' . 'Data kriteria Berhasil Dihapus');
+            return redirect()->route('alternatif.index')->with('success', 'Data kriteria Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('alternatif.index')->with('error' . 'Data kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('alternatif.index')->with('error', 'Data kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 

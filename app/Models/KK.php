@@ -29,4 +29,11 @@ class KK extends Model
     {
         return $this->hasOne(Warga::class, 'id_kk');
     }
+
+    public function scopeMilikRt($query, $noRt)
+    {
+        return $query->whereHas('rt', function ($query) use ($noRt) {
+            $query->where('no_rt', RT::formatNomor($noRt));
+        });
+    }
 }

@@ -7,6 +7,7 @@ use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -57,47 +58,69 @@ class AuthController extends Controller
 
         $credentials = $request->only('username', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-
-            $level = $user->level->level_kode;
-
-            if (strpos($level, 'RT') === 0 && strlen($level) === 3) {
-                $rtNumber = substr($level, 2);
-
-                return redirect()->route('admin.index', ['rt' => $rtNumber]);
-            }
-
-            Auth::login($user);
-
-            if ($level == 'RW') {
-                return redirect()->route('super-admin.index');
-            } else {
-                return redirect()->route('user.index');
-            }
-        } else {
-            return response()->json(['error' => 'These credentials do not match our records.'], 401);
+        if (!Auth::attempt($credentials)) {
+            return back()
+                ->withInput($request->only('username'))
+                ->with('error', 'Username atau password salah.');
         }
+
+        $request->session()->regenerate();
+
+        if ($request->password === $request->username) {
+            $request->session()->put('wajib_ganti_password', true);
+
+            return redirect()->route('password.ganti');
+        }
+
+        return $this->redirectSesuaiLevel(Auth::user());
+    }
+
+    public function gantiPassword()
+    {
+        return view('auth.ganti_password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed', Rule::notIn([$user->username])],
+        ], [
+            'password.min' => 'Password minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak sama.',
+            'password.not_in' => 'Password tidak boleh sama dengan username.',
+        ]);
+
+        $user->update(['password' => Hash::make($request->password)]);
+
+        $request->session()->forget('wajib_ganti_password');
+
+        return $this->redirectSesuaiLevel($user)->with('success', 'Password berhasil diganti');
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
 
-        $request->session()->flush();
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect('/');
     }
 
-    public function cek_email()
+    private function redirectSesuaiLevel($user)
     {
-        $emailResults = Users::select('email')->get();
+        $level = $user->level->level_kode;
 
-        if ($emailResults) {
-            return response()->json(['emails' => $emailResults]);
-        } else {
-            return response()->json(['error' => 'User not found'], 404);
+        if (strpos($level, 'RT') === 0 && strlen($level) === 3) {
+            return redirect()->route('admin.index', ['rt' => substr($level, 2)]);
         }
+
+        if ($level == 'RW') {
+            return redirect()->route('super-admin.index');
+        }
+
+        return redirect()->route('user.index');
     }
 }

@@ -72,15 +72,15 @@ class DetailKriteriaController extends Controller
     {
         $check = DetailKriteria::find($id);
         if (!$check) {
-            return redirect()->route('detail_kriteria.index')->with('error' . 'Data kriteria Tidak Ditemukan');
+            return redirect()->route('detail_kriteria.index')->with('error', 'Data kriteria Tidak Ditemukan');
         }
 
         try {
             DetailKriteria::destroy($id);
 
-            return redirect()->route('detail_kriteria.index')->with('success' . 'Data kriteria Berhasil Dihapus');
+            return redirect()->route('detail_kriteria.index')->with('success', 'Data kriteria Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('detail_kriteria.index')->with('error' . 'Data kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('detail_kriteria.index')->with('error', 'Data kriteria Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 

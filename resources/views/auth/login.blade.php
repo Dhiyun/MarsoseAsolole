@@ -50,13 +50,25 @@
                                 @csrf
                                 <div class="text-center mb-11">
                                     <h1 class="text-dark fw-bolder mb-3">Log In</h1>
-                                    <div class="text-gray-500 fw-semibold fs-6">Marsose Nih Bos</div>
+                                    <div class="text-gray-500 fw-semibold fs-6">Masuk ke akun Marsose Anda</div>
                                 </div>
 
                                 <div class="my-14"></div>
 
+                                @if (session('error'))
+                                    <div class="alert alert-danger">{{ session('error') }}</div>
+                                @endif
+
+                                @if (session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                @endif
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">{{ $errors->first() }}</div>
+                                @endif
+
                                 <div class="fv-row mb-6">
-                                    <input type="text" placeholder="Username" id="username" name="username"
+                                    <input type="text" placeholder="Username" id="username" name="username" value="{{ old('username') }}"
                                         autocomplete="off" class="form-control bg-transparent" />
                                 </div>
 

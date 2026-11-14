@@ -76,7 +76,7 @@ class WelcomeController extends Controller
             'alamat' => 'required|string',
             'no_rt' => 'required|string|max:4',
             'agama' => 'required|string|max:10',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
 
         $warga = Auth::user()->warga;

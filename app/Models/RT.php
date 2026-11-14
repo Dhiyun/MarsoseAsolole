@@ -18,6 +18,11 @@ class RT extends Model
         'id_rw',
     ];
 
+    public static function formatNomor($noRt)
+    {
+        return str_pad($noRt, 2, '0', STR_PAD_LEFT);
+    }
+
     public function rw()
     {
         return $this->belongsTo(RW::class, 'id_rw');

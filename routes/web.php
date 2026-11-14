@@ -20,7 +20,6 @@ use App\Http\Controllers\Super_admin\WargaController;
 use App\Http\Controllers\User\FileController;
 use App\Http\Controllers\User\SuratController as UserSuratController;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\TextUI\Configuration\FilterDirectoryCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,11 +35,16 @@ use PHPUnit\TextUI\Configuration\FilterDirectoryCollection;
 Route::get('/', [LandingPageController::class, 'index']);
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login_proses', [AuthController::class, 'login_proses'])->name('login_proses');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::post('/check_login', [AuthController::class, 'checkLogin']);
+Route::post('/login_proses', [AuthController::class, 'login_proses'])->middleware('throttle:10,1')->name('login_proses');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/check_login', [AuthController::class, 'checkLogin'])->middleware('throttle:10,1');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/ganti-password', [AuthController::class, 'gantiPassword'])->name('password.ganti');
+    Route::put('/ganti-password', [AuthController::class, 'updatePassword'])->name('password.update');
+});
+
+Route::middleware(['auth', 'wajib_ganti_password'])->group(function () {
     Route::group(['middleware' => ['cek_login:WRG']], function () {
         Route::prefix('user')->group(function () {
             Route::get('/dashboard', [UserController::class, 'index'])->name('user.index');
@@ -111,11 +115,6 @@ Route::middleware('auth')->group(function () {
                 Route::prefix('history')->group(function () {
                     Route::get('/', [AdminLaporanPengaduanController::class, 'index'])->name('history-admin.index');
                 });
-
-                Route::prefix('profile')->group(function () {
-                    Route::get('/', [AdminWelcomeController::class, 'profileAdmin'])->name('profile-admin');
-                    Route::put('/', [AdminWelcomeController::class, 'updateProfileAdmin'])->name('admin.updateProfile');
-                });
             });
         });
     });
@@ -127,15 +126,13 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [WelcomeController::class, 'index'])->name('super-admin.index');
             });
 
-            Route::prefix('profile superadmin')->group(function () {
+            Route::prefix('profile')->group(function () {
                 Route::get('/', [WelcomeController::class, 'profileSA'])->name('profile-superadmin');
                 Route::put('/', [WelcomeController::class, 'updateProfileSA'])->name('super_admin.updateProfile');
             });
 
             Route::prefix('kk')->group(function () {
                 Route::get('/', [KKController::class, 'index'])->name('kk.index');
-                Route::get('/cek_kk', [KKController::class, 'cek_kk'])->name('cek_kk');
-                Route::get('/cek_nik', [WargaController::class, 'cek_nik'])->name('cek_nik');
                 Route::post('/store', [KKController::class, 'store'])->name('kk.store');
                 Route::get('/show/{id}', [KKController::class, 'show'])->name('kk.show');
                 Route::put('/update/{id}', [KKController::class, 'update'])->name('kk.update');
@@ -148,9 +145,6 @@ Route::middleware('auth')->group(function () {
                 Route::get('{id_kk}/warga/{id_warga}', [KKController::class, 'show_warga'])->name('kkwarga.show');
                 Route::delete('/destroy-warga/{id_warga}', [KKController::class, 'destroy_warga'])->name('kkwarga.destroy');
                 Route::post('/delete-selected-warga', [KKController::class, 'deleteSelected_warga'])->name('kkwarga.deleteSelected');
-
-                //User Warga
-                Route::put('/update-user/{id}', [KKController::class, 'update'])->name('user.update');
             });
 
             Route::prefix('warga')->group(function () {

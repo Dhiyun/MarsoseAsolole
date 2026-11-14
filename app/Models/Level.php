@@ -22,4 +22,9 @@ class Level extends Model
     {
         return $this->hasMany(User::class, 'id_level');
     }
+
+    public static function untukRt($noRt)
+    {
+        return self::whereIn('level_kode', ['WRG', 'RT' . (int) $noRt])->get();
+    }
 }

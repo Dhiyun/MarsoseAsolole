@@ -26,9 +26,7 @@ class Cek_login
 
         if ($user->level->level_kode == $roles || $user->level->level_kode == 'RT'.$rtNumber) {
             return $next($request);
-        } else {
-            // return redirect('logout');
-        } 
+        }
 
         return redirect('login')->with('error', 'Maaf anda tidak memiliki akses');
     }

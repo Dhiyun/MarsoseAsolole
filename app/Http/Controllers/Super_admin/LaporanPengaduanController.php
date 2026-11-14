@@ -10,6 +10,7 @@ use App\Models\Warga;
 use App\Models\RW;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class LaporanPengaduanController extends Controller
 {
@@ -40,13 +41,13 @@ class LaporanPengaduanController extends Controller
         $validate = $request->validate([
             'judul' => 'required',
             'jenis_laporan' => 'required',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
             'keterangan' => 'required',
         ]);
 
         if ($request->hasFile('gambar')) {
             $image = $request->file('gambar');
-            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imageName = time() . '_' . Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->extension();
             $image->move(public_path('gambar'), $imageName);
             $imagePath = 'gambar/' . $imageName;
         }
@@ -119,15 +120,15 @@ class LaporanPengaduanController extends Controller
     {
         $check = LaporanPengaduan::find($id);
         if (!$check) {
-            return redirect()->route('laporan.index')->with('error' . 'Laporan Pengaduan Tidak Ditemukan');
+            return redirect()->route('laporan.index')->with('error', 'Laporan Pengaduan Tidak Ditemukan');
         }
 
         try {
             LaporanPengaduan::destroy($id);
 
-            return redirect()->route('laporan.index')->with('success' . 'Laporan Pengaduan Berhasil Dihapus');
+            return redirect()->route('laporan.index')->with('success', 'Laporan Pengaduan Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('laporan.index')->with('error' . 'Laporan Pengaduan Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('laporan.index')->with('error', 'Laporan Pengaduan Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
@@ -136,7 +137,7 @@ class LaporanPengaduanController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
 
         if (empty($selectedIdsJson)) {
-            return redirect()->route('laporan.index')->with('error' . 'Laporan Pengaduan Tidak Ditemukan');
+            return redirect()->route('laporan.index')->with('error', 'Laporan Pengaduan Tidak Ditemukan');
         }
 
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -145,12 +146,12 @@ class LaporanPengaduanController extends Controller
             $deletedWargas = LaporanPengaduan::whereIn('id_warga', $selectedIds)->delete();
 
             if ($deletedWargas > 0) {
-                return redirect()->route('laporan.index')->with('success' . 'Semua Laporan Pengaduan Berhasil Dihapus');
+                return redirect()->route('laporan.index')->with('success', 'Semua Laporan Pengaduan Berhasil Dihapus');
             } else {
-                return redirect()->route('laporan.index')->with('error' . 'Laporan Pengaduan Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect()->route('laporan.index')->with('error', 'Laporan Pengaduan Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect()->route('laporan.index')->with('error' . 'Laporan Pengaduan Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('laporan.index')->with('error', 'Laporan Pengaduan Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 

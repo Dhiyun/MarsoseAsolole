@@ -183,7 +183,7 @@ class KKController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
 
         if (empty($selectedIdsJson)) {
-            return redirect()->route('kk.index')->with('error' . 'Data Warga Tidak Ditemukan');
+            return redirect()->route('kk.index')->with('error', 'Data Warga Tidak Ditemukan');
         }
 
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -192,12 +192,12 @@ class KKController extends Controller
             $deletedKKs = KK::whereIn('id_kk', $selectedIds)->delete();
 
             if ($deletedKKs > 0) {
-                return redirect()->route('kk.index')->with('success' . 'Semua Data Warga Berhasil Dihapus');
+                return redirect()->route('kk.index')->with('success', 'Semua Data Warga Berhasil Dihapus');
             } else {
-                return redirect()->route('kk.index')->with('error' . 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect()->route('kk.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect()->route('kk.index')->with('error' . 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('kk.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
@@ -321,12 +321,12 @@ class KKController extends Controller
             Users::destroy($id_user);
 
             if (!$kkDeleted) {
-                return redirect()->route('kk.show', $id_kk)->with('success' . 'Data Warga Berhasil Dihapus');
+                return redirect()->route('kk.show', $id_kk)->with('success', 'Data Warga Berhasil Dihapus');
             } else {
-                return redirect()->route('kk.index')->with('success' . 'Data Warga Berhasil Dihapus');
+                return redirect()->route('kk.index')->with('success', 'Data Warga Berhasil Dihapus');
             }
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('kk.show', $id_kk)->with('error' . 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('kk.show', $id_kk)->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
@@ -335,7 +335,7 @@ class KKController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
 
         if (empty($selectedIdsJson)) {
-            return redirect()->route('kk.index')->with('error' . 'Data Warga Tidak Ditemukan');
+            return redirect()->route('kk.index')->with('error', 'Data Warga Tidak Ditemukan');
         }
 
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -358,12 +358,12 @@ class KKController extends Controller
             }
 
             if (!$kkDeleted) {
-                return redirect()->route('kk.show', $id_kk)->with('success' . 'Data Warga Berhasil Dihapus');
+                return redirect()->route('kk.show', $id_kk)->with('success', 'Data Warga Berhasil Dihapus');
             } else {
-                return redirect()->route('kk.index')->with('success' . 'Data Warga Berhasil Dihapus');
+                return redirect()->route('kk.index')->with('success', 'Data Warga Berhasil Dihapus');
             }
         } catch (Exception $e) {
-            return redirect()->route('kk.index')->with('error' . 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect()->route('kk.index')->with('error', 'Data Warga Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 

@@ -81,15 +81,15 @@ class LevelController extends Controller
     {
         $check = Level::find($id);
         if (!$check) {
-            return redirect('/level')->with('error' . 'Data Level Tidak Ditemukan');
+            return redirect('/level')->with('error', 'Data Level Tidak Ditemukan');
         }
 
         try {
             Level::destroy($id);
 
-            return redirect('/level')->with('success' . 'Data Level Berhasil Dihapus');
+            return redirect('/level')->with('success', 'Data Level Berhasil Dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/level')->with('error' . 'Data Level Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect('/level')->with('error', 'Data Level Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 
@@ -98,7 +98,7 @@ class LevelController extends Controller
         $selectedIdsJson = $request->input('selectedIds');
 
         if (empty($selectedIdsJson)) {
-            return redirect('/level')->with('error' . 'Data Level Tidak Ditemukan');
+            return redirect('/level')->with('error', 'Data Level Tidak Ditemukan');
         }
 
         $selectedIds = json_decode($selectedIdsJson, true);
@@ -107,12 +107,12 @@ class LevelController extends Controller
             $deletedLevels = Level::whereIn('id_level', $selectedIds)->delete();
 
             if ($deletedLevels > 0) {
-                return redirect('/level')->with('success' . 'Semua Data Level Berhasil Dihapus');
+                return redirect('/level')->with('success', 'Semua Data Level Berhasil Dihapus');
             } else {
-                return redirect('/level')->with('error' . 'Data Level Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+                return redirect('/level')->with('error', 'Data Level Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
             }
         } catch (Exception $e) {
-            return redirect('/level')->with('error' . 'Data Level Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
+            return redirect('/level')->with('error', 'Data Level Gagal Dihapus Karena Masih Terdapat Tabel Lain yang Terkait Dengan Data Ini');
         }
     }
 }

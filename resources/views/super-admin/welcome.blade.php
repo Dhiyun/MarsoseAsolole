@@ -123,12 +123,86 @@
                     </div>
                 </div>
                 <!--end::Row-->
-                <iframe width="auto" height="600"
-                    src="https://lookerstudio.google.com/embed/reporting/06ed4127-1c27-49bd-8ce9-ac6b34a31a66/page/8WU2D"
-                    frameborder="0" style="border:0" allowfullscreen
-                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
-                </iframe>
+                <div class="row mt-4">
+                    <div class="col-12 col-xl-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header border-0 pt-5">
+                                <h3 class="card-title fw-bold text-dark">Laporan per Jenis</h3>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div id="chart_laporan_jenis"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header border-0 pt-5">
+                                <h3 class="card-title fw-bold text-dark">Laporan per Status</h3>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div id="chart_laporan_status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header border-0 pt-5">
+                                <h3 class="card-title fw-bold text-dark">Penduduk per RT</h3>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div id="chart_penduduk_rt"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var warna = ['#EA5403', '#1E2A3B', '#F6C000', '#50CD89', '#7239EA', '#009EF7'];
+
+            var dataJenis = @json($laporanPerJenis);
+            var dataStatus = @json($laporanPerStatus);
+            var dataRt = @json($pendudukPerRt);
+
+            new ApexCharts(document.querySelector('#chart_laporan_jenis'), {
+                chart: { type: 'donut', height: 300 },
+                series: Object.values(dataJenis),
+                labels: Object.keys(dataJenis),
+                colors: warna,
+                legend: { position: 'bottom' },
+                noData: { text: 'Belum ada laporan' }
+            }).render();
+
+            new ApexCharts(document.querySelector('#chart_laporan_status'), {
+                chart: { type: 'bar', height: 300, toolbar: { show: false } },
+                series: [{ name: 'Laporan', data: Object.values(dataStatus) }],
+                xaxis: { categories: Object.keys(dataStatus).map(function (status) {
+                    return status.charAt(0).toUpperCase() + status.slice(1);
+                }) },
+                colors: ['#EA5403'],
+                plotOptions: { bar: { borderRadius: 4, columnWidth: '50%' } },
+                dataLabels: { enabled: false },
+                yaxis: { labels: { formatter: function (nilai) { return Math.round(nilai); } } },
+                noData: { text: 'Belum ada laporan' }
+            }).render();
+
+            new ApexCharts(document.querySelector('#chart_penduduk_rt'), {
+                chart: { type: 'bar', height: 300, toolbar: { show: false } },
+                series: [{ name: 'Penduduk', data: Object.values(dataRt) }],
+                xaxis: { categories: Object.keys(dataRt).map(function (rt) { return 'RT ' + rt; }) },
+                colors: ['#1E2A3B'],
+                plotOptions: { bar: { borderRadius: 4, columnWidth: '50%' } },
+                dataLabels: { enabled: false },
+                yaxis: { labels: { formatter: function (nilai) { return Math.round(nilai); } } },
+                noData: { text: 'Belum ada data penduduk' }
+            }).render();
+        });
+    </script>
+@endpush

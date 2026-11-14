@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LaporanPengaduan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class LaporanPengaduanController extends Controller
 {
@@ -32,13 +33,13 @@ class LaporanPengaduanController extends Controller
         $validate = $request->validate([
             'judul' => 'required',
             'jenis_laporan' => 'required',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
             'keterangan' => 'required',
         ]);
 
         if ($request->hasFile('gambar')) {
             $image = $request->file('gambar');
-            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imageName = time() . '_' . Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->extension();
             $image->move(public_path('gambar'), $imageName);
             $imagePath = 'gambar/' . $imageName;
         }
